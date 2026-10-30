@@ -407,7 +407,7 @@ setInterval(()=>{if(banner&&Date.now()-banner>banLen){banner=0;banLen=5000;XA=nu
 let AC=null,MG=null,SG=null,muted=false,cur=null,step=0,nextT=0,seq=null;
 let VOL={m:.8,s:.8};try{muted=localStorage.getItem('bhm')=='1';VOL=Object.assign(VOL,JSON.parse(localStorage.getItem('bhv')||'{}'))}catch(e){}
 function tv(u){const m=/#v=([\d.]+)/.exec(u||'');return m?+m[1]:1}
-function applyVol(){if(AC&&MG){MG.gain.value=muted?0:.2*VOL.m;SG.gain.value=muted?0:.45*VOL.s}if(AU){AU.muted=muted;AU.volume=Math.min(1,.55*VOL.m*tv(AU.src))}try{localStorage.setItem('bhv',JSON.stringify(VOL));localStorage.setItem('bhm',muted?'1':'0')}catch(e){}$('#snd').textContent=muted?'🔇':'🔊'}
+function applyVol(){if(AC&&MG){MG.gain.value=muted?0:.2*VOL.m;SG.gain.value=muted?0:.45*VOL.s}if(AU){AU.muted=muted;AU.volume=Math.min(1,tgtVol(AU)*(AU.fk==null?1:AU.fk))}try{localStorage.setItem('bhv',JSON.stringify(VOL));localStorage.setItem('bhm',muted?'1':'0')}catch(e){}$('#snd').textContent=muted?'🔇':'🔊'}
 function volBox(){sfx('click');const b=$('#vol');if(b.style.display=='block'){b.style.display='none';return}b.innerHTML='<b>🔊 Sound</b><label>Music <input type=range min=0 max=100 value='+Math.round(VOL.m*100)+' oninput="VOL.m=this.value/100;applyVol()"></label><label>Effects <input type=range min=0 max=100 value='+Math.round(VOL.s*100)+' oninput="VOL.s=this.value/100;applyVol()" onchange="sfx(\'click\')"></label><button onclick="muted=!muted;applyVol();volBox();volBox()">'+(muted?'🔈 Unmute':'🔇 Mute all')+'</button>';b.style.display='block'}
 $('#snd').textContent=muted?'🔇':'🔊';if(AU)AU.muted=muted;
 function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();SG=AC.createGain();MG.connect(AC.destination);SG.connect(AC.destination);applyVol()}catch(e){}}if(AC&&AC.state=='suspended')AC.resume();return AC}
@@ -421,12 +421,19 @@ const SONGS={
  lobby:{bpm:92,lead:'triangle',ch:[[48,60,64,67],[45,57,60,64],[41,57,60,65],[43,55,59,62]],arp:[0,1,2,3,2,1,2,3],mel:[72,0,0,74,76,0,79,0,77,0,76,0,74,0,0,0,69,0,72,0,76,0,74,0,72,0,71,0,67,0,0,0,65,0,69,0,72,0,77,0,76,0,74,0,72,0,0,0,67,0,71,0,74,0,79,0,77,0,74,0,71,0,0,0],dr:0},
  battle:{bpm:148,lead:'square',ch:[[45,57,60,64],[41,57,60,65],[43,55,59,62],[40,56,59,64]],arp:[0,1,2,1,3,1,2,1],mel:[69,0,72,0,76,0,74,72,71,0,72,0,69,0,0,0,65,0,69,0,72,0,77,76,74,0,72,0,74,0,0,0,67,0,71,0,74,0,79,77,76,0,74,0,71,0,0,0,68,0,71,0,76,0,80,0,81,0,0,0,80,0,76,0],dr:1},
  boss:{bpm:166,lead:'sawtooth',ch:[[38,62,65,69],[34,58,62,65],[36,60,64,67],[33,57,61,64]],arp:[0,1,2,3,0,1,2,3],mel:[74,0,74,77,0,74,0,72,74,0,0,69,0,70,0,72,70,0,70,74,0,70,0,69,70,0,0,65,0,67,0,69,72,0,72,76,0,72,0,71,72,0,0,67,0,69,0,71,73,0,76,0,79,0,76,0,73,0,69,0,76,0,73,0],dr:2}};
-function music(name){if(name==cur)return;cur=name;seq=null;if(AU){AU.pause();AU=null}if(!name)return;
+// music crossfades: the old track fades out while the new one fades in (battles come in a bit faster)
+let fadeK=1;
+function tgtVol(a){return Math.min(1,.55*VOL.m*tv(a.src))}
+function fade(a,from,to,ms,done){const t0=performance.now();a.fk=from;const step=()=>{if(a.dead&&to>0)return;const k=Math.min(1,(performance.now()-t0)/ms);a.fk=from+(to-from)*k;a.volume=Math.max(0,Math.min(1,tgtVol(a)*a.fk));if(k<1)requestAnimationFrame(step);else if(done)done()};step()}
+function music(name){if(name==cur)return;cur=name;seq=null;
+ if(AU){const o=AU;o.dead=1;AU=null;fade(o,o.fk==null?1:o.fk,0,name=='battle'||name=='boss'?500:1100,()=>o.pause())}
+ if(MG&&AC){MG.gain.cancelScheduledValues(AC.currentTime);MG.gain.setValueAtTime(MG.gain.value,AC.currentTime);MG.gain.linearRampToValueAtTime(0,AC.currentTime+.5)}
+ if(!name)return;
  const urls=(MU[name]||'').split(' ').filter(x=>x&&!auFail[x]);
- if(urls.length){const u=urls[Math.floor(Math.random()*urls.length)],a=new Audio(u);a.loop=true;AU=a;applyVol();
+ if(urls.length){const u=urls[Math.floor(Math.random()*urls.length)],a=new Audio(u);a.loop=true;a.muted=muted;a.volume=0;AU=a;
   a.addEventListener('error',()=>{auFail[u]=1;if(AU===a){AU=null;const n=cur;cur=null;music(n)}});
-  const p=a.play();if(p&&p.catch)p.catch(()=>{});return}
- if(AC)startSeq()}
+  const p=a.play();if(p&&p.catch)p.catch(()=>{});fade(a,0,1,name=='battle'||name=='boss'?900:2200);return}
+ if(AC)setTimeout(()=>{if(cur==name&&!AU){MG.gain.cancelScheduledValues(AC.currentTime);MG.gain.setValueAtTime(0,AC.currentTime);MG.gain.linearRampToValueAtTime(muted?0:.2*VOL.m,AC.currentTime+1.2);startSeq()}},500)}
 function musicSet(p){const n={lobby:p[1]||'',map:p[2]||'',battle:p[3]||'',boss:p[4]||''};if(JSON.stringify(n)==JSON.stringify(MU))return;MU=n;auFail={};const c=cur;cur=null;music(c)}
 function startSeq(){if(!AC||!cur||AU)return;const my={};seq=my;step=0;nextT=AC.currentTime+.08;const loop=()=>{if(seq!==my)return;const S=SONGS[cur]||SONGS.lobby;const sp=60/S.bpm/4;while(nextT<AC.currentTime+.25){play(S,step,nextT,sp);step=(step+1)%64;nextT+=sp}setTimeout(loop,60)};loop()}
 function play(S,s,t,sp){const bar=Math.floor(s/16)%4,c=S.ch[bar],b=s%16;
