@@ -1,3 +1,16 @@
+gt_r11	Gotta-Go-Fast Sneakers~3~1,0,0,0,0,3,0~
+gt_r12	Moon Princess Boots~3~0,1,0,0,1,2,0~rgn
+gt_r13	Towel (Don't Panic)~4~1,1,0,1,0,0,0~rgn
+gt_r14	Ring of Power (Low Bat)~4~0,0,2,0,2,0,0~
+gt_r15	Konami Amulet~4~3,0,0,0,0,0,0~pot
+gt_r16	Power Glove (So Bad)~4~0,0,2,0,0,0,2~atk
+gt_r17	Pip-Bracer 3000~4~0,1,0,0,0,1,1~eth
+gt_r18	Infinity Oven Mitt~4~1,0,1,1,1,0,0~atk.def
+gt_r19	Bag of Holding (Empty)~4~0,2,0,0,0,0,0~eth.pot
+gt_rn	20
+w_map	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^%%%%%%%%%""""""""""""~""""^***********^^%%%%%%%%""""""""""""""""""^***********^^%%B%%%%%%%""""""""""B"""""^********B**^^%%%%%%%%%"""""""""""""""""^***********^^%%%%%%%%%""""""""""~""""""^***********^^^^^^^%%%%""""""""""~""""""^***********^^TTTT^%%%%""""""""""~~""""^************^^TTT^%%%%%"""""""""""~""""^************^^TTTTTH%%"""#####HT"~~""""^************^^TTTTT#TTTTT#T"TTTTT~""""^*************^^TTTTT#TTTTT#"TTTTTT~""""^*************^^TTTTT#TTTT##TTTTTTT~""""~~~***H*^^^^*^^^TTTTT#^####HTTTTTTT~TT"~~~~***#::::^^:^^T.TBT###TTTTTTTTTTT~TTTT~~~**^#::^::::^^....T#TTTTTTTTTTTTT~TTTTT^^*^:#::^::::^^.^^..#TT^TTTTTTTTTT~TTTTTTT:::#::^::::^^.....#TTTTTTTTTTTT~~TTTTTT::::#:::::::^^.....#...TTTTTTTTT~TTTTTTT::::#:::::::^^.....#..~~~......T~TTTTTT:::::#:::::::^^.....#.~~~~......~~TTTTTT::::##:::::::^^.....#..~~~.......~^##########H:::::::^^.....################TT:^:::::::::::::^^.....#............~..^::::::::::::::::^^.....H............~..^::::::::::::::::^^............B.....~~.::^::::::::::B:::^^...................~^:::::::::::::::::^^...................~::::::::::::::::^:^^...................~::::::::::::::::::^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+w_start	6|24
+w_t	.#T:"%*=HB|1,0,6,12,20,30,40,0,0,0|7,2,10,9,11,11,12,0,0,0|Greenhorn Meadows,Road,Grindwood Forest,Dunes of Lag,Soggy Bottom Swamp,Spooky Scary Graveyard,Mount Doomscroll,Bridge,Town,Lair
 w_f	6,24,H,Noobton,4,0.9.4.7;12,13,H,Grindwood Village,6,0.9.4.7.1;31,21,H,Lag Oasis,14,0.1.3.4.5.7.9;17,9,H,Bogsworth,10,0.1.4.5.7.9;6,9,H,Last Save Point,18,1.2.3.5.6.7.8.9;31,12,H,Ashfall Outpost,24,1.2.3.5.6.7.8.9;13,25,B,Rentzilla's Rent Office,2,5;4,14,B,Pennyfoolish's Big Top,8,10;35,25,B,Sandworm Supremo's Pit,21,16;21,3,B,Demogorgonzola's Fondue Pot,4,24;3,3,B,Voldemorty's Crypt,3,32;36,3,B,Ender Dragon't's Peak,10,42
 cur	Bitcorns|🌽|10|1.3.8.20.40|25|20
 md_lobby	https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1
