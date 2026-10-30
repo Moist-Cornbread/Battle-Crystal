@@ -97,7 +97,8 @@ const FLC={G:'#9fd0ff',P:'#a6ff6a',S:'#ffe066',A:'#ff9a6a',D:'#6cc4ff',W:'#c9a0f
 const FL={};[['G','Guard'],['P','Poison'],['S','Stunned'],['A','ATK up'],['D','DEF up'],['W','Weakened'],['T','Taunting'],['R','Regen'],['E','Enraged']].forEach(([k,n])=>FL[k]=[ico(ICN.status[k],FLC[k]),n]);
 IT.forEach((d,i)=>d[4]=ico(ICN.item[i],['#ff8a8a','#ffb36b','#7dff8a','#ffcf6a','#6cc4ff','#9fb6ff','#c9a0ff','#ffd2e8','#ff6a8a','#cfd6ff'][i]||'#fff'));
 const TURN=45000;
-let FM=null,FS={},catStamp=null,catLoading=0,mini=0,wasBusy=false,MU={},AU=null,auFail={},GW=['','','','',''],GB=[],gearOpen=0,gsel=null,dropAsk=0,gearSeen=-1,gearCount=0,lastChk=0,info=false,CN=0,v=-1,me='',L=null,P=null,B=null,K=[],G=[],CAT=[],prev=null,ui={m:'main'},banner=0,picking=0,sent=0,tkey='',tat=0,lastFx='',lastRes=0;
+const MUDEF={"lobby": "https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1", "map": "https://moist-cornbread.github.io/Battle-Crystal/music/map-orchestral-adventure.ogg", "town": "https://moist-cornbread.github.io/Battle-Crystal/music/town-stage1.ogg https://moist-cornbread.github.io/Battle-Crystal/music/town-stage2.ogg", "battle": "https://moist-cornbread.github.io/Battle-Crystal/music/battle-bossfight.ogg https://moist-cornbread.github.io/Battle-Crystal/music/battle-stageselect.ogg", "boss": "https://opengameart.org/sites/default/files/hard_boss_battle_2_bpm210.mp3#v=0.65", "bigboss": "https://moist-cornbread.github.io/Battle-Crystal/music/bigboss-determined-pursuit.ogg", "dungeon": "https://moist-cornbread.github.io/Battle-Crystal/music/dungeon-grasslands.ogg"};
+let FM=null,FS={},catStamp=null,catLoading=0,mini=0,wasBusy=false,MU=null,AU=null,auFail={},GW=['','','','',''],GB=[],gearOpen=0,gsel=null,dropAsk=0,gearSeen=-1,gearCount=0,lastChk=0,info=false,CN=0,v=-1,me='',L=null,P=null,B=null,K=[],G=[],CAT=[],prev=null,ui={m:'main'},banner=0,picking=0,sent=0,tkey='',tat=0,lastFx='',lastRes=0;
 function send(c){sfx('click');sent=1;fetch('a',{method:'POST',body:c}).catch(()=>{});draw();setTimeout(()=>{if(sent){sent=0;draw()}},5000)}
 function voteRetreat(){sfx('click');fetch('a',{method:'POST',body:'act|vote'}).catch(()=>{})}
 function back(){sfx('click');ui={m:'main'};draw()}
@@ -148,11 +149,11 @@ function hideTip(){$('#tip').style.display='none';tipPin=null}
 document.addEventListener('mouseover',e=>{const el=e.target.closest('[data-tip]');if(el)showTip(el);else if(!tipPin)hideTip()});
 document.addEventListener('click',e=>{const el=e.target.closest('[data-tip]');if(el&&el.dataset.pin){showTip(el);tipPin=el;e.stopPropagation()}else if(tipPin&&!el)hideTip()},true);
 function guide(){sfx('click');const g=$('#guide');if(g.style.display=='block'){g.style.display='none';return}
- const MC=[["lobby", "Calming RPG Town Theme", "Destin715", "CC0", "https://opengameart.org/content/calming-rpg-town-theme"], ["map", "Town Theme 1", "Geomancer", "CC0", "https://opengameart.org/content/town-theme-1"], ["map", "Town Theme 2", "Geomancer", "CC0", "https://opengameart.org/content/town-theme-1"], ["battle", "JRPG Epic Rock Battle Theme 1", "HydroGene", "CC0", "https://opengameart.org/content/jrpg-epic-rock-battle-theme-1"], ["battle", "Battle RPG Theme", "Cleyton Kauffman", "CC0", "https://opengameart.org/content/boss-battle-theme"], ["boss", "Hard Boss Battle 2", "MintoDog", "CC0", "https://opengameart.org/content/hard-boss-battle-2"]];
+ const MC=[["lobby", "Calming RPG Town Theme", "Destin715", "CC0", "https://opengameart.org/content/calming-rpg-town-theme"], ["map", "Orchestral Adventure", "CodeManu", "CC BY 3.0", "https://opengameart.org/content/orchestral-adventure"], ["town", "Stage 1", "Juhani Junkala", "CC0", "https://opengameart.org/content/chiptune-adventures-1-stage-1"], ["town", "Stage 2", "Juhani Junkala", "CC0", "https://opengameart.org/content/chiptune-adventures-1-stage-1"], ["battle", "Boss Fight", "Juhani Junkala", "CC0", "https://opengameart.org/content/chiptune-adventures-1-stage-1"], ["battle", "Stage Select", "Juhani Junkala", "CC0", "https://opengameart.org/content/chiptune-adventures-1-stage-1"], ["boss", "Hard Boss Battle 2", "MintoDog", "CC0", "https://opengameart.org/content/hard-boss-battle-2"], ["bigboss", "Determined Pursuit", "Emma_MA", "CC0", "https://opengameart.org/content/determined-pursuit-epic-orchestra-loop"], ["dungeon", "GrassLands", "DST", "CC0", "https://opengameart.org/content/grasslands-theme"]];
  g.innerHTML='<div id="top" style="position:static;margin-bottom:8px"><b>📘 BATTLE GUIDE</b><button onclick="guide()">✕ Close</button></div><div class="h">Status effects</div><div class="g">'
  +Object.keys(STAT).map(k=>'<div><span>'+FL[k][0]+'</span><b>'+FL[k][1]+'</b> — '+STAT[k]+'</div>').join('')+'</div><div class="h" style="margin-top:12px">Basics</div><div class="g">'
  +['💧 HP and MP don\'t come back after battles. Rest at a town inn (it costs Bitcorns), use items, or cast healing magic from ☰ Menu. Defend restores 10% MP.','💥 Physical hits can crit for 1.5× damage (Ninja, Gambler and Ranger crit most).','🛡 Defend halves damage until your next turn and restores 10% MP.','🧪 Potion: +30% HP · Ether: +40% MP · Revive Herb: revive at 40%. You get 3 / 2 / 1 each battle.','💀 Bosses act twice per round and can\'t be fled from.','✨ Each job levels on its own and transforms at job level 30.','💤 A KO clears every status effect, good and bad.','🏳 In a boss fight, the party can vote to retreat (majority wins, no XP).'].map(x=>'<div>'+x+'</div>').join('')+'</div><p class="sm" style="margin-top:10px">Tip: hover (or click) any skill or status icon to see what it does.</p>';
- g.innerHTML+='<div class="h" style="margin-top:10px">♪ Music</div><div style="font-size:11.5px;line-height:1.35">'+MC.map(m=>'<b>'+esc(m[1])+'</b> by '+esc(m[2])+' ('+m[3]+')').join(' · ')+' — all from OpenGameArt.org. The crystal owner can change the music in Admin › Music.<br>Icons by <b>Lorc</b> (game-icons.net), CC BY 3.0.</div>';
+ g.innerHTML+='<div class="h" style="margin-top:10px">♪ Music</div><div style="font-size:11.5px;line-height:1.35">'+MC.map(m=>'<b>'+esc(m[1])+'</b> by '+esc(m[2])+' ('+m[3]+')').join(' · ')+' — all found on OpenGameArt.org. Orchestral Adventure by CodeManu is licensed CC BY 3.0 (creativecommons.org/licenses/by/3.0). The crystal owner can change the music in Admin › Music.<br>Icons by <b>Lorc</b> (game-icons.net), CC BY 3.0.</div>';
  g.style.display='block'}
 function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6],f:f[7]||'',it:(f[8]||'').split('.').map(Number),c:f[11],ic:f[12]}}):[];
  const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1]};
@@ -347,7 +348,7 @@ function draw(){
  A.querySelectorAll('.scroll[id]').forEach(e=>{if(keep[e.id])e.scrollTop=keep[e.id]});pops()}
 function drawInner(){
  const bn=banner&&Date.now()-banner<banLen;
- if(B&&(L.busy||bn))battle(bn);else{document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?'map':'lobby');lobby()}}
+ if(B&&(L.busy||bn))battle(bn);else{document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='H'?'town':'map'):'lobby');lobby()}}
 function skillList(j,lv){return '<div class="sk">'+j.sk.map(s=>{const tp=tipAttr('<b>'+esc(s[0])+'</b> <small>(job Lv '+s[1]+')</small><br>'+desc(s[2],s[3],s[4],s[5],s[6]),1);return +s[1]<=lv?'<div'+tp+'>'+skIco(s[0])+esc(s[0])+'</div>':'<div class="lk"'+tp+'>🔒 '+esc(s[0])+' <small>Lv '+s[1]+'</small></div>'}).join('')+'</div>'}
 function readyBox(){const iR=L.rdy.includes(me),what=L.chk==2?'💀 BOSS FIGHT':'⚔ BATTLE';
  let s='<div style="grid-column:1/3;background:#0006;border:2px solid #ffd75a;border-radius:8px;padding:8px;text-align:center"><b style="color:#ffd75a">READY CHECK · '+what+'</b><div>'+L.rdy.length+' / '+L.m.length+' ready</div></div>';
@@ -379,7 +380,7 @@ function titleScreen(){const has=P&&P.c,full=L.m.length>=L.max,big='style="font-
 function battle(bn){
  const c=B.c,a=c[B.a]||{},inB=c.some(x=>x.k==me),my=!B.res&&B.mo==1&&a.k==me,tg=ui.m=='t'&&my?ui.k:-1;
  document.body.className=B.boss?'boss':'';
- if(!B.res)music(B.boss?'boss':'battle');
+ if(!B.res)music(B.boss?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='B'?'bigboss':'boss'):'battle');
  const ok=(x,k)=>k==0?x.t==1&&x.hp>0:k==1?x.t==0&&x.hp>0:x.t==0&&x.hp<=0;
  const cl=(x,i)=>(x.hp<=0?' dead':'')+(i==B.a&&!B.res?' act':'')+(tg>=0&&!sent&&ok(x,tg)?' pick':'');
  const ck=(x,i)=>tg>=0&&!sent&&ok(x,tg)?' onclick="go('+i+')"':'';
@@ -425,16 +426,16 @@ const SONGS={
 let fadeK=1;
 function tgtVol(a){return Math.min(1,.55*VOL.m*tv(a.src))}
 function fade(a,from,to,ms,done){const t0=performance.now();a.fk=from;const step=()=>{if(a.dead&&to>0)return;const k=Math.min(1,(performance.now()-t0)/ms);a.fk=from+(to-from)*k;a.volume=Math.max(0,Math.min(1,tgtVol(a)*a.fk));if(k<1)requestAnimationFrame(step);else if(done)done()};step()}
-function music(name){if(name==cur)return;cur=name;seq=null;
- if(AU){const o=AU;o.dead=1;AU=null;fade(o,o.fk==null?1:o.fk,0,name=='battle'||name=='boss'?500:1100,()=>o.pause())}
+function music(name){if(!MU)MU=Object.assign({},MUDEF);if(name==cur)return;const fast=/battle|boss/.test(name||'');cur=name;seq=null;
+ if(AU){const o=AU;o.dead=1;AU=null;fade(o,o.fk==null?1:o.fk,0,fast?500:1100,()=>o.pause())}
  if(MG&&AC){MG.gain.cancelScheduledValues(AC.currentTime);MG.gain.setValueAtTime(MG.gain.value,AC.currentTime);MG.gain.linearRampToValueAtTime(0,AC.currentTime+.5)}
  if(!name)return;
  const urls=(MU[name]||'').split(' ').filter(x=>x&&!auFail[x]);
  if(urls.length){const u=urls[Math.floor(Math.random()*urls.length)],a=new Audio(u);a.loop=true;a.muted=muted;a.volume=0;AU=a;
   a.addEventListener('error',()=>{auFail[u]=1;if(AU===a){AU=null;const n=cur;cur=null;music(n)}});
-  const p=a.play();if(p&&p.catch)p.catch(()=>{});fade(a,0,1,name=='battle'||name=='boss'?900:2200);return}
+  const p=a.play();if(p&&p.catch)p.catch(()=>{});fade(a,0,1,fast?900:2200);return}
  if(AC)setTimeout(()=>{if(cur==name&&!AU){MG.gain.cancelScheduledValues(AC.currentTime);MG.gain.setValueAtTime(0,AC.currentTime);MG.gain.linearRampToValueAtTime(muted?0:.2*VOL.m,AC.currentTime+1.2);startSeq()}},500)}
-function musicSet(p){const n={lobby:p[1]||'',map:p[2]||'',battle:p[3]||'',boss:p[4]||''};if(JSON.stringify(n)==JSON.stringify(MU))return;MU=n;auFail={};const c=cur;cur=null;music(c)}
+function musicSet(p){const n=Object.assign({},MUDEF,{lobby:p[1]||'',map:p[2]||'',battle:p[3]||'',boss:p[4]||''});if(JSON.stringify(n)==JSON.stringify(MU))return;MU=n;auFail={};const c=cur;cur=null;music(c)}
 function startSeq(){if(!AC||!cur||AU)return;const my={};seq=my;step=0;nextT=AC.currentTime+.08;const loop=()=>{if(seq!==my)return;const S=SONGS[cur]||SONGS.lobby;const sp=60/S.bpm/4;while(nextT<AC.currentTime+.25){play(S,step,nextT,sp);step=(step+1)%64;nextT+=sp}setTimeout(loop,60)};loop()}
 function play(S,s,t,sp){const bar=Math.floor(s/16)%4,c=S.ch[bar],b=s%16;
  if(S.mel[s])tone(t,S.mel[s],sp*1.8,S.lead,.22,MG);

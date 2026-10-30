@@ -14,9 +14,12 @@ w_t	.#T:"%*=HB|1,0,6,12,20,30,40,0,0,0|7,2,10,9,11,11,12,0,0,0|Greenhorn Meadows
 w_f	6,24,H,Noobton,4,0.9.4.7;12,13,H,Grindwood Village,6,0.9.4.7.1;31,21,H,Lag Oasis,14,0.1.3.4.5.7.9;17,9,H,Bogsworth,10,0.1.4.5.7.9;6,9,H,Last Save Point,18,1.2.3.5.6.7.8.9;31,12,H,Ashfall Outpost,24,1.2.3.5.6.7.8.9;13,25,B,Rentzilla's Rent Office,2,5;4,14,B,Pennyfoolish's Big Top,8,10;35,25,B,Sandworm Supremo's Pit,21,16;21,3,B,Demogorgonzola's Fondue Pot,4,24;3,3,B,Voldemorty's Crypt,3,32;36,3,B,Ender Dragon't's Peak,10,42
 cur	Bitcorns|🌽|10|1.3.8.20.40|25|20
 md_lobby	https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1
-md_map	https://opengameart.org/sites/default/files/TOWN%201.mp3#v=0.9 https://opengameart.org/sites/default/files/TOWN%202.mp3#v=0.9
-md_battle	https://opengameart.org/sites/default/files/jrpg_battle_loop.mp3#v=0.65 https://opengameart.org/sites/default/files/CleytonRX%20-%20Battle%20RPG%20Theme_1.mp3#v=0.75
+md_map	https://moist-cornbread.github.io/Battle-Crystal/music/map-orchestral-adventure.ogg
+md_town	https://moist-cornbread.github.io/Battle-Crystal/music/town-stage1.ogg https://moist-cornbread.github.io/Battle-Crystal/music/town-stage2.ogg
+md_battle	https://moist-cornbread.github.io/Battle-Crystal/music/battle-bossfight.ogg https://moist-cornbread.github.io/Battle-Crystal/music/battle-stageselect.ogg
 md_boss	https://opengameart.org/sites/default/files/hard_boss_battle_2_bpm210.mp3#v=0.65
+md_bigboss	https://moist-cornbread.github.io/Battle-Crystal/music/bigboss-determined-pursuit.ogg
+md_dungeon	https://moist-cornbread.github.io/Battle-Crystal/music/dungeon-grasslands.ogg
 i_0	Stim-Pak-ish~H~60~2~💉~1~Restores 60 HP to one ally.~5
 i_1	Estus-ish Flask~H~250~2~🧉~2~Restores 250 HP to one ally. Praise the sun.~18
 i_2	Sensu Bean~H~0~2~🫘~3~Fully restores one ally's HP. Grown on a very tall tower.~45
