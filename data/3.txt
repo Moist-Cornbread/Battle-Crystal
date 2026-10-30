@@ -1,0 +1,76 @@
+s_214	Crystal Heal~H~1.5~4~15~
+x_10	Ender Dragon't~🐲~629~100~22~14~16~13~370~2~0:2,213:1,214:1~18~1~You can't punch trees in here.
+s_215	Have You Tried Rebooting~M~1~0~8~stn:40
+s_216	Hold Music~M~0.6~1~10~wk:3
+x_11	Skynot Tech Support~🤖~918~120~23~15~23~11~350~2~0:2,215:1,216:1~-1~0~Your doom is important to us. Please hold.
+s_217	Desync~M~0.7~1~10~stn:20
+s_218	Packet Loss~M~1.5~0~8~drn:30
+x_12	Lord Lagmort~📶~818~120~21~12~23~16~350~2~0:2,217:1,218:1~4~2~Your connection to life... is unstable.
+s_219	Over 9000 Nibbles~P~0.4~0~0~hit:5
+s_220	Power Up Scream~N~0~4~10~atk:3
+x_13	Super Saiyan Hamster~🐹~818~80~29~11~11~18~360~2~0:2,219:1,220:1~-1~0~It's... it's still only 4 inches tall!
+s_221	Objection Shell~X~1.5~0~0~
+s_222	Legal Fees~M~0.8~1~12~wk:2
+x_14	Bowser's Divorce Lawyer~🐢~782~120~20~17~19~8~360~2~0:2,221:1,222:1~-1~0~The princess gets the castle. You get NOTHING.
+s_223	Super Nova Poop~M~1~1~14~
+s_224	Coo of Despair~M~1.5~0~8~wk:2
+x_15	One-Winged Pigeon~🕊️~627~140~21~12~21~15~360~2~0:1,223:2,224:1~-1~0~I will never be a memory. Or a statue. You'll see.
+s_225	Bigger Boat Bite~P~1.9~0~0~
+s_226	Patch Notes Frenzy~P~0.8~1~0~
+x_16	Jaws 2.0 (Beta)~🦈~640~60~22~13~8~12~370~2~0:2,225:1,226:1~19~1~You're gonna need a bigger patch.
+s_227	Mandatory Overtime~M~0.8~1~12~wk:3
+s_228	Performance Review~M~1.8~0~10~
+x_17	Cthulhu's Middle Manager~🐙~532~150~13~14~20~9~370~2~0:1,227:2,228:1~23~1~Per my last madness-inducing email...
+s_229	Frostmourne Fries~M~1.6~0~10~
+s_230	Grease Plague~M~0.6~1~12~psn:3
+s_231	Secret Sauce~H~1.4~4~15~
+x_18	The Lich King of Burgers~🍔~819~140~18~15~22~9~370~2~0:1,229:1,230:1,231:1~-1~0~Would you like to die with that?
+s_232	Roll For Initiative~M~1~1~12~
+s_233	You Can't Do That~M~0.6~0~8~stn:50
+x_19	The DM Who Says No~🎲~581~150~16~14~20~12~370~2~0:1,232:2,233:1~26~1~Natural 1. Roll again. Still a 1.
+s_234	Transform And Roll Over~P~1~1~0~
+s_235	Energon Overcharge~N~0~4~12~atk:3,def:2
+x_20	Megabyte Prime~🤖~627~100~20~18~13~10~380~2~0:2,234:1,235:1~-1~0~Autobots, roll out. Decepticons, roll... over.
+s_236	Spice Swallow~P~2~0~0~
+s_237	Thumper Quake~P~0.9~1~0~stn:15
+x_21	Sandworm Supremo~🪱~639~80~21~15~10~7~380~2~0:2,236:1,237:1~-1~0~The spice must flow. Into your eyes.
+s_238	Infinite Feed~M~0.7~1~12~wk:2
+s_239	Ratio'd~M~1.8~0~10~
+x_22	Dr. Doomscroll~📱~666~150~15~13~22~14~360~2~0:1,238:2,239:1~15~2~Just five more minutes... of PAIN.
+s_240	Resistance Is Fu-tile~M~0.7~1~12~psn:2
+s_241	Assimilate Honey~P~1.4~0~0~drn:50
+x_23	Borg Queen Bee~🐝~576~120~18~14~16~13~370~2~0:2,240:1,241:1~9~2~We are the Bee. You will be pollinated.
+s_242	Mister Anderson~X~1.6~0~8~
+s_243	More of Me~N~0~4~12~rgn:3,atk:2
+x_24	Agent Smithereens~🕶️~744~120~23~15~15~15~380~2~0:2,242:1,243:1~10~1~Mister Anderson... welcome to the boss fight.
+x_n	25
+gt_a1	Helm,Great Helm,Visor;Hood,Bandana,Mask;Hat,Circlet,Cowl
+gt_a2	Plate,Chainmail,Cuirass;Leather Vest,Gi,Jerkin;Robe,Vestments,Coat
+gt_a3	Greaves,Sabatons,Iron Boots;Boots,Tabi,Sneakers;Sandals,Slippers,Moccasins
+gt_x	Ring,Amulet,Charm,Earring,Belt,Pendant
+gt_p	Rusty,Plain,Worn,Basic;Sturdy,Fine,Polished,Keen;Runed,Masterwork,Enchanted,Gleaming;Mythril,Heroic,Starforged,Arcane;Celestial,Godslayer,Eternal,Fabled
+gt_s	of Extra Lives,of Infinite Mana,of the Nat 20,of Tanking,of Big Brain,of Speedrunning,of Crits
+gt_r0	Buster Sword-ish~0~1,0,3,0,0,0,0~
+gt_r1	Mjol-Not~0~0,0,2,0,2,0,0~atk
+gt_r2	Lightsaver (Eco Mode)~0~0,0,2,0,0,1,1~
+gt_r3	Sonic Screwmeister~0~0,1,0,0,3,1,0~
+gt_r4	Portal Gun (No Cake)~0~0,0,1,0,2,2,0~
+gt_r5	Rubber Chicken+Pulley~0~0,0,1,0,0,0,3~pot
+gt_r6	Sorting Hat (Unsure)~1~0,2,0,0,2,0,0~eth
+gt_r7	Cunning Knit Hat~1~2,0,0,1,0,0,0~def
+gt_r8	Red Shirt (Ensign)~2~3,0,0,0,0,0,1~
+gt_r9	Mithril-ish Vest~2~1,0,0,3,0,0,0~def
+gt_r10	Cloak of Invisib-ish~2~0,0,0,1,0,2,1~
+gt_r11	Gotta-Go-Fast Sneakers~3~1,0,0,0,0,3,0~
+gt_r12	Moon Princess Boots~3~0,1,0,0,1,2,0~rgn
+gt_r13	Towel (Don't Panic)~4~1,1,0,1,0,0,0~rgn
+gt_r14	Ring of Power (Low Bat)~4~0,0,2,0,2,0,0~
+gt_r15	Konami Amulet~4~3,0,0,0,0,0,0~pot
+gt_r16	Power Glove (So Bad)~4~0,0,2,0,0,0,2~atk
+gt_r17	Pip-Bracer 3000~4~0,1,0,0,0,1,1~eth
+gt_r18	Infinity Oven Mitt~4~1,0,1,1,1,0,0~atk.def
+gt_r19	Bag of Holding (Empty)~4~0,2,0,0,0,0,0~eth.pot
+gt_rn	20
+w_map	^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^%%%%%%%%%""""""""""""~""""^***********^^%%%%%%%%""""""""""""""""""^***********^^%%B%%%%%%%""""""""""B"""""^********B**^^%%%%%%%%%"""""""""""""""""^***********^^%%%%%%%%%""""""""""~""""""^***********^^^^^^^%%%%""""""""""~""""""^***********^^TTTT^%%%%""""""""""~~""""^************^^TTT^%%%%%"""""""""""~""""^************^^TTTTTH%%"""#####HT"~~""""^************^^TTTTT#TTTTT#T"TTTTT~""""^*************^^TTTTT#TTTTT#"TTTTTT~""""^*************^^TTTTT#TTTT##TTTTTTT~""""~~~***H*^^^^*^^^TTTTT#^####HTTTTTTT~TT"~~~~***#::::^^:^^T.TBT###TTTTTTTTTTT~TTTT~~~**^#::^::::^^....T#TTTTTTTTTTTTT~TTTTT^^*^:#::^::::^^.^^..#TT^TTTTTTTTTT~TTTTTTT:::#::^::::^^.....#TTTTTTTTTTTT~~TTTTTT::::#:::::::^^.....#...TTTTTTTTT~TTTTTTT::::#:::::::^^.....#..~~~......T~TTTTTT:::::#:::::::^^.....#.~~~~......~~TTTTTT::::##:::::::^^.....#..~~~.......~^##########H:::::::^^.....################TT:^:::::::::::::^^.....#............~..^::::::::::::::::^^.....H............~..^::::::::::::::::^^............B.....~~.::^::::::::::B:::^^...................~^:::::::::::::::::^^...................~::::::::::::::::^:^^...................~::::::::::::::::::^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+w_start	6|24
+w_t	.#T:"%*=HB|1,0,6,12,20,30,40,0,0,0|7,2,10,9,11,11,12,0,0,0|Greenhorn Meadows,Road,Grindwood Forest,Dunes of Lag,Soggy Bottom Swamp,Spooky Scary Graveyard,Mount Doomscroll,Bridge,Town,Lair

@@ -1,0 +1,449 @@
+<!doctype html><html><head><meta charset="utf-8"><title>Battle</title><style>
+*{box-sizing:border-box;margin:0;padding:0}
+body{width:1024px;height:512px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 25%,#22306a,#070a18 75%);font:15px "Trebuchet MS",Verdana,sans-serif;color:#eef;text-shadow:1px 1px 0 #000;user-select:none}
+body.boss{background:radial-gradient(ellipse at 50% 25%,#5a1830,#12040a 75%)}
+.w{position:absolute;background:linear-gradient(#27388e,#0d1645);border:3px solid #dfe3ff;border-radius:9px;box-shadow:inset 0 0 0 2px #0a1030,0 3px 10px #0009;padding:8px 10px}
+.boss .w{background:linear-gradient(#5b2340,#1d0814);border-color:#ffd2dc}
+.h{font-size:12px;letter-spacing:2px;color:#a9b8ff;text-transform:uppercase;margin-bottom:7px}
+.boss .h{color:#ffb3c4}
+.bar{height:9px;background:#0008;border:1px solid #000;border-radius:5px;overflow:hidden;margin:3px 0 1px}
+.bar i{display:block;height:100%;background:linear-gradient(#f77,#b22)}
+.hp i{background:linear-gradient(#8f7,#2a4)}.lo i{background:linear-gradient(#fd5,#c80)}.cr i{background:linear-gradient(#f66,#b11)}.mp i{background:linear-gradient(#7cf,#26c)}.xp i{background:linear-gradient(#fe8,#c90)}
+button{font:inherit;color:#fff;text-shadow:1px 1px 0 #000;background:linear-gradient(#3a4cae,#1a2466);border:2px solid #aab4ff;border-radius:7px;padding:7px 9px;cursor:pointer;transition:.12s}
+button:hover:not(:disabled){background:linear-gradient(#5b6fe0,#2b3a9c);border-color:#fff;transform:translateY(-1px)}
+button:disabled{opacity:.35;cursor:default}
+.gold{background:linear-gradient(#e0b23a,#8a5f0c);border-color:#ffe9a8}
+.gold:hover:not(:disabled){background:linear-gradient(#f5cd5a,#a8770f)}
+.red{background:linear-gradient(#c8324e,#6a0c1e);border-color:#ffc2cc}
+.red:hover:not(:disabled){background:linear-gradient(#e44a66,#8a1028)}
+#top{position:absolute;left:16px;right:16px;top:8px;height:30px;display:flex;justify-content:space-between;align-items:center;font-size:17px;letter-spacing:1px;gap:10px}
+#snd{position:absolute;right:8px;top:6px;z-index:20;padding:2px 8px;font-size:16px}
+#help{position:absolute;right:52px;top:6px;z-index:20;padding:2px 9px;font-size:16px}
+#minb{position:absolute;right:92px;top:6px;z-index:20;padding:2px 9px;font-size:16px}
+#vol{position:absolute;right:8px;top:40px;z-index:41;display:none;width:250px;background:linear-gradient(#1d2b78,#0a1238);border:2px solid #ffe9a8;border-radius:8px;padding:9px 11px;font-size:14px;box-shadow:0 4px 14px #000c}
+#vol label{display:flex;justify-content:space-between;align-items:center;margin:7px 0}#vol input{width:140px}#vol button{width:100%;margin-top:4px}
+body.mini #snd,body.mini #help,body.mini #minb,body.mini #vol,body.mini #guide{display:none!important}
+#top{padding-right:130px}
+#tip{position:absolute;z-index:40;display:none;max-width:330px;background:linear-gradient(#1d2b78,#0a1238);border:2px solid #ffe9a8;border-radius:8px;padding:7px 10px;font-size:13px;line-height:1.35;pointer-events:none;box-shadow:0 4px 14px #000c}
+#tip b{color:#ffe9a8}
+#guide{position:absolute;inset:14px;z-index:35;display:none;overflow:hidden}
+#guide .g{display:grid;grid-template-columns:1fr 1fr;gap:5px 18px;font-size:13px}
+#guide .g div span{display:inline-block;width:26px}
+[data-tip]{cursor:help}
+button[data-tip]{cursor:pointer}
+#field{left:10px;top:44px;width:592px;height:284px;display:flex;flex-wrap:wrap;align-content:center;justify-content:center;gap:10px}
+.card{position:relative;width:132px;padding:7px;border-radius:10px;text-align:center;background:#0006;border:2px solid transparent}
+.card .ic{font-size:44px;line-height:54px}
+.card.big{width:300px;padding:12px}.card.big .ic{font-size:96px;line-height:110px}.card.big b{font-size:19px}
+.card.big .bar{height:13px}
+.dead{opacity:.3;filter:grayscale(1)}
+.act{border-color:#ffd75a;box-shadow:0 0 12px #ffd75a88}
+.pick{border-color:#ffd75a;cursor:pointer;opacity:1;filter:none;animation:pl 1s infinite}
+.pick:hover{background:#ffd75a33}
+@keyframes pl{50%{box-shadow:0 0 16px #ffd75a}}
+.hit{animation:sh .35s}
+@keyframes sh{25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}
+.pop{position:absolute;left:0;right:0;top:6px;text-align:center;font:bold 28px Impact,sans-serif;-webkit-text-stroke:1px #000;animation:up 1.2s forwards;pointer-events:none;z-index:5}
+.dmg{color:#ff5a4a}.heal{color:#7dff8a}
+@keyframes up{from{transform:translateY(12px);opacity:1}to{transform:translateY(-36px);opacity:0}}
+#party{left:612px;top:44px;width:402px;height:284px}
+.row{position:relative;display:flex;align-items:center;gap:7px;padding:3px 6px;border-radius:7px;border:2px solid transparent;margin-bottom:2px}
+.row .ic{font-size:25px;width:32px;text-align:center}
+.row .nm{flex:1;min-width:0;overflow:hidden;white-space:nowrap;font-size:14px}
+.row .st{width:146px;font-size:11px}
+.fl{display:inline-block;font-size:11px;margin-right:3px}
+.fn{font:bold 10px Verdana,sans-serif;color:#ffe9a8;margin-left:1px;vertical-align:-2px}
+#cmd{left:10px;top:338px;width:592px;height:164px}
+#log{left:612px;top:338px;width:402px;height:164px;font-size:12px;line-height:1.35;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end}
+#log div{opacity:.55;margin-top:2px}#log div:last-child{opacity:1;color:#ffe9a8}
+.btns{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}
+.btns.s4{grid-template-columns:repeat(4,1fr);gap:4px}.btns.s4 button{font-size:12.5px;padding:4px 4px}
+.on{border-color:#ffd75a!important;color:#ffd75a}
+.jl{float:right;color:#ffe9a8;font-size:12px}
+.btns button{padding:6px 6px;font-size:14px}
+.tm{height:4px;background:#ffd75a;margin-top:7px;border-radius:2px;transition:width 1s linear}
+#ov{position:absolute;inset:0;display:none;align-items:center;justify-content:center;flex-direction:column;background:#000a;font:bold 72px Impact,sans-serif;letter-spacing:8px;-webkit-text-stroke:2px #000;z-index:9;animation:fi .5s;text-align:center}
+#ov small{font:20px "Trebuchet MS",sans-serif;letter-spacing:1px;-webkit-text-stroke:0;color:#fff;margin-top:10px}
+@keyframes fi{from{opacity:0;transform:scale(1.4)}}
+.jobs{left:10px;top:44px;width:1004px;height:458px;display:grid;grid-template-columns:repeat(4,1fr);grid-template-rows:repeat(3,1fr);gap:8px}
+.jobs>div{background:#0006;border:2px solid #4a5590;border-radius:9px;padding:6px 8px;cursor:pointer;transition:.15s;display:flex;gap:8px;align-items:center}
+.jobs>div:hover{border-color:#ffd75a;background:#ffffff14}
+.jobs .ji{font-size:40px;width:48px;text-align:center}
+.jobs b{font-size:17px}
+small,.sm{color:#aab;font-size:12px}
+.sk{display:grid;grid-template-columns:1fr 1fr;gap:2px 14px;font-size:12.5px;margin-top:6px}
+.sk .lk{color:#778}
+.scroll{overflow-y:auto!important}
+.scroll::-webkit-scrollbar{width:10px}.scroll::-webkit-scrollbar-thumb{background:#aab4ff88;border-radius:5px}.scroll::-webkit-scrollbar-track{background:#0004;border-radius:5px}
+.tg{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:5px}.tg button{padding:2px 0 3px;font-size:10.5px;line-height:1.1}.tg button span{display:block;font-size:19px}.tg button:disabled{opacity:.4}
+.r0{color:#e4e4ee}.r1{color:#7dff8a}.r2{color:#6cc4ff}.r3{color:#d08cff}.r4{color:#ffb238}.r5{color:#ff7ad9}
+.gi{display:flex;align-items:center;gap:8px;padding:2px 7px;border-radius:7px;border:2px solid #ffffff18;background:#0005;cursor:pointer;margin-bottom:3px;min-height:36px}
+.gi:hover{border-color:#ffd75a88}.gi.sel{border-color:#ffd75a;background:#ffd75a22}
+.gi .si{font-size:20px;width:26px;text-align:center}.gi .gn{flex:1;min-width:0;overflow:hidden;white-space:nowrap;text-overflow:ellipsis;font-size:13.5px}
+.gi small{display:block;font-size:11px;color:#aab;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.role{display:inline-block;font-size:11px;padding:0 6px;border-radius:8px;background:#ffffff1c;border:1px solid #ffffff40;color:#dde;margin-left:4px;vertical-align:2px}
+.newdot{display:inline-block;width:9px;height:9px;border-radius:50%;background:#ff5a4a;margin-left:5px;box-shadow:0 0 6px #ff5a4a}
+</style></head><body><div id="app"></div><div id="ov"></div><button id="snd" onclick="volBox()">🔊</button><button id="minb" onclick="setMini(1)" title="Minimize">▁</button><div id="vol"></div><button id="help" onclick="guide()">?</button><div id="tip"></div><div id="guide" class="w"></div><script>
+const $=s=>document.querySelector(s),A=$('#app');
+const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>'&#'+c.charCodeAt(0)+';');
+const IT=[["Stim-Pak-ish", "H", 60, 2, "💉", 1, "Restores 60 HP to one ally."], ["Estus-ish Flask", "H", 250, 2, "🧉", 2, "Restores 250 HP to one ally. Praise the sun."], ["Sensu Bean", "H", 0, 2, "🫘", 3, "Fully restores one ally's HP. Grown on a very tall tower."], ["Party Pizza", "A", 120, 3, "🍕", 2, "Restores 120 HP to the whole party. Cowabunga."], ["Ether-net Cable", "M", 15, 2, "🔌", 1, "Restores 15 MP to one ally. Wired for speed."], ["Fiber Optic Ether", "M", 40, 2, "💎", 2, "Restores 40 MP to one ally. Gigabit mana."], ["Gamer Fuel", "M", 0, 2, "🥤", 3, "Fully restores one ally's MP. Not a health drink."], ["Phoenix Down-load", "R", 25, 5, "🪶", 1, "Revives a fallen ally with 25% HP. 99% complete..."], ["1-Up Shroom", "R", 100, 5, "🍄", 3, "Revives a fallen ally with full HP. Wahoo!"], ["Off-and-On Again", "C", 0, 2, "🔄", 1, "Cures poison, stun and weakness. Have you tried it?"]];
+const FL={G:['🛡','Guard'],P:['☠️','Poison'],S:['💫','Stunned'],A:['⚔️','ATK up'],D:['🔰','DEF up'],W:['🔻','Weakened'],T:['🎯','Taunting'],R:['💚','Regen'],E:['🔥','Enraged']};
+const TURN=45000;
+let FM=null,FS={},catStamp=null,catLoading=0,mini=0,wasBusy=false,MU={},AU=null,auFail={},GW=['','','','',''],GB=[],gearOpen=0,gsel=null,dropAsk=0,gearSeen=-1,gearCount=0,lastChk=0,info=false,CN=0,v=-1,me='',L=null,P=null,B=null,K=[],G=[],CAT=[],prev=null,ui={m:'main'},banner=0,picking=0,sent=0,tkey='',tat=0,lastFx='',lastRes=0;
+function send(c){sfx('click');sent=1;fetch('a',{method:'POST',body:c}).catch(()=>{});draw();setTimeout(()=>{if(sent){sent=0;draw()}},5000)}
+function voteRetreat(){sfx('click');fetch('a',{method:'POST',body:'act|vote'}).catch(()=>{})}
+function back(){sfx('click');ui={m:'main'};draw()}
+function mode(m){sfx('click');ui={m};draw()}
+function atk(){sfx('click');ui={m:'t',k:0,l:'Attack',c:'act|attack|'};draw()}
+function sk(i){const s=K[i];if(s.tg==1||s.tg==3||s.tg==4)return send('act|skill|'+s.o+'|-1');sfx('click');ui={m:'t',k:s.tg==0?0:s.tg==5?2:1,l:s.n,c:'act|skill|'+s.o+'|'};draw()}
+function itm(i){const d=IT[i];if(d[3]==3)return send('act|item|'+i+'|-1');sfx('click');ui={m:'t',k:d[3]==5?2:1,l:d[0],c:'act|item|'+i+'|'};draw()}
+function go(i){const c=ui.c;ui={m:'main'};send(c+i)}
+function pick(n){picking=0;send(n)}
+// ---------- data ----------
+function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';CN=+h[2]||0;mini=h[3]=='1'?1:0;if(CN&&h[4]!==catStamp&&!catLoading)loadCat(h[4]);G=[];let cat=[],gq=[];
+ for(const l of ln.slice(1)){const p=l.split('|');
+  if(p[0]=='L'){L={busy:p[1]=='1',max:+p[2],m:p[3]?p[3].split(';').map(x=>{const f=x.split('~');return{k:f[0],n:f[1],lv:f[2],c:f[3],t:f[4],hp:f[5]==null||f[5]===''?100:+f[5],mp:f[6]==null||f[6]===''?100:+f[6]}}):[],chk:+p[4]||0,rdy:(p[5]||'').split(',').filter(x=>x),by:p[6]||'',force:p[7]=='1'};if(L.chk&&!lastChk&&L.m.some(x=>x.k==me)&&L.by!=me)sfx('ready');lastChk=L.chk}
+  else if(p[0]=='P'){P={c:p[1],lv:+p[2],xp:+p[3],need:+p[4],t:p[5],hero:+p[6]||1,mp:p[8]==null||p[8]===''?100:+p[8],hp:p[9]==null||p[9]===''?100:+p[9],its:(p[10]||'').split('.').map(Number),coins:+p[11]||0,jl:{}};(p[7]||'').split(',').forEach(x=>{const f=x.split(':');if(f[0])P.jl[f[0]]=+f[1]})}
+  else if(p[0]=='B')nb(p);
+  else if(p[0]=='K')K=p[1]?p[1].split(';').map(x=>{const f=x.split('~');return{o:+f[0],n:f[1],cost:+f[2],tg:+f[3],e:f[4],pw:f[5],r:f[6]}}):[];
+  else if(p[0]=='G')G.push(p.slice(1).join('|'));
+  else if(p[0]=='Q')gq[+p[1]]=p.slice(2).join('|');
+  else if(p[0]=='M')mparse(p);
+  else if(p[0]=='U')musicSet(p);
+  else if(p[0]=='F'){FS={};(p[1]||'').split(';').forEach(x=>{const f=x.split('~');if(f[0])FS[f[0]]={n:f[1],hp:+f[2],mhp:+f[3],mp:+f[4],mmp:+f[5]}})}}
+ if(gq.length)gearParse(gq);
+ if(B&&!B.res&&P)preP=P;else if(B&&B.res==1&&banner&&preP&&P&&preP.c==P.c&&(P.lv!=preP.lv||P.xp!=preP.xp)){xpStart(preP,P);preP=null}
+ draw()}
+function job(n){return CAT.find(c=>c&&c.n==n)}
+const TGN=['one enemy','all enemies','one ally','all allies','yourself','a fallen ally'];
+function desc(e,pw,tg,mp,r){const R={};(r||'').split(',').forEach(x=>{if(x){const q=x.split(':');R[q[0]]=+q[1]}});const t=TGN[+tg]||'';const h=R.hit>1?', '+R.hit+' hits':'';let s;
+ if(e=='P')s='Physical attack on '+t+': '+pw+'× ATK'+h+'.';
+ else if(e=='X')s='Piercing attack on '+t+': '+pw+'× ATK'+h+', ignores DEF.';
+ else if(e=='M')s='Magic attack on '+t+': '+pw+'× MAG'+h+'.';
+ else if(e=='G')s='Gamble on '+t+': random 0–'+(2*pw)+'× power (15% jackpot at 2.5×, 10% backfires on you).';
+ else if(e=='H')s='Heals '+t+' for '+pw+'× MAG + 10 HP.';
+ else if(e=='R')s='Revives '+t+' with '+Math.round(pw*100)+'% HP.';
+ else if(e=='MP')s='Restores '+pw+'× MAG MP to '+t+'.';
+ else s='Affects '+t+'.';
+ const x=[];
+ if(R.exe)x.push('Double damage vs targets under 30% HP');if(R.drn)x.push('Heals you for '+R.drn+'% of the damage');
+ if(R.psn)x.push('Poisons for '+R.psn+' turns');if(R.stn)x.push(R.stn+'% chance to stun (a third of that vs bosses)');
+ if(R.wk)x.push('Weakens for '+R.wk+' turns');if(R.atk)x.push('ATK up for '+R.atk+' turns');if(R.def)x.push('DEF up for '+R.def+' turns');
+ if(R.rgn)x.push('Regen for '+R.rgn+' turns');if(R.cln)x.push('Cures poison, stun and weaken');if(R.stl)x.push(R.stl+'% chance to gain a Potion');if(R.eth)x.push(R.eth+'% chance to brew an Ether');
+ if(R.tnt)x.push('Taunts until your next turn: single-target enemy attacks hit you. Use another skill on your next turn to keep it going. DEF up for '+R.tnt+' turns');if(R.sac)x.push('Costs '+R.sac+'% of your current HP');
+ return s+(x.length?' '+x.join('. ')+'.':'')+(mp!=null?' <b>'+mp+' MP</b>':'')}
+const STAT={G:'Takes half damage until their next turn.',P:'Loses 1/12 of max HP at the start of each turn (bosses 1/40).',S:'Skips their next turn.',A:'+50% physical attack.',D:'+50% defense.',W:'−30% attack and defense.',T:'Enemies aim single-target attacks at them until their next turn. Following up with a skill keeps the taunt going.',R:'Heals 7% of max HP at the start of each turn.',E:'A boss under 30% HP (or past round 25) gets +50% attack for the rest of the fight.'};
+function tipAttr(html,pin){return ' data-tip="'+esc(html)+'"'+(pin?' data-pin="1"':'')}
+let tipPin=null;
+function showTip(el){const t=$('#tip');t.innerHTML=el.dataset.tip;t.style.display='block';const r=el.getBoundingClientRect(),w=t.offsetWidth,h=t.offsetHeight;let x=Math.min(1024-w-6,Math.max(6,r.left+r.width/2-w/2)),y=r.top-h-8;if(y<4)y=r.bottom+8;if(y+h>508)y=508-h;t.style.left=x+'px';t.style.top=y+'px'}
+function hideTip(){$('#tip').style.display='none';tipPin=null}
+document.addEventListener('mouseover',e=>{const el=e.target.closest('[data-tip]');if(el)showTip(el);else if(!tipPin)hideTip()});
+document.addEventListener('click',e=>{const el=e.target.closest('[data-tip]');if(el&&el.dataset.pin){showTip(el);tipPin=el;e.stopPropagation()}else if(tipPin&&!el)hideTip()},true);
+function guide(){sfx('click');const g=$('#guide');if(g.style.display=='block'){g.style.display='none';return}
+ const MC=[["lobby", "Calming RPG Town Theme", "Destin715", "CC0", "https://opengameart.org/content/calming-rpg-town-theme"], ["map", "Town Theme 1", "Geomancer", "CC0", "https://opengameart.org/content/town-theme-1"], ["map", "Town Theme 2", "Geomancer", "CC0", "https://opengameart.org/content/town-theme-1"], ["battle", "JRPG Epic Rock Battle Theme 1", "HydroGene", "CC0", "https://opengameart.org/content/jrpg-epic-rock-battle-theme-1"], ["battle", "Battle RPG Theme", "Cleyton Kauffman", "CC0", "https://opengameart.org/content/boss-battle-theme"], ["boss", "Hard Boss Battle 2", "MintoDog", "CC0", "https://opengameart.org/content/hard-boss-battle-2"]];
+ g.innerHTML='<div id="top" style="position:static;margin-bottom:8px"><b>📘 BATTLE GUIDE</b><button onclick="guide()">✕ Close</button></div><div class="h">Status effects</div><div class="g">'
+ +Object.keys(STAT).map(k=>'<div><span>'+FL[k][0]+'</span><b>'+FL[k][1]+'</b> — '+STAT[k]+'</div>').join('')+'</div><div class="h" style="margin-top:12px">Basics</div><div class="g">'
+ +['💧 HP and MP don\'t come back after battles. Rest at a town inn (it costs Bitcorns), use items, or cast healing magic from ☰ Menu. Defend restores 10% MP.','💥 Physical hits can crit for 1.5× damage (Ninja, Gambler and Ranger crit most).','🛡 Defend halves damage until your next turn and restores 10% MP.','🧪 Potion: +30% HP · Ether: +40% MP · Revive Herb: revive at 40%. You get 3 / 2 / 1 each battle.','💀 Bosses act twice per round and can\'t be fled from.','✨ Each job levels on its own and transforms at job level 30.','💤 A KO clears every status effect, good and bad.','🏳 In a boss fight, the party can vote to retreat (majority wins, no XP).'].map(x=>'<div>'+x+'</div>').join('')+'</div><p class="sm" style="margin-top:10px">Tip: hover (or click) any skill or status icon to see what it does.</p>';
+ g.innerHTML+='<div class="h" style="margin-top:10px">♪ Music</div><div style="font-size:11.5px;line-height:1.35">'+MC.map(m=>'<b>'+esc(m[1])+'</b> by '+esc(m[2])+' ('+m[3]+')').join(' · ')+' — all from OpenGameArt.org. The crystal owner can change the music in Admin › Music.</div>';
+ g.style.display='block'}
+function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6],f:f[7]||'',it:(f[8]||'').split('.').map(Number),c:f[11],ic:f[12]}}):[];
+ const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1]};
+ const o=B;B=n;
+ prev=(o&&o.c.length==c.length&&o.c.every((x,i)=>x.n==c[i].n)&&n.r>=o.r)?o.c:null;
+ if((!o||o.r>n.r||!prev)&&n.r<=1&&!n.res&&n.boss&&o)sfx('boss');
+ const k=n.r+':'+n.a+':'+n.mo;if(k!=tkey){tkey=k;tat=Date.now();sent=0;ui={m:'main'};const a=c[n.a];if(n.mo==1&&a&&a.k==me&&!n.res)sfx('turn')}
+ if(n.fx&&n.fx!=lastFx){if(lastFx)fxs(n.fx.split('~')[1]);lastFx=n.fx}
+ if(n.res&&o&&!o.res){banner=Date.now();music(null);sfx(n.res==1?'win':n.res==2?'lose':'flee')}}
+// ---------- gear ----------
+const SLOT=['Weapon','Head','Body','Feet','Accessory'],SLI=['⚔️','🪖','🛡️','👢','💍'],RAR=['Common','Uncommon','Rare','Epic','Legendary','Relic'];
+const STN=['HP','MP','ATK','DEF','MAG','SPD','CRIT'];
+const SPC={rgn:'Starts each battle with Regen',atk:'Starts each battle with ATK up',def:'Starts each battle with DEF up',pot:'+1 Potion each battle',eth:'+1 Ether each battle'};
+const RELIC=["Comically oversized. Spiky hair not included.", "You are not worthy. It works anyway.", "Hums at a very reasonable volume.", "Does everything except wood.", "The cake is a lie. The damage is not.", "A rubber chicken with a pulley in the middle. Useful, apparently.", "Hmm... difficult. VERY difficult.", "Knitted by Mom. Folks know you're not afraid of anything.", "Statistically, you won't survive the away mission.", "Light as a feather. Wear it under your shirt.", "You can still see it. It's mostly a vibe.", "Blue. Spiky. Extremely fast.", "In the name of the moon, kick!", "The most massively useful thing an adventurer can have.", "One ring to rule them all. Needs a charger.", "Up up down down left right left right B A. 30 lives not included.", "It's so bad. (That means good.)", "V.A.T.S. not included. Radiation sold separately.", "Only five of six stones. Snaps at half power.", "Contents may have shifted during travel."];
+function gitm(t){if(!t)return null;const f=t.split('^');return{n:f[0],s:+f[1],r:+f[2],j:f[3]||'',lv:+f[4],st:(f[5]||'').split('.').map(Number),sp:(f[6]||'').split('.').filter(x=>x),ri:+f[7]}}
+function gearParse(q){if(q[0]!=null)GW=q[0].split(';').concat(['','','','','']).slice(0,5).map(gitm);
+ if(q[1]!=null||q[2]!=null)GB=[(q[1]||''),(q[2]||'')].join(';').split(';').filter(x=>x).map(gitm);
+ const n=GW.filter(x=>x).length+GB.length;if(gearSeen<0)gearSeen=n;gearCount=n;if(gearOpen||n<gearSeen)gearSeen=n}
+function stl(st,sep){return st.map((v,i)=>v?'+'+v+(i==6?'%':'')+' '+STN[i]:'').filter(x=>x).join(sep||' · ')}
+function wOff(it){return it&&it.s==0&&it.j&&P&&it.j!=P.c}
+function itemTip(it,c){if(!it)return '';let h='<b class="r'+it.r+'">'+(it.r==5?'★ ':'')+esc(it.n)+'</b><br><small>'+RAR[it.r]+' '+SLOT[it.s]+' · item level '+it.lv+(it.j?' · '+esc(it.j)+' weapon':'')+'</small><br>'+stl(it.st,c?' · ':'<br>');
+ it.sp.forEach(x=>h+=(c?' · ✨ ':'<br>✨ ')+SPC[x]);if(it.r==5&&RELIC[it.ri])h+='<br><i>“'+esc(RELIC[it.ri])+'”</i>';if(wOff(it))h+='<br><span style="color:#ff8a8a">Only works while you are a '+esc(it.j)+'.</span>';return h}
+function gearTot(){const t=[0,0,0,0,0,0,0];GW.forEach(it=>{if(it&&!wOff(it))it.st.forEach((v,i)=>t[i]+=v)});return t}
+function openGear(){sfx('click');gearOpen=1;gsel=null;dropAsk=0;gearSeen=gearCount;draw()}
+function gpick(w,i){sfx('click');gsel={w,i};dropAsk=0;draw()}
+function gact(c,i){if(c=='x'&&!dropAsk){dropAsk=1;sfx('click');draw();return}dropAsk=0;gsel=null;send('gear|'+c+'|'+i)}
+function gearRow(it,w,i){const sel=gsel&&gsel.w==w&&gsel.i==i;
+ if(!it)return '<div class="gi" style="cursor:default;opacity:.55"><span class="si">'+SLI[i]+'</span><div class="gn">'+SLOT[i]+' <small>empty</small></div></div>';
+ return '<div class="gi'+(sel?' sel':'')+'" onclick="gpick('+w+','+i+')"'+tipAttr(itemTip(it))+'><span class="si">'+SLI[it.s]+'</span><div class="gn"><span class="r'+it.r+'">'+(it.r==5?'★ ':'')+esc(it.n)+'</span><small>'+(wOff(it)?'<span style="color:#ff8a8a">inactive: '+esc(it.j)+' only</span> · ':'')+stl(it.st)+(it.sp.length?' · ✨'+it.sp.length:'')+'</small></div>'+(w?'<small style="color:#889">Lv '+it.lv+'</small>':'')+'</div>'}
+function gearScreen(){const t=gearTot();let det='<div class="sm" style="margin-top:8px;line-height:1.4">Tap an item to inspect it. You get gear by winning: bosses always drop something, normal battles sometimes. Rarity: '+RAR.map((r,i)=>'<span class="r'+i+'">'+r+'</span>').join(' · ')+'.</div>';
+ if(gsel){const it=gsel.w?GW[gsel.i]:GB[gsel.i];if(it){let cmp='';if(!gsel.w){const cur=GW[it.s];const d=it.st.map((v,i)=>(wOff(it)?0:v)-(cur&&!wOff(cur)?cur.st[i]:0));cmp='<div style="margin-top:3px">vs. worn: '+(d.some(x=>x)?d.map((v,i)=>v?'<span style="color:'+(v>0?'#7dff8a':'#ff8a8a')+'">'+(v>0?'+':'')+v+' '+STN[i]+'</span>':'').filter(x=>x).join(' '):'no change')+'</div>'}
+  det='<div style="background:#0006;border:2px solid #ffffff30;border-radius:8px;padding:7px 9px;margin-top:6px;font-size:13px;line-height:1.35">'+itemTip(it,1)+cmp+'<div style="display:flex;gap:8px;margin-top:7px">'+(gsel.w?'<button onclick="gact(\'un\','+gsel.i+')"'+(GB.length>=12?' disabled':'')+'>Take off</button>':'<button class="gold" onclick="gact(\'eq\','+gsel.i+')">'+(GW[it.s]?'Swap in':'Equip')+'</button><button class="red" onclick="gact(\'x\','+gsel.i+')">'+(dropAsk?'Really drop it?':'Drop')+'</button>')+'</div></div>'}}
+ A.innerHTML='<div id="top"><b>🎒 GEAR</b><small>Armor and accessories work for every job · a weapon only for its own job</small><button style="margin-right:90px" onclick="gearOpen=0;gsel=null;back()">◀ Back</button></div>'
+ +'<div class="w scroll" id="sc_worn" style="left:10px;top:44px;width:500px;height:458px"><div class="h">Wearing</div>'+GW.map((it,i)=>gearRow(it,1,i)).join('')
+ +'<div style="font-size:13px;margin-top:2px"><b style="color:#ffe9a8">Gear bonus:</b> '+(stl(t)||'<span class="sm">none yet</span>')+'</div>'+det+'</div>'
+ +'<div class="w scroll" id="sc_bag" style="left:520px;top:44px;width:494px;height:458px"><div class="h">Bag '+GB.length+' / 12</div>'+(GB.length?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:0 6px">'+GB.map((it,i)=>gearRow(it,0,i)).join('')+'</div>':'<small>Empty. Win some battles!</small>')+(GB.length>=12?'<p class="sm" style="color:#ff8a8a;margin-top:6px">Your bag is full, so new drops will be left behind. Drop something you don\'t need.</p>':'')+'</div>'}
+function itemLine(){const o=(P&&P.its||[]).map((n,i)=>n>0&&IT[i]?'<span'+tipAttr('<b>'+esc(IT[i][0])+'</b><br>'+esc(IT[i][6]))+'>'+IT[i][4]+'×'+n+'</span>':'').filter(x=>x);return o.length?'🎒 '+o.join(' '):'<span class="sm">🎒 No items</span>'}
+function setMini(v){sfx('click');mini=v;fetch('min',{method:'POST',body:v?'1':'0'}).catch(()=>{});draw()}
+function miniView(){const myT=B&&L.busy&&B.mo==1&&B.c[B.a]&&B.c[B.a].k==me;
+ return '<div onclick="setMini(0)" style="position:absolute;inset:0;cursor:pointer;display:flex;align-items:center;justify-content:center;gap:40px;background:'+(myT?'radial-gradient(#a8323e,#3a0610)':'radial-gradient(#2a3a8a,#070a18)')+';border:12px solid '+(myT?'#ffd75a':'#dfe3ff')+';border-radius:40px">'
+ +'<div style="font-size:230px;line-height:1">'+(myT?'⚔️':L.busy?'💥':'🗺️')+'</div><div style="font:bold 110px Impact,sans-serif;letter-spacing:4px;-webkit-text-stroke:3px #000;color:'+(myT?'#ffd75a':'#fff')+'">'+(myT?'YOUR<br>TURN!':L.busy?'BATTLE':'OPEN')+'</div></div>'}
+// ---------- world map ----------
+const WM={"w": 40, "h": 30, "rows": ["^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^", "^%%%%%%%%%\"\"\"\"\"\"\"\"\"\"\"\"~\"\"\"\"^***********^", "^%%%%%%%%\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"^***********^", "^%%B%%%%%%%\"\"\"\"\"\"\"\"\"\"B\"\"\"\"\"^********B**^", "^%%%%%%%%%\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"\"^***********^", "^%%%%%%%%%\"\"\"\"\"\"\"\"\"\"~\"\"\"\"\"\"^***********^", "^^^^^^%%%%\"\"\"\"\"\"\"\"\"\"~\"\"\"\"\"\"^***********^", "^TTTT^%%%%\"\"\"\"\"\"\"\"\"\"~~\"\"\"\"^************^", "^TTT^%%%%%\"\"\"\"\"\"\"\"\"\"\"~\"\"\"\"^************^", "^TTTTTH%%\"\"\"#####HT\"~~\"\"\"\"^************^", "^TTTTT#TTTTT#T\"TTTTT~\"\"\"\"^*************^", "^TTTTT#TTTTT#\"TTTTTT~\"\"\"\"^*************^", "^TTTTT#TTTT##TTTTTTT~\"\"\"\"~~~***H*^^^^*^^", "^TTTTT#^####HTTTTTTT~TT\"~~~~***#::::^^:^", "^T.TBT###TTTTTTTTTTT~TTTT~~~**^#::^::::^", "^....T#TTTTTTTTTTTTT~TTTTT^^*^:#::^::::^", "^.^^..#TT^TTTTTTTTTT~TTTTTTT:::#::^::::^", "^.....#TTTTTTTTTTTT~~TTTTTT::::#:::::::^", "^.....#...TTTTTTTTT~TTTTTTT::::#:::::::^", "^.....#..~~~......T~TTTTTT:::::#:::::::^", "^.....#.~~~~......~~TTTTTT::::##:::::::^", "^.....#..~~~.......~^##########H:::::::^", "^.....################TT:^:::::::::::::^", "^.....#............~..^::::::::::::::::^", "^.....H............~..^::::::::::::::::^", "^............B.....~~.::^::::::::::B:::^", "^...................~^:::::::::::::::::^", "^...................~::::::::::::::::^:^", "^...................~::::::::::::::::::^", "^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^"], "terr": {".": ["Greenhorn Meadows", 1, 7], "#": ["Road", 0, 2], "T": ["Grindwood Forest", 6, 10], ":": ["Dunes of Lag", 12, 9], "\"": ["Soggy Bottom Swamp", 20, 11], "%": ["Spooky Scary Graveyard", 30, 11], "*": ["Mount Doomscroll", 40, 12], "=": ["Bridge", 0, 0], "H": ["Town", 0, 0], "B": ["Lair", 0, 0]}, "feat": [[6, 24, "H", "Noobton", 4, [0, 9, 4, 7], ""], [12, 13, "H", "Grindwood Village", 6, [0, 9, 4, 7, 1], ""], [31, 21, "H", "Lag Oasis", 14, [0, 1, 3, 4, 5, 7, 9], ""], [17, 9, "H", "Bogsworth", 10, [0, 1, 4, 5, 7, 9], ""], [6, 9, "H", "Last Save Point", 18, [1, 2, 3, 5, 6, 7, 8, 9], ""], [31, 12, "H", "Ashfall Outpost", 24, [1, 2, 3, 5, 6, 7, 8, 9], ""], [13, 25, "B", "Rentzilla's Rent Office", 2, 5, "🦖"], [4, 14, "B", "Pennyfoolish's Big Top", 8, 10, "🎈"], [35, 25, "B", "Sandworm Supremo's Pit", 21, 16, "🪱"], [21, 3, "B", "Demogorgonzola's Fondue Pot", 4, 24, "🧀"], [3, 3, "B", "Voldemorty's Crypt", 3, 32, "🐍"], [36, 3, "B", "Ender Dragon't's Peak", 10, 42, "🐲"]], "start": [6, 24], "cur": ["Bitcorns", "🌽"], "price": [5, 18, 45, 30, 8, 22, 50, 15, 70, 3], "sell": [1, 3, 8, 20, 40], "start_n": "Noobton"};
+const TS=36,VW=21,VH=13;
+let Wd=null,mapOpen=1,mapPend=0,mapSentQ=[],mapQ=[],mapPos=null,mapSeq=-1,mapSent='',mapDone=0,mapRaf=0,mapLast=0,encFlash=0;
+const TC={'.':'#5c9e48','#':'#c7a46a','T':'#2d6e37','H':'#5c9e48','B':'#3b3046',':':'#dcbc72','"':'#4a6639','%':'#57526b','*':'#5a2620','=':'#8a5a2b','^':'#857a6c','~':'#2e6cbb'};
+const TD={'T':['🌲','🌳','🌲','🌲'],'^':['⛰️','⛰️','🏔️'],':':['','','🌵','','','','',''],'"':['','🍄','','','🌿','','',''],'%':['','🪦','','','⚰️','','',''],'*':['','🔥','','','','🌋','',''],'.':['','','','🌼','','','','','',''],'~':['','','','','','','','🌊','','']};
+const DIRS={U:[0,-1],D:[0,1],L:[-1,0],R:[1,0]};
+function wt(x,y){return x<0||y<0||x>=WM.w||y>=WM.h?'^':WM.rows[y][x]}
+function walk_(x,y){const t=wt(x,y);return t!='^'&&t!='~'}
+function feat(x,y){return (WM.feat||[]).find(f=>f[0]==x&&f[1]==y)}
+function zoneAt(x,y){const t=wt(x,y),z=WM.terr[t];return z?{n:z[0],lv:z[1],r:z[2]}:{n:'',lv:0,r:0}}
+function predEnd(){let x=Math.round(mapPos.x),y=Math.round(mapPos.y);if(mapQ.length){x=mapQ.tx;y=mapQ.ty}return{x,y}}
+function setQ(sx,sy,path){mapQ=[...path];let x=sx,y=sy;for(const d of path){x+=DIRS[d][0];y+=DIRS[d][1]}mapQ.tx=x;mapQ.ty=y;mapQ.cx=sx;mapQ.cy=sy}
+function mparse(p){const m={x:+p[1],y:+p[2],seq:+p[3],fr:(p[4]||'').split(',').map(Number),path:p[5]||'',enc:p[6]=='1',by:p[7]||''};
+ if(m.seq==mapSeq)return;const first=mapSeq<0;mapSeq=m.seq;Wd=m;
+ if(m.enc&&!first){encFlash=Date.now();sfx('boss')}
+ if(first||!mapPos){mapPos={x:m.x,y:m.y};mapQ=[];mapSentQ=[];return}
+ if(m.by==me&&mapSentQ.length){const s=mapSentQ.shift();
+  if(!m.enc&&m.fr[0]==s.sx&&m.fr[1]==s.sy&&m.x==s.ex&&m.y==s.ey)return;      // the crystal agrees with what we already showed
+  mapSentQ=[];mapQ=[];mapPos={x:m.x,y:m.y};mapGo();return}                    // ambush / blocked: jump to where the party really is
+ if(m.by==me){if(!mapQ.length){mapPos={x:m.x,y:m.y};mapGo()}return}
+ mapSentQ=[];
+ if(!m.path){mapPos={x:m.x,y:m.y};mapQ=[];mapGo();return}
+ mapPos={x:m.fr[0],y:m.fr[1]};setQ(m.fr[0],m.fr[1],m.path);mapDone=0;mapGo()}
+function mapGo(){if(!mapRaf){mapLast=performance.now();mapRaf=requestAnimationFrame(mapTick)}}
+function mapTick(t){mapRaf=0;const dt=Math.min(.1,(t-mapLast)/1000);mapLast=t;
+ if(mapQ.length){const d=DIRS[mapQ[0]],sp=7*dt;const tx=mapQ.cx+d[0],ty=mapQ.cy+d[1];
+  mapPos.x+=Math.sign(tx-mapPos.x)*Math.min(sp,Math.abs(tx-mapPos.x));mapPos.y+=Math.sign(ty-mapPos.y)*Math.min(sp,Math.abs(ty-mapPos.y));
+  if(mapPos.x==tx&&mapPos.y==ty){mapQ.shift();mapQ.cx=tx;mapQ.cy=ty;mapDone++;if(!mapQ.length&&$('#mside'))draw()}}
+ drawMap();if(mapQ.length||Date.now()-encFlash<900)mapGo()}
+function cam(){return{x:Math.max(0,Math.min(WM.w-VW,mapPos.x-(VW-1)/2)),y:Math.max(0,Math.min(WM.h-VH,mapPos.y-(VH-1)/2))}}
+function drawMap(){const c=$('#mc');if(!c||!mapPos)return;const g=c.getContext('2d'),k=cam();g.textAlign='center';g.textBaseline='middle';
+ const x0=Math.floor(k.x),y0=Math.floor(k.y),ox=(k.x-x0)*TS,oy=(k.y-y0)*TS;
+ for(let j=0;j<=VH;j++)for(let i=0;i<=VW;i++){const x=x0+i,y=y0+j,t=wt(x,y),px=i*TS-ox,py=j*TS-oy;
+  g.fillStyle=TC[t]||'#000';g.fillRect(px,py,TS+1,TS+1);
+  if(t=='~'){g.fillStyle='#ffffff22';g.fillRect(px+5,py+12+((x+y)%3)*5,12,2)}
+  const f=feat(x,y);let e='';if(f)e=f[2]=='H'?(f[3]==WM.start_n?'🏰':'🏘️'):(f[6]||'💀');else{const d=TD[t];if(d)e=d[(x*7+y*13)%d.length]}
+  if(e){g.font=(f?30:t=='T'||t=='^'?27:20)+'px serif';g.fillText(e,px+TS/2,py+TS/2+1)}
+  if(f&&f[2]=='B'){g.strokeStyle='#ff5a7a';g.lineWidth=2;g.strokeRect(px+2,py+2,TS-4,TS-4)}}
+ const L0=L&&L.m[0],ic=(L0&&job(L0.c)||{}).ic||'🧙',px=(mapPos.x-k.x)*TS+TS/2,py=(mapPos.y-k.y)*TS+TS/2,bob=mapQ.length?Math.sin(performance.now()/60)*2:0;
+ g.fillStyle='#0007';g.beginPath();g.ellipse(px,py+14,13,5,0,0,7);g.fill();g.font='30px serif';g.fillText(ic,px,py-2+bob);
+ if(L&&L.m.length>1){g.font='bold 12px Verdana';g.fillStyle='#ffe9a8';g.strokeStyle='#000';g.lineWidth=3;g.strokeText('×'+L.m.length,px+16,py-14);g.fillText('×'+L.m.length,px+16,py-14)}
+ if(Date.now()-encFlash<900){g.fillStyle='rgba(255,255,255,'+(.5-.5*(Date.now()-encFlash)/900)+')';g.fillRect(0,0,VW*TS,VH*TS);g.font='bold 60px Impact';g.fillStyle='#ff4a4a';g.fillText('❗',px,py-40)}
+ const mm=$('#mm');if(mm){const q=mm.getContext('2d');for(let y=0;y<WM.h;y++)for(let x=0;x<WM.w;x++){q.fillStyle=feat(x,y)?(feat(x,y)[2]=='H'?'#fff':'#ff4a6a'):TC[wt(x,y)];q.fillRect(x*3,y*3,3,3)}
+  q.strokeStyle='#ffe9a8';q.lineWidth=1;q.strokeRect(k.x*3+.5,k.y*3+.5,VW*3,VH*3);q.fillStyle='#ffd75a';q.fillRect(Math.round(mapPos.x)*3-1,Math.round(mapPos.y)*3-1,5,5)}}
+function canMove(){return Wd&&L&&!L.busy&&mapQ.length<8}
+function predEnd2(){if(mapQ.length)return{x:mapQ.tx,y:mapQ.ty};if(mapSentQ.length){const s=mapSentQ[mapSentQ.length-1];return{x:s.ex,y:s.ey}}return{x:Wd.x,y:Wd.y}}
+function bfs(sx,sy,tx,ty){if(!walk_(tx,ty))return '';const prev={},key=(x,y)=>x+','+y,q=[[sx,sy]];prev[key(sx,sy)]=null;
+ while(q.length){const [x,y]=q.shift();if(x==tx&&y==ty)break;for(const d in DIRS){const nx=x+DIRS[d][0],ny=y+DIRS[d][1];if(prev[key(nx,ny)]===undefined&&walk_(nx,ny)){prev[key(nx,ny)]=[x,y,d];q.push([nx,ny])}}}
+ if(prev[key(tx,ty)]===undefined)return '';let s='',c=[tx,ty];while(prev[key(c[0],c[1])]){const p=prev[key(c[0],c[1])];s=p[2]+s;c=[p[0],p[1]]}return s.slice(0,40)}
+// Moves show right away; the crystal checks them and only corrects us on an ambush.
+function mapSend(path,from){if(!canMove()||!path)return;const st=from||predEnd2();let x=st.x,y=st.y,ok='';
+ for(const d of path){x+=DIRS[d][0];y+=DIRS[d][1];if(!walk_(x,y))break;ok+=d;const f=feat(x,y);if(f)break}
+ if(!ok)return;let ex=st.x,ey=st.y;for(const d of ok){ex+=DIRS[d][0];ey+=DIRS[d][1]}
+ if(mapQ.length){for(const d of ok)mapQ.push(d);mapQ.tx=ex;mapQ.ty=ey}else{mapPos={x:st.x,y:st.y};setQ(st.x,st.y,ok)}
+ mapSentQ.push({sx:st.x,sy:st.y,ex,ey});mapGo();
+ fetch('a',{method:'POST',body:'map|go|'+ok+'|'+st.x+','+st.y}).catch(()=>{})}
+function mapStep(d){if(!Wd)return;const st=predEnd2(),x=st.x+DIRS[d][0],y=st.y+DIRS[d][1];if(walk_(x,y))mapSend(d,st);else sfx('click')}
+function mapClick(e){const r=e.target.getBoundingClientRect(),k=cam();const x=Math.floor(k.x+(e.clientX-r.left)/TS),y=Math.floor(k.y+(e.clientY-r.top)/TS);const st=predEnd2();if(canMove())mapSend(bfs(st.x,st.y,x,y),st)}
+document.addEventListener('keydown',e=>{if(!$('#mc'))return;const d={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R',w:'U',s:'D',a:'L',d:'R'}[e.key];if(d){e.preventDefault();mapStep(d)}});
+const CUR=WM.cur||['Bitcorns','🌽'];
+function tb(ic,l,act,tip){return '<button'+(act?'':' disabled')+tipAttr(tip)+(act?' onclick="'+act+'"':'')+'><span>'+ic+'</span>'+l+'</button>'}
+function mapScreen(){const f=Wd&&feat(Wd.x,Wd.y),z=zoneAt(Wd.x,Wd.y),lv=P?P.lv:1;let place='';
+ if(f&&f[2]=='H')place='<div style="font-size:19px;font-weight:bold">'+(f[3]==WM.start_n?'🏰 ':'🏘️ ')+esc(f[3])+'</div><div class="tg">'
+  +tb('🛏','Inn '+f[4]+CUR[1],'send(\'map|rest\')','<b>Inn</b> · '+f[4]+' '+CUR[0]+' a bed<br>Restores everyone\'s HP and MP. Each hero pays for their own bed; if someone can\'t afford it, you cover them.')
+  +tb('🧪','Items','openFM(\'shop\')','<b>Item Shop</b><br>Potions, ethers and more.')
+  +tb('📖','Job Guild','openFM(\'guild\')','<b>Job Guild</b><br>Change your job. Every job keeps its own level.')
+  +tb('💰','Sell','openFM(\'sell\')','<b>Pawn Shop</b><br>Sell gear from your bag.')
+  +tb('⚔️','Weapons','','<b>Weapon Shop</b><br>Coming soon!')+tb('🛡️','Armor','','<b>Armor Shop</b><br>Coming soon!')
+  +tb('💍','Trinkets','','<b>Accessory Shop</b><br>Coming soon!')+tb('📜','Quests','','<b>Quest Board</b><br>Coming soon!')+'</div>';
+ else if(f&&f[2]=='B')place='<div style="font-size:19px;font-weight:bold;color:#ff9ab0">'+(f[6]||'💀')+' '+esc(f[3])+'</div><small>Boss lair · level '+f[5]+'+ · built for 4 heroes</small><button class="red" style="width:100%;margin-top:8px;font-size:17px" onclick="send(\'map|boss\')"'+(L.busy?' disabled':'')+'>💀 Challenge the boss</button>';
+ else{const hard=z.lv>lv?(z.lv>=lv+8?'#ff6a6a':'#ffb238'):'#7dff8a';place='<div style="font-size:19px;font-weight:bold">'+esc(z.n)+'</div><small>'+(z.r?'Monsters level <b style="color:'+hard+'">'+Math.max(z.lv,1)+'+</b>'+(z.lv>lv+7?' · <b style="color:#ff6a6a">very dangerous!</b>':'')+' · '+(z.r>=10?'lots of':z.r>=5?'some':'few')+' encounters':'Safe travel. Monsters rarely bother you here.')+'</small>'}
+ const dp=(d,l,c)=>'<button style="grid-column:'+c+';padding:4px 0;font-size:17px" onclick="mapStep(\''+d+'\')"'+(L.busy?' disabled':'')+'>'+l+'</button>';
+ A.innerHTML='<div id="top"><b>🗺 WORLD MAP</b><small style="margin-right:90px">'+(L.busy?'A battle is in progress…':'Click the map to walk there · anyone in the party can steer')+'</small></div>'
+ +'<div class="w" style="left:8px;top:40px;width:'+(VW*TS+6)+'px;height:'+(VH*TS+6)+'px;padding:0;overflow:hidden"><canvas id="mc" width="'+VW*TS+'" height="'+VH*TS+'" style="cursor:pointer;display:block" onclick="mapClick(event)"></canvas></div>'
+ +'<div class="w" id="mside" style="left:776px;top:40px;width:238px;height:'+(VH*TS+6)+'px;padding:8px">'+place
+ +'<div style="margin-top:7px">'+L.m.map(x=>'<div style="display:flex;align-items:center;gap:4px;font-size:11.5px;margin-bottom:2px"><span style="width:72px;overflow:hidden;white-space:nowrap">'+((job(x.c)||{}).ic||'')+' '+esc(x.n)+'</span><div class="bar '+(x.hp>50?'hp':x.hp>20?'hp lo':'hp cr')+'" style="flex:1;margin:0"'+tipAttr(esc(x.n)+': HP '+x.hp+'% · MP '+x.mp+'%')+'><i style="width:'+x.hp+'%"></i></div><div class="bar mp" style="width:38px;margin:0"><i style="width:'+x.mp+'%"></i></div></div>').join('')+'</div><canvas id="mm" width="120" height="90" style="display:block;margin:6px auto 5px;border:2px solid #fff4;border-radius:4px"></canvas>'
+ +'<div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px;width:150px;margin:0 auto">'+dp('U','▲',2)+dp('L','◀',1)+dp('D','▼',2)+dp('R','▶',3)+'</div>'
+ +'<div style="position:absolute;left:8px;right:8px;bottom:46px;font-size:11px;line-height:1.3;color:#cfd6ff">'+G.slice(-2).map(x=>'<div style="overflow:hidden;white-space:nowrap;text-overflow:ellipsis">'+esc(x)+'</div>').join('')+'</div>'
+ +'<div style="position:absolute;left:8px;right:8px;bottom:8px;display:flex;gap:6px;align-items:center"><div style="font-size:15px;white-space:nowrap"'+tipAttr('Your '+CUR[0]+'. Win battles to earn more.')+'>'+CUR[1]+' <b>'+(P?P.coins:0)+'</b></div><button class="gold" style="flex:1;font-size:17px" onclick="openFM(\'party\')">☰ Menu'+(gearCount>gearSeen?'<span class="newdot"></span>':'')+'</button></div></div>'+(FM?fieldMenu():'')+(L.chk?'<div class="w" style="left:180px;top:150px;width:420px;z-index:7;display:grid;grid-template-columns:1fr 1fr;gap:8px">'+readyBox()+'</div>':'');
+ drawMap();if(mapQ.length)mapGo()}
+// ---------- field Menu (on the World Map): party, items, magic, gear ----------
+function openFM(t){sfx('click');FM={t,pick:null};fetch('a',{method:'POST',body:'field|status'}).catch(()=>{});draw()}
+function fmTab(t){sfx('click');FM={t,pick:null};draw()}
+function fmUse(c,i,tgt){sfx('click');FM.pick=null;fetch('a',{method:'POST',body:'field|'+c+'|'+i+'|'+tgt}).catch(()=>{});draw()}
+function fmPick(c,i,tg,label){sfx('click');if(tg==3||tg==4)return fmUse(c,i,me);FM.pick={c,i,tg,label};draw()}
+function hpOf(x){const f=FS[x.k];return f?{hp:f.hp,mhp:f.mhp,mp:f.mp,mmp:f.mmp,n:true}:{hp:x.hp,mhp:100,mp:x.mp,mmp:100,n:false}}
+function fmRow(x,act){const s=hpOf(x),j=job(x.c)||{},ko=s.hp<=0;
+ return '<div class="row" style="background:#0005;padding:6px 8px;margin-bottom:5px'+(act?';cursor:pointer;border-color:#ffd75a88':'')+'"'+(act?' onclick="'+act+'"':'')+'><div class="ic">'+(j.ic||'')+'</div><div class="nm"><b>'+esc(x.n)+'</b>'+(x.k==me?' <small>(you)</small>':'')+'<br><small>Lv '+esc(x.lv)+' '+esc(x.t)+(ko?' · <b style="color:#ff6a6a">KO</b>':'')+'</small></div>'
+ +'<div style="width:190px;font-size:11px"><div class="bar '+(s.hp/s.mhp>.5?'hp':s.hp/s.mhp>.2?'hp lo':'hp cr')+'" style="margin:0"><i style="width:'+Math.round(s.hp/s.mhp*100)+'%"></i></div>HP '+(s.n?s.hp+' / '+s.mhp:s.hp+'%')+'<div class="bar mp" style="margin:2px 0 0"><i style="width:'+Math.round(s.mp/s.mmp*100)+'%"></i></div>MP '+(s.n?s.mp+' / '+s.mmp:s.mp+'%')+'</div></div>'}
+function fieldMenu(){const tabs=[['party','👥 Party'],['status','📜 Status'],['items','🎒 Items'],['magic','✨ Magic']];let body='';const town=Wd&&feat(Wd.x,Wd.y);
+ if(FM.pick){body='<div class="h">'+esc(FM.pick.label)+' — who?</div>'+L.m.map(x=>fmRow(x,'fmUse(\''+FM.pick.c+'\','+FM.pick.i+',\''+x.k+'\')')).join('')+'<button onclick="FM.pick=null;draw()">◀ Back</button>'}
+ else if(FM.t=='status'){const j=job(P.c)||{sk:[]};body='<div class="h">Your hero · '+CUR[1]+' '+P.coins+' '+CUR[0]+'</div>'+heroHead()+skillList(j,P.lv)}
+ else if(FM.t=='shop'&&town)body=shopTab(town);
+ else if(FM.t=='guild')body=guildTab();
+ else if(FM.t=='sell')body=sellTab();
+ else if(FM.t=='party')body='<div class="h">Party · rest at an inn to recover everything</div>'+L.m.map(x=>fmRow(x)).join('');
+ else if(FM.t=='items'){const its=(P&&P.its||[]);const own=IT.map((t,i)=>i).filter(i=>its[i]>0);
+  body='<div class="h">Items · click one to use it</div>'+(own.length?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+own.map(i=>{const d=IT[i],off=d[1]=='C';return '<button style="text-align:left"'+(off?' disabled':'')+tipAttr('<b>'+d[4]+' '+esc(d[0])+'</b><br>'+esc(d[6])+(off?'<br><i>Statuses wear off after every battle.</i>':''))+' onclick="fmPick(\'item\','+i+','+d[3]+',\''+esc(d[0]).replace(/'/g,'')+'\')">'+d[4]+' '+esc(d[0])+' <small>×'+its[i]+'</small><br><small>'+esc(d[6]).slice(0,48)+'</small></button>'}).join('')+'</div>':'<small>Your bag is empty. Win battles to find items!</small>')}
+ else{const j=job(P.c)||{sk:[]};const ok=j.sk.map((s,i)=>[s,i]).filter(([s,i])=>(s[2]=='H'||s[2]=='R'||s[2]=='MP')&&+s[1]<=P.lv);const myMp=(FS[me]||{}).mp;
+  body='<div class="h">Magic · healing spells work outside battle'+(myMp!=null?' · your MP '+myMp+' / '+FS[me].mmp:'')+'</div>'+(ok.length?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+ok.map(([s,i])=>'<button style="text-align:left"'+(myMp!=null&&myMp<+s[5]?' disabled':'')+tipAttr('<b>'+esc(s[0])+'</b><br>'+desc(s[2],s[3],s[4],s[5],s[6]))+' onclick="fmPick(\'skill\','+i+','+s[4]+',\''+esc(s[0]).replace(/'/g,'')+'\')">✨ '+esc(s[0])+' <small>'+s[5]+' MP · '+TGN[+s[4]]+'</small></button>').join('')+'</div>':'<small>Your job has no healing magic. Healers: Sage, Oracle, Alchemist, Bard, Knight (later), Monk…</small>')}
+ return '<div class="w scroll" id="sc_fm" style="left:8px;top:40px;width:762px;height:474px;z-index:6"><div style="display:flex;gap:6px;margin-bottom:8px">'
+ +tabs.map(([k,l])=>'<button'+(FM.t==k&&!FM.pick?' class="on"':'')+' onclick="fmTab(\''+k+'\')">'+l+'</button>').join('')
+ +'<button onclick="FM=null;openGear()">🛡 Gear'+(gearCount>gearSeen?'<span class="newdot"></span>':'')+'</button><button onclick="if(confirm0()){FM=null;send(\'Leave Party\')}">🚪 '+(FM.leave?'Really leave?':'Leave')+'</button><span style="flex:1"></span><button onclick="FM=null;sfx(\'click\');draw()">✕ Close</button></div>'+body+'</div>'}
+function confirm0(){if(FM.leave)return 1;FM.leave=1;sfx('click');draw();return 0}
+function shopTab(f){const its=P.its||[];
+ return '<div class="h">🧪 Item Shop · '+esc(f[3])+' · you have '+CUR[1]+' '+P.coins+'</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+(f[5]||[]).map(i=>{const d=IT[i],pr=WM.price[i];return '<button style="text-align:left"'+(P.coins<pr?' disabled':'')+tipAttr('<b>'+d[4]+' '+esc(d[0])+'</b><br>'+esc(d[6]))+' onclick="sfx(\'click\');send(\'town|buy|'+i+'\')">'+d[4]+' '+esc(d[0])+' <b style="float:right;color:#ffe9a8">'+pr+CUR[1]+'</b><br><small>'+esc(d[6]).slice(0,44)+' · you have '+(its[i]||0)+'</small></button>'}).join('')+'</div><p class="sm" style="margin-top:8px">Bigger towns stock better items.</p>'}
+function guildTab(){return '<div class="h">📖 Job Guild · switch jobs (each keeps its own level)</div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:6px">'+CAT.map(c=>'<button style="text-align:left'+(c.n==P.c?';border-color:#ffd75a':'')+'"'+(c.n==P.c?' disabled':'')+tipAttr('<b>'+esc(c.n)+'</b> → '+esc(c.adv)+'<br>'+esc(c.d))+' onclick="sfx(\'click\');send(\'town|job|'+esc(c.n)+'\')">'+c.ic+' <b>'+esc(c.n)+'</b> <small>'+(P.jl[c.n]?'Lv '+P.jl[c.n]:'new')+'</small><br><span class="role" style="margin:0">'+esc(c.role)+'</span></button>').join('')+'</div>'}
+function sellTab(){return '<div class="h">💰 Pawn Shop · sell gear from your bag</div>'+(GB.length?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+GB.map((it,i)=>{const pr=it.r>=5?0:WM.sell[it.r];return '<button style="text-align:left"'+(pr?'':' disabled')+tipAttr(itemTip(it))+' onclick="'+(FM.sell===i?'FM.sell=null;sfx(\'click\');send(\'town|sell|'+i+'\')':'FM.sell='+i+';sfx(\'click\');draw()')+'"><span class="r'+it.r+'">'+(it.r==5?'★ ':'')+esc(it.n)+'</span><br><small>'+(pr?(FM.sell===i?'<b style="color:#ffe9a8">Click again to sell for '+pr+CUR[1]+'</b>':'Sell for '+pr+CUR[1]):'Relics can\'t be sold')+'</small></button>'}).join('')+'</div>':'<small>Your bag is empty. (Gear you\'re wearing has to be taken off first.)</small>')}
+// ---------- XP bar after a victory ----------
+let XA=null,banLen=5000,preP=null;
+function needOf(lv){return lv>=50?0:lv*50}
+function xpStart(a,b){let g=0;if(a.lv==b.lv)g=b.xp-a.xp;else{g=needOf(a.lv)-a.xp;for(let l=a.lv+1;l<b.lv;l++)g+=needOf(l);g+=b.xp}
+ if(g<=0&&a.lv==b.lv)return;const ups=b.lv-a.lv,d=1600+ups*900;XA={a,b,g,t0:Date.now()+700,d,lv:a.lv,ding:0,tk:0};
+ banLen=Math.max(banLen,Date.now()-banner+700+d+2200);requestAnimationFrame(xpTick)}
+function xpState(){const k=Math.min(1,Math.max(0,(Date.now()-XA.t0)/XA.d)),e=1-Math.pow(1-k,2);let left=Math.round(XA.g*e),lv=XA.a.lv,xp=XA.a.xp;
+ while(left>0){const n=needOf(lv);if(!n)break;if(xp+left>=n){left-=n-xp;lv++;xp=0}else{xp+=left;left=0}}
+ if(k>=1){lv=XA.b.lv;xp=XA.b.xp}return{k,lv,xp,n:needOf(lv),got:Math.round(XA.g*e)}}
+function xpPanel(){const s=xpState(),j=job(XA.b.c)||{ic:''};
+ return '<div id="xpw" style="font:16px Trebuchet MS,sans-serif;letter-spacing:0;-webkit-text-stroke:0;color:#fff;margin-top:14px;width:520px;background:#0009;border:2px solid #ffe9a8;border-radius:10px;padding:12px 16px;text-align:left">'
+ +'<div style="display:flex;justify-content:space-between;align-items:baseline"><b style="font-size:19px">'+j.ic+' '+esc(XA.b.t)+' <span id="xpl">Lv '+s.lv+'</span></b><b id="xpg" style="color:#ffe9a8;font-size:20px">+'+s.got+' XP</b></div>'
+ +'<div style="height:16px;background:#000a;border:1px solid #000;border-radius:8px;overflow:hidden;margin:8px 0 4px"><i id="xpb" style="display:block;height:100%;width:'+(s.n?s.xp/s.n*100:100)+'%;background:linear-gradient(#fe8,#c90);box-shadow:0 0 8px #fe8"></i></div>'
+ +'<div style="display:flex;justify-content:space-between"><small id="xpt" style="margin:0;font-size:13px">'+(s.n?s.xp+' / '+s.n+' XP':'MAX LEVEL')+'</small><b id="xpu" style="color:#7dff8a;font-size:18px;'+(s.lv>XA.a.lv?'':'visibility:hidden')+'">⬆ LEVEL UP!</b></div></div>'}
+function xpTick(){if(!XA||!$('#xpw')){if(XA&&Date.now()-XA.t0<XA.d+500)requestAnimationFrame(xpTick);return}const s=xpState();
+ $('#xpb').style.width=(s.n?s.xp/s.n*100:100)+'%';$('#xpg').textContent='+'+s.got+' XP';$('#xpl').textContent='Lv '+s.lv;$('#xpt').textContent=s.n?s.xp+' / '+s.n+' XP':'MAX LEVEL';
+ if(s.lv>XA.lv){XA.lv=s.lv;sfx('lvl');const u=$('#xpu');u.style.visibility='visible';u.animate([{transform:'scale(1.8)'},{transform:'scale(1)'}],{duration:400})}
+ else if(s.k>0&&s.k<1&&Date.now()-XA.tk>70){XA.tk=Date.now();sfx('tick')}
+ if(s.k<1)requestAnimationFrame(xpTick)}
+// ---------- drawing ----------
+function draw(){
+ if(!tipPin)$('#tip').style.display='none';
+ if(L&&L.busy&&!wasBusy&&mini)setMini(0);if(L)wasBusy=L.busy;   // a battle starts: pop back open
+ document.body.classList.toggle('mini',!!mini);
+ if(mini&&L){A.innerHTML=miniView();$('#ov').style.display='none';return}
+ if(!L){A.innerHTML='<div class="w" style="left:262px;top:170px;width:500px;text-align:center;padding:24px"><div class="h">⚔ Battle HUD ⚔</div><div style="font-size:18px">Looking for a Battle Crystal…</div><small>You need to be in the same region as the crystal.</small></div>';return}
+ const keep={};A.querySelectorAll('.scroll[id]').forEach(e=>keep[e.id]=e.scrollTop);
+ drawInner();
+ A.querySelectorAll('.scroll[id]').forEach(e=>{if(keep[e.id])e.scrollTop=keep[e.id]});pops()}
+function drawInner(){
+ const bn=banner&&Date.now()-banner<banLen;
+ if(B&&(L.busy||bn))battle(bn);else{document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?'map':'lobby');lobby()}}
+function skillList(j,lv){return '<div class="sk">'+j.sk.map(s=>{const tp=tipAttr('<b>'+esc(s[0])+'</b> <small>(job Lv '+s[1]+')</small><br>'+desc(s[2],s[3],s[4],s[5],s[6]),1);return +s[1]<=lv?'<div'+tp+'>✦ '+esc(s[0])+'</div>':'<div class="lk"'+tp+'>🔒 '+esc(s[0])+' <small>Lv '+s[1]+'</small></div>'}).join('')+'</div>'}
+function readyBox(){const iR=L.rdy.includes(me),what=L.chk==2?'💀 BOSS FIGHT':'⚔ BATTLE';
+ let s='<div style="grid-column:1/3;background:#0006;border:2px solid #ffd75a;border-radius:8px;padding:8px;text-align:center"><b style="color:#ffd75a">READY CHECK · '+what+'</b><div>'+L.rdy.length+' / '+L.m.length+' ready</div></div>';
+ if(!iR)s+='<button class="gold" style="font-size:18px;padding:11px" onclick="send(\'Ready\')">✔ Ready</button><button class="red" style="font-size:18px;padding:11px" onclick="send(\'Not Ready\')">✖ Not ready</button>';
+ else if(L.force&&L.by==me)s+='<button class="gold" style="grid-column:1/3;font-size:16px;padding:10px" onclick="send(\''+(L.chk==2?'Boss Fight':'Begin Battle')+'\')">▶ Start with the ready players</button>';
+ else s+='<div style="grid-column:1/3;text-align:center" class="sm">Waiting for the others…</div>';
+ return s}
+function heroHead(){const j=job(P.c)||{ic:'❔',sk:[],adv:''};return '<div style="display:flex;gap:14px;align-items:center"><div style="font-size:66px">'+j.ic+'</div><div style="flex:1"><div style="font-size:24px;font-weight:bold">'+esc(P.t)+(j.role?'<span class="role">'+esc(j.role)+'</span>':'')+'</div><div style="margin-bottom:4px">Job Lv '+P.lv+' <small>· Hero Lv '+P.hero+'</small>'+(P.lv<30?' <small>· becomes '+esc(j.adv)+' at 30</small>':' <small>· advanced job</small>')+'</div><div class="bar xp"><i style="width:'+(P.need?Math.min(100,P.xp/P.need*100):100)+'%"></i></div><small>'+(P.need?P.xp+' / '+P.need+' XP to next level':'MAX LEVEL')+'</small><div class="bar '+(P.hp>50?'hp':P.hp>20?'hp lo':'hp cr')+'"'+tipAttr('HP and MP carry over between battles. Rest at an inn on the World Map to recover.',1)+'><i style="width:'+P.hp+'%"></i></div><small>HP '+(P.hp?P.hp+'%':'<b style="color:#ff6a6a">knocked out</b>')+'</small><div class="bar mp"><i style="width:'+P.mp+'%"></i></div><small>MP '+P.mp+'% · rest at an inn to recover</small><div style="margin-top:3px;font-size:12px">'+itemLine()+'</div></div></div>'}
+function lobby(){
+ const mine=L.m.some(x=>x.k==me),has=P&&P.c;
+ if(!CAT.length){A.innerHTML='<div class="w" style="left:262px;top:170px;width:500px;text-align:center;padding:24px">Loading…</div>';return}
+ if(gearOpen&&has)return gearScreen();
+ if(picking){A.innerHTML='<div id="top"><b>⚔ CHOOSE YOUR JOB</b><span class="sm">Each job levels on its own, learns 13 skills and transforms at level 30</span>'+'<button style="margin-right:90px" onclick="picking=0;back()">◀ Back</button>'+'</div><div class="w jobs">'+CAT.map(c=>'<div onclick="pick(\''+esc(c.n)+'\')"><div class="ji">'+c.ic+'</div><div style="flex:1">'+(P&&P.jl[c.n]?'<span class="jl">Lv '+P.jl[c.n]+'</span>':'')+'<b>'+esc(c.n)+'</b><div style="margin:1px 0">'+(c.role?'<span class="role" style="margin:0 4px 0 0">'+esc(c.role)+'</span>':'')+'<small>→ '+esc(c.adv)+'</small></div><div style="font-size:12.5px;margin:2px 0">'+esc(c.d)+'</div><small>HP '+c.st[0]+' · MP '+c.st[1]+' · ATK '+c.st[2]+' · MAG '+c.st[4]+' · SPD '+c.st[5]+'</small></div></div>').join('')+'</div>';return}
+ if(mine&&has&&Wd)return mapScreen();
+ titleScreen()}
+// ---------- title screen: Continue / New Game ----------
+let ngAsk=0;
+function titleScreen(){const has=P&&P.c,full=L.m.length>=L.max,big='style="font-size:22px;padding:13px;width:300px"';
+ let hero='';
+ if(has)hero='<div class="w" style="position:static;width:560px;margin:0 auto 14px;text-align:left">'+heroHead()+'</div>';
+ let btns='';
+ if(ngAsk)btns='<div style="font-size:17px;margin-bottom:10px;max-width:600px">Start over? This erases '+esc(P.t)+' — all job levels, gear, items and '+CUR[0]+'. It can\'t be undone!</div><button class="red" '+big+' onclick="ngAsk=0;picking=1;send(\'New Game\')">✖ Yes, start over</button> <button '+big+' onclick="ngAsk=0;draw()">◀ Keep my hero</button>';
+ else btns=(has?'<button class="gold" '+big+(full||L.busy?' disabled':'')+' onclick="send(\'Join\')">▶ Continue</button><br>':'')
+  +'<button style="margin-top:10px;font-size:20px;padding:11px;width:300px" onclick="'+(has?'ngAsk=1;sfx(\'click\');draw()':'picking=1;sfx(\'click\');draw()')+'">✦ New Game</button>'
+  +(L.busy?'<div class="sm" style="margin-top:10px">The party is in a battle right now. You can join after it ends.</div>':full?'<div class="sm" style="margin-top:10px">The party is full ('+L.m.length+'/'+L.max+'). Wait for a spot!</div>':'');
+ A.innerHTML='<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">'
+ +'<div style="font:bold 60px Impact,sans-serif;letter-spacing:6px;color:#ffd75a;-webkit-text-stroke:2px #000;text-shadow:0 0 24px #ffd75a66">⚔ BATTLE CRYSTAL ⚔</div>'
+ +'<div class="sm" style="margin:0 0 12px;font-size:14px">'+(L.m.length?'Adventuring now: '+L.m.map(x=>esc(x.n)).join(', '):'No one is adventuring yet')+'</div>'+hero+btns+'</div>'}
+function battle(bn){
+ const c=B.c,a=c[B.a]||{},inB=c.some(x=>x.k==me),my=!B.res&&B.mo==1&&a.k==me,tg=ui.m=='t'&&my?ui.k:-1;
+ document.body.className=B.boss?'boss':'';
+ if(!B.res)music(B.boss?'boss':'battle');
+ const ok=(x,k)=>k==0?x.t==1&&x.hp>0:k==1?x.t==0&&x.hp>0:x.t==0&&x.hp<=0;
+ const cl=(x,i)=>(x.hp<=0?' dead':'')+(i==B.a&&!B.res?' act':'')+(tg>=0&&!sent&&ok(x,tg)?' pick':'');
+ const ck=(x,i)=>tg>=0&&!sent&&ok(x,tg)?' onclick="go('+i+')"':'';
+ const fl=x=>(x.f.match(/[A-Z]\d*/g)||[]).map(m=>{const f=m[0],n=m.slice(1);return FL[f]?'<span class="fl"'+tipAttr('<b>'+FL[f][1]+'</b>'+(n?' · '+n+' more turn'+(n>1?'s':''):'')+'<br>'+STAT[f],1)+'>'+FL[f][0]+(n?'<sub class="fn">'+n+'</sub>':'')+'</span>':''}).join('');
+ const pc=x=>Math.max(0,x.hp/x.mhp*100);
+ let st=B.res?'':B.mo==1?(a.k==me?'<b style="color:#ffd75a">YOUR TURN</b>':esc(a.n)+'’s turn'):B.mo>=2?esc(a.n)+' is acting…':'';
+ let h='<div id="top"><b>'+(B.boss?'💀 BOSS · ':'')+'ROUND '+B.r+'</b><span style="margin-right:90px">'+(B.boss&&inB&&!B.res?'<button style="padding:2px 8px;font-size:13px;margin-right:10px"'+tipAttr('<b>Vote to retreat</b><br>If a majority of the party votes, everyone leaves the boss fight (no XP).')+' onclick="voteRetreat()">🏳 Retreat '+B.votes+'/'+B.need+'</button>':'')+st+(inB?'':' <small>· spectating</small>')+'</span></div>';
+ h+='<div class="w" id="field">'+c.map((x,i)=>x.t!=1?'':'<div class="card'+(x.c=='BOSS'?' big':'')+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+'><div class="ic">'+(x.ic||'👾')+'</div><b>'+esc(x.n)+'</b><div class="bar"><i style="width:'+pc(x)+'%"></i></div><div>'+fl(x)+(x.c=='BOSS'?'<small>'+Math.ceil(pc(x))+'%</small>':'')+'</div></div>').join('')+'</div>';
+ h+='<div class="w" id="party"><div class="h">Party</div>'+c.map((x,i)=>x.t!=0?'':'<div class="row'+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+'><div class="ic">'+(x.ic||'')+'</div><div class="nm"><b>'+esc(x.n)+'</b> <small>'+esc(x.c)+'</small><br>'+fl(x)+'</div><div class="st"><div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div>HP '+x.hp+'/'+x.mhp+'<div class="bar mp"><i style="width:'+(x.mmp?x.mp/x.mmp*100:0)+'%"></i></div>MP '+x.mp+'/'+x.mmp+'</div></div>').join('')+'</div>';
+ h+='<div class="w" id="cmd">'+cmd(my,a)+'</div><div class="w" id="log">'+G.map(g=>'<div>'+esc(g)+'</div>').join('')+'</div>';
+ A.innerHTML=h;
+ const o=$('#ov');if(bn){o.style.display='flex';o.innerHTML=['','VICTORY!','DEFEAT…','ESCAPED!'][B.res]+(B.res==1&&XA?xpPanel():'<small>'+(B.res==1?'Counting up your XP…':B.res==2?'The party will recover in the lobby.':'Live to fight another day.')+'</small>');o.style.color=['','#ffd75a','#ff6a6a','#8df'][B.res]}else o.style.display='none'}
+function tbar(){return B.mo==1?'<div class="tm" id="tm" style="width:'+Math.max(0,1-(Date.now()-tat)/TURN)*100+'%"></div>':''}
+function cmd(my,a){
+ if(B.res)return '<div class="h">Battle over</div><div style="font-size:18px">Returning to the lobby…</div>';
+ if(!my)return '<div class="h">Waiting</div><div style="font-size:19px;margin-top:10px">'+(B.mo==1?esc(a.n)+' is choosing a command…':B.mo>=2?esc(a.n)+' prepares to strike!':'…')+'</div>'+tbar();
+ if(sent)return '<div class="h">Command sent</div><div style="font-size:18px;margin-top:10px">…</div>';
+ if(ui.m=='t')return '<div class="h">'+esc(ui.l)+' — choose a target</div><div style="font-size:18px;margin:12px 0 14px">Click a glowing '+(ui.k==0?'enemy':ui.k==2?'fallen ally':'ally')+' above.</div><button onclick="back()">◀ Back</button>'+tbar();
+ if(ui.m=='s')return '<div class="h">Skills · MP '+a.mp+' / '+a.mmp+' · hover a skill for details</div><div class="btns s4">'+K.map((s,i)=>'<button'+(a.mp<s.cost?' disabled':'')+tipAttr('<b>'+esc(s.n)+'</b><br>'+desc(s.e,s.pw,s.tg,s.cost,s.r))+' onclick="sk('+i+')">'+esc(s.n)+' <small>'+s.cost+'</small></button>').join('')+'<button onclick="back()">◀ Back</button></div>'+tbar();
+ if(ui.m=='i'){const own=IT.map((t,i)=>i).filter(i=>a.it[i]>0);return '<div class="h">Items · hover one for details</div><div class="btns s4">'+(own.length?own.map(i=>'<button'+tipAttr('<b>'+IT[i][4]+' '+esc(IT[i][0])+'</b> ×'+a.it[i]+'<br>'+esc(IT[i][6]))+' onclick="itm('+i+')">'+IT[i][4]+' '+esc(IT[i][0])+' <small>×'+a.it[i]+'</small></button>').join(''):'<div style="grid-column:1/4;padding:8px" class="sm">Your bag is empty! Win battles to find items.</div>')+'<button onclick="back()">◀ Back</button></div>'+tbar()}
+ return '<div class="h">'+esc(a.n)+' — what will you do?</div><div class="btns"><button class="gold" onclick="atk()">⚔ Attack</button><button onclick="mode(\'s\')">✦ Skills</button><button onclick="mode(\'i\')">🧪 Items</button><button'+tipAttr('<b>Defend</b><br>Halve damage until your next turn and restore 10% of your max MP.')+' onclick="send(\'act|defend\')">🛡 Defend</button><button onclick="send(\'act|flee\')"'+(B.boss?' disabled':'')+'>🏃 Flee</button></div>'+tbar()}
+function pops(){if(!prev||!B)return;const pv=prev;prev=null;let hurt=0,healed=0,ko=0;B.c.forEach((x,i)=>{const d=x.hp-pv[i].hp;if(!d)return;if(d<0)hurt++;else healed++;if(x.hp<=0&&pv[i].hp>0)ko++;const e=document.getElementById('c'+i);if(!e)return;const s=document.createElement('div');s.className='pop '+(d<0?'dmg':'heal');s.textContent=(d>0?'+':'')+d;e.appendChild(s);if(d<0)e.classList.add('hit')});if(ko)setTimeout(()=>sfx('ko'),180)}
+setInterval(()=>{if(banner&&Date.now()-banner>banLen){banner=0;banLen=5000;XA=null;draw()}const t=$('#tm');if(t)t.style.width=Math.max(0,1-(Date.now()-tat)/TURN)*100+'%'},1000);
+// ---------- audio: everything is synthesized, no files ----------
+let AC=null,MG=null,SG=null,muted=false,cur=null,step=0,nextT=0,seq=null;
+let VOL={m:.8,s:.8};try{muted=localStorage.getItem('bhm')=='1';VOL=Object.assign(VOL,JSON.parse(localStorage.getItem('bhv')||'{}'))}catch(e){}
+function tv(u){const m=/#v=([\d.]+)/.exec(u||'');return m?+m[1]:1}
+function applyVol(){if(AC&&MG){MG.gain.value=muted?0:.2*VOL.m;SG.gain.value=muted?0:.45*VOL.s}if(AU){AU.muted=muted;AU.volume=Math.min(1,.55*VOL.m*tv(AU.src))}try{localStorage.setItem('bhv',JSON.stringify(VOL));localStorage.setItem('bhm',muted?'1':'0')}catch(e){}$('#snd').textContent=muted?'🔇':'🔊'}
+function volBox(){sfx('click');const b=$('#vol');if(b.style.display=='block'){b.style.display='none';return}b.innerHTML='<b>🔊 Sound</b><label>Music <input type=range min=0 max=100 value='+Math.round(VOL.m*100)+' oninput="VOL.m=this.value/100;applyVol()"></label><label>Effects <input type=range min=0 max=100 value='+Math.round(VOL.s*100)+' oninput="VOL.s=this.value/100;applyVol()" onchange="sfx(\'click\')"></label><button onclick="muted=!muted;applyVol();volBox();volBox()">'+(muted?'🔈 Unmute':'🔇 Mute all')+'</button>';b.style.display='block'}
+$('#snd').textContent=muted?'🔇':'🔊';if(AU)AU.muted=muted;
+function ac(){if(!AC){try{AC=new(window.AudioContext||window.webkitAudioContext)();MG=AC.createGain();SG=AC.createGain();MG.connect(AC.destination);SG.connect(AC.destination);applyVol()}catch(e){}}if(AC&&AC.state=='suspended')AC.resume();return AC}
+function toggleSnd(){muted=!muted;if(AU)AU.muted=muted;try{localStorage.setItem('bhm',muted?'1':'0')}catch(e){}$('#snd').textContent=muted?'🔇':'🔊';if(ac()){MG.gain.value=muted?0:.16;SG.gain.value=muted?0:.35}}
+document.addEventListener('pointerdown',()=>{ac();if(AU&&AU.paused)AU.play().catch(()=>{});else if(cur&&!seq)startSeq()},{capture:true});
+const hz=m=>440*Math.pow(2,(m-69)/12);
+function tone(t,m,d,type,vol,dest,slide){const o=AC.createOscillator(),g=AC.createGain();o.type=type;o.frequency.setValueAtTime(hz(m),t);if(slide)o.frequency.exponentialRampToValueAtTime(hz(m+slide),t+d);g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);o.connect(g);g.connect(dest);o.start(t);o.stop(t+d+.02)}
+let NB=null;function noise(t,d,vol,dest,hp){if(!NB){NB=AC.createBuffer(1,AC.sampleRate*.5,AC.sampleRate);const a=NB.getChannelData(0);for(let i=0;i<a.length;i++)a[i]=Math.random()*2-1}const s=AC.createBufferSource(),f=AC.createBiquadFilter(),g=AC.createGain();s.buffer=NB;f.type='highpass';f.frequency.value=hp||1000;g.gain.setValueAtTime(vol,t);g.gain.exponentialRampToValueAtTime(.001,t+d);s.connect(f);f.connect(g);g.connect(dest);s.start(t);s.stop(t+d+.02)}
+// songs: 16 steps per bar; chords as [bass, triad...]
+const SONGS={
+ lobby:{bpm:92,lead:'triangle',ch:[[48,60,64,67],[45,57,60,64],[41,57,60,65],[43,55,59,62]],arp:[0,1,2,3,2,1,2,3],mel:[72,0,0,74,76,0,79,0,77,0,76,0,74,0,0,0,69,0,72,0,76,0,74,0,72,0,71,0,67,0,0,0,65,0,69,0,72,0,77,0,76,0,74,0,72,0,0,0,67,0,71,0,74,0,79,0,77,0,74,0,71,0,0,0],dr:0},
+ battle:{bpm:148,lead:'square',ch:[[45,57,60,64],[41,57,60,65],[43,55,59,62],[40,56,59,64]],arp:[0,1,2,1,3,1,2,1],mel:[69,0,72,0,76,0,74,72,71,0,72,0,69,0,0,0,65,0,69,0,72,0,77,76,74,0,72,0,74,0,0,0,67,0,71,0,74,0,79,77,76,0,74,0,71,0,0,0,68,0,71,0,76,0,80,0,81,0,0,0,80,0,76,0],dr:1},
+ boss:{bpm:166,lead:'sawtooth',ch:[[38,62,65,69],[34,58,62,65],[36,60,64,67],[33,57,61,64]],arp:[0,1,2,3,0,1,2,3],mel:[74,0,74,77,0,74,0,72,74,0,0,69,0,70,0,72,70,0,70,74,0,70,0,69,70,0,0,65,0,67,0,69,72,0,72,76,0,72,0,71,72,0,0,67,0,69,0,71,73,0,76,0,79,0,76,0,73,0,69,0,76,0,73,0],dr:2}};
+function music(name){if(name==cur)return;cur=name;seq=null;if(AU){AU.pause();AU=null}if(!name)return;
+ const urls=(MU[name]||'').split(' ').filter(x=>x&&!auFail[x]);
+ if(urls.length){const u=urls[Math.floor(Math.random()*urls.length)],a=new Audio(u);a.loop=true;AU=a;applyVol();
+  a.addEventListener('error',()=>{auFail[u]=1;if(AU===a){AU=null;const n=cur;cur=null;music(n)}});
+  const p=a.play();if(p&&p.catch)p.catch(()=>{});return}
+ if(AC)startSeq()}
+function musicSet(p){const n={lobby:p[1]||'',map:p[2]||'',battle:p[3]||'',boss:p[4]||''};if(JSON.stringify(n)==JSON.stringify(MU))return;MU=n;auFail={};const c=cur;cur=null;music(c)}
+function startSeq(){if(!AC||!cur||AU)return;const my={};seq=my;step=0;nextT=AC.currentTime+.08;const loop=()=>{if(seq!==my)return;const S=SONGS[cur]||SONGS.lobby;const sp=60/S.bpm/4;while(nextT<AC.currentTime+.25){play(S,step,nextT,sp);step=(step+1)%64;nextT+=sp}setTimeout(loop,60)};loop()}
+function play(S,s,t,sp){const bar=Math.floor(s/16)%4,c=S.ch[bar],b=s%16;
+ if(S.mel[s])tone(t,S.mel[s],sp*1.8,S.lead,.22,MG);
+ if(s%2==0)tone(t,c[1+S.arp[(s/2)%8]%3]+12,sp*.9,'square',.06,MG);
+ if(S.dr==0){if(b%8==0)tone(t,c[0],sp*7,'triangle',.4,MG)}
+ else{if(b%4==0||(S.dr==2&&b%2==0))tone(t,c[0]+(b%8==4?12:0),sp*1.6,'triangle',.5,MG);
+  if(b%8==0||(S.dr==2&&b==10))tone(t,40,.12,'sine',.9,MG,-20);
+  if(b%8==4)noise(t,.12,.5,MG,1500);
+  if(b%2==0)noise(t,.03,.18,MG,7000)}}
+let remind='';setInterval(()=>{if(!B||B.res||B.mo!=1||sent)return;const a=B.c[B.a];if(a&&a.k==me&&Date.now()-tat>25000&&remind!=tkey){remind=tkey;sfx('turn')}},1000);
+function sfx(n){if(!ac()||muted)return;const t=AC.currentTime;const D=SG;
+ if(n=='click')tone(t,84,.05,'square',.15,D);
+ else if(n=='turn'){[76,81,88,93].forEach((m,i)=>tone(t+i*.08,m,i==3?.35:.1,'square',.45,D));tone(t,64,.4,'triangle',.4,D)}
+ else if(n=='slash'){noise(t,.16,.7,D,2500);tone(t,60,.12,'sawtooth',.25,D,-14)}
+ else if(n=='hit'){noise(t,.1,.6,D,800);tone(t,45,.12,'square',.3,D,-10)}
+ else if(n=='magic'){for(let i=0;i<6;i++)tone(t+i*.04,76+i*3,.14,'sine',.2,D);noise(t+.2,.25,.25,D,4000)}
+ else if(n=='heal'){[72,76,79,84].forEach((m,i)=>tone(t+i*.07,m,.3,'triangle',.3,D))}
+ else if(n=='buff'){tone(t,67,.25,'square',.18,D,12);tone(t+.1,74,.25,'square',.15,D,12)}
+ else if(n=='dice'){for(let i=0;i<5;i++)noise(t+i*.05,.03,.5,D,3000);tone(t+.3,88,.15,'square',.2,D)}
+ else if(n=='item'){tone(t,81,.08,'square',.2,D);tone(t+.08,88,.12,'square',.2,D)}
+ else if(n=='guard'){tone(t,52,.18,'square',.3,D);noise(t,.08,.4,D,3000)}
+ else if(n=='ko'){tone(t,60,.5,'sawtooth',.3,D,-24)}
+ else if(n=='boss'){tone(t,38,1.2,'sawtooth',.4,D,-5);tone(t,45,1.2,'sawtooth',.3,D,-5);noise(t,1,.3,D,200)}
+ else if(n=='tick'){tone(t,84+Math.floor(Math.random()*3),.04,'square',.08,D)}
+ else if(n=='lvl'){[72,76,79,84,88,91,96].forEach((m,i)=>tone(t+i*.07,m,i==6?.7:.12,'square',.28,D));tone(t+.49,60,.7,'triangle',.35,D)}
+ else if(n=='win'){[67,72,76,79,0,76,79,84].forEach((m,i)=>m&&tone(t+i*.12,m,i==7?.9:.2,'square',.25,D))}
+ else if(n=='lose'){[67,63,60,55].forEach((m,i)=>tone(t+i*.28,m,.5,'triangle',.35,D))}
+ else if(n=='ready'){[[67,0],[72,.14],[79,.28]].forEach(([m,d])=>tone(t+d,m,.22,'square',.22,D));[84,88].forEach((m,i)=>tone(t+.48+i*.05,m,.6,'triangle',.25,D))}
+ else if(n=='flee'){for(let i=0;i<6;i++)tone(t+i*.05,84-i*4,.06,'square',.15,D)}}
+const FX={P:'slash',X:'slash',M:'magic',H:'heal',R:'heal',MP:'heal',G:'dice',N:'buff',I:'item',D:'guard'};
+function fxs(e){if(FX[e])sfx(FX[e])}
+// ---------- talk to the HUD script ----------
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+function cline(t){const p=t.split('|');return p[0]=='C'?{n:p[2],adv:p[3],ic:p[4],d:p[5],st:p[6].split(' '),sk:p[7].split(';').map(x=>x.split('~')),role:p[8]||''}:null}
+// the job catalog comes one job at a time (keeps the HUD script's memory small)
+async function loadCat(stamp){catLoading=1;try{const n=CN,out=[];for(let i=0;i<n;i++){const r=await fetch('c?i='+i+'&t='+Date.now(),{cache:'no-store'});const c=cline(await r.text());if(c)out[i]=c}
+ if(out.filter(x=>x).length){CAT=out;catStamp=stamp;draw()}}catch(e){}catLoading=0}
+async function poll(){try{const r=await fetch('s?v='+v+'&c='+(CN&&CAT.filter(x=>x).length>=CN?1:0)+'&t='+Date.now(),{cache:'no-store'});if(r.ok)parse(await r.text());else await wait(2000)}catch(e){await wait(2000)}poll()}
+draw();poll();
+</script></body></html>
