@@ -97,6 +97,7 @@ const FLC={G:'#9fd0ff',P:'#a6ff6a',S:'#ffe066',A:'#ff9a6a',D:'#6cc4ff',W:'#c9a0f
 const FL={};[['G','Guard'],['P','Poison'],['S','Stunned'],['A','ATK up'],['D','DEF up'],['W','Weakened'],['T','Taunting'],['R','Regen'],['E','Enraged']].forEach(([k,n])=>FL[k]=[ico(ICN.status[k],FLC[k]),n]);
 IT.forEach((d,i)=>d[4]=ico(ICN.item[i],['#ff8a8a','#ffb36b','#7dff8a','#ffcf6a','#6cc4ff','#9fb6ff','#c9a0ff','#ffd2e8','#ff6a8a','#cfd6ff'][i]||'#fff'));
 const TURN=45000;
+let sid=0;
 const MUDEF={"lobby": "https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1", "map": "https://moist-cornbread.github.io/Battle-Crystal/music/map-orchestral-adventure.ogg", "town": "https://moist-cornbread.github.io/Battle-Crystal/music/town-stage1.ogg https://moist-cornbread.github.io/Battle-Crystal/music/town-stage2.ogg", "battle": "https://moist-cornbread.github.io/Battle-Crystal/music/battle-bossfight.ogg https://moist-cornbread.github.io/Battle-Crystal/music/battle-stageselect.ogg", "boss": "https://opengameart.org/sites/default/files/hard_boss_battle_2_bpm210.mp3#v=0.65", "bigboss": "https://moist-cornbread.github.io/Battle-Crystal/music/bigboss-determined-pursuit.ogg", "dungeon": "https://moist-cornbread.github.io/Battle-Crystal/music/dungeon-grasslands.ogg"};
 let FM=null,FS={},catStamp=null,catLoading=0,mini=0,wasBusy=false,MU=null,AU=null,auFail={},GW=['','','','',''],GB=[],gearOpen=0,gsel=null,dropAsk=0,gearSeen=-1,gearCount=0,lastChk=0,info=false,CN=0,v=-1,me='',L=null,P=null,B=null,K=[],G=[],CAT=[],prev=null,ui={m:'main'},banner=0,picking=0,sent=0,tkey='',tat=0,lastFx='',lastRes=0;
 function send(c){sfx('click');sent=1;fetch('a',{method:'POST',body:c}).catch(()=>{});draw();setTimeout(()=>{if(sent){sent=0;draw()}},5000)}
@@ -109,17 +110,18 @@ function itm(i){const d=IT[i];if(d[3]==3)return send('act|item|'+i+'|-1');sfx('c
 function go(i){const c=ui.c;ui={m:'main'};send(c+i)}
 function pick(n){picking=0;send(n)}
 // ---------- data ----------
-function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';CN=+h[2]||0;mini=h[3]=='1'?1:0;if(CN&&h[4]!==catStamp&&!catLoading)loadCat(h[4]);G=[];let cat=[],gq=[];
+function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';CN=+h[2]||0;mini=h[3]=='1'?1:0;if(CN&&h[4]!==catStamp&&!catLoading)loadCat(h[4]);if(h[5])sid=h[5];const ng=[];let cat=[],gq=[];
  for(const l of ln.slice(1)){const p=l.split('|');
   if(p[0]=='L'){L={busy:p[1]=='1',max:+p[2],m:p[3]?p[3].split(';').map(x=>{const f=x.split('~');return{k:f[0],n:f[1],lv:f[2],c:f[3],t:f[4],hp:f[5]==null||f[5]===''?100:+f[5],mp:f[6]==null||f[6]===''?100:+f[6]}}):[],chk:+p[4]||0,rdy:(p[5]||'').split(',').filter(x=>x),by:p[6]||'',force:p[7]=='1'};if(L.chk&&!lastChk&&L.m.some(x=>x.k==me)&&L.by!=me)sfx('ready');lastChk=L.chk}
   else if(p[0]=='P'){P={c:p[1],lv:+p[2],xp:+p[3],need:+p[4],t:p[5],hero:+p[6]||1,mp:p[8]==null||p[8]===''?100:+p[8],hp:p[9]==null||p[9]===''?100:+p[9],its:(p[10]||'').split('.').map(Number),coins:+p[11]||0,bx:Object.fromEntries((p[12]||'').split(',').filter(x=>x).map(x=>{const f=x.split(':');return[f[0],+f[1]]})),jl:{}};(p[7]||'').split(',').forEach(x=>{const f=x.split(':');if(f[0])P.jl[f[0]]=+f[1]})}
   else if(p[0]=='B')nb(p);
   else if(p[0]=='K')K=p[1]?p[1].split(';').map(x=>{const f=x.split('~');return{o:+f[0],n:f[1],cost:+f[2],tg:+f[3],e:f[4],pw:f[5],r:f[6]}}):[];
-  else if(p[0]=='G')G.push(p.slice(1).join('|'));
+  else if(p[0]=='G')ng.push(p.slice(1).join('|'));
   else if(p[0]=='Q')gq[+p[1]]=p.slice(2).join('|');
   else if(p[0]=='M')mparse(p);
   else if(p[0]=='U')musicSet(p);
   else if(p[0]=='F'){FS={};(p[1]||'').split(';').forEach(x=>{const f=x.split('~');if(f[0])FS[f[0]]={n:f[1],hp:+f[2],mhp:+f[3],mp:+f[4],mmp:+f[5]}})}}
+ if(!ln.includes('G0|'))G=ng;   // newer HUDs send only what changed; 'G0|' = log unchanged
  if(gq.length)gearParse(gq);
  if(B&&!B.res&&P)preP=P;else if(B&&B.res==1&&banner&&preP&&P&&preP.c==P.c&&(P.lv!=preP.lv||P.xp!=preP.xp)){xpStart(preP,P);preP=null}
  draw()}
@@ -474,6 +476,6 @@ function cline(t){const p=t.split('|');return p[0]=='C'?{n:p[2],adv:p[3],ic:p[4]
 // the job catalog comes one job at a time (keeps the HUD script's memory small)
 async function loadCat(stamp){catLoading=1;try{const n=CN,out=[];for(let i=0;i<n;i++){const r=await fetch('c?i='+i+'&t='+Date.now(),{cache:'no-store'});const c=cline(await r.text());if(c)out[i]=c}
  if(out.filter(x=>x).length){CAT=out;catStamp=stamp;draw()}}catch(e){}catLoading=0}
-async function poll(){try{const r=await fetch('s?v='+v+'&c='+(CN&&CAT.filter(x=>x).length>=CN?1:0)+'&t='+Date.now(),{cache:'no-store'});if(r.ok)parse(await r.text());else await wait(2000)}catch(e){await wait(2000)}poll()}
+async function poll(){try{const r=await fetch('s?v='+v+'&sid='+sid+'&c='+(CN&&CAT.filter(x=>x).length>=CN?1:0)+'&t='+Date.now(),{cache:'no-store'});if(r.ok)parse(await r.text());else await wait(2000)}catch(e){await wait(2000)}poll()}
 draw();poll();
 </script></body></html>
