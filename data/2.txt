@@ -33,7 +33,7 @@ c_11	Ranger~Sharpshooter~🏹~Never misses. Rarely, anyway.~95~20~16~10~8~15~15~
 gt_w11	1~Longbow,Crossbow,Recurve Bow,Sling
 c_n	12
 s_160	Dark Gravy~M~1.1~0~5~psn:2
-m_0	Sith Potato~🥔~1~45~10~10~6~8~7~11~0:3,160:1
+m_0	Darth Mole~🐀~1~45~10~10~6~8~7~11~0:3,160:1
 s_161	Salt Spray~P~0.6~1~0~
 m_1	Lord of the Fries~🍟~1~40~0~11~5~0~10~10~0:2,161:1
 s_162	Skewer Mind Trick~M~0.4~0~6~stn:25
@@ -46,7 +46,7 @@ s_165	Tiny Yodel~M~1.1~0~5~
 s_166	Nap Time~H~1.5~4~6~
 m_5	Baby Yodel~🎶~1~42~15~7~6~12~9~12~0:1,165:2,166:1
 s_167	You Shall Not Pass Gas~M~0.7~1~8~psn:2
-m_6	Gandalf the Grey Goose~🪿~2~65~20~13~8~14~11~17~0:2,167:1
+m_6	Gandalf the Grey Owl~🦉~2~65~20~13~8~14~11~17~0:2,167:1
 s_168	Slobber Slam~P~1.5~0~0~
 m_7	Jabba the Mutt~🐶~2~85~0~14~10~0~6~18~0:2,168:1
 s_169	Static Gum~M~1.2~0~6~stn:20
@@ -59,7 +59,7 @@ s_172	Rainbow Crumbs~M~0.6~1~8~
 m_11	Nyan Croissant~🥐~2~58~15~12~6~13~16~17~0:2,172:1
 s_173	High Ground~N~0~4~6~def:3
 s_174	Hello There~M~1.4~0~8~
-m_12	Obi-Wan Kenobi-Wan~🧔~3~90~25~15~11~16~12~25~0:2,173:1,174:1
+m_12	Obi-Wan Kenpanda~🧔~3~90~25~15~11~16~12~25~0:2,173:1,174:1
 s_175	This Is The Slime~P~1~1~0~wk:2
 m_13	Mando-Snail~🐌~3~110~0~16~15~0~4~26~0:2,175:1
 s_176	Golem Not Found~N~0~4~0~def:2,rgn:2
@@ -79,7 +79,7 @@ m_20	Eye of Snackuron~👁️~4~115~35~14~12~20~10~36~0:1,182:2
 s_183	Caramel Tentacles~P~0.8~1~0~stn:15
 m_21	Kraken Jack~🦑~4~140~10~19~13~10~9~37~0:2,183:1
 s_184	Hits First Place~X~1.6~0~8~
-m_22	Blue Shell~🐢~4~110~20~20~16~12~18~38~0:1,184:1
+m_22	Green Shell~🐢~4~110~20~20~16~12~18~38~0:1,184:1
 s_185	Mild Madness~M~1.2~0~8~wk:2
 s_186	Tantrum~M~0.8~1~12~
 m_23	Cthulhu Jr.~🐙~5~150~40~18~14~22~11~48~0:1,185:2,186:1
@@ -108,7 +108,7 @@ m_33	Krabby Patty-Cake~🥞~2~64~15~12~8~12~10~17~0:2,198:1
 s_199	Screeeech-Kshhh~M~0.6~1~7~stn:15
 m_34	Dial-Up Banshee~📞~2~56~22~9~6~15~13~17~0:1,199:2
 s_200	Spit Take~P~1.2~0~0~wk:2
-m_35	Llama Drama~🦙~2~68~10~13~8~9~12~17~0:2,200:1
+m_35	Trash Panda Drama~🦝~2~68~10~13~8~9~12~17~0:2,200:1
 s_201	Cleanup Aisle You~P~1.5~0~0~
 m_36	Shopping Cart Mimic~🛒~3~112~0~18~13~0~8~26~0:2,201:1
 s_202	Resistance Is Dustile~P~0.8~1~0~wk:2
@@ -120,7 +120,7 @@ m_39	Grogourd~🎃~3~92~28~11~11~17~9~26~0:1,204:2
 s_205	Segfault~M~1.3~0~7~wk:2
 m_40	Ghost in the Shell Script~👻~3~84~30~10~10~18~12~26~0:1,205:2
 s_206	Marble Gulp~P~1.4~0~0~drn:30
-m_41	Hungry Hungry Hippogriff~🦛~4~145~0~20~14~0~9~36~0:2,206:1
+m_41	Hungry Hungry Hippo-Bear~🐻~4~145~0~20~14~0~9~36~0:2,206:1
 s_207	Kiss of Bad Advice~M~1.2~0~8~drn:40
 m_42	Dementor Mentor~🧛~4~115~35~13~12~20~11~36~0:1,207:2
 s_208	Copy Paste Chestburst~P~1.6~0~0~

@@ -14,7 +14,7 @@ s_218	Infinity Ladle~P~1.8~0~0~
 x_1	Thanoodle~🍜~707~100~23~13~18~9~340~2~0:2,217:1,218:1~-1~0~Perfectly balanced. Like a good broth.
 s_219	Late Fee Stomp~P~1~1~0~
 s_220	Raise The Rent~N~0~4~10~atk:3
-x_2	Rentzilla~🦖~738~60~22~15~9~7~360~2~0:3,219:1,220:1~-1~0~Your security deposit is MINE.
+x_2	Rentcoon~🦝~738~60~22~15~9~7~360~2~0:3,219:1,220:1~-1~0~Your security deposit is MINE.
 s_221	Wubba Kedavra~M~1.7~0~10~
 s_222	Horcrux Portal~H~1.5~4~15~
 s_223	Snake Jazz~M~0.7~1~12~wk:2
@@ -39,7 +39,7 @@ s_235	Graham Shield~N~0~4~10~def:3
 x_9	That's No Moon Pie~🥧~1016~80~21~18~19~6~370~2~0:2,234:1,235:1~-1~0~Fully operational. Deliciously.
 s_236	Purple Breath~M~0.9~1~12~psn:2
 s_237	Crystal Heal~H~1.5~4~15~
-x_10	Ender Dragon't~🐲~629~100~22~14~16~13~370~2~0:2,236:1,237:1~18~1~You can't punch trees in here.
+x_10	Ender Eye-Clops~👁️~629~100~22~14~16~13~370~2~0:2,236:1,237:1~18~1~You can't punch trees in here.
 s_238	Have You Tried Rebooting~M~1~0~8~stn:40
 s_239	Hold Music~M~0.6~1~10~wk:3
 x_11	Skynot Tech Support~🤖~918~120~23~15~23~11~350~2~0:2,238:1,239:1~-1~0~Your doom is important to us. Please hold.
@@ -48,7 +48,7 @@ s_241	Packet Loss~M~1.5~0~8~drn:30
 x_12	Lord Lagmort~📶~818~120~21~12~23~16~350~2~0:2,240:1,241:1~4~2~Your connection to life... is unstable.
 s_242	Over 9000 Nibbles~P~0.4~0~0~hit:5
 s_243	Power Up Scream~N~0~4~10~atk:3
-x_13	Super Saiyan Hamster~🐹~818~80~29~11~11~18~360~2~0:2,242:1,243:1~-1~0~It's... it's still only 4 inches tall!
+x_13	Super Saiyan Raccoon~🦝~818~80~29~11~11~18~360~2~0:2,242:1,243:1~-1~0~It's... it's still only 4 inches tall!
 s_244	Objection Shell~X~1.5~0~0~
 s_245	Legal Fees~M~0.8~1~12~wk:2
 x_14	Bowser's Divorce Lawyer~🐢~782~120~20~17~19~8~360~2~0:2,244:1,245:1~-1~0~The princess gets the castle. You get NOTHING.
