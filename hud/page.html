@@ -4,6 +4,17 @@ body{width:1024px;height:512px;overflow:hidden;position:relative;background:radi
 body.boss{background:radial-gradient(ellipse at 50% 25%,#5a1830,#12040a 75%)}
 .sp16{display:inline-block;vertical-align:middle;image-rendering:pixelated;background-repeat:no-repeat;background-size:calc(var(--s)*4) calc(var(--s)*7);animation:sp16w 1s steps(4) infinite}
 @keyframes sp16w{from{background-position:0 0}to{background-position:0 calc(var(--s)*-4)}}
+#ttl{position:absolute;inset:0;overflow:hidden;image-rendering:pixelated;background:#0c1030 no-repeat center bottom/1152px 648px}
+#ttl:before{content:"";position:absolute;inset:0;background:linear-gradient(#070a22e6 0%,#0a0e2e99 30%,#0a0e2e33 62%,#0000 80%),radial-gradient(ellipse 330px 200px at 50% 62%,#070a2299,#0000)}
+#ttl .tcg{position:absolute;left:432px;top:-40px;width:160px;height:200px;background:radial-gradient(closest-side,#d79cffaa,#a46bff33 60%,#0000);animation:cgl 3s ease-in-out infinite}
+#ttl .tcr{position:absolute;left:448px;top:6px;width:128px;height:128px;background:no-repeat 0 0/1536px 128px;animation:crf 1.4s steps(12) infinite,crb 3s ease-in-out infinite}
+@keyframes crf{to{background-position:-1536px 0}}@keyframes crb{50%{transform:translateY(-6px)}}@keyframes cgl{50%{opacity:.6}}
+#ttl .tmn{position:absolute;left:0;right:0;top:132px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:7px}
+#ttl .twk{position:absolute;bottom:22px;left:0;width:48px;height:48px;background:no-repeat -144px 0/192px 336px;filter:drop-shadow(0 3px 0 #0006);animation:twf .6s steps(4) infinite,tww 24s linear infinite}
+@keyframes twf{to{background-position:-144px -192px}}@keyframes tww{from{transform:translateX(-70px)}to{transform:translateX(1094px)}}
+.tjs{display:flex;align-items:center;gap:6px;margin-top:6px;padding:4px 12px;background:#0b0f2acc;border:1px solid #ffffff22;border-radius:999px}
+.tjs div{display:flex;align-items:center;gap:4px;height:30px;padding:0 8px;border-radius:999px;font-size:13px;font-weight:bold}
+.tjs div.on{background:#ffd75a33;box-shadow:inset 0 0 0 2px #ffd75a;color:#ffd75a}
 .ptag{font-size:10px;padding:1px 6px;border-radius:7px;color:#fff;white-space:nowrap}
 .w{position:absolute;background:linear-gradient(#27388e,#0d1645);border:3px solid #dfe3ff;border-radius:9px;box-shadow:inset 0 0 0 2px #0a1030,0 3px 10px #0009;padding:8px 10px}
 .boss .w{background:linear-gradient(#5b2340,#1d0814);border-color:#ffd2dc}
@@ -234,7 +245,7 @@ function guide(){sfx('click');const g=$('#guide');if(g.style.display=='block'){g
  g.innerHTML='<div id="top" style="position:static;margin-bottom:8px"><b>📘 BATTLE GUIDE</b><button onclick="guide()">✕ Close</button></div><div class="h">Status effects</div><div class="g">'
  +Object.keys(STAT).map(k=>'<div><span>'+FL[k][0]+'</span><b>'+FL[k][1]+'</b> — '+STAT[k]+'</div>').join('')+'</div><div class="h" style="margin-top:12px">Basics</div><div class="g">'
  +['💧 HP and MP don\'t come back after battles. Rest at a town inn (it costs Bitcorns), use items, or cast healing magic from ☰ Menu. Defend restores 10% MP.','💥 Physical hits can crit for 1.5× damage (Ninja, Gambler and Ranger crit most).','🛡 Defend halves damage until your next turn and restores 10% MP.','🧪 Potion: +30% HP · Ether: +40% MP · Revive Herb: revive at 40%. You get 3 / 2 / 1 each battle.','💀 Bosses act twice per round and can\'t be fled from.','✨ Each job levels on its own and transforms at job level 30.','💤 A KO clears every status effect, good and bad.','🏳 In a boss fight, the party can vote to retreat (majority wins, no XP).'].map(x=>'<div>'+x+'</div>').join('')+'</div><p class="sm" style="margin-top:10px">Tip: hover (or click) any skill or status icon to see what it does.</p>';
- g.innerHTML+='<div class="h" style="margin-top:10px">♪ Music</div><div style="font-size:11.5px;line-height:1.35">'+MC.map(m=>'<b>'+esc(m[1])+'</b> by '+esc(m[2])+' ('+m[3]+')').join(' · ')+' — all found on OpenGameArt.org. Orchestral Adventure by CodeManu is licensed CC BY 3.0 (creativecommons.org/licenses/by/3.0). The crystal owner can change the music in Admin › Music.<br>Icons by <b>Lorc</b> (game-icons.net), CC BY 3.0.<br>Characters, monsters, giant bosses and battle backgrounds from <b>Ninja Adventure</b> by Pixel-boy &amp; AAA (CC0). Wandering boss art by <b>Gilgaphoenixignis</b>, CC BY 4.0 (creativecommons.org/licenses/by/4.0).</div>';
+ g.innerHTML+='<div class="h" style="margin-top:10px">♪ Music</div><div style="font-size:11.5px;line-height:1.35">'+MC.map(m=>'<b>'+esc(m[1])+'</b> by '+esc(m[2])+' ('+m[3]+')').join(' · ')+' — all found on OpenGameArt.org. Orchestral Adventure by CodeManu is licensed CC BY 3.0 (creativecommons.org/licenses/by/3.0). The crystal owner can change the music in Admin › Music.<br>Icons by <b>Lorc</b> (game-icons.net), CC BY 3.0.<br>Characters, monsters, giant bosses and battle backgrounds from <b>Ninja Adventure</b> by Pixel-boy &amp; AAA (CC0). Wandering boss art by <b>Gilgaphoenixignis</b>, title screen mountains by <b>InKing</b> and the glowing crystal by <b>Frakassets</b>, all CC BY 4.0 (creativecommons.org/licenses/by/4.0).</div>';
  g.style.display='block'}
 function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6],f:f[7]||'',it:(f[8]||'').split('.').map(Number),c:f[11],ic:f[12]}}):[];
  const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1],ord:p[9]!=null&&p[9]!==''?p[9].split(',').map(Number):null};
@@ -549,17 +560,22 @@ function lobby(){
  titleScreen()}
 // ---------- title screen: Continue / New Game ----------
 let ngAsk=0;
-function titleScreen(){const has=P&&P.c,full=L.m.length>=L.max,big='style="font-size:22px;padding:13px;width:300px"';
- let hero='';
- if(has)hero='<div class="w" style="position:static;width:560px;margin:0 auto 14px;text-align:left">'+heroHead()+'</div>';
- let btns='';
- if(ngAsk)btns='<div style="font-size:17px;margin-bottom:10px;max-width:600px">Start over? This erases '+esc(P.t)+' — all job levels, gear, items and '+CUR[0]+'. It can\'t be undone!</div><button class="red" '+big+' onclick="ngAsk=0;picking=1;send(\'New Game\')">✖ Yes, start over</button> <button '+big+' onclick="ngAsk=0;draw()">◀ Keep my hero</button>';
- else btns=(has?'<button class="gold" '+big+(full||L.busy?' disabled':'')+' onclick="send(\'Join\')">▶ Continue</button><br>':'')
-  +'<button style="margin-top:10px;font-size:20px;padding:11px;width:300px" onclick="'+(has?'ngAsk=1;sfx(\'click\');draw()':'picking=1;sfx(\'click\');draw()')+'">✦ New Game</button>'
-  +(L.busy?'<div class="sm" style="margin-top:10px">The party is in a battle right now. You can join after it ends.</div>':full?'<div class="sm" style="margin-top:10px">The party is full ('+L.m.length+'/'+L.max+'). Wait for a spot!</div>':'');
- A.innerHTML='<div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center">'
- +'<div style="font:bold 60px Impact,sans-serif;letter-spacing:6px;color:#ffd75a;-webkit-text-stroke:2px #000;text-shadow:0 0 24px #ffd75a66">⚔ BATTLE CRYSTAL ⚔</div>'
- +'<div class="sm" style="margin:0 0 12px;font-size:14px">'+(L.m.length?'Adventuring now: '+L.m.map(x=>esc(x.n)).join(', '):'No one is adventuring yet')+'</div>'+hero+btns+'</div>'}
+const TBG=Math.floor(Math.random()*4);
+function titleScreen(){const has=P&&P.c,full=L.m.length>=L.max,now=Date.now(),T=WEB+'title/';
+ const W=24000,gap=1400,dl=(n,x)=>'animation-delay:-'+(now%600)+'ms,'+(-((now+x)%n))+'ms';
+ let walk=L.m.length?L.m:has?[{k:me,c:P.c,lv:P.lv,spr:P.spr,n:P.t}]:[{c:'Knight'},{c:'Sage'},{c:'Ninja'}];
+ walk=walk.slice(0,6).map((w,i)=>'<div class="twk" style="background-image:url('+SPR+encodeURIComponent(sprOf(w))+'.png);'+dl(W,-i*gap)+'"'+(w.n?tipAttr(esc(w.n)):'')+'></div>').join('');
+ let mid='';
+ if(ngAsk)mid='<div style="font-size:17px;max-width:560px;background:#0b0f2acc;padding:10px 14px;border-radius:10px">Start over? This erases '+esc(P.t)+' — all job levels, gear, items and '+CUR[0]+'. It can\'t be undone!</div><button class="red" style="width:420px;font-size:20px;padding:11px" onclick="ngAsk=0;picking=1;send(\'New Game\')">✖ Yes, start over</button><button style="width:420px;font-size:18px;padding:9px" onclick="ngAsk=0;draw()">◀ Keep my hero</button>';
+ else{const j=has?job(P.c)||{ic:'❔'}:null;
+  if(has)mid+='<button class="gold" style="width:420px;height:74px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px"'+(full||L.busy?' disabled':'')+' onclick="send(\'Join\')"><span style="font-size:26px;font-weight:bold">▶ Continue</span><span style="font-size:14px;color:#2a1d00;text-shadow:none;font-weight:bold">'+j.ic+' '+esc(P.t||P.c)+' Lv '+P.lv+' · '+CUR[1]+' '+P.coins+'</span></button>';
+  mid+='<button'+(has?'':' class="gold"')+' style="width:420px;font-size:'+(has?18:24)+'px;padding:'+(has?9:16)+'px" onclick="'+(has?'ngAsk=1;sfx(\'click\');draw()':'picking=1;sfx(\'click\');draw()')+'">✦ New Game</button>';
+  if(L.busy)mid+='<div class="sm">The party is in a battle right now. You can join after it ends.</div>';else if(full)mid+='<div class="sm">The party is full ('+L.m.length+'/'+L.max+'). Wait for a spot!</div>';
+  if(has){const pl=Object.entries(P.jl).filter(x=>x[1]>0&&job(x[0])).sort((a,b)=>b[1]-a[1]),left=CAT.length-pl.length;
+   if(pl.length)mid+='<div class="tjs">'+pl.map(([n,lv])=>'<div class="'+(n==P.c?'on':'')+'"'+tipAttr('<b>'+esc(n)+'</b> · Job Lv '+lv+(n==P.c?' (current)':'<br>Switch jobs at a town\'s Job Guild'))+'><span style="font-size:19px">'+job(n).ic+'</span>Lv '+lv+'</div>').join('')+(left>0?'<span style="width:1px;height:20px;background:#ffffff33"></span><span class="sm" style="padding:0 4px">+'+left+' job'+(left>1?'s':'')+' to discover</span>':'')+'</div>'}}
+ A.innerHTML='<div id="ttl" style="background-image:url('+T+'mtn'+TBG+'.png)"><div class="tcg"></div><div class="tcr" style="background-image:url('+T+'crystal.png);animation-delay:-'+(now%1400)+'ms,-'+(now%3000)+'ms"></div>'+walk
+ +'<div class="tmn"><div style="font:bold 54px Impact,\'Arial Black\',sans-serif;letter-spacing:8px;color:#ffd75a;-webkit-text-stroke:2px #000;text-shadow:0 0 24px #ffd75a66,0 4px 0 #7a4f00">BATTLE CRYSTAL</div>'
+ +'<div style="font-size:14px;color:#dfe4ff;margin-bottom:4px">'+(L.m.length?'Adventuring now: '+L.m.map(x=>esc(x.n)).join(', '):'No one is adventuring yet')+'</div>'+mid+'</div></div>'}
 function battle(bn){
  const c=B.c,a=c[B.a]||{},inB=c.some(x=>x.k==me),my=!B.res&&B.mo==1&&a.k==me,tg=ui.m=='t'&&my?ui.k:-1;
  document.body.className=B.boss?'boss bt':'bt';
