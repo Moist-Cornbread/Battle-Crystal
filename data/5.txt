@@ -25,6 +25,30 @@ w_t	.#T:"%*=HBD|1,0,6,12,20,30,40,0,0,0,0|7,2,10,9,11,11,12,0,0,0,0|Greenhorn Me
 w_f	14,38,H,Noobton,4,0.9.4.7;31,50,H,Grindwood Village,6,0.9.4.7.1;35,60,H,Lag Oasis,14,0.1.3.4.5.7.9;49,42,H,Bogsworth,10,0.1.4.5.7.9;59,47,H,Last Save Point,18,1.2.3.5.6.7.8.9;70,19,H,Ashfall Outpost,24,1.2.3.5.6.7.8.9;11,52,B,Rentcoon's Rent Office,2,5;30,33,B,Crimson Tengu's Shrine,8,10;25,15,B,Sandworm Supremo's Pit,21,16;43,61,B,Venus Fly Tyrant's Garden,4,24;56,18,B,Boo-hemoth's Crypt,3,32;75,33,B,Crabclops's Peak,10,42;89,66,D,The Endless Depths,0,50
 w_v	2bee7fb0
 dcfg	40|3|10|5|40|50|0.06|0.1|25|2.0|0.6|25.0|1,4,2,2,10|5,5,5,5,5,5,5,2,5,5|6,6,5,5,5,4,2,1,15,10|4,10,20,35,60|0.5|0.055|10
+q_0	Noobton~-1~1~h,0,5~15,50,0:2,-1,
+q_1	Noobton~-1~2~g,13,33;f,22,33,2,45,70,2,Big Bamboozler~25,80,4:1,1,
+q_2	Noobton~-1~4~b,2~60,100,4:1.0:2,2,
+q_3	Noobton~-1~2~g,22,38;f,22,38,1,50,75,2,Crystal Mite~30,80,0:2,1,
+q_4	Grindwood Village~-1~8~h,10,6~35,50,1:2,-1,
+q_5	Grindwood Village~-1~9~h,11,5;g,38,50~45,80,9:2,1,
+q_6	Grindwood Village~-1~10~b,8~90,100,1:2,2,
+q_7	Grindwood Village~3~8~h,6,5;g,24,49;f,24,49,6,55,80,8,Owlbert the Hoarder~60,90,1:1,2,
+q_8	Lag Oasis~-1~15~g,29,58;h,38,6~55,70,5:1,1,
+q_9	Lag Oasis~-1~16~h,16,6;f,31,53,16,55,85,16,Big Boom Rex~70,90,6:1,2,
+q_10	Lag Oasis~7~15~g,41,53;f,41,53,9,60,85,15,Sandy Claws;b,21~90,100,5:1,2,
+q_11	Bogsworth~-1~22~h,18,8~80,50,6:1,-1,
+q_12	Bogsworth~-1~24~b,4~140,100,5:2,3,
+q_13	Bogsworth~-1~23~g,54,44;f,54,44,22,60,90,23,Kappa Champion~100,90,3:1,2,
+q_14	Bogsworth~10~22~h,23,6;g,40,41;f,40,41,18,65,90,22,Choirmaster Croak~130,100,3:1,3,
+q_15	Last Save Point~-1~30~h,17,5;h,39,5~110,70,7:1,2,
+q_16	Last Save Point~-1~31~g,59,40;f,59,40,31,65,95,31,Bonehead Prime~130,90,8:1,3,
+q_17	Last Save Point~14~30~g,55,38;b,3;f,55,38,20,70,95,30,The Glitch~180,100,8:1,3,
+q_18	Ashfall Outpost~-1~38~h,40,8~150,50,6:1,-1,
+q_19	Ashfall Outpost~-1~39~h,48,6;g,66,13~170,80,2:1,3,
+q_20	Ashfall Outpost~-1~40~f,76,25,46,75,100,40,Old Smolder~200,100,2:1,3,
+q_21	Ashfall Outpost~17~38~g,60,16;f,60,16,46,80,100,38,Cinder Warden;b,10~300,120,2:2.8:1,4,crystal_heart
+q_n	22
+qcfg	Noobton,2,8,0.1.2.28.30.5,2;Grindwood Village,10,18,6.8.10.35.11.3,2.8;Lag Oasis,18,30,9.14.16.38.13.12,8.21;Bogsworth,25,45,18.23.21.22.26.19,21.4;Last Save Point,32,60,15.17.39.20.40.31,4.3;Ashfall Outpost,40,80,46.44.25.24.48.40,3.10|5,9,30|45,80,50,2|90,3|3,8|2,25|3|5|Big,Chief,Old,King,Captain,Grumpy,Mega,Boss,Sir,Mama|12
 cur	Bitcorns|🌽|10|1.3.8.20.40.0.120|25|20
 md_lobby	https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1
 md_map	https://moist-cornbread.github.io/Battle-Crystal/music/map-orchestral-adventure.ogg
@@ -38,16 +62,3 @@ i_1	Estus-ish Flask~H~250~2~🧉~2~Restores 250 HP to one ally. Praise the sun.~
 i_2	Sensu Bean~H~0~2~🫘~3~Fully restores one ally's HP. Grown on a very tall tower.~45
 i_3	Party Pizza~A~120~3~🍕~2~Restores 120 HP to the whole party. Cowabunga.~30
 i_4	Ether-net Cable~M~15~2~🔌~1~Restores 15 MP to one ally. Wired for speed.~8
-i_5	Fiber Optic Ether~M~40~2~💎~2~Restores 40 MP to one ally. Gigabit mana.~22
-i_6	Gamer Fuel~M~0~2~🥤~3~Fully restores one ally's MP. Not a health drink.~50
-i_7	Phoenix Down-load~R~25~5~🪶~1~Revives a fallen ally with 25% HP. 99% complete...~15
-i_8	1-Up Shroom~R~100~5~🍄~3~Revives a fallen ally with full HP. Wahoo!~70
-i_9	Off-and-On Again~C~0~2~🔄~1~Cures poison, stun and weakness. Have you tried it?~3
-i_n	10
-i_start	5.0.0.0.2.0.0.1.0.0
-i_tier	1,12,28
-t_b	0.9,0.97,1.04,1.11,1.18,1.26,1.34,1.41,1.49,1.57,1.64,1.7,1.76,1.83,1.89,1.99,2.09,2.18,2.28,2.38,2.46,2.54,2.63,2.71,2.79,3.02,3.24,3.47,3.7,3.92,4.05,4.17,4.3,4.42,4.54,4.67,4.8,4.93,5.06,5.19,5.34,5.48,5.63,5.78,5.93,6.04,6.15,6.26,6.37,6.48
-t_n1	1.55,1.66,1.78,1.89,2.00,1.98,1.97,1.96,1.94,1.93,1.91,1.90,1.88,1.87,1.85,1.85,1.84,1.84,1.83,1.83,1.84,1.86,1.88,1.90,1.91,2.03,2.15,2.27,2.39,2.51,2.59,2.68,2.77,2.85,2.94,3.06,3.19,3.31,3.44,3.56,3.51,3.46,3.41,3.36,3.31,3.46,3.61,3.76,3.90,4.05
-t_n2	1.98,2.18,2.37,2.56,2.75,2.77,2.79,2.81,2.83,2.85,2.77,2.68,2.60,2.52,2.43,2.43,2.43,2.42,2.42,2.42,2.49,2.56,2.63,2.70,2.77,2.93,3.10,3.27,3.44,3.60,3.70,3.79,3.88,3.97,4.07,4.17,4.27,4.37,4.47,4.57,4.69,4.81,4.94,5.06,5.18,5.28,5.38,5.48,5.58,5.68
-t_n3	2.29,2.49,2.69,2.90,3.10,3.11,3.13,3.14,3.16,3.17,3.12,3.06,3.01,2.95,2.90,2.90,2.90,2.90,2.90,2.90,2.96,3.02,3.09,3.15,3.21,3.42,3.64,3.85,4.06,4.27,4.39,4.51,4.63,4.75,4.88,5.00,5.12,5.25,5.37,5.50,5.55,5.60,5.64,5.69,5.74,6.01,6.29,6.56,6.83,7.10
-t_n4	2.58,2.80,3.02,3.24,3.46,3.48,3.51,3.53,3.55,3.57,3.55,3.53,3.51,3.49,3.47,3.48,3.48,3.48,3.49,3.49,3.51,3.53,3.56,3.58,3.60,3.85,4.09,4.33,4.57,4.82,5.02,5.22,5.42,5.63,5.83,5.95,6.07,6.19,6.30,6.42,6.54,6.66,6.78,6.90,7.01,7.29,7.57,7.85,8.12,8.40
