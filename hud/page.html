@@ -81,6 +81,24 @@ body.bt #top{z-index:3;background:#0b1040b0;border:2px solid #dfe4ff55;border-ra
 .ms .arw{top:-8px}
 @keyframes arw{50%{margin-top:-6px}}
 .ft .pop{top:-14px;left:-30px;right:-30px}
+.hs.atk,.hs.cast{animation:hAtk 1.3s ease-in-out both}.hs.cast{animation-name:hCast}
+@keyframes hAtk{0%,100%{transform:translateX(var(--x0,0))}22%,66%{transform:translateX(-110px)}}
+@keyframes hCast{0%,100%{transform:translateX(var(--x0,0))}18%,72%{transform:translateX(-50px)}}
+.hs.atk .sp,.hs.cast .sp{animation:hPose 1.3s both}
+@keyframes hPose{0%{animation-timing-function:steps(1,end);background-position:-96px 0}6%{background-position:-96px -48px;animation-timing-function:steps(1,end)}12%{background-position:-96px -96px;animation-timing-function:steps(1,end)}18%{background-position:-96px -144px;animation-timing-function:steps(1,end)}24%{background-position:-96px -192px;animation-timing-function:steps(1,end)}68%{background-position:-144px 0;animation-timing-function:steps(1,end)}74%{background-position:-144px -48px;animation-timing-function:steps(1,end)}80%{background-position:-144px -96px;animation-timing-function:steps(1,end)}86%{background-position:-144px -144px;animation-timing-function:steps(1,end)}93%,100%{background-position:-96px 0}}
+.ms.atk{animation:mAtk 1.3s ease-in-out both}.ms.cast{animation:mCast 1.3s ease-in-out both}
+@keyframes mAtk{0%,100%{transform:none}22%,55%{transform:translateX(80px) scale(1.06)}}
+@keyframes mCast{0%,100%{transform:none}20%,62%{transform:translateY(-12px) scale(1.08)}}
+.ms.dead.dying{animation:mDie .7s both}
+@keyframes mDie{0%{opacity:1;transform:none;filter:brightness(3)}30%{opacity:1;filter:brightness(2) sepia(1) hue-rotate(-50deg)}100%{opacity:0;transform:scaleY(.3) translateY(60px)}}
+.hs.run{animation:hRun 1.2s ease-out both}.hs.run .sp{animation-duration:.3s}
+@keyframes hRun{from{transform:translateX(320px)}to{transform:translateX(var(--x0,0))}}
+.ms.run{animation:mRun 1s ease-out both}
+@keyframes mRun{from{opacity:0;transform:translateX(-80px)}to{opacity:1;transform:none}}
+.fxs{position:absolute;z-index:4;pointer-events:none;image-rendering:pixelated;background-repeat:no-repeat;animation:fxa var(--d) steps(var(--n),jump-none) forwards,fxo var(--d) forwards}
+.fxs.heal{filter:hue-rotate(75deg) saturate(1.6)}.fxs.ring{z-index:0}
+@keyframes fxa{from{background-position-x:0%}to{background-position-x:100%}}
+@keyframes fxo{0%,92%{opacity:1}100%{opacity:0}}
 #bnr{position:absolute;left:50%;top:46px;transform:translateX(-50%);z-index:4;max-width:600px;padding:6px 16px;font-size:16px;text-align:center;background:linear-gradient(#3247c4,#141e78);border:3px solid #dfe4ff;border-radius:6px;box-shadow:0 0 0 2px #0b1040,0 4px 0 #0005;animation:bnr 4.5s forwards;pointer-events:none;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 @keyframes bnr{0%{opacity:0;margin-top:-8px}6%{opacity:1;margin-top:0}85%{opacity:1}100%{opacity:0}}
 #fbtn{position:absolute;right:12px;top:304px;z-index:3;display:flex;gap:6px}
@@ -210,9 +228,10 @@ function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{
  const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1],ord:p[9]!=null&&p[9]!==''?p[9].split(',').map(Number):null};
  const o=B;B=n;
  prev=(o&&o.c.length==c.length&&o.c.every((x,i)=>x.n==c[i].n)&&n.r>=o.r)?o.c:null;
+ const anew=n.fx&&n.fx!=lastFx&&lastFx&&inBattle()&&aniStart(n);
  if((!o||o.r>n.r||!prev)&&n.r<=1&&!n.res&&n.boss&&o&&inBattle())sfx('boss');
  const k=n.r+':'+n.a+':'+n.mo;if(k!=tkey){tkey=k;tat=Date.now();sent=0;ui={m:'main'};const a=c[n.a];if(n.mo==1&&a&&a.k==me&&!n.res){sfx('turn');pingT=Date.now();pinged=0}}
- if(n.fx&&n.fx!=lastFx){if(lastFx&&inBattle())fxs(n.fx.split('~')[1]);lastFx=n.fx}
+ if(n.fx&&n.fx!=lastFx){if(lastFx&&inBattle()){const e=n.fx.split('~')[1];if(anew)aniTO.push(setTimeout(()=>fxs(e),HIT-60));else fxs(e)}lastFx=n.fx}
  if(n.res&&o&&!o.res&&inBattle()){banner=Date.now();music(null);sfx(n.res==1?'win':n.res==2?'lose':'flee')}}
 // ---------- gear ----------
 const SLOT=['Weapon','Head','Body','Feet','Accessory'],SLI=ICN.slot.map(i=>ico(i,'#ffe9a8')),RAR=['Common','Uncommon','Rare','Epic','Legendary','Relic'];
@@ -482,7 +501,7 @@ function draw(){
 function inBattle(){return !!(B&&B.c&&B.c.some(x=>x.k==me))}   // only party members see the fight; everyone else stays on their own screen
 function drawInner(){
  const bn=banner&&Date.now()-banner<banLen;
- if(B&&inBattle()&&(L.busy||bn))battle(bn);else{document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='H'?'town':'map'):'lobby');lobby()}}
+ if(B&&inBattle()&&(L.busy||bn)){if(!wasBt){wasBt=1;RUN=B.r<=1&&!B.res?Date.now():0}battle(bn)}else{wasBt=0;document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='H'?'town':'map'):'lobby');lobby()}}
 function skillList(j,lv){return '<div class="sk">'+j.sk.map(s=>{const tp=tipAttr('<b>'+esc(s[0])+'</b> <small>(job Lv '+s[1]+')</small><br>'+desc(s[2],s[3],s[4],s[5],s[6]),1);return +s[1]<=lv?'<div'+tp+'>'+skIco(s[0])+esc(s[0])+'</div>':'<div class="lk"'+tp+'>🔒 '+esc(s[0])+' <small>Lv '+s[1]+'</small></div>'}).join('')+'</div>'}
 function readyBox(){const iR=L.rdy.includes(me),what=L.chk==2?'💀 BOSS FIGHT':L.chk==3?'🚪 HEADING OUT':'⚔ BATTLE';
  let s='<div style="grid-column:1/3;background:#0006;border:2px solid #ffd75a;border-radius:8px;padding:8px;text-align:center"><b style="color:#ffd75a">READY CHECK · '+what+'</b><div>'+L.rdy.length+' / '+L.m.length+' ready</div></div>';
@@ -516,11 +535,12 @@ function battle(bn){
  document.body.className=B.boss?'boss bt':'bt';
  if(!B.res)music(B.boss?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='B'?'bigboss':'boss'):'battle');
  const ok=(x,k)=>k==0?x.t==1&&x.hp>0:k==1?x.t==0&&x.hp>0:x.t==0&&x.hp<=0;
- const cl=(x,i)=>(x.hp<=0?' dead':'')+(i==B.a&&!B.res?' act':'')+(tg>=0&&!sent&&ok(x,tg)?' pick':'');
+ const now=Date.now(),ae=ANI?now-ANI.t0:1e9,re=now-RUN,koing=i=>ANI&&ANI.ko.includes(i)&&ae<KO;
+ const cl=(x,i)=>(x.hp<=0&&!koing(i)?' dead':'')+(x.hp<=0&&ANI&&ANI.ko.includes(i)&&ae<KO+700?' dying':'')+(ANI&&ANI.a==i&&ae<AT?' '+ANI.mv:re<1200&&x.hp>0?' run':'')+(i==B.a&&!B.res?' act':'')+(tg>=0&&!sent&&ok(x,tg)?' pick':'');
  const ck=(x,i)=>tg>=0&&!sent&&ok(x,tg)?' onclick="go('+i+')"':'';
  const fl=x=>(x.f.match(/[A-Z]\d*/g)||[]).map(m=>{const f=m[0],n=m.slice(1);return FL[f]?'<span class="fl"'+tipAttr('<b>'+FL[f][1]+'</b>'+(n?' · '+n+' more turn'+(n>1?'s':''):'')+'<br>'+STAT[f],1)+'>'+FL[f][0]+(n?'<sub class="fn">'+n+'</sub>':'')+'</span>':''}).join('');
  const pc=x=>Math.max(0,x.hp/x.mhp*100);
- let st=B.res?'':B.mo==1?(a.k==me?'<b style="color:#ffd75a">YOUR TURN</b>':esc(a.n)+'’s turn'):B.mo>=2?esc(a.n)+' is acting…':'';
+ let st=B.res?'':B.mo==1?(a.k==me?'<b style="color:#ffd75a">YOUR TURN</b>':esc(a.n)+'’s turn'):B.mo>=2&&B.mo!=5?esc(a.n)+' is acting…':'';
  let h='<div id="top"><b>'+(B.boss?'💀 BOSS · ':'')+'ROUND '+B.r+'</b>'+turnStrip()+'<span style="margin-right:90px">'+(B.boss&&inB&&!B.res?'<button style="padding:2px 8px;font-size:13px;margin-right:10px"'+tipAttr('<b>Vote to retreat</b><br>If a majority of the party votes, everyone leaves the boss fight (no XP).')+' onclick="voteRetreat()">🏳 Retreat '+B.votes+'/'+B.need+'</button>':'')+st+(inB?'':' <small>· spectating</small>')+'</span></div>';
  const HS=[[770,96],[874,124],[790,160],[894,188],[810,224],[914,252]];
  const mons=c.map((x,i)=>i).filter(i=>c[i].t==1),bossI=mons.find(i=>c[i].c=='BOSS');
@@ -530,27 +550,49 @@ function battle(bn){
  const arw=(x,i)=>(tg>=0&&!sent&&ok(x,tg))||(i==B.a&&!B.res&&B.mo==1&&x.t==0)?'<div class="arw">▼</div>':'';
  const mspr=x=>{const m=/^([mx])(\d+)$/.exec(x.k||''),v=m&&MSPR[m[1]=='x'?'b':'m'][+m[2]];if(!v)return '<span class="em">'+(x.ic||'👾')+'</span>';const q=v.split(':');return '<span class="sp'+(+q[1]==1?' one':'')+'" style="--n:'+(+q[1]||4)+';background-image:url('+WEB+'mon/'+q[0]+'.png);background-size:'+(+q[1]||4)*100+'% 100%"></span>'};
  let hn=0;
+ const ad=i=>ANI&&ANI.a==i&&ae<AT?'animation-delay:-'+ae+'ms;':ANI&&ANI.ko.includes(i)&&ae<KO+700?'animation-delay:'+(KO-ae)+'ms;':re<1200?'animation-delay:-'+re+'ms;':'';
  h+='<div id="fld" style="background-image:url('+WEB+'bg/'+bgZone()+'.png)">'+c.map((x,i)=>{
-  if(x.t==1){const p=slot[i]||[60,60],big=i===bossI;return '<div class="ft ms'+(big?' big':'')+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="left:'+p[0]+'px;top:'+p[1]+'px"><div class="shd"></div>'+mspr(x)+arw(x,i)+'<div class="nm">'+esc(x.n)+'<div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div>'+fl(x)+'</div></div>'}
-  const p=HS[hn++]||HS[5];const m=memK(x.k)||{c:x.c,lv:1};return '<div class="ft hs'+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="left:'+p[0]+'px;top:'+p[1]+'px"'+tipAttr('<b>'+esc(x.n)+'</b> · '+esc(x.c)+'<br>HP '+x.hp+'/'+x.mhp+' · MP '+x.mp+'/'+x.mmp,1)+'><div class="shd"></div><span class="sp" style="background-image:url('+SPR+encodeURIComponent(sprOf(m))+'.png)"></span>'+arw(x,i)+'</div>'}).join('');
+  if(x.t==1){const p=slot[i]||[60,60],big=i===bossI;return '<div class="ft ms'+(big?' big':'')+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="'+ad(i)+'left:'+p[0]+'px;top:'+p[1]+'px"><div class="shd"></div>'+mspr(x)+arw(x,i)+'<div class="nm">'+esc(x.n)+'<div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div>'+fl(x)+'</div></div>'}
+  const p=HS[hn++]||HS[5];const m=memK(x.k)||{c:x.c,lv:1};return '<div class="ft hs'+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="'+ad(i)+(i==B.a&&!B.res?'--x0:-34px;':'')+'left:'+p[0]+'px;top:'+p[1]+'px"'+tipAttr('<b>'+esc(x.n)+'</b> · '+esc(x.c)+'<br>HP '+x.hp+'/'+x.mhp+' · MP '+x.mp+'/'+x.mmp,1)+'><div class="shd"></div><span class="sp" style="'+(ANI&&ANI.a==i&&ae<AT?'animation-delay:-'+ae+'ms;':re<1200?'animation-delay:-'+re+'ms;':'')+'background-image:url('+SPR+encodeURIComponent(sprOf(m))+'.png)"></span>'+arw(x,i)+'</div>'}).join('');
  const last=G[G.length-1]||'';if(last!=bnLine){bnLine=last;bnT=Date.now()}
  if(last&&Date.now()-bnT<4500&&!showLog)h+='<div id="bnr" style="animation-delay:-'+(Date.now()-bnT)+'ms">'+esc(last)+'</div>';
  h+='<div id="fbtn"><button onclick="togLog()"'+(showLog?' class="gold"':'')+tipAttr('<b>Battle log</b><br>Everything that happened this battle.')+'>📜 Log</button></div></div>';
  if(showLog)h+='<div class="w" id="blog"><div class="h">Battle log <span style="float:right;cursor:pointer;color:#fff" onclick="togLog()">✕</span></div>'+G.map(g=>'<div>'+esc(g)+'</div>').join('')+'</div>';
  h+='<div class="w" id="party">'+c.map((x,i)=>x.t!=0?'':'<div class="pr'+cl(x,i)+'" id="r'+i+'"'+ck(x,i)+'><span class="n">'+(i==B.a&&!B.res?'▶ ':'')+(afkK(x.k)?'💤':'')+esc(x.n)+'</span><span class="j">'+esc(x.c)+'</span><span class="v"><b>HP</b>'+x.hp+'/'+x.mhp+'<div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div></span><span class="v m"><b>MP</b>'+x.mp+'/'+x.mmp+'<div class="bar mp"><i style="width:'+(x.mmp?x.mp/x.mmp*100:0)+'%"></i></div></span><span class="f">'+fl(x)+'</span></div>').join('')+'</div>';
  h+='<div class="w" id="cmd">'+cmd(my,a)+'</div>';
- A.innerHTML=h;const lg=$('#blog');if(lg)lg.scrollTop=1e5;
+ A.innerHTML=h;aniPaint();const lg=$('#blog');if(lg)lg.scrollTop=1e5;
  const o=$('#ov');if(bn){o.style.display='flex';o.innerHTML=['','VICTORY!','DEFEAT…','ESCAPED!'][B.res]+(B.res==1&&XA?xpPanel():'<small>'+(B.res==1?'Counting up your XP…':B.res==2?'The party will recover in the lobby.':'Live to fight another day.')+'</small>');o.style.color=['','#ffd75a','#ff6a6a','#8df'][B.res]}else o.style.display='none'}
 function tbar(){return B.mo==1?'<div class="tm" id="tm" style="width:'+Math.max(0,1-(Date.now()-tat)/TURN)*100+'%"></div>':''}
 function cmd(my,a){
  if(B.res)return '<div class="h">Battle over</div><div style="font-size:18px">Returning to the lobby…</div>';
- if(!my)return '<div class="h">Waiting</div><div style="font-size:19px;margin-top:10px">'+(B.mo==1?esc(a.n)+' is choosing a command…':B.mo>=2?esc(a.n)+' prepares to strike!':'…')+'</div>'+tbar();
+ if(!my)return '<div class="h">Waiting</div><div style="font-size:19px;margin-top:10px">'+(B.mo==1?esc(a.n)+' is choosing a command…':B.mo>=2&&B.mo!=5?esc(a.n)+' prepares to strike!':'…')+'</div>'+tbar();
  if(sent)return '<div class="h">Command sent</div><div style="font-size:18px;margin-top:10px">…</div>';
  if(ui.m=='t')return '<div class="h">'+esc(ui.l)+' — choose a target</div><div style="font-size:18px;margin:12px 0 14px">Click a glowing '+(ui.k==0?'enemy':ui.k==2?'fallen ally':'ally')+' ▼ on the field'+(ui.k?' or in the party list':'')+'.</div><button onclick="back()">◀ Back</button>'+tbar();
  if(ui.m=='s')return '<div class="h">Skills · MP '+a.mp+' / '+a.mmp+' · hover a skill for details</div><div class="btns s4 btns3">'+K.map((s,i)=>'<button'+(a.mp<s.cost?' disabled':'')+tipAttr('<b>'+esc(s.n)+'</b><br>'+desc(s.e,s.pw,s.tg,s.cost,s.r))+' onclick="sk('+i+')">'+skIco(s.n)+esc(s.n)+' <small>'+s.cost+'</small></button>').join('')+'<button onclick="back()">◀ Back</button></div>'+tbar();
  if(ui.m=='i'){const own=IT.map((t,i)=>i).filter(i=>a.it[i]>0);return '<div class="h">Items · hover one for details</div><div class="btns s4 btns3">'+(own.length?own.map(i=>'<button'+tipAttr('<b>'+IT[i][4]+' '+esc(IT[i][0])+'</b> ×'+a.it[i]+'<br>'+esc(IT[i][6]))+' onclick="itm('+i+')">'+IT[i][4]+' '+esc(IT[i][0])+' <small>×'+a.it[i]+'</small></button>').join(''):'<div style="grid-column:1/4;padding:8px" class="sm">Your bag is empty! Win battles to find items.</div>')+'<button onclick="back()">◀ Back</button></div>'+tbar()}
  const ri=repInfo(a);
  return '<div class="h">'+esc(a.n)+' — what will you do?'+(ri?'<button class="gold" style="float:right;margin-top:-4px;padding:3px 10px;font-size:13px" onclick="repeatAct()"'+tipAttr('Do your last command again'+(ri.t!=null?' on the same target':' (pick a target)'))+'>↻ '+esc(ri.l)+(ri.t!=null&&B.c[ri.t]?' → '+esc(B.c[ri.t].n):'')+'</button>':'')+'</div><div class="btns"><button class="gold" onclick="atk()">⚔ Attack</button><button onclick="mode(\'s\')">✦ Skills</button><button onclick="mode(\'i\')">🧪 Items</button><button'+tipAttr('<b>Defend</b><br>Halve damage until your next turn and restore 10% of your max MP.')+' onclick="send(\'act|defend\')">🛡 Defend</button><button onclick="send(\'act|flee\')"'+(B.boss?' disabled':'')+'>🏃 Flee</button></div>'+tbar()}
+// ---------- battle animations: the crystal sends who acted + the move type; targets come from HP changes ----------
+const FXS={cut:[4,32,32],cutx:[4,32,32],claw:[4,32,32],fire:[5,40,30],ice:[10,32,32],bolt:[5,32,28],water:[11,40,33],rock:[14,30,30],leaf:[6,40,28],boom:[9,40,40],spark:[9,30,35],boost:[8,53,35],shield:[6,24,26],ring:[6,32,32]};
+const AT=1300,HIT=430,KO=700;let ANI=null,RUN=0,wasBt=0,aniTO=[];
+function aniStart(n){const m=/^\d{10}(\d+)~(\w+)/.exec(n.fx||'');if(!m||!prev)return false;
+ const a=+m[1],e=m[2],x=n.c[a];if(!x)return false;
+ const d=[],ko=[],st=[];n.c.forEach((y,i)=>{const p=prev[i];if(!p)return;if(y.hp!=p.hp)d.push([i,y.hp-p.hp]);if(y.hp<=0&&p.hp>0)ko.push(i);if(y.f!=p.f&&i!=a)st.push(i)});
+ const k=e=='D'?'guard':e=='I'?'item':/^(H|R|MP)$/.test(e)?'heal':e=='N'?'buff':e=='M'?'magic':'melee';
+ let tg=d.map(q=>q[0]);if(!tg.length)tg=k=='guard'?[a]:st.length?st:k=='melee'||k=='magic'?[]:[a];
+ ANI={t0:Date.now(),a,e,k,d,ko,tg,mv:k=='melee'?'atk':'cast',mon:x.t==1,fx:null};prev=null;
+ aniTO.forEach(clearTimeout);aniTO=[HIT-82,HIT+2,AT+400].map(t=>setTimeout(aniPaint,t));
+ if(ko.length)aniTO.push(setTimeout(()=>{if(B)draw();sfx('ko')},KO));
+ return true}
+function aniFx(){const k=ANI.k;if(k=='melee')return ANI.mon?'claw':ANI.e=='X'?'cutx':'cut';if(k=='guard')return 'shield';if(k=='buff')return 'boost';if(k!='magic')return 'spark';
+ const l=(G[G.length-1]||'').toLowerCase();for(const[r,f]of[[/fir|flam|burn|blaz|inferno|heat|lava|ember|meteor/,'fire'],[/ice|frost|bliz|freez|snow|chill|cold/,'ice'],[/thund|bolt|lightn|shock|zap|storm|volt/,'bolt'],[/water|aqua|tide|wave|flood|bubble|rain|splash/,'water'],[/rock|stone|quake|earth|boulder|gaia|sand/,'rock'],[/wind|aero|leaf|plant|thorn|vine|gale|tornado|nature|poison|venom/,'leaf']])if(r.test(l))return f;return 'boom'}
+function aniPaint(){const f=$('#fld');if(!f)return;f.querySelectorAll('.fxs,.pop.ani').forEach(e=>e.remove());if(!ANI)return;const el=Date.now()-ANI.t0;if(el>AT+300)return;
+ if(ANI.fx==null)ANI.fx=aniFx();
+ const add=(i,nm,start,cls,dx,low)=>{const fs=FXS[nm],dur=Math.max(480,fs[0]*65),t=el-start;if(t<0||t>dur)return;const e=$('#c'+i);if(!e)return;const sc=e.classList.contains('big')?5:3,w=fs[1]*sc,hh=fs[2]*sc,cx=e.offsetLeft+e.offsetWidth/2+(dx||0),cy=low?e.offsetTop+e.offsetHeight-hh/2+6:e.offsetTop+e.offsetHeight/2;
+  const d=document.createElement('div');d.className='fxs'+(cls?' '+cls:'');d.style.cssText='left:'+(cx-w/2)+'px;top:'+(cy-hh/2)+'px;width:'+w+'px;height:'+hh+'px;background-image:url('+WEB+'fx/'+nm+'.png);background-size:'+fs[0]*100+'% 100%;--n:'+fs[0]+';--d:'+dur+'ms;animation-delay:-'+t+'ms,-'+t+'ms';f.appendChild(d)};
+ if(ANI.mv=='cast')add(ANI.a,'ring',0,'ring',ANI.mon?0:-50,1);
+ const hl=ANI.k=='heal'||ANI.k=='item'&&ANI.d.length&&ANI.d.every(q=>q[1]>0);ANI.tg.forEach(i=>add(i,ANI.fx,HIT-80,hl?'heal':''));
+ if(el>=HIT&&el<HIT+1200)ANI.d.forEach(([i,df])=>{const e=$('#c'+i);if(!e)return;const s=document.createElement('div');s.className='pop ani '+(df<0?'dmg':'heal');s.textContent=(df>0?'+':'')+df;s.style.animationDelay=-(el-HIT)+'ms';e.appendChild(s);if(df<0&&el<HIT+350){e.classList.add('hit');const r=$('#r'+i);if(r)r.classList.add('hit')}})}
 function pops(){if(!prev||!B)return;const pv=prev;prev=null;let hurt=0,healed=0,ko=0;B.c.forEach((x,i)=>{const d=x.hp-pv[i].hp;if(!d)return;if(d<0)hurt++;else healed++;if(x.hp<=0&&pv[i].hp>0)ko++;const e=document.getElementById('c'+i);if(!e)return;const s=document.createElement('div');s.className='pop '+(d<0?'dmg':'heal');s.textContent=(d>0?'+':'')+d;e.appendChild(s);if(d<0){e.classList.add('hit');const r=document.getElementById('r'+i);if(r)r.classList.add('hit')}});if(ko)setTimeout(()=>sfx('ko'),180)}
 setInterval(()=>{if(banner&&Date.now()-banner>banLen){banner=0;banLen=5000;XA=null;draw()}const t=$('#tm');if(t)t.style.width=Math.max(0,1-(Date.now()-tat)/TURN)*100+'%'},1000);
 // ---------- audio: everything is synthesized, no files ----------
