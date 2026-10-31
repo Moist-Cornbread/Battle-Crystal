@@ -159,10 +159,10 @@ function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{
  const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1]};
  const o=B;B=n;
  prev=(o&&o.c.length==c.length&&o.c.every((x,i)=>x.n==c[i].n)&&n.r>=o.r)?o.c:null;
- if((!o||o.r>n.r||!prev)&&n.r<=1&&!n.res&&n.boss&&o)sfx('boss');
+ if((!o||o.r>n.r||!prev)&&n.r<=1&&!n.res&&n.boss&&o&&inBattle())sfx('boss');
  const k=n.r+':'+n.a+':'+n.mo;if(k!=tkey){tkey=k;tat=Date.now();sent=0;ui={m:'main'};const a=c[n.a];if(n.mo==1&&a&&a.k==me&&!n.res)sfx('turn')}
- if(n.fx&&n.fx!=lastFx){if(lastFx)fxs(n.fx.split('~')[1]);lastFx=n.fx}
- if(n.res&&o&&!o.res){banner=Date.now();music(null);sfx(n.res==1?'win':n.res==2?'lose':'flee')}}
+ if(n.fx&&n.fx!=lastFx){if(lastFx&&inBattle())fxs(n.fx.split('~')[1]);lastFx=n.fx}
+ if(n.res&&o&&!o.res&&inBattle()){banner=Date.now();music(null);sfx(n.res==1?'win':n.res==2?'lose':'flee')}}
 // ---------- gear ----------
 const SLOT=['Weapon','Head','Body','Feet','Accessory'],SLI=ICN.slot.map(i=>ico(i,'#ffe9a8')),RAR=['Common','Uncommon','Rare','Epic','Legendary','Relic'];
 const STN=['HP','MP','ATK','DEF','MAG','SPD','CRIT'];
@@ -339,16 +339,17 @@ function xpTick(){if(!XA||!$('#xpw')){if(XA&&Date.now()-XA.t0<XA.d+500)requestAn
 // ---------- drawing ----------
 function draw(){
  if(!tipPin)$('#tip').style.display='none';
- if(L&&L.busy&&!wasBusy&&mini)setMini(0);if(L)wasBusy=L.busy;   // a battle starts: pop back open
+ if(L&&L.busy&&!wasBusy&&mini&&inBattle())setMini(0);if(L)wasBusy=L.busy;   // a battle starts: pop back open
  document.body.classList.toggle('mini',!!mini);
  if(mini&&L){A.innerHTML=miniView();$('#ov').style.display='none';return}
  if(!L){A.innerHTML='<div class="w" style="left:262px;top:170px;width:500px;text-align:center;padding:24px"><div class="h">⚔ Battle HUD ⚔</div><div style="font-size:18px">Looking for a Battle Crystal…</div><small>You need to be in the same region as the crystal.</small></div>';return}
  const keep={};A.querySelectorAll('.scroll[id]').forEach(e=>keep[e.id]=e.scrollTop);
  drawInner();
  A.querySelectorAll('.scroll[id]').forEach(e=>{if(keep[e.id])e.scrollTop=keep[e.id]});pops()}
+function inBattle(){return !!(B&&B.c&&B.c.some(x=>x.k==me))}   // only party members see the fight; everyone else stays on their own screen
 function drawInner(){
  const bn=banner&&Date.now()-banner<banLen;
- if(B&&(L.busy||bn))battle(bn);else{document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='H'?'town':'map'):'lobby');lobby()}}
+ if(B&&inBattle()&&(L.busy||bn))battle(bn);else{document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='H'?'town':'map'):'lobby');lobby()}}
 function skillList(j,lv){return '<div class="sk">'+j.sk.map(s=>{const tp=tipAttr('<b>'+esc(s[0])+'</b> <small>(job Lv '+s[1]+')</small><br>'+desc(s[2],s[3],s[4],s[5],s[6]),1);return +s[1]<=lv?'<div'+tp+'>'+skIco(s[0])+esc(s[0])+'</div>':'<div class="lk"'+tp+'>🔒 '+esc(s[0])+' <small>Lv '+s[1]+'</small></div>'}).join('')+'</div>'}
 function readyBox(){const iR=L.rdy.includes(me),what=L.chk==2?'💀 BOSS FIGHT':'⚔ BATTLE';
  let s='<div style="grid-column:1/3;background:#0006;border:2px solid #ffd75a;border-radius:8px;padding:8px;text-align:center"><b style="color:#ffd75a">READY CHECK · '+what+'</b><div>'+L.rdy.length+' / '+L.m.length+' ready</div></div>';
