@@ -137,6 +137,6 @@ s_213	Icy Hiss~M~0.8~1~10~stn:15
 m_48	Frost Gecko~🦎~5~150~30~19~13~19~12~49~0:2,213:1
 s_214	Body Slam~P~1.4~0~0~stn:20
 m_49	Cloud Slime~☁️~5~185~0~22~16~0~7~50~0:2,214:1
-m_n	50
-s_215	Shadow Fog~M~0.6~1~10~psn:3
-s_216	Pommel Strike~M~1.6~0~8~stn:25
+s_215	Abyss Gaze~M~1.4~0~10~wk:2
+m_50	Void Eye~👁️~6~215~50~22~17~29~12~64~0:1,215:2
+s_216	Dread Dust~M~0.8~1~12~psn:3
