@@ -97,7 +97,7 @@ const FLC={G:'#9fd0ff',P:'#a6ff6a',S:'#ffe066',A:'#ff9a6a',D:'#6cc4ff',W:'#c9a0f
 const FL={};[['G','Guard'],['P','Poison'],['S','Stunned'],['A','ATK up'],['D','DEF up'],['W','Weakened'],['T','Taunting'],['R','Regen'],['E','Enraged']].forEach(([k,n])=>FL[k]=[ico(ICN.status[k],FLC[k]),n]);
 IT.forEach((d,i)=>d[4]=ico(ICN.item[i],['#ff8a8a','#ffb36b','#7dff8a','#ffcf6a','#6cc4ff','#9fb6ff','#c9a0ff','#ffd2e8','#ff6a8a','#cfd6ff'][i]||'#fff'));
 const TURN=45000;
-let sid=0;
+let sid=0,hudOld=0;
 const MUDEF={"lobby": "https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1", "map": "https://moist-cornbread.github.io/Battle-Crystal/music/map-orchestral-adventure.ogg", "town": "https://moist-cornbread.github.io/Battle-Crystal/music/town-stage1.ogg https://moist-cornbread.github.io/Battle-Crystal/music/town-stage2.ogg", "battle": "https://moist-cornbread.github.io/Battle-Crystal/music/battle-bossfight.ogg https://moist-cornbread.github.io/Battle-Crystal/music/battle-stageselect.ogg", "boss": "https://opengameart.org/sites/default/files/hard_boss_battle_2_bpm210.mp3#v=0.65", "bigboss": "https://moist-cornbread.github.io/Battle-Crystal/music/bigboss-determined-pursuit.ogg", "dungeon": "https://moist-cornbread.github.io/Battle-Crystal/music/dungeon-grasslands.ogg"};
 let FM=null,FS={},catStamp=null,catLoading=0,mini=0,wasBusy=false,MU=null,AU=null,auFail={},GW=['','','','',''],GB=[],gearOpen=0,gsel=null,dropAsk=0,gearSeen=-1,gearCount=0,lastChk=0,info=false,CN=0,v=-1,me='',L=null,P=null,B=null,K=[],G=[],CAT=[],prev=null,ui={m:'main'},banner=0,picking=0,sent=0,tkey='',tat=0,lastFx='',lastRes=0;
 function send(c){sfx('click');sent=1;fetch('a',{method:'POST',body:c}).catch(()=>{});draw();setTimeout(()=>{if(sent){sent=0;draw()}},5000)}
@@ -110,7 +110,7 @@ function itm(i){const d=IT[i];if(d[3]==3)return send('act|item|'+i+'|-1');sfx('c
 function go(i){const c=ui.c;ui={m:'main'};send(c+i)}
 function pick(n){picking=0;send(n)}
 // ---------- data ----------
-function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';CN=+h[2]||0;mini=h[3]=='1'?1:0;if(CN&&h[4]!==catStamp&&!catLoading)loadCat(h[4]);if(h[5])sid=h[5];const ng=[];let cat=[],gq=[];
+function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';CN=+h[2]||0;mini=h[3]=='1'?1:0;if(CN&&h[4]!==catStamp&&!catLoading)loadCat(h[4]);hudOld=!h[5];if(h[5])sid=h[5];const ng=[];let cat=[],gq=[];
  for(const l of ln.slice(1)){const p=l.split('|');
   if(p[0]=='L'){L={busy:p[1]=='1',max:+p[2],m:p[3]?p[3].split(';').map(x=>{const f=x.split('~');return{k:f[0],n:f[1],lv:f[2],c:f[3],t:f[4],hp:f[5]==null||f[5]===''?100:+f[5],mp:f[6]==null||f[6]===''?100:+f[6]}}):[],chk:+p[4]||0,rdy:(p[5]||'').split(',').filter(x=>x),by:p[6]||'',force:p[7]=='1'};if(L.chk&&!lastChk&&L.m.some(x=>x.k==me)&&L.by!=me)sfx('ready');lastChk=L.chk}
   else if(p[0]=='P'){P={c:p[1],lv:+p[2],xp:+p[3],need:+p[4],t:p[5],hero:+p[6]||1,mp:p[8]==null||p[8]===''?100:+p[8],hp:p[9]==null||p[9]===''?100:+p[9],its:(p[10]||'').split('.').map(Number),coins:+p[11]||0,bx:Object.fromEntries((p[12]||'').split(',').filter(x=>x).map(x=>{const f=x.split(':');return[f[0],+f[1]]})),jl:{}};(p[7]||'').split(',').forEach(x=>{const f=x.split(':');if(f[0])P.jl[f[0]]=+f[1]})}
@@ -347,6 +347,7 @@ function draw(){
  if(!L){A.innerHTML='<div class="w" style="left:262px;top:170px;width:500px;text-align:center;padding:24px"><div class="h">⚔ Battle HUD ⚔</div><div style="font-size:18px">Looking for a Battle Crystal…</div><small>You need to be in the same region as the crystal.</small></div>';return}
  const keep={};A.querySelectorAll('.scroll[id]').forEach(e=>keep[e.id]=e.scrollTop);
  drawInner();
+ if(hudOld)A.insertAdjacentHTML('beforeend','<div style="position:absolute;left:8px;bottom:6px;z-index:50;padding:4px 10px;background:#a01d1d;border:2px solid #ffb3b3;border-radius:6px;font:bold 13px sans-serif;color:#fff">⚠ This HUD\'s script is out of date and can crash in big parties. Ask the crystal owner for a new HUD.</div>');
  A.querySelectorAll('.scroll[id]').forEach(e=>{if(keep[e.id])e.scrollTop=keep[e.id]});pops()}
 function inBattle(){return !!(B&&B.c&&B.c.some(x=>x.k==me))}   // only party members see the fight; everyone else stays on their own screen
 function drawInner(){
