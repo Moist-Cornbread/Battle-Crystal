@@ -2,6 +2,7 @@
 *{box-sizing:border-box;margin:0;padding:0}
 body{width:1024px;height:512px;overflow:hidden;position:relative;background:radial-gradient(ellipse at 50% 25%,#22306a,#070a18 75%);font:15px "Trebuchet MS",Verdana,sans-serif;color:#eef;text-shadow:1px 1px 0 #000;user-select:none}
 body.boss{background:radial-gradient(ellipse at 50% 25%,#5a1830,#12040a 75%)}
+.ptag{font-size:10px;padding:1px 6px;border-radius:7px;color:#fff;white-space:nowrap}
 .w{position:absolute;background:linear-gradient(#27388e,#0d1645);border:3px solid #dfe3ff;border-radius:9px;box-shadow:inset 0 0 0 2px #0a1030,0 3px 10px #0009;padding:8px 10px}
 .boss .w{background:linear-gradient(#5b2340,#1d0814);border-color:#ffd2dc}
 .h{font-size:12px;letter-spacing:2px;color:#a9b8ff;text-transform:uppercase;margin-bottom:7px}
@@ -158,7 +159,7 @@ function guide(){sfx('click');const g=$('#guide');if(g.style.display=='block'){g
  g.innerHTML+='<div class="h" style="margin-top:10px">♪ Music</div><div style="font-size:11.5px;line-height:1.35">'+MC.map(m=>'<b>'+esc(m[1])+'</b> by '+esc(m[2])+' ('+m[3]+')').join(' · ')+' — all found on OpenGameArt.org. Orchestral Adventure by CodeManu is licensed CC BY 3.0 (creativecommons.org/licenses/by/3.0). The crystal owner can change the music in Admin › Music.<br>Icons by <b>Lorc</b> (game-icons.net), CC BY 3.0.</div>';
  g.style.display='block'}
 function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6],f:f[7]||'',it:(f[8]||'').split('.').map(Number),c:f[11],ic:f[12]}}):[];
- const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1]};
+ const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1],ord:p[9]!=null&&p[9]!==''?p[9].split(',').map(Number):null};
  const o=B;B=n;
  prev=(o&&o.c.length==c.length&&o.c.every((x,i)=>x.n==c[i].n)&&n.r>=o.r)?o.c:null;
  if((!o||o.r>n.r||!prev)&&n.r<=1&&!n.res&&n.boss&&o&&inBattle())sfx('boss');
@@ -322,6 +323,23 @@ function repInfo(a){if(!lastAct||!B)return null;const L2=lastAct;
  return {l:L2.l,c:L2.c,k:L2.k,t,need:L2.k!=null}}
 function okTgt(t,k){const x=B.c[t];if(!x)return false;return k==0?x.t==1&&x.hp>0:k==2?x.t==0&&x.hp<=0:x.t==0&&x.hp>0}
 function repeatAct(){const a=B.c[B.a]||{},r=repInfo(a);if(!r)return;if(!r.need)return send(r.c);if(r.t!=null)return send(r.c+r.t);sfx('click');ui={m:'t',k:r.k,l:r.l,c:r.c};draw()}
+// turn order strip (v7.9): who acts next this round, current first
+function turnStrip(){if(!B||!B.ord||B.res)return '';const seen={};const L2=B.ord.filter(i=>B.c[i]&&B.c[i].hp>0);if(!L2.length)return '';
+ const chip=(i,first)=>{const x=B.c[i],hero=x.t==0,mine=x.k==me;return '<span'+tipAttr('<b>'+esc(x.n)+'</b>'+(first?'<br>acting now':''))+' style="display:inline-flex;align-items:center;justify-content:center;width:28px;height:28px;margin-right:3px;border-radius:6px;font-size:18px;overflow:hidden;background:'+(hero?'#1d3d2a':'#46202a')+';border:2px solid '+(first?'#ffd75a':mine?'#7dff8a':hero?'#4f8f63':'#a8505f')+(first?';box-shadow:0 0 8px #ffd75a':'')+'">'+(hero?face(picK(x.k),x.ic||'🙂',24):(x.ic||'👾'))+'</span>'};
+ return '<span style="display:inline-flex;align-items:center;margin-left:18px;padding:2px 8px;background:#0006;border-radius:8px"><small style="margin-right:7px;color:#b9c2f5;letter-spacing:1px">TURN ORDER</small>'+L2.slice(0,10).map((i,n)=>chip(i,n==0)).join('')+(L2.length>10?'<small>…</small>':'')+'<small style="margin-left:4px;color:#8088b8"'+tipAttr('Then a new round starts (order is re-rolled by speed).')+'>↻</small></span>'}
+// Party tab card (v7.9): portrait, name, job and role, HP / MP, tags, buttons
+function partyCard(x){const s=hpOf(x),j=job(x.c)||{},ko=s.hp<=0,hpP=Math.max(0,Math.min(100,Math.round(s.hp/s.mhp*100))),mpP=Math.max(0,Math.min(100,Math.round(s.mp/s.mmp*100)));
+ const bar=(p,col)=>'<div style="height:6px;background:#0b1040;border-radius:3px;overflow:hidden;margin:2px 0 3px"><div style="height:100%;width:'+p+'%;background:'+col+';border-radius:3px"></div></div>';
+ const lead=L.lead==x.k&&L.m.length>1,tags=(lead?'<span class="ptag" style="background:#6b5300">👑 Leader</span>':'')+(x.afk?'<span class="ptag" style="background:#5a4300">💤 AFK</span>':'')+(x.mnu&&x.k!=me?'<span class="ptag" style="background:#14306a">📋 Menu</span>':'')+(ko?'<span class="ptag" style="background:#6a1420">KO</span>':'');
+ const btn=(l,c,t)=>'<button style="padding:3px 8px;font-size:11px"'+(t?tipAttr(t):'')+' onclick="event.stopPropagation();'+c+'">'+l+'</button>';
+ const acts=x.k!=me&&L.m.length>1?(L.lead==me?btn('👑 Make leader',"send(\'lead|give|"+x.k+"\')"):'')+btn('🚫 Vote to remove',"send(\'vote|"+x.k+"\')",'Vote to remove '+esc(x.n)+' from the party. A majority of the others is needed. Use it for someone who is AFK or forgot to leave.'):'';
+ return '<div style="display:flex;gap:10px;padding:9px 10px;background:linear-gradient(#ffffff12,#0003);border:2px solid '+(x.k==me?'#ffd75a88':'#ffffff22')+';border-radius:10px;'+(ko?'filter:grayscale(.7);':'')+'">'
+  +'<div style="width:64px;height:64px;flex:none;display:flex;align-items:center;justify-content:center;font-size:42px;background:#0005;border-radius:10px">'+face(x.pic,j.ic||'🙂',64)+'</div>'
+  +'<div style="flex:1;min-width:0"><div style="display:flex;align-items:baseline;gap:6px"><b style="font-size:16px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">'+esc(x.n)+'</b>'+(x.k==me?'<small style="color:#ffd75a">you</small>':'')+'</div>'
+  +'<div style="font-size:12px;color:#b9c2f5;margin-bottom:2px">Lv '+esc(x.lv)+' '+esc(x.t)+(j.role?' · '+esc(j.role):'')+'</div>'
+  +'<div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#9fe8a8">HP</span><span>'+(s.n?s.hp+' / '+s.mhp:s.hp+'%')+'</span></div>'+bar(hpP,hpP>50?'#4fd86b':hpP>20?'#f2b43a':'#ff5a5a')
+  +'<div style="display:flex;justify-content:space-between;font-size:11px"><span style="color:#9fd3ff">MP</span><span>'+(s.n?s.mp+' / '+s.mmp:s.mp+'%')+'</span></div>'+bar(mpP,'#58b6ff')
+  +((tags||acts)?'<div style="display:flex;flex-wrap:wrap;gap:4px;align-items:center;margin-top:3px">'+tags+'<span style="flex:1"></span>'+acts+'</div>':'')+'</div></div>'}
 function afkK(k){return !!(L&&L.m.some(m=>m.k==k&&m.afk))}
 function fmRow(x,act,extra){const s=hpOf(x),j=job(x.c)||{},ko=s.hp<=0;
  return '<div class="row" style="background:#0005;padding:6px 8px;margin-bottom:5px'+(act?';cursor:pointer;border-color:#ffd75a88':'')+'"'+(act?' onclick="'+act+'"':'')+'><div class="ic">'+face(x.pic,j.ic||'',40)+'</div><div class="nm"><b>'+(L&&x.k==L.lead&&L.m.length>1?'👑 ':'')+esc(x.n)+'</b>'+(x.k==me?' <small>(you)</small>':'')+'<br><small>Lv '+esc(x.lv)+' '+esc(x.t)+(ko?' · <b style="color:#ff6a6a">KO</b>':'')+(x.afk?' · <b style="color:#ffd27a">💤 AFK</b>':'')+(x.mnu&&x.k!=me?' · <b style="color:#9fd3ff">📋 in the Menu</b>':'')+'</small></div>'
@@ -334,7 +352,7 @@ function fieldMenu(){const tabs=[['party','👥 Party'],['log','🗒 Log'],['sta
  else if(FM.t=='shop'&&town)body=shopTab(town);
  else if(FM.t=='guild')body=guildTab();
  else if(FM.t=='sell')body=sellTab();
- else if(FM.t=='party')body='<div class="h">Party · rest at an inn to recover everything</div>'+(L.m.length>1&&!iLead()?'<button style="margin:0 0 6px;padding:5px 10px;font-size:13px" onclick="send(\'lead|ask\')">👑 Ask '+esc(leadName())+' for the lead</button>':'')+L.m.map(x=>fmRow(x,'',x.k!=me&&L.m.length>1?'<div style="display:flex;flex-direction:column;gap:3px;margin-left:8px">'+(L.lead==me?'<button style="padding:3px 8px;font-size:11px" onclick="event.stopPropagation();send(\'lead|give|'+x.k+'\')">👑 Make leader</button>':'')+'<button style="padding:3px 8px;font-size:11px" onclick="event.stopPropagation();send(\'vote|'+x.k+'\')"'+tipAttr('Vote to remove '+esc(x.n)+' from the party. A majority of the others is needed. Use it for someone who is AFK or forgot to leave.')+'>🚫 Vote to remove</button></div>':'')).join('');
+ else if(FM.t=='party')body='<div class="h">Party · rest at an inn to recover everything</div>'+(L.m.length>1&&!iLead()?'<button style="margin:0 0 8px;padding:5px 10px;font-size:13px" onclick="send(\'lead|ask\')">👑 Ask '+esc(leadName())+' for the lead</button>':'')+'<div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">'+L.m.map(x=>partyCard(x)).join('')+'</div>';
  else if(FM.t=='items'){const its=(P&&P.its||[]);const own=IT.map((t,i)=>i).filter(i=>its[i]>0);
   body='<div class="h">Items · click one to use it</div>'+(own.length?'<div style="display:grid;grid-template-columns:1fr 1fr;gap:6px">'+own.map(i=>{const d=IT[i],off=d[1]=='C';return '<button style="text-align:left"'+(off?' disabled':'')+tipAttr('<b>'+d[4]+' '+esc(d[0])+'</b><br>'+esc(d[6])+(off?'<br><i>Statuses wear off after every battle.</i>':''))+' onclick="fmPick(\'item\','+i+','+d[3]+',\''+esc(d[0]).replace(/'/g,'')+'\')">'+d[4]+' '+esc(d[0])+' <small>×'+its[i]+'</small><br><small>'+esc(d[6]).slice(0,48)+'</small></button>'}).join('')+'</div>':'<small>Your bag is empty. Win battles to find items!</small>')}
  else{const j=job(P.c)||{sk:[]};const ok=j.sk.map((s,i)=>[s,i]).filter(([s,i])=>(s[2]=='H'||s[2]=='R'||s[2]=='MP')&&+s[1]<=P.lv);const myMp=(FS[me]||{}).mp;
@@ -436,7 +454,7 @@ function battle(bn){
  const fl=x=>(x.f.match(/[A-Z]\d*/g)||[]).map(m=>{const f=m[0],n=m.slice(1);return FL[f]?'<span class="fl"'+tipAttr('<b>'+FL[f][1]+'</b>'+(n?' · '+n+' more turn'+(n>1?'s':''):'')+'<br>'+STAT[f],1)+'>'+FL[f][0]+(n?'<sub class="fn">'+n+'</sub>':'')+'</span>':''}).join('');
  const pc=x=>Math.max(0,x.hp/x.mhp*100);
  let st=B.res?'':B.mo==1?(a.k==me?'<b style="color:#ffd75a">YOUR TURN</b>':esc(a.n)+'’s turn'):B.mo>=2?esc(a.n)+' is acting…':'';
- let h='<div id="top"><b>'+(B.boss?'💀 BOSS · ':'')+'ROUND '+B.r+'</b><span style="margin-right:90px">'+(B.boss&&inB&&!B.res?'<button style="padding:2px 8px;font-size:13px;margin-right:10px"'+tipAttr('<b>Vote to retreat</b><br>If a majority of the party votes, everyone leaves the boss fight (no XP).')+' onclick="voteRetreat()">🏳 Retreat '+B.votes+'/'+B.need+'</button>':'')+st+(inB?'':' <small>· spectating</small>')+'</span></div>';
+ let h='<div id="top"><b>'+(B.boss?'💀 BOSS · ':'')+'ROUND '+B.r+'</b>'+turnStrip()+'<span style="margin-right:90px">'+(B.boss&&inB&&!B.res?'<button style="padding:2px 8px;font-size:13px;margin-right:10px"'+tipAttr('<b>Vote to retreat</b><br>If a majority of the party votes, everyone leaves the boss fight (no XP).')+' onclick="voteRetreat()">🏳 Retreat '+B.votes+'/'+B.need+'</button>':'')+st+(inB?'':' <small>· spectating</small>')+'</span></div>';
  h+='<div class="w" id="field">'+c.map((x,i)=>x.t!=1?'':'<div class="card'+(x.c=='BOSS'?' big':'')+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+'><div class="ic">'+(x.ic||'👾')+'</div><b>'+esc(x.n)+'</b><div class="bar"><i style="width:'+pc(x)+'%"></i></div><div>'+fl(x)+(x.c=='BOSS'?'<small>'+Math.ceil(pc(x))+'%</small>':'')+'</div></div>').join('')+'</div>';
  h+='<div class="w" id="party"><div class="h">Party</div>'+c.map((x,i)=>x.t!=0?'':'<div class="row'+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+'><div class="ic">'+face(picK(x.k),x.ic||'',38)+'</div><div class="nm"><b>'+(x.t==0&&afkK(x.k)?'💤':'')+esc(x.n)+'</b> <small>'+esc(x.c)+'</small><br>'+fl(x)+'</div><div class="st"><div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div>HP '+x.hp+'/'+x.mhp+'<div class="bar mp"><i style="width:'+(x.mmp?x.mp/x.mmp*100:0)+'%"></i></div>MP '+x.mp+'/'+x.mmp+'</div></div>').join('')+'</div>';
  h+='<div class="w" id="cmd">'+cmd(my,a)+'</div><div class="w" id="log">'+G.map(g=>'<div>'+esc(g)+'</div>').join('')+'</div>';
