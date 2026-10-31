@@ -1,88 +1,78 @@
-m_46	Smaug Smog~🐉~5~160~35~21~14~20~10~50~0:2,211:1
-s_212	Psystrike Out~M~1.5~0~9~
-m_47	Mewtwo-Four~🐱~5~135~45~15~12~24~16~50~0:1,212:2
-s_213	Mega Buster Shout~M~0.8~1~10~stn:15
-m_48	Mega Megaphone~📣~5~150~30~19~13~19~12~49~0:2,213:1
-s_214	Ghostbusted~P~1.4~0~0~stn:20
-m_49	Stay-Puft Mallow~☁️~5~185~0~22~16~0~7~50~0:2,214:1
-m_n	50
-s_215	Vape Cloud~M~0.6~1~10~psn:3
-s_216	Force Cough~M~1.6~0~8~stn:25
-x_0	Darth Vapor~💨~694~120~21~12~21~10~320~2~0:2,215:2,216:1~-1~0~I am your vapor.
-s_217	The Snap~M~1.3~1~20~
-s_218	Infinity Ladle~P~1.8~0~0~
-x_1	Thanoodle~🍜~707~100~23~13~18~9~340~2~0:2,217:1,218:1~-1~0~Perfectly balanced. Like a good broth.
+x_0	The Black Knight~⚔️~694~120~21~12~21~10~320~2~0:2,215:2,216:1~-1~0~Kneel, and I will make it quick.
+s_217	Trumpet Blast~M~1.3~1~20~
+s_218	Tusk Toss~P~1.8~0~0~
+x_1	Iron Mammoth~🐘~707~100~23~13~18~9~340~2~0:2,217:1,218:1~-1~0~HRRAWOOO!
 s_219	Late Fee Stomp~P~1~1~0~
 s_220	Raise The Rent~N~0~4~10~atk:3
 x_2	Rentcoon~🦝~738~60~22~15~9~7~360~2~0:3,219:1,220:1~-1~0~Your security deposit is MINE.
-s_221	Wubba Kedavra~M~1.7~0~10~
-s_222	Horcrux Portal~H~1.5~4~15~
-s_223	Snake Jazz~M~0.7~1~12~wk:2
-x_3	Voldemorty~🐍~774~150~15~11~27~11~340~2~0:1,221:2,222:1,223:1~-1~0~Wubba lubba dub DOOM.
-s_224	Upside-Down Stench~M~0.7~1~10~psn:3
+s_221	Soul Fire~M~1.7~0~10~
+s_222	Haunt~H~1.5~4~15~
+s_223	Spooky Wail~M~0.7~1~12~wk:2
+x_3	Boo-hemoth~👻~774~150~15~11~27~11~340~2~0:1,221:2,222:1,223:1~-1~0~Boo. BOO. B O O O O!
+s_224	Pollen Stench~M~0.7~1~10~psn:3
 s_225	Petal Chomp~P~1.7~0~0~drn:30
-x_4	Demogorgonzola~🧀~623~80~19~14~14~12~360~2~0:2,224:1,225:1~-1~0~The Upside-Down smells... aged.
-s_226	Triforce of Wedgies~P~1.5~0~0~wk:2
-s_227	Dork Beam~M~1~1~12~
-x_5	Ganon-Dork~🐗~756~100~22~14~20~9~350~2~0:2,226:1,227:1~-1~0~It's dangerous to go alone. It's worse to go against ME.
-s_228	Never Gonna Give You Up~N~0~4~8~rgn:3,def:2
-s_229	Rickroll Link~M~1.4~0~8~stn:20
-x_6	The Rickroller~🎤~1040~120~22~12~25~14~330~2~0:1,228:2,229:2~-1~0~Click this totally normal link.
-s_230	I'm Sorry Dave~M~1.6~0~10~
-s_231	Pod Bay Crumbs~M~0.8~1~12~stn:15
-x_7	HAL-9000 Toaster~🍞~768~140~17~16~24~10~340~2~0:1,230:2,231:1~3~2~I'm afraid I can't let you eat that.
-s_232	Balloon Barrage~M~0.8~1~10~wk:2
-s_233	Balloon Animal~P~1.6~0~0~
-x_8	Pennyfoolish~🎈~738~110~22~11~22~13~330~2~0:2,232:1,233:1~11~1~You'll float too! (Financially.)
-s_234	Sugar Superlaser~M~1.4~1~30~
-s_235	Graham Shield~N~0~4~10~def:3
-x_9	That's No Moon Pie~🥧~1016~80~21~18~19~6~370~2~0:2,234:1,235:1~-1~0~Fully operational. Deliciously.
-s_236	Purple Breath~M~0.9~1~12~psn:2
-s_237	Crystal Heal~H~1.5~4~15~
-x_10	Ender Eye-Clops~👁️~629~100~22~14~16~13~370~2~0:2,236:1,237:1~18~1~You can't punch trees in here.
-s_238	Have You Tried Rebooting~M~1~0~8~stn:40
-s_239	Hold Music~M~0.6~1~10~wk:3
-x_11	Skynot Tech Support~🤖~918~120~23~15~23~11~350~2~0:2,238:1,239:1~-1~0~Your doom is important to us. Please hold.
-s_240	Desync~M~0.7~1~10~stn:20
-s_241	Packet Loss~M~1.5~0~8~drn:30
-x_12	Lord Lagmort~📶~818~120~21~12~23~16~350~2~0:2,240:1,241:1~4~2~Your connection to life... is unstable.
-s_242	Over 9000 Nibbles~P~0.4~0~0~hit:5
-s_243	Power Up Scream~N~0~4~10~atk:3
-x_13	Super Saiyan Raccoon~🦝~818~80~29~11~11~18~360~2~0:2,242:1,243:1~-1~0~It's... it's still only 4 inches tall!
-s_244	Objection Shell~X~1.5~0~0~
-s_245	Legal Fees~M~0.8~1~12~wk:2
-x_14	Bowser's Divorce Lawyer~🐢~782~120~20~17~19~8~360~2~0:2,244:1,245:1~-1~0~The princess gets the castle. You get NOTHING.
-s_246	Super Nova Poop~M~1~1~14~
-s_247	Coo of Despair~M~1.5~0~8~wk:2
-x_15	One-Winged Pigeon~🕊️~627~140~21~12~21~15~360~2~0:1,246:2,247:1~-1~0~I will never be a memory. Or a statue. You'll see.
-s_248	Bigger Boat Bite~P~1.9~0~0~
-s_249	Patch Notes Frenzy~P~0.8~1~0~
-x_16	Jaws 2.0 (Beta)~🦈~640~60~22~13~8~12~370~2~0:2,248:1,249:1~19~1~You're gonna need a bigger patch.
-s_250	Mandatory Overtime~M~0.8~1~12~wk:3
-s_251	Performance Review~M~1.8~0~10~
-x_17	Cthulhu's Middle Manager~🐙~532~150~13~14~20~9~370~2~0:1,250:2,251:1~23~1~Per my last madness-inducing email...
-s_252	Frostmourne Fries~M~1.6~0~10~
-s_253	Grease Plague~M~0.6~1~12~psn:3
-s_254	Secret Sauce~H~1.4~4~15~
-x_18	The Lich King of Burgers~🍔~819~140~18~15~22~9~370~2~0:1,252:1,253:1,254:1~-1~0~Would you like to die with that?
-s_255	Roll For Initiative~M~1~1~12~
-s_256	You Can't Do That~M~0.6~0~8~stn:50
-x_19	The DM Who Says No~🎲~581~150~16~14~20~12~370~2~0:1,255:2,256:1~26~1~Natural 1. Roll again. Still a 1.
-s_257	Transform And Roll Over~P~1~1~0~
-s_258	Energon Overcharge~N~0~4~12~atk:3,def:2
-x_20	Megabyte Prime~🤖~627~100~20~18~13~10~380~2~0:2,257:1,258:1~-1~0~Autobots, roll out. Decepticons, roll... over.
+x_4	Venus Fly Tyrant~🌿~623~80~19~14~14~12~360~2~0:2,224:1,225:1~-1~0~Come closer. I won't bite. Much.
+s_226	Tiger Pounce~P~1.5~0~0~wk:2
+s_227	Blaze Roar~M~1~1~12~
+x_5	Blaze Tiger~🐯~756~100~22~14~20~9~350~2~0:2,226:1,227:1~-1~0~GRRRAAAH!
+s_228	Belly Flop~N~0~4~8~rgn:3,def:2
+s_229	Tongue Snag~M~1.4~0~8~stn:20
+x_6	Toad Almighty~🐸~1040~120~22~12~25~14~330~2~0:1,228:2,229:2~-1~0~RIBBIT. (That means lunch.)
+s_230	Evil Stare~M~1.6~0~10~
+s_231	Horn Ram~M~0.8~1~12~stn:15
+x_7	Eye-Gor~👁️~768~140~17~16~24~10~340~2~0:1,230:2,231:1~3~2~I see you. I ALWAYS see you.
+s_232	Feather Barrage~M~0.8~1~10~wk:2
+s_233	Gust~P~1.6~0~0~
+x_8	Crimson Tengu~👺~738~110~22~11~22~13~330~2~0:2,232:1,233:1~11~1~Leave my mountain, or leave in pieces!
+s_234	Slime Wave~M~1.4~1~30~
+s_235	Jelly Shield~N~0~4~10~def:3
+x_9	Slimezilla~💧~1016~80~21~18~19~6~370~2~0:2,234:1,235:1~-1~0~Bloop. (That was a threat.)
+s_236	Claw Crush~M~0.9~1~12~psn:2
+s_237	Shell Mend~H~1.5~4~15~
+x_10	Crabclops~🦀~629~100~22~14~16~13~370~2~0:2,236:1,237:1~18~1~Snip snip. You're next.
+s_238	Iai Slash~M~1~0~8~stn:40
+s_239	Battle Cry~M~0.6~1~10~wk:3
+x_11	The Blue Shogun~🗡️~918~120~23~15~23~11~350~2~0:2,238:1,239:1~-1~0~Draw your blade. Mine is already out.
+s_240	Grasping Dark~M~0.7~1~10~stn:20
+s_241	Void Drain~M~1.5~0~8~drn:30
+x_12	Gloomlord~🌑~818~120~21~12~23~16~350~2~0:2,240:1,241:1~4~2~Come into the dark. It is warm here.
+s_242	Flurry of Paws~P~0.4~0~0~hit:5
+s_243	Focus Shout~N~0~4~10~atk:3
+x_13	Grandmaster Raccoon~🦝~818~80~29~11~11~18~360~2~0:2,242:1,243:1~-1~0~You have much to learn. Lesson one: OUCH.
+s_244	Vine Lash~X~1.5~0~0~
+s_245	Root Grab~M~0.8~1~12~wk:2
+x_14	Tangle Hydra~🌿~782~120~20~17~19~8~360~2~0:2,244:1,245:1~-1~0~So many heads. So many ways to grab you.
+s_246	Wind Blade~M~1~1~14~
+s_247	Gale~M~1.5~0~8~wk:2
+x_15	Azure Tengu~🪶~627~140~21~12~21~15~360~2~0:1,246:2,247:1~-1~0~The wind answers to me.
+s_248	Lava Bite~P~1.9~0~0~
+s_249	Molten Frenzy~P~0.8~1~0~
+x_16	Magma Salamander~🦎~640~60~22~13~8~12~370~2~0:2,248:1,249:1~19~1~Hssss... it's warm in here. For me.
+s_250	Ink Cloud~M~0.8~1~12~wk:3
+s_251	Crushing Grip~M~1.8~0~10~
+x_17	The Kraken~🐙~532~150~13~14~20~9~370~2~0:1,250:2,251:1~23~1~Release ME? No. I release YOU... into the deep.
+s_252	Cursed Blade~M~1.6~0~10~
+s_253	Plague Touch~M~0.6~1~12~psn:3
+s_254	Dark Pact~H~1.4~4~15~
+x_18	Gilded Revenant~💀~819~140~18~15~22~9~370~2~0:1,252:1,253:1,254:1~-1~0~Death was only a short break.
+s_255	Haymaker~M~1~1~12~
+s_256	Taunt~M~0.6~0~8~stn:50
+x_19	Puncho Diablo~👊~581~150~16~14~20~12~370~2~0:1,255:2,256:1~26~1~Put 'em up! ...No, higher. Now DUCK.
+s_257	Crystal Charge~P~1~1~0~
+s_258	Shard Overload~N~0~4~12~atk:3,def:2
+x_20	Crystal Behemoth~💎~627~100~20~18~13~10~380~2~0:2,257:1,258:1~-1~0~Shatter!
 s_259	Spice Swallow~P~2~0~0~
 s_260	Thumper Quake~P~0.9~1~0~stn:15
 x_21	Sandworm Supremo~🪱~639~80~21~15~10~7~380~2~0:2,259:1,260:1~-1~0~The spice must flow. Into your eyes.
-s_261	Infinite Feed~M~0.7~1~12~wk:2
-s_262	Ratio'd~M~1.8~0~10~
-x_22	Dr. Doomscroll~📱~666~150~15~13~22~14~360~2~0:1,261:2,262:1~15~2~Just five more minutes... of PAIN.
-s_263	Resistance Is Fu-tile~M~0.7~1~12~psn:2
-s_264	Assimilate Honey~P~1.4~0~0~drn:50
-x_23	Borg Queen Bee~🐝~576~120~18~14~16~13~370~2~0:2,263:1,264:1~9~2~We are the Bee. You will be pollinated.
-s_265	Mister Anderson~X~1.6~0~8~
-s_266	More of Me~N~0~4~12~rgn:3,atk:2
-x_24	Agent Smithereens~🕶️~744~120~23~15~15~15~380~2~0:2,265:1,266:1~10~1~Mister Anderson... welcome to the boss fight.
+s_261	Scythe Swipe~M~0.7~1~12~wk:2
+s_262	Curtain Call~M~1.8~0~10~
+x_22	The Masked Reaper~🎭~666~150~15~13~22~14~360~2~0:1,261:2,262:1~15~2~Take a bow. It is your final act.
+s_263	Branch Lash~M~0.7~1~12~psn:2
+s_264	Sap Drain~P~1.4~0~0~drn:50
+x_23	Haunted Willow~🌳~576~120~18~14~16~13~370~2~0:2,263:1,264:1~9~2~Your roots are shallow. Mine go deep.
+s_265	Moon Howl~X~1.6~0~8~
+s_266	Pack Call~N~0~4~12~rgn:3,atk:2
+x_24	Ash Werewolf~🐺~744~120~23~15~15~15~380~2~0:2,265:1,266:1~10~1~AWOOOO! The pack is coming.
 x_n	25
 gt_a1	Helm,Great Helm,Visor;Hood,Bandana,Mask;Hat,Circlet,Cowl
 gt_a2	Plate,Chainmail,Cuirass;Leather Vest,Gi,Jerkin;Robe,Vestments,Coat
@@ -101,3 +91,13 @@ gt_r7	Cunning Knit Hat~1~2,0,0,1,0,0,0~def
 gt_r8	Red Shirt (Ensign)~2~3,0,0,0,0,0,1~
 gt_r9	Mithril-ish Vest~2~1,0,0,3,0,0,0~def
 gt_r10	Cloak of Invisib-ish~2~0,0,0,1,0,2,1~
+gt_r11	Gotta-Go-Fast Sneakers~3~1,0,0,0,0,3,0~
+gt_r12	Moon Princess Boots~3~0,1,0,0,1,2,0~rgn
+gt_r13	Towel (Don't Panic)~4~1,1,0,1,0,0,0~rgn
+gt_r14	Ring of Power (Low Bat)~4~0,0,2,0,2,0,0~
+gt_r15	Konami Amulet~4~3,0,0,0,0,0,0~pot
+gt_r16	Power Glove (So Bad)~4~0,0,2,0,0,0,2~atk
+gt_r17	Pip-Bracer 3000~4~0,1,0,0,0,1,1~eth
+gt_r18	Infinity Oven Mitt~4~1,0,1,1,1,0,0~atk.def
+gt_r19	Bag of Holding (Empty)~4~0,2,0,0,0,0,0~eth.pot
+gt_rn	20
