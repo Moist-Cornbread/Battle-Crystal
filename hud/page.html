@@ -103,6 +103,18 @@ body.bt #top{z-index:3;background:#0b1040b0;border:2px solid #dfe4ff55;border-ra
 @keyframes bnr{0%{opacity:0;margin-top:-8px}6%{opacity:1;margin-top:0}85%{opacity:1}100%{opacity:0}}
 #fbtn{position:absolute;right:12px;top:304px;z-index:3;display:flex;gap:6px}
 #fbtn button{padding:3px 12px;font-size:14px}
+.mks{position:absolute;left:50%;top:-20px;transform:translateX(-50%);display:flex;gap:2px;z-index:3;pointer-events:none}.ms .mks{top:-4px}.ms.big .mks{top:6px}
+.mk{display:inline-block;min-width:18px;height:18px;padding:0 3px;font:bold 13px/16px sans-serif;text-align:center;color:#fff;border:2px solid #fff;border-radius:50%;box-shadow:0 2px 0 #0008;text-shadow:1px 1px 0 #0008;animation:mkp .35s ease-out}
+@keyframes mkp{0%{transform:scale(1.8);opacity:0}100%{transform:none;opacity:1}}
+.pr .mk{min-width:14px;height:14px;font-size:10px;line-height:12px;margin-left:3px;border-width:1px;vertical-align:1px}
+.bub{position:absolute;bottom:100%;right:-6px;margin-bottom:24px;max-width:190px;width:max-content;padding:4px 9px;background:#fff;color:#1a1d3a;font:bold 12.5px/1.3 sans-serif;border:2px solid #1a1d3a;border-radius:10px;z-index:7;pointer-events:none;animation:bub 6s forwards;white-space:normal;overflow-wrap:anywhere}
+.bub:after{content:'';position:absolute;right:16px;top:100%;border:7px solid transparent;border-top-color:#1a1d3a}
+@keyframes bub{0%{opacity:0;transform:translateY(6px)}5%{opacity:1;transform:none}88%{opacity:1}100%{opacity:0}}
+#pal{right:12px;bottom:44px;z-index:6;display:flex;flex-wrap:wrap;gap:5px;max-width:330px;justify-content:flex-end;padding:7px 8px}
+#pal .h{width:100%;margin:0 0 2px;font-size:13px}
+#pal button{padding:3px 8px;font-size:13px}
+#chatb{position:absolute;left:8px;top:300px;z-index:8;display:none;gap:6px;padding:4px 6px}
+#chatb input{width:360px;font-size:14px;padding:3px 6px;border-radius:5px;border:2px solid #9fb0ff;background:#0b1040;color:#fff}
 #blog{left:8px;top:44px;width:430px;height:256px;z-index:5;font-size:12.5px;line-height:1.38;overflow-y:auto;background:linear-gradient(#27388ef2,#0d1645f2)}
 #blog div{opacity:.6;margin-top:2px}#blog div:last-child{opacity:1;color:#ffe9a8}
 #cmd{left:8px;top:344px;width:440px;height:160px;box-sizing:border-box}
@@ -188,7 +200,7 @@ function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';
   else if(p[0]=='M')mparse(p);
   else if(p[0]=='U')musicSet(p);
   else if(p[0]=='F'){FS={};(p[1]||'').split(';').forEach(x=>{const f=x.split('~');if(f[0])FS[f[0]]={n:f[1],hp:+f[2],mhp:+f[3],mp:+f[4],mmp:+f[5]}})}}
- if(!ln.includes('G0|')){G=ng;logAdd(ng)}   // newer HUDs send only what changed; 'G0|' = log unchanged
+ if(!ln.includes('G0|')){G=ng;bubAdd(logAdd(ng))}   // newer HUDs send only what changed; 'G0|' = log unchanged
  if(gq.length)gearParse(gq);
  if(B&&!B.res&&P)preP=P;else if(B&&B.res==1&&banner&&preP&&P&&preP.c==P.c&&(P.lv!=preP.lv||P.xp!=preP.xp)){xpStart(preP,P);preP=null}
  draw()}
@@ -226,6 +238,7 @@ function guide(){sfx('click');const g=$('#guide');if(g.style.display=='block'){g
  g.style.display='block'}
 function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6],f:f[7]||'',it:(f[8]||'').split('.').map(Number),c:f[11],ic:f[12]}}):[];
  const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1],ord:p[9]!=null&&p[9]!==''?p[9].split(',').map(Number):null};
+ MK={};(p[10]||'').split(',').forEach(x=>{const f=x.split(':');if(f[1]!=null&&MKS[f[0]])MK[f[0]]=+f[1]});if(n.res){pal='';mkPick=''}
  const o=B;B=n;
  prev=(o&&o.c.length==c.length&&o.c.every((x,i)=>x.n==c[i].n)&&n.r>=o.r)?o.c:null;
  const anew=n.fx&&n.fx!=lastFx&&lastFx&&inBattle()&&aniStart(n);
@@ -377,8 +390,8 @@ function paintPx(){document.querySelectorAll('canvas.pxp').forEach(c=>{const u=c
 let LOGH=[],pingT=0,pinged=0;
 setInterval(()=>{if(!pingT||!B||B.res||sent||!(B.mo==1&&B.c[B.a]&&B.c[B.a].k==me)){pingT=0;return}if(!pinged&&Date.now()-pingT>=12000){pinged=1;sfx('turn')}},1000);   // a second chime if you haven't acted after 12 s
    // 5) the log, kept for the Menu's Log tab (last 200 lines)
-function logAdd(ng){if(!ng.length)return;let o=0;for(let n=Math.min(ng.length,LOGH.length);n>0;n--)if(LOGH.slice(-n).join('\n')==ng.slice(0,n).join('\n')){o=n;break}
- for(const l of ng.slice(o))LOGH.push(l);if(LOGH.length>200)LOGH=LOGH.slice(-200)}
+function logAdd(ng){if(!ng.length)return [];let o=0;for(let n=Math.min(ng.length,LOGH.length);n>0;n--)if(LOGH.slice(-n).join('\n')==ng.slice(0,n).join('\n')){o=n;break}
+ const had=LOGH.length;for(const l of ng.slice(o))LOGH.push(l);if(LOGH.length>200)LOGH=LOGH.slice(-200);return had?ng.slice(o):[]}
 function logTab(){return '<div class="h">Log · the last '+LOGH.length+' messages (newest at the bottom)</div><div class="scroll" id="sc_log" style="max-height:330px;overflow:auto;font-size:13px;line-height:1.45;background:#0004;border-radius:6px;padding:6px 10px">'+(LOGH.length?LOGH.map(l=>'<div>'+esc(l)+'</div>').join(''):'<small>Nothing yet.</small>')+'</div>'}
 // 2) repeat your last battle command
 let lastAct=null;
@@ -413,6 +426,22 @@ const MSPR={"m": ["mole2:4", "flam2:4", "bamboo:4", "lizard2:4", "bambooyellow:4
 const BGZ={'.':'meadow','T':'forest',':':'sand','"':'swamp','%':'graveyard','*':'lava'};
 function bgZone(){if(!Wd||!WM.rows)return 'meadow';for(let r=0;r<4;r++)for(let dy=-r;dy<=r;dy++)for(let dx=-r;dx<=r;dx++){const z=BGZ[wt(Wd.x+dx,Wd.y+dy)];if(z)return z}return 'meadow'}
 let showLog=0,bnLine='',bnT=0;
+// ---------- target markers, callouts, party chat (v8.3) ----------
+const MKS={'1':['1','#e0413c','Attack this 1st'],'2':['2','#ef8a1f','Attack this 2nd'],'3':['3','#c9a400','Attack this 3rd'],x:['✕','#6d7088','Leave this one alone'],h:['✚','#2fae58','Heal this one'],s:['🛡','#3a76d8','Protect this one']};
+const CALLS=['Heal me!','Need MP!','Revive please!','Attack the marked target!','Wait, buffing first!','Careful, big attack!','Nice!','Thanks!'];
+let MK={},pal='',mkPick='',BUB={};
+function mkOf(i){return Object.keys(MKS).filter(s=>MK[s]==i).map(s=>'<span class="mk" style="background:'+MKS[s][1]+'">'+MKS[s][0]+'</span>').join('')}
+function palT(t){sfx('click');pal=pal==t?'':t;mkPick='';chatBox(pal=='chat');draw()}
+function mkSel(s){sfx('click');mkPick=mkPick==s?'':s;draw()}
+function mkSet(i){sfx('click');const s=mkPick;mkPick='';if(MK[s]==i)delete MK[s];else MK[s]=i;fetch('a',{method:'POST',body:'bmk|'+s+'|'+i}).catch(()=>{});draw()}
+function mkClear(){sfx('click');MK={};mkPick='';fetch('a',{method:'POST',body:'bmk|c|-1'}).catch(()=>{});draw()}
+function say(t){t=(t||'').replace(/[\r\n]+/g,' ').trim().slice(0,80);if(!t)return;sfx('click');fetch('a',{method:'POST',body:'bchat|'+t}).catch(()=>{});if(pal=='call'){pal='';draw()}}
+function chatBox(on){let b=$('#chatb');if(!b){document.body.insertAdjacentHTML('beforeend','<div class="w" id="chatb"><input id="chatin" maxlength="80" placeholder="Say something to the party… (Enter to send)"><button class="gold" onclick="chatSend()">Send</button><button onclick="palT(\'chat\')">✕</button></div>');b=$('#chatb');$('#chatin').addEventListener('keydown',e=>{e.stopPropagation();if(e.key=='Enter')chatSend();if(e.key=='Escape')palT('chat')})}
+ b.style.display=on?'flex':'none';if(on)setTimeout(()=>{const i=$('#chatin');if(i)i.focus()},0)}
+function chatSend(){const i=$('#chatin');if(!i)return;say(i.value);i.value='';i.focus()}
+function bubAdd(lines){for(const l of lines){const m=/^💬 (.{1,12}?): (.*)$/.exec(l);if(m)BUB[m[1]]={t:m[2],at:Date.now()}}}
+function palHtml(){if(pal=='mark')return '<div class="w" id="pal"><div class="h">🎯 '+(mkPick?'Now click a monster or hero for '+MKS[mkPick][0]:'Pick a marker, then click a target')+'</div>'+Object.keys(MKS).map(s=>'<button'+(mkPick==s?' class="gold"':'')+' onclick="mkSel(\''+s+'\')"'+tipAttr('<b>'+MKS[s][2]+'</b><br>Everyone in the party sees it. Click the same target again to remove it.')+'><span class="mk" style="background:'+MKS[s][1]+'">'+MKS[s][0]+'</span></button>').join('')+'<button onclick="mkClear()">Clear all</button></div>';
+ if(pal=='call')return '<div class="w" id="pal"><div class="h">📣 Callouts</div>'+CALLS.map(c=>'<button onclick="say(\''+c.replace(/'/g,"\\'")+'\')">'+esc(c)+'</button>').join('')+'</div>';return ''}
 function togLog(){sfx('click');showLog=!showLog;draw()}
 const AUTO={Knight:['Knight','KnightGold'],Sage:['SorcererOrange'],Oracle:['Shaman'],Gambler:['Noble'],Berserker:['RedGladiator'],Ninja:['NinjaBlue','NinjaDark'],Bard:['MaskRacoon'],Alchemist:['MaskFrog'],Dragoon:['SamuraiRed'],Necromancer:['SorcererBlack','SkeletonDemon'],Monk:['Monk','Master'],Ranger:['Hunter']};
 let SPRS=[];
@@ -484,6 +513,7 @@ function xpTick(){if(!XA||!$('#xpw')){if(XA&&Date.now()-XA.t0<XA.d+500)requestAn
  if(s.k<1)requestAnimationFrame(xpTick)}
 // ---------- drawing ----------
 function draw(){
+ {const cb=$('#chatb');if(cb&&!(pal=='chat'&&B&&!B.res&&inBattle()))cb.style.display='none';else if(cb)cb.style.display='flex'}
  if(!tipPin)$('#tip').style.display='none';
  if(L&&L.busy&&!wasBusy&&mini&&inBattle())setMini(0);if(L)wasBusy=L.busy;   // a battle starts: pop back open
  document.body.classList.toggle('mini',!!mini);
@@ -536,8 +566,9 @@ function battle(bn){
  if(!B.res)music(B.boss?(Wd&&(feat(Wd.x,Wd.y)||[])[2]=='B'?'bigboss':'boss'):'battle');
  const ok=(x,k)=>k==0?x.t==1&&x.hp>0:k==1?x.t==0&&x.hp>0:x.t==0&&x.hp<=0;
  const now=Date.now(),ae=ANI?now-ANI.t0:1e9,re=now-RUN,koing=i=>ANI&&ANI.ko.includes(i)&&ae<KO;
- const cl=(x,i)=>(x.hp<=0&&!koing(i)?' dead':'')+(x.hp<=0&&ANI&&ANI.ko.includes(i)&&ae<KO+700?' dying':'')+(ANI&&ANI.a==i&&ae<AT?' '+ANI.mv:re<1200&&x.hp>0?' run':'')+(i==B.a&&!B.res?' act':'')+(tg>=0&&!sent&&ok(x,tg)?' pick':'');
- const ck=(x,i)=>tg>=0&&!sent&&ok(x,tg)?' onclick="go('+i+')"':'';
+ const cl=(x,i)=>(x.hp<=0&&!koing(i)?' dead':'')+(x.hp<=0&&ANI&&ANI.ko.includes(i)&&ae<KO+700?' dying':'')+(ANI&&ANI.a==i&&ae<AT?' '+ANI.mv:re<1200&&x.hp>0?' run':'')+(i==B.a&&!B.res?' act':'')+(mkPick?(x.t==1&&x.hp<=0?'':' pick'):tg>=0&&!sent&&ok(x,tg)?' pick':'');
+ const ck=(x,i)=>mkPick?(x.t==1&&x.hp<=0?'':' onclick="mkSet('+i+')"'):tg>=0&&!sent&&ok(x,tg)?' onclick="go('+i+')"':'';
+ const mkd=(x,i)=>x.t==1&&x.hp<=0?'':mkOf(i),bub=x=>{const b=BUB[x.n];return b&&now-b.at<6000?'<div class="bub" style="animation-delay:-'+(now-b.at)+'ms">'+esc(b.t)+'</div>':''};
  const fl=x=>(x.f.match(/[A-Z]\d*/g)||[]).map(m=>{const f=m[0],n=m.slice(1);return FL[f]?'<span class="fl"'+tipAttr('<b>'+FL[f][1]+'</b>'+(n?' · '+n+' more turn'+(n>1?'s':''):'')+'<br>'+STAT[f],1)+'>'+FL[f][0]+(n?'<sub class="fn">'+n+'</sub>':'')+'</span>':''}).join('');
  const pc=x=>Math.max(0,x.hp/x.mhp*100);
  let st=B.res?'':B.mo==1?(a.k==me?'<b style="color:#ffd75a">YOUR TURN</b>':esc(a.n)+'’s turn'):B.mo>=2&&B.mo!=5?esc(a.n)+' is acting…':'';
@@ -552,13 +583,15 @@ function battle(bn){
  let hn=0;
  const ad=i=>ANI&&ANI.a==i&&ae<AT?'animation-delay:-'+ae+'ms;':ANI&&ANI.ko.includes(i)&&ae<KO+700?'animation-delay:'+(KO-ae)+'ms;':re<1200?'animation-delay:-'+re+'ms;':'';
  h+='<div id="fld" style="background-image:url('+WEB+'bg/'+bgZone()+'.png)">'+c.map((x,i)=>{
-  if(x.t==1){const p=slot[i]||[60,60],big=i===bossI;return '<div class="ft ms'+(big?' big':'')+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="'+ad(i)+'left:'+p[0]+'px;top:'+p[1]+'px"><div class="shd"></div>'+mspr(x)+arw(x,i)+'<div class="nm">'+esc(x.n)+'<div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div>'+fl(x)+'</div></div>'}
-  const p=HS[hn++]||HS[5];const m=memK(x.k)||{c:x.c,lv:1};return '<div class="ft hs'+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="'+ad(i)+(i==B.a&&!B.res?'--x0:-34px;':'')+'left:'+p[0]+'px;top:'+p[1]+'px"'+tipAttr('<b>'+esc(x.n)+'</b> · '+esc(x.c)+'<br>HP '+x.hp+'/'+x.mhp+' · MP '+x.mp+'/'+x.mmp,1)+'><div class="shd"></div><span class="sp" style="'+(ANI&&ANI.a==i&&ae<AT?'animation-delay:-'+ae+'ms;':re<1200?'animation-delay:-'+re+'ms;':'')+'background-image:url('+SPR+encodeURIComponent(sprOf(m))+'.png)"></span>'+arw(x,i)+'</div>'}).join('');
- const last=G[G.length-1]||'';if(last!=bnLine){bnLine=last;bnT=Date.now()}
+  if(x.t==1){const p=slot[i]||[60,60],big=i===bossI;return '<div class="ft ms'+(big?' big':'')+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="'+ad(i)+'left:'+p[0]+'px;top:'+p[1]+'px"><div class="shd"></div>'+mspr(x)+arw(x,i)+'<div class="mks">'+mkd(x,i)+'</div><div class="nm">'+esc(x.n)+'<div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div>'+fl(x)+'</div></div>'}
+  const p=HS[hn++]||HS[5];const m=memK(x.k)||{c:x.c,lv:1};return '<div class="ft hs'+cl(x,i)+'" id="c'+i+'"'+ck(x,i)+' style="'+ad(i)+(i==B.a&&!B.res?'--x0:-34px;':'')+'left:'+p[0]+'px;top:'+p[1]+'px"'+tipAttr('<b>'+esc(x.n)+'</b> · '+esc(x.c)+'<br>HP '+x.hp+'/'+x.mhp+' · MP '+x.mp+'/'+x.mmp,1)+'><div class="shd"></div><span class="sp" style="'+(ANI&&ANI.a==i&&ae<AT?'animation-delay:-'+ae+'ms;':re<1200?'animation-delay:-'+re+'ms;':'')+'background-image:url('+SPR+encodeURIComponent(sprOf(m))+'.png)"></span>'+arw(x,i)+'<div class="mks">'+mkd(x,i)+'</div>'+bub(x)+'</div>'}).join('');
+ const last=[...G].reverse().find(g=>!g.startsWith('💬 '))||'';if(last!=bnLine){bnLine=last;bnT=Date.now()}
  if(last&&Date.now()-bnT<4500&&!showLog)h+='<div id="bnr" style="animation-delay:-'+(Date.now()-bnT)+'ms">'+esc(last)+'</div>';
- h+='<div id="fbtn"><button onclick="togLog()"'+(showLog?' class="gold"':'')+tipAttr('<b>Battle log</b><br>Everything that happened this battle.')+'>📜 Log</button></div></div>';
+ const pb=(t,l,tip)=>'<button onclick="palT(\''+t+'\')"'+(pal==t?' class="gold"':'')+tipAttr(tip)+'>'+l+'</button>';
+ if(inB&&!B.res)h+=palHtml();
+ h+='<div id="fbtn">'+(inB&&!B.res?pb('mark','🎯 Mark','<b>Target markers</b><br>Put 1, 2, 3, ✕, ✚ or 🛡 on monsters or heroes. The whole party sees them.')+pb('call','📣 Callouts','<b>Callouts</b><br>Quick messages like "Heal me!" for the party.')+pb('chat','💬 Chat','<b>Party chat</b><br>Type a message. It pops up over your hero and goes in the battle log.'):'')+'<button onclick="togLog()"'+(showLog?' class="gold"':'')+tipAttr('<b>Battle log</b><br>Everything that happened this battle.')+'>📜 Log</button></div></div>';
  if(showLog)h+='<div class="w" id="blog"><div class="h">Battle log <span style="float:right;cursor:pointer;color:#fff" onclick="togLog()">✕</span></div>'+G.map(g=>'<div>'+esc(g)+'</div>').join('')+'</div>';
- h+='<div class="w" id="party">'+c.map((x,i)=>x.t!=0?'':'<div class="pr'+cl(x,i)+'" id="r'+i+'"'+ck(x,i)+'><span class="n">'+(i==B.a&&!B.res?'▶ ':'')+(afkK(x.k)?'💤':'')+esc(x.n)+'</span><span class="j">'+esc(x.c)+'</span><span class="v"><b>HP</b>'+x.hp+'/'+x.mhp+'<div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div></span><span class="v m"><b>MP</b>'+x.mp+'/'+x.mmp+'<div class="bar mp"><i style="width:'+(x.mmp?x.mp/x.mmp*100:0)+'%"></i></div></span><span class="f">'+fl(x)+'</span></div>').join('')+'</div>';
+ h+='<div class="w" id="party">'+c.map((x,i)=>x.t!=0?'':'<div class="pr'+cl(x,i)+'" id="r'+i+'"'+ck(x,i)+'><span class="n">'+(i==B.a&&!B.res?'▶ ':'')+(afkK(x.k)?'💤':'')+esc(x.n)+mkOf(i)+'</span><span class="j">'+esc(x.c)+'</span><span class="v"><b>HP</b>'+x.hp+'/'+x.mhp+'<div class="bar '+(pc(x)>50?'hp':pc(x)>25?'lo':'cr')+'"><i style="width:'+pc(x)+'%"></i></div></span><span class="v m"><b>MP</b>'+x.mp+'/'+x.mmp+'<div class="bar mp"><i style="width:'+(x.mmp?x.mp/x.mmp*100:0)+'%"></i></div></span><span class="f">'+fl(x)+'</span></div>').join('')+'</div>';
  h+='<div class="w" id="cmd">'+cmd(my,a)+'</div>';
  A.innerHTML=h;aniPaint();const lg=$('#blog');if(lg)lg.scrollTop=1e5;
  const o=$('#ov');if(bn){o.style.display='flex';o.innerHTML=['','VICTORY!','DEFEAT…','ESCAPED!'][B.res]+(B.res==1&&XA?xpPanel():'<small>'+(B.res==1?'Counting up your XP…':B.res==2?'The party will recover in the lobby.':'Live to fight another day.')+'</small>');o.style.color=['','#ffd75a','#ff6a6a','#8df'][B.res]}else o.style.display='none'}
