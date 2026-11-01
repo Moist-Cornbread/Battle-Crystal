@@ -1,113 +1,133 @@
-m_51	Gloom Moth~🦋~6~185~45~20~14~27~18~62~0:2,216:1
-s_217	Lure Bite~P~1.6~0~0~drn:40
-m_52	Abyss Angler~🐟~6~225~0~27~16~0~13~64~0:2,217:1
-s_218	Undertow~X~1.7~0~10~
-m_53	Shade Kappa~🐢~6~235~30~25~19~18~15~66~0:2,218:1
-s_219	Shadow Lunge~P~1.5~0~0~
-s_220	Fade~N~0~4~0~def:3
-m_54	Umbral Lizard~🦎~6~195~0~26~15~0~19~63~0:2,219:1,220:1
-s_221	Plague Nip~M~1.2~0~8~psn:3
-m_55	Hollow Rat~🐀~6~190~40~21~14~26~17~62~0:1,221:2
-s_222	Mycelium Mend~H~1.5~3~8~
-s_223	Sleep Spores~M~0.6~1~10~stn:25
-m_56	Deepcap~🍄~6~210~60~18~16~27~10~65~0:1,222:1,223:1
-s_224	Ink Cloud~M~0.9~1~12~wk:2
-s_225	Crushing Coil~P~1.4~0~0~stn:15
-m_57	Ink Horror~🐙~6~245~40~25~17~20~11~67~0:1,224:1,225:1
-s_226	Dissolve~P~1.3~0~0~psn:3
-m_58	Abyss Ooze~🟪~6~285~0~23~13~0~7~66~0:2,226:1
-s_227	Venom Fang~P~1.5~0~0~psn:4
-m_59	Night Adder~🐍~6~200~0~27~14~0~18~64~0:2,227:1
-s_228	Hex Web~M~1~1~12~stn:20
-m_60	Hex Spider~🕷️~6~205~45~22~15~25~15~64~0:1,228:2
-s_229	Life Leech~M~1.3~0~8~drn:50
-m_61	Dusk Bat~🦇~6~190~45~20~13~27~17~63~0:1,229:2
-m_n	62
-s_230	Shadow Fog~M~0.6~1~10~psn:3
-s_231	Pommel Strike~M~1.6~0~8~stn:25
-x_0	The Black Knight~⚔️~694~120~21~12~21~10~320~2~0:2,230:2,231:1~-1~0~Kneel, and I will make it quick.
-s_232	Trumpet Blast~M~1.3~1~20~
-s_233	Tusk Toss~P~1.8~0~0~
-x_1	Iron Mammoth~🐘~707~100~23~13~18~9~340~2~0:2,232:1,233:1~-1~0~HRRAWOOO!
-s_234	Late Fee Stomp~P~1~1~0~
-s_235	Raise The Rent~N~0~4~10~atk:3
-x_2	Rentcoon~🦝~738~60~22~15~9~7~360~2~0:3,234:1,235:1~-1~0~Your security deposit is MINE.
-s_236	Soul Fire~M~1.7~0~10~
-s_237	Haunt~H~1.5~4~15~
-s_238	Spooky Wail~M~0.7~1~12~wk:2
-x_3	Boo-hemoth~👻~774~150~15~11~27~11~340~2~0:1,236:2,237:1,238:1~-1~0~Boo. BOO. B O O O O!
-s_239	Pollen Stench~M~0.7~1~10~psn:3
-s_240	Petal Chomp~P~1.7~0~0~drn:30
-x_4	Venus Fly Tyrant~🌿~623~80~19~14~14~12~360~2~0:2,239:1,240:1~-1~0~Come closer. I won't bite. Much.
-s_241	Tiger Pounce~P~1.5~0~0~wk:2
-s_242	Blaze Roar~M~1~1~12~
-x_5	Blaze Tiger~🐯~756~100~22~14~20~9~350~2~0:2,241:1,242:1~-1~0~GRRRAAAH!
-s_243	Belly Flop~N~0~4~8~rgn:3,def:2
-s_244	Tongue Snag~M~1.4~0~8~stn:20
-x_6	Toad Almighty~🐸~1040~120~22~12~25~14~330~2~0:1,243:2,244:2~-1~0~RIBBIT. (That means lunch.)
-s_245	Evil Stare~M~1.6~0~10~
-s_246	Horn Ram~M~0.8~1~12~stn:15
-x_7	Eye-Gor~👁️~768~140~17~16~24~10~340~2~0:1,245:2,246:1~3~2~I see you. I ALWAYS see you.
-s_247	Feather Barrage~M~0.8~1~10~wk:2
-s_248	Gust~P~1.6~0~0~
-x_8	Crimson Tengu~👺~738~110~22~11~22~13~330~2~0:2,247:1,248:1~11~1~Leave my mountain, or leave in pieces!
-s_249	Slime Wave~M~1.4~1~30~
-s_250	Jelly Shield~N~0~4~10~def:3
-x_9	Slimezilla~💧~1016~80~21~18~19~6~370~2~0:2,249:1,250:1~-1~0~Bloop. (That was a threat.)
-s_251	Claw Crush~M~0.9~1~12~psn:2
-s_252	Shell Mend~H~1.5~4~15~
-x_10	Crabclops~🦀~629~100~22~14~16~13~370~2~0:2,251:1,252:1~18~1~Snip snip. You're next.
-s_253	Iai Slash~M~1~0~8~stn:40
-s_254	Battle Cry~M~0.6~1~10~wk:3
-x_11	The Blue Shogun~🗡️~918~120~23~15~23~11~350~2~0:2,253:1,254:1~-1~0~Draw your blade. Mine is already out.
-s_255	Grasping Dark~M~0.7~1~10~stn:20
-s_256	Void Drain~M~1.5~0~8~drn:30
-x_12	Gloomlord~🌑~818~120~21~12~23~16~350~2~0:2,255:1,256:1~4~2~Come into the dark. It is warm here.
-s_257	Flurry of Paws~P~0.4~0~0~hit:5
-s_258	Focus Shout~N~0~4~10~atk:3
-x_13	Grandmaster Raccoon~🦝~818~80~29~11~11~18~360~2~0:2,257:1,258:1~-1~0~You have much to learn. Lesson one: OUCH.
-s_259	Vine Lash~X~1.5~0~0~
-s_260	Root Grab~M~0.8~1~12~wk:2
-x_14	Tangle Hydra~🌿~782~120~20~17~19~8~360~2~0:2,259:1,260:1~-1~0~So many heads. So many ways to grab you.
-s_261	Wind Blade~M~1~1~14~
-s_262	Gale~M~1.5~0~8~wk:2
-x_15	Azure Tengu~🪶~627~140~21~12~21~15~360~2~0:1,261:2,262:1~-1~0~The wind answers to me.
-s_263	Lava Bite~P~1.9~0~0~
-s_264	Molten Frenzy~P~0.8~1~0~
-x_16	Magma Salamander~🦎~640~60~22~13~8~12~370~2~0:2,263:1,264:1~19~1~Hssss... it's warm in here. For me.
-s_265	Ink Cloud~M~0.8~1~12~wk:3
-s_266	Crushing Grip~M~1.8~0~10~
-x_17	The Kraken~🐙~532~150~13~14~20~9~370~2~0:1,265:2,266:1~23~1~Release ME? No. I release YOU... into the deep.
-s_267	Cursed Blade~M~1.6~0~10~
-s_268	Plague Touch~M~0.6~1~12~psn:3
-s_269	Dark Pact~H~1.4~4~15~
-x_18	Gilded Revenant~💀~819~140~18~15~22~9~370~2~0:1,267:1,268:1,269:1~-1~0~Death was only a short break.
-s_270	Haymaker~M~1~1~12~
-s_271	Taunt~M~0.6~0~8~stn:50
-x_19	Puncho Diablo~👊~581~150~16~14~20~12~370~2~0:1,270:2,271:1~26~1~Put 'em up! ...No, higher. Now DUCK.
-s_272	Crystal Charge~P~1~1~0~
-s_273	Shard Overload~N~0~4~12~atk:3,def:2
-x_20	Crystal Behemoth~💎~627~100~20~18~13~10~380~2~0:2,272:1,273:1~-1~0~Shatter!
-s_274	Spice Swallow~P~2~0~0~
-s_275	Thumper Quake~P~0.9~1~0~stn:15
-x_21	Sandworm Supremo~🪱~639~80~21~15~10~7~380~2~0:2,274:1,275:1~-1~0~The spice must flow. Into your eyes.
-s_276	Scythe Swipe~M~0.7~1~12~wk:2
-s_277	Curtain Call~M~1.8~0~10~
-x_22	The Masked Reaper~🎭~666~150~15~13~22~14~360~2~0:1,276:2,277:1~15~2~Take a bow. It is your final act.
-s_278	Branch Lash~M~0.7~1~12~psn:2
-s_279	Sap Drain~P~1.4~0~0~drn:50
-x_23	Haunted Willow~🌳~576~120~18~14~16~13~370~2~0:2,278:1,279:1~9~2~Your roots are shallow. Mine go deep.
-s_280	Moon Howl~X~1.6~0~8~
-s_281	Pack Call~N~0~4~12~rgn:3,atk:2
-x_24	Ash Werewolf~🐺~744~120~23~15~15~15~380~2~0:2,280:1,281:1~10~1~AWOOOO! The pack is coming.
-x_n	25
-gt_a1	Helm,Great Helm,Visor;Hood,Bandana,Mask;Hat,Circlet,Cowl
-gt_a2	Plate,Chainmail,Cuirass;Leather Vest,Gi,Jerkin;Robe,Vestments,Coat
-gt_a3	Greaves,Sabatons,Iron Boots;Boots,Tabi,Sneakers;Sandals,Slippers,Moccasins
-gt_x	Ring,Amulet,Charm,Earring,Belt,Pendant
-gt_p	Rusty,Plain,Worn,Basic;Sturdy,Fine,Polished,Keen;Runed,Masterwork,Enchanted,Gleaming;Mythril,Heroic,Starforged,Arcane;Celestial,Godslayer,Eternal,Fabled;Relic;Abyssal,Voidforged,Umbral,Deepwrought
-gt_s	of Extra Lives,of Infinite Mana,of the Nat 20,of Tanking,of Big Brain,of Speedrunning,of Crits
-gt_r0	Buster Sword-ish~0~1,0,3,0,0,0,0~
-gt_r1	Mjol-Not~0~0,0,2,0,2,0,0~atk
-gt_r2	Lightsaver (Eco Mode)~0~0,0,2,0,0,1,1~
-gt_r3	Sonic Screwmeister~0~0,1,0,0,3,1,0~
+gt_w17	2~Summoning Rod,Pact Grimoire,Crystal Orb,Pact Ring
+s_2234	Life Leech~M~1.1~0~5~drn:60
+s_2235	Grave Rot~M~0.6~0~4~psn:4
+s_2236	Bone Shield~N~0~4~6~def:3
+s_2237	Curse of Frailty~M~0.5~1~12~wk:3
+s_2238	Raise Fallen~R~0.35~5~14~
+s_2239	Plague~M~0.7~1~17~psn:3
+s_2240	Soul Harvest~M~1.3~1~25~drn:30
+s_2241	Death's Embrace~M~2.6~0~29~exe:1,drn:50
+s_2242	Soul Siphon~M~1.8~0~19~drn:80
+s_2243	Unholy Revival~R~0.6~5~21~
+s_2244	Withering Curse~M~0.8~1~29~wk:4,psn:4
+s_2245	Phylactery~N~0~4~17~rgn:5,def:4
+s_2246	Apocalypse~M~2.2~1~52~drn:40
+c_18	Necromancer~Lich~💀~Drains life, spreads plague.~80~40~6~8~18~10~5~2234,2235,2236,2237,2238,2239,2240,2241,2242,2243,2244,2245,2246~DPS~Cleric:15,Shadow:10~3~mp8,mag5
+gt_w18	2~Bone Wand,Skull Staff,Grimoire,Soul Lantern
+s_2247	Bear Swipe~P~1.2~0~3~
+s_2248	Bear Roar~N~0~4~6~tnt:3
+s_2249	Wolf Bite~P~0.6~0~6~hit:2,psn:2
+s_2250	Owl Gaze~M~1.2~0~7~wk:2
+s_2251	Stag Bloom~H~1.2~3~15~cln:1
+s_2252	Wolf Pack~P~0.8~1~13~
+s_2253	Owl Starfall~M~1.4~1~22~
+s_2254	Bear Maul~P~2.6~0~20~stn:25
+s_2255	Stag Renewal~N~0~3~22~rgn:5
+s_2256	Feral Frenzy~P~0.5~0~20~hit:6
+s_2257	Moonbeam~M~2.6~0~24~wk:2
+s_2258	Ursine Bulwark~N~0~4~15~tnt:5,def:4
+s_2259	Primal Storm~M~2.2~1~48~stn:20
+c_19	Druid~Archdruid~🐻~Bear, wolf, owl or stag: one body, four shapes.~110~30~13~12~13~11~7~2247,2248,2249,2250,2251,2252,2253,2254,2255,2256,2257,2258,2259~Tank/Healer~Wildspeaker:15,Cleric:10~3~hp6,def6
+gt_w19	1~Druid Staff,Claw,Moon Sickle,Antler Rod
+s_2260	Dragon Flurry~P~0.55~0~3~hit:3
+s_2261	Still Mind~N~0~4~5~rgn:3,cln:1,atk:2
+s_2262	Rising Dragon~X~1.4~0~6~stn:25
+s_2263	Iron Body~N~0~4~6~def:4
+s_2264	Tornado Kick~P~1.1~1~10~
+s_2265	Vital Strike~X~1.6~0~10~wk:3
+s_2266	Thousand Fists~P~0.45~0~16~hit:8
+s_2267	Phoenix Palm~X~2.4~0~22~hit:2,stn:30
+s_2268	Chi Burst~N~0~3~20~rgn:4,atk:2
+s_2269	Heavenly Kick~X~2.4~0~14~stn:30
+s_2270	Storm of Palms~P~0.55~1~23~hit:3
+s_2271	Nirvana~N~0~4~14~atk:5,def:5,cln:1
+s_2272	Final Heaven~X~0.8~0~35~hit:8,stn:35
+c_20	Grandmaster~Fist of Heaven~🥋~The Monk's path, walked to its end.~130~20~19~13~9~15~12~2260,2261,2262,2263,2264,2265,2266,2267,2268,2269,2270,2271,2272~DPS~Monk:30,Shadow:15~4~atk10
+gt_w20	1~Dragon Wraps,Iron Knuckles,Master's Staff,Jade Beads
+s_2273	Reckless Swing~P~1.6~0~0~sac:8
+s_2274	War Cry~N~0~4~4~atk:3
+s_2275	Bloodlust~P~1.3~0~4~drn:50
+s_2276	Rampage~P~0.8~1~8~sac:10
+s_2277	Unstoppable~N~0~4~6~rgn:3,cln:1
+s_2278	Skullsplitter~P~2.4~0~11~exe:1
+s_2279	Berserk Fury~P~0.9~0~13~hit:4,sac:10
+s_2280	Avalanche of Rage~P~2~1~21~sac:15
+s_2281	Warlord's Roar~N~0~3~11~atk:3
+s_2282	Bloodbath~P~1.2~1~17~drn:40
+s_2283	Execution~X~2.6~0~15~exe:1
+s_2284	Undying Rage~N~0~4~13~rgn:5,cln:1,atk:5
+s_2285	Cataclysm~P~2.8~1~25~sac:25
+c_21	Bloodknight~Blood Lord~🩸~Trades blood for raw damage.~140~12~20~8~3~9~10~2273,2274,2275,2276,2277,2278,2279,2280,2281,2282,2283,2284,2285~DPS~Knight:25,Necromancer:15~4~hp12
+gt_w21	0~Greataxe,War Hammer,Cleaver,Maul
+s_2286	Bite~P~1.2~0~3~drn:30
+s_2287	Slime Spit~M~1~0~6~psn:3
+s_2288	Hard Shell~N~0~4~6~tnt:2
+s_2289	Bat Screech~M~0.5~1~11~stn:25
+s_2290	Spore Cloud~M~0.6~1~14~psn:3
+s_2291	Devour~P~2~0~11~exe:1,drn:50
+s_2292	Molt~N~0~4~9~rgn:4,cln:1
+s_2293	Fire Breath~M~1.6~1~30~
+s_2294	Gorge~P~1.8~0~16~drn:80
+s_2295	Tentacle Lash~P~0.6~1~23~hit:2
+s_2296	Petrify Gaze~M~0.8~0~21~stn:50
+s_2297	Regenerate~N~0~4~18~rgn:5,def:3
+s_2298	Apex Roar~M~2.6~1~55~wk:3
+c_22	Monster~Chimera~👾~Fights like the things it has eaten.~125~26~15~13~13~11~8~2286,2287,2288,2289,2290,2291,2292,2293,2294,2295,2296,2297,2298~DPS/Tank~Ranger:20,Alchemist:20,bx:50~4~hp8,atk5
+gt_w22	1~Fang,Horn,Claws,Tail Spike
+s_2299	Ripple~M~1.2~0~4~
+s_2300	Mirror Strike~P~1.2~0~4~
+s_2301	Reflect~N~0~2~8~def:3
+s_2302	Resound~M~0.9~1~9~stn:15
+s_2303	Harmonize~H~1.2~3~13~
+s_2304	Repeat~P~0.6~0~9~hit:3
+s_2305	Afterimage~N~0~3~15~atk:3,def:2
+s_2306	Feedback~M~2.8~0~23~drn:30
+s_2307	Reverb~M~1.4~1~23~wk:2
+s_2308	Mirror Wall~N~0~3~23~def:4,cln:1
+s_2309	Double Echo~X~1.2~0~17~hit:2
+s_2310	Resonant Mend~H~1.6~3~28~rgn:2
+s_2311	Infinite Echo~M~0.8~1~45~hit:3
+c_23	Echo~Resonance~🔔~Remembers every job it ever mastered.~100~30~13~11~13~13~9~2299,2300,2301,2302,2303,2304,2305,2306,2307,2308,2309,2310,2311~Support~*:5~4~E
+gt_w23	1~Tuning Fork,Mirror Blade,Echo Bell,Prism
+c_n	24
+jcfg	20|3
+jold	Sage,Elementalist,Oracle,Cleric,Ninja,Shadow,Dragoon,Wyvern Rider,Gambler,Jester,Berserker,Bloodknight
+s_412	Mud Pie~M~1.1~0~5~psn:2
+m_0	Mole Patrol~🐀~1~45~10~10~6~8~7~11~0:3,412:1
+s_413	Cold Fire~P~0.6~1~0~
+m_1	Blue Blaze~🔥~1~40~0~11~5~0~10~10~0:2,413:1
+s_414	Bamboozle~M~0.4~0~6~stn:25
+m_2	Bamboozler~🎋~1~50~12~9~7~10~8~12~0:2,414:1
+s_415	Tail Whip~M~1.2~0~5~
+m_3	Sly Salamander~🦎~1~38~10~9~5~11~12~11~0:2,415:1
+s_416	Snap Back~P~0.8~0~0~wk:2
+m_4	Sunny Shoot~🌾~1~55~0~12~8~0~5~12~0:3,416:1
+s_417	Tiny Stare~M~1.1~0~5~
+s_418	Nap Time~H~1.5~4~6~
+m_5	Wee Cyclops~🟢~1~42~15~7~6~12~9~12~0:1,417:2,418:1
+s_419	Midnight Hoot~M~0.7~1~8~psn:2
+m_6	Night Owl~🦉~2~65~20~13~8~14~11~17~0:2,419:1
+s_420	Slobber Slam~P~1.5~0~0~
+m_7	Slobber Beast~🐾~2~85~0~14~10~0~6~18~0:2,420:1
+s_421	Nibble~M~1.2~0~6~stn:20
+m_8	Pipsqueak~🐭~2~55~20~10~7~15~15~17~0:1,421:2
+s_422	Pinch Pinch~H~1.5~3~6~
+m_9	Scuttle Crab~🦀~2~60~10~12~7~8~13~16~0:2,422:1
+s_423	Needle Roll~M~0.6~0~6~stn:30
+m_10	Prickle Pod~🌵~2~70~15~13~9~12~10~18~0:2,423:1
+s_424	Gold Dust~M~0.6~1~8~
+m_11	Golden Bandit~🦝~2~58~15~12~6~13~16~17~0:2,424:1
+s_425	Bamboo Jab~N~0~4~6~def:3
+s_426	Belly Flop~M~1.4~0~8~
+m_12	Pandamonium~🐼~3~90~25~15~11~16~12~25~0:2,425:1,426:1
+s_427	Shell Slam~P~1~1~0~wk:2
+m_13	Shell Shocker~🐢~3~110~0~16~15~0~4~26~0:2,427:1
+s_428	Rock Slide~N~0~4~0~def:2,rgn:2
+m_14	Boulderdash~🗿~3~120~0~17~14~0~5~27~0:3,428:1
+s_429	Soul Sip~M~1.2~0~6~drn:50
+m_15	Ghost Wisp~👻~3~80~30~10~9~18~13~26~0:1,429:2
+s_430	Chomp Charge~P~1.6~0~0~sac:10
+m_16	Dino-Mite~🦖~3~105~0~19~9~0~14~27~0:1,430:2
+s_431	Flicker Flare~M~1.4~0~8~
+m_17	Red Lantern~🏮~3~95~25~12~13~17~8~26~0:1,431:2
+s_432	Tongue Lash~P~1.2~1~0~sac:40

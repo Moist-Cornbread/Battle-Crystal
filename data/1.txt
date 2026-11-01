@@ -1,147 +1,138 @@
-s_1	Shield Bash~P~1.1~0~4~stn:30
-s_2	Provoke~N~0~4~6~tnt:3
-s_3	Valiant Strike~P~1.7~0~7~
-s_4	Bulwark~N~0~3~11~def:3
-s_5	Iron Will~N~0~4~7~rgn:4,cln:1
-s_6	Sweeping Oath~P~1.2~1~13~
-s_7	Judgment~X~2.2~0~15~
-s_8	Aegis of Dawn~H~2~3~26~def:3,rgn:3
-s_1000	Radiant Strike~X~1.9~0~15~wk:2
-s_1001	Divine Shield~N~0~3~24~def:4,cln:1
-s_1002	Lay on Hands~R~0.8~5~26~
-s_1003	Crusade~P~1.6~1~29~stn:20
-s_1004	Last Bastion~N~0~4~33~tnt:5,rgn:5
-c_0	Knight~Paladin~🛡️~Unbreakable tank who draws fire.~130~15~16~18~6~7~5~1,2,3,4,5,6,7,8,1000,1001,1002,1003,1004~Tank
-gt_w0	0~Longsword,Broadsword,Bastard Sword,Arming Sword
-s_9	Arcane Bolt~M~1.5~0~6~
-s_10	Mend~H~1.4~2~6~
-s_11	Flame Pillar~M~1.1~1~12~
-s_12	Mana Font~MP~0.8~2~4~
-s_13	Thunderclap~M~2~0~14~stn:25
-s_14	Sanctuary~H~0.9~3~20~
-s_15	Meteor~M~1.6~1~27~
-s_16	Omniscience~M~3.2~0~29~drn:50
-s_1005	Arcane Torrent~M~1.3~0~23~hit:3
-s_1006	Mass Mend~H~1.4~3~29~
-s_1007	Time Stop~M~0.5~1~29~stn:45
-s_1008	Mana Overflow~MP~1~3~23~
-s_1009	Big Bang~M~2.6~1~44~
-c_1	Sage~Archsage~📖~Scholar of both fire and healing.~80~40~6~8~19~10~5~9,10,11,12,13,14,15,16,1005,1006,1007,1008,1009~Healer/DPS
-gt_w1	2~Staff,Tome,Wand,Codex
-s_17	Cure~H~1.6~2~5~
-s_18	Foresight~N~0~3~8~def:2
-s_19	Hex~M~0.8~0~6~wk:3
-s_20	Fate's Hand~R~0.4~5~15~
-s_21	Prophecy of Ruin~M~1~1~17~wk:2
-s_22	Blessing~H~1~3~19~cln:1
-s_23	Starfall Omen~M~2.2~0~19~stn:40
-s_24	Fate Rewritten~H~2.4~3~42~cln:1,def:3
-s_1010	Doom Prophecy~M~1.6~0~21~wk:4,psn:4
-s_1011	Rebirth~R~1~5~31~
-s_1012	Clairvoyance~N~0~3~29~def:4,atk:2
-s_1013	Fate's Verdict~M~2.4~0~25~exe:1
-s_1014	Eclipse of Fate~M~1.8~1~47~stn:40,wk:3
-c_2	Oracle~Seer~🔮~Sees the future, curses the present.~85~38~7~9~17~11~5~17,18,19,20,21,22,23,24,1010,1011,1012,1013,1014~Healer/Support
-gt_w2	2~Crystal Ball,Tarot Deck,Scrying Orb,Star Chart
-s_25	Coin Toss~G~1.6~0~4~
-s_26	Card Throw~P~0.6~1~7~
-s_27	Loaded Dice~P~1~0~7~hit:2
-s_28	Double Down~N~0~4~10~atk:3
-s_29	Slot Machine~G~1.4~1~17~
-s_30	Lucky Seven~X~0.35~0~17~hit:7
-s_31	All In~G~3.5~0~22~sac:20
-s_32	Jackpot~G~2.4~1~37~stl:50
-s_1015	Roulette Wheel~G~2~1~25~
-s_1016	Ace in the Hole~X~2.2~0~20~
-s_1017	Card Shark~P~0.5~1~27~hit:3,stl:30
-s_1018	Double or Nothing~G~5~0~25~sac:30
-s_1019	Royal Flush~G~3.4~1~49~stl:100
-c_3	Gambler~High Roller~🎲~Risks it all. Sometimes wins big.~90~28~13~9~12~13~15~25,26,27,28,29,30,31,32,1015,1016,1017,1018,1019~DPS
-gt_w3	1~Loaded Dice,Card Deck,Lucky Coin,Roulette Wheel
-s_33	Reckless Swing~P~1.6~0~0~sac:8
-s_34	War Cry~N~0~4~4~atk:3
-s_35	Bloodlust~P~1.3~0~4~drn:50
-s_36	Rampage~P~0.8~1~8~sac:10
-s_37	Unstoppable~N~0~4~6~rgn:3,cln:1
-s_38	Skullsplitter~P~2.4~0~11~exe:1
-s_39	Berserk Fury~P~0.9~0~13~hit:4,sac:10
-s_40	Avalanche of Rage~P~2~1~21~sac:15
-s_1020	Warlord's Roar~N~0~3~11~atk:3
-s_1021	Bloodbath~P~1.2~1~17~drn:40
-s_1022	Execution~X~2.6~0~15~exe:1
-s_1023	Undying Rage~N~0~4~13~rgn:5,cln:1,atk:5
-s_1024	Cataclysm~P~2.8~1~25~sac:25
-c_4	Berserker~Warlord~🪓~Trades blood for raw damage.~140~12~20~8~3~9~10~33,34,35,36,37,38,39,40,1020,1021,1022,1023,1024~DPS
-gt_w4	0~Greataxe,War Hammer,Cleaver,Maul
-s_41	Shuriken~P~0.6~0~3~hit:2
-s_42	Venom Kunai~P~0.9~0~5~psn:3
-s_43	Smoke Bomb~N~0~3~8~def:2
-s_44	Pickpocket~P~0.8~0~4~stl:60
-s_45	Shadow Clone~P~0.55~0~10~hit:4
-s_46	Assassinate~X~1.8~0~12~exe:1
-s_47	Thousand Cuts~P~0.4~1~16~hit:3
-s_48	Eclipse Strike~X~1.2~0~24~hit:3,psn:3
-s_1025	Shadow Step~X~1.6~0~12~stn:30
-s_1026	Toxic Blades~P~0.5~1~18~hit:2,psn:4
-s_1027	Vanishing Veil~N~0~3~20~def:4
-s_1028	Death Blossom~P~0.4~0~22~hit:10
-s_1029	Thousand Shadows~X~0.6~1~36~hit:4,exe:1
-c_5	Ninja~Shadow~🥷~Fast, sneaky, stabs a lot.~85~18~15~8~8~18~20~41,42,43,44,45,46,47,48,1025,1026,1027,1028,1029~DPS
-gt_w5	1~Katana,Kunai,Shuriken,Kusarigama
-s_49	Power Chord~M~1.2~0~4~
-s_50	Rousing Anthem~N~0~3~10~atk:3
-s_51	Lullaby~M~0.3~1~10~stn:30
-s_52	Ballad of Mending~N~0~3~12~rgn:4
-s_53	Discord~M~0.9~1~12~wk:2
-s_54	Encore~MP~0.8~3~10~
-s_55	Hymn of Heroes~N~0~3~20~atk:3,def:3
-s_56	Grand Finale~M~2~1~30~stn:35
-s_1030	Requiem~M~1.4~1~20~wk:2
-s_1031	Symphony of Life~N~0~3~24~rgn:5,cln:1
-s_1032	Crescendo~M~2.4~0~18~stn:30
-s_1033	Overture of Valor~N~0~3~32~atk:4,def:4
-s_1034	Magnum Opus~M~2.4~1~48~stn:30,wk:2
-c_6	Bard~Virtuoso~🎸~Buffs the band, rocks the boss.~90~32~9~10~14~12~5~49,50,51,52,53,54,55,56,1030,1031,1032,1033,1034~Support
-gt_w6	2~Lute,Keytar,Ocarina,Electric Harp
-s_57	Acid Flask~M~1.2~0~4~wk:2
-s_58	Elixir Splash~H~1.2~2~6~
-s_59	Fire Bomb~M~1~1~11~
-s_60	Brew Tonic~N~0~4~7~eth:100
-s_61	Toxic Cloud~M~0.6~1~13~psn:3
-s_62	Phoenix Draught~R~0.5~5~18~
-s_63	Panacea~H~1.2~3~22~cln:1
-s_64	Transmute~M~3.2~0~33~wk:3,psn:3
-s_1035	Quicksilver~H~1.6~3~29~rgn:2
-s_1036	Golden Elixir~R~0.7~5~22~
-s_1037	Volatile Compound~M~1.6~1~33~psn:3
-s_1038	Homunculus Strike~M~2.6~0~26~drn:50
-s_1039	Grand Transmutation~M~2.6~1~55~wk:3,psn:4
-c_7	Alchemist~Transmuter~⚗️~Bombs, brews and miracle cures.~95~30~10~11~14~10~5~57,58,59,60,61,62,63,64,1035,1036,1037,1038,1039~Support/Healer
-gt_w7	2~Flask Sling,Bomb Satchel,Retort,Pestle
-s_65	Lance Thrust~X~1~0~3~
-s_66	Jump~X~1.8~0~8~
-s_67	Wyrm Scale~N~0~4~5~def:3
-s_68	Dragon Dive~P~1~1~10~
-s_69	Piercing Gale~X~1.6~0~10~wk:2
-s_70	Sky Splitter~X~2.4~0~14~
-s_71	Dragon Breath~X~1.2~1~18~
-s_72	Ragnarok Lance~X~3.4~0~24~stn:40
-s_1040	Dragon's Fang~X~2.6~0~16~
-s_1041	Wyrm Wings~N~0~4~10~def:4,rgn:3
-s_1042	Draconic Roar~X~1~1~20~wk:2
-s_1043	Skyfall~X~1.4~1~28~stn:20
-s_1044	Elder Wyrm's Wrath~X~4.5~0~36~stn:40
-c_8	Dragoon~Wyrmlord~🐉~Lancer who ignores armor.~115~16~18~13~5~12~8~65,66,67,68,69,70,71,72,1040,1041,1042,1043,1044~DPS
-gt_w8	0~Lance,Spear,Halberd,Glaive
-s_73	Life Leech~M~1.1~0~5~drn:60
-s_74	Grave Rot~M~0.6~0~4~psn:4
-s_75	Bone Shield~N~0~4~6~def:3
-s_76	Curse of Frailty~M~0.5~1~12~wk:3
-s_77	Raise Fallen~R~0.35~5~14~
-s_78	Plague~M~0.7~1~17~psn:3
-s_79	Soul Harvest~M~1.3~1~25~drn:30
-s_80	Death's Embrace~M~2.6~0~29~exe:1,drn:50
-s_1045	Soul Siphon~M~1.8~0~19~drn:80
-s_1046	Unholy Revival~R~0.6~5~21~
-s_1047	Withering Curse~M~0.8~1~29~wk:4,psn:4
-s_1048	Phylactery~N~0~4~17~rgn:5,def:4
+s_2000	Slash~P~1.2~0~3~
+s_2001	Rally~N~0~4~4~atk:3
+s_2002	Shield Up~N~0~4~5~tnt:2
+s_2003	Cleave~P~0.8~1~8~
+s_2004	Second Wind~N~0~4~6~rgn:3,cln:1
+s_2005	Heavy Blow~P~1.8~0~8~stn:25
+s_2006	Battle Cry~N~0~3~14~atk:3
+s_2007	Valor Strike~X~2.2~0~16~
+s_2008	Breakthrough~P~1.4~1~18~wk:2
+s_2009	Stand Firm~N~0~3~20~def:4
+s_2010	Twin Slash~P~1.2~0~14~hit:2
+s_2011	Unyielding~N~0~4~14~tnt:4,rgn:4
+s_2012	Hero's Charge~X~3.6~0~28~stn:30
+c_0	Squire~Vanguard~🗡️~Sturdy all-rounder who learns every trick of the trade.~115~16~15~14~5~10~8~2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012~Tank/DPS~~1~hp10
+gt_w0	0~Short Sword,Hand Axe,Training Spear,Buckler Blade
+s_2013	Spark~M~1.4~0~5~
+s_2014	Heal~H~1.5~2~6~
+s_2015	Frost~M~1~0~6~wk:2
+s_2016	Ward~N~0~2~8~def:3
+s_2017	Chain Spark~M~1~1~12~
+s_2018	Renew~N~0~3~14~rgn:3
+s_2019	Raise~R~0.35~5~16~
+s_2020	Arcane Burst~M~2.6~0~22~
+s_2021	Mana Spring~MP~0.8~3~20~
+s_2022	Greater Heal~H~1.4~3~28~
+s_2023	Arcane Storm~M~1.5~1~30~
+s_2024	Purify~H~1~3~24~cln:1,def:2
+s_2025	Starbolt~M~3~0~35~stn:30
+c_1	Initiate~Adept~🪄~Apprentice of both healing and harm.~80~38~6~9~17~10~5~2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025~Healer/DPS~~1~mp10
+gt_w1	2~Apprentice Wand,Oak Staff,Primer,Chalk Rod
+s_2026	Acid Flask~M~1.2~0~4~wk:2
+s_2027	Elixir Splash~H~1.2~2~6~
+s_2028	Fire Bomb~M~1~1~11~
+s_2029	Brew Tonic~N~0~4~7~eth:100
+s_2030	Toxic Cloud~M~0.6~1~13~psn:3
+s_2031	Phoenix Draught~R~0.5~5~18~
+s_2032	Panacea~H~1.2~3~22~cln:1
+s_2033	Transmute~M~3.2~0~33~wk:3,psn:3
+s_2034	Quicksilver~H~1.6~3~29~rgn:2
+s_2035	Golden Elixir~R~0.7~5~22~
+s_2036	Volatile Compound~M~1.6~1~33~psn:3
+s_2037	Homunculus Strike~M~2.6~0~26~drn:50
+s_2038	Grand Transmutation~M~2.6~1~55~wk:3,psn:4
+c_2	Alchemist~Transmuter~⚗️~Bombs, brews and miracle cures.~95~30~10~11~14~10~5~2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038~Support/Healer~~1~itm25
+gt_w2	2~Flask Sling,Bomb Satchel,Retort,Pestle
+s_2039	Shield Bash~P~1.1~0~4~stn:30
+s_2040	Provoke~N~0~4~6~tnt:3
+s_2041	Valiant Strike~P~1.7~0~7~
+s_2042	Bulwark~N~0~3~11~def:3
+s_2043	Iron Will~N~0~4~7~rgn:4,cln:1
+s_2044	Sweeping Oath~P~1.2~1~13~
+s_2045	Judgment~X~2.2~0~15~
+s_2046	Aegis of Dawn~H~2~3~26~def:3,rgn:3
+s_2047	Radiant Strike~X~1.9~0~15~wk:2
+s_2048	Divine Shield~N~0~3~24~def:4,cln:1
+s_2049	Lay on Hands~R~0.8~5~26~
+s_2050	Crusade~P~1.6~1~29~stn:20
+s_2051	Last Bastion~N~0~4~33~tnt:5,rgn:5
+c_3	Knight~Paladin~🛡️~Unbreakable tank who draws fire.~130~15~16~18~6~7~5~2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049,2050,2051~Tank~Squire:10~2~def10
+gt_w3	0~Longsword,Broadsword,Bastard Sword,Arming Sword
+s_2052	Flurry~P~0.5~0~3~hit:3
+s_2053	Inner Peace~N~0~4~5~rgn:3,cln:1
+s_2054	Palm Strike~X~1.2~0~5~stn:20
+s_2055	Focus~N~0~4~4~atk:3
+s_2056	Whirlwind Kick~P~1~1~10~
+s_2057	Pressure Point~P~1.4~0~10~wk:3
+s_2058	Hundred Fists~P~0.4~0~14~hit:8
+s_2059	Heaven's Fist~X~2~0~22~hit:2,stn:30
+s_2060	Iron Fist~X~2~0~12~stn:30
+s_2061	Chi Wave~N~0~3~20~rgn:4
+s_2062	Thousand Palms~P~0.5~1~24~hit:3
+s_2063	Enlightenment~N~0~4~14~atk:5,def:5,cln:1
+s_2064	Omega Fist~X~0.7~0~34~hit:8,stn:30
+c_4	Monk~Sensei~👊~Fists of fury, mind of calm.~120~18~17~12~8~14~10~2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062,2063,2064~DPS~Squire:10,Alchemist:5~2~atk8
+gt_w4	1~Hand Wraps,Knuckles,Bo Staff,Prayer Beads
+s_2065	Mug~P~1.1~0~3~stl:50
+s_2066	Quick Stab~P~0.65~0~3~hit:2
+s_2067	Sand Toss~N~0~0~5~wk:2
+s_2068	Swipe~P~0.7~1~8~stl:20
+s_2069	Backstab~X~2.2~0~8~
+s_2070	Poison Blade~P~1.2~0~8~psn:4
+s_2071	Vanish~N~0~4~8~def:3,rgn:2
+s_2072	Grand Heist~P~1.4~1~20~stl:60
+s_2073	Cutpurse~P~1.4~0~12~hit:2,stl:60
+s_2074	Dirty Trick~P~0.8~1~18~stn:25
+s_2075	Shadow Strike~X~3.2~0~16~exe:1
+s_2076	Escape Artist~N~0~4~12~def:4,cln:1
+s_2077	Master Thief~P~0.6~1~32~hit:3,stl:80
+c_5	Thief~Rogue~💰~Steals the loot before the monster drops it.~100~18~17~9~7~17~18~2065,2066,2067,2068,2069,2070,2071,2072,2073,2074,2075,2076,2077~DPS~Squire:5,Initiate:5~2~coin25
+gt_w5	1~Dagger,Knife,Stiletto,Kris
+s_2078	Fire Bolt~M~1.5~0~6~
+s_2079	Ice Shard~M~1.2~0~5~wk:2
+s_2080	Flame Pillar~M~1.1~1~12~
+s_2081	Gust~M~0.9~1~10~stn:15
+s_2082	Thunderclap~M~2~0~14~stn:25
+s_2083	Mana Font~MP~0.8~2~4~
+s_2084	Meteor~M~1.4~1~27~
+s_2085	Prism Ray~M~2.8~0~29~wk:2
+s_2086	Arcane Torrent~M~1.4~0~23~hit:2
+s_2087	Blizzard~M~1.2~1~25~wk:2
+s_2088	Earthquake~M~0.6~1~29~stn:30
+s_2089	Mana Overflow~MP~1~3~23~
+s_2090	Big Bang~M~2.3~1~44~
+c_6	Elementalist~Archmage~🔥~Fire, ice and thunder on command.~78~40~5~8~16~11~5~2078,2079,2080,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090~DPS~Initiate:10~2~mag8
+gt_w6	2~Staff,Tome,Wand,Codex
+s_2091	Cure~H~1.6~2~5~
+s_2092	Protect~N~0~3~8~def:2
+s_2093	Holy~M~1.4~0~6~
+s_2094	Esuna~H~0.8~2~6~cln:1
+s_2095	Life~R~0.4~5~15~
+s_2096	Blessing~H~1~3~19~cln:1
+s_2097	Regen~N~0~3~17~rgn:4
+s_2098	Benediction~H~2.4~3~42~cln:1,def:3
+s_2099	Judgment Light~M~1.6~1~25~
+s_2100	Rebirth~R~1~5~31~
+s_2101	Sanctuary~N~0~3~29~def:4,rgn:3
+s_2102	Holy Nova~M~2.8~0~25~stn:30
+s_2103	Miracle~H~3~3~52~cln:1,rgn:3
+c_7	Cleric~High Priest~✨~Healer who keeps the party standing.~88~38~7~9~18~11~5~2091,2092,2093,2094,2095,2096,2097,2098,2099,2100,2101,2102,2103~Healer~Alchemist:10,Initiate:5~2~sRg
+gt_w7	2~Holy Rod,Censer,Prayer Book,Star Chart
+s_2104	Aimed Shot~X~1.1~0~3~
+s_2105	Twin Arrows~P~0.7~0~4~hit:2
+s_2106	Hunter's Mark~N~0~0~5~wk:3
+s_2107	Arrow Rain~P~0.8~1~10~
+s_2108	Poison Arrow~P~1~0~6~psn:4
+s_2109	Camouflage~N~0~4~6~def:3,rgn:2
+s_2110	Piercing Volley~X~0.9~1~16~
+s_2111	Bullseye~X~3.6~0~22~exe:1
+s_2112	Headshot~X~2.4~0~14~exe:1
+s_2113	Barrage~P~0.5~0~16~hit:6
+s_2114	Explosive Arrow~X~1.2~1~25~
+s_2115	Eagle Eye~N~0~3~22~atk:4
+s_2116	Rain of Arrows~X~0.5~1~43~hit:4
+c_8	Ranger~Sharpshooter~🏹~Never misses. Rarely, anyway.~95~20~16~10~8~15~15~2104,2105,2106,2107,2108,2109,2110,2111,2112,2113,2114,2115,2116~DPS~Squire:5,Alchemist:10~2~crt5
+gt_w8	1~Longbow,Crossbow,Recurve Bow,Sling
+s_2117	Flame Edge~P~1.3~0~4~
+s_2118	Frost Edge~P~1~0~5~wk:2
+s_2119	Volt Edge~P~1~0~6~stn:20

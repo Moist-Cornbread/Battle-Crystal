@@ -1,142 +1,131 @@
-s_1049	Apocalypse~M~2.2~1~52~drn:40
-c_9	Necromancer~Lich~💀~Drains life, spreads plague.~80~40~6~8~18~10~5~73,74,75,76,77,78,79,80,1045,1046,1047,1048,1049~DPS
-gt_w9	2~Bone Wand,Skull Staff,Grimoire,Soul Lantern
-s_81	Flurry~P~0.5~0~3~hit:3
-s_82	Inner Peace~N~0~4~5~rgn:3,cln:1
-s_83	Palm Strike~X~1.2~0~5~stn:20
-s_84	Focus~N~0~4~4~atk:3
-s_85	Whirlwind Kick~P~1~1~10~
-s_86	Pressure Point~P~1.4~0~10~wk:3
-s_87	Hundred Fists~P~0.4~0~14~hit:8
-s_88	Heaven's Fist~X~2~0~22~hit:2,stn:30
-s_1050	Iron Fist~X~2~0~12~stn:30
-s_1051	Chi Wave~N~0~3~20~rgn:4
-s_1052	Thousand Palms~P~0.5~1~24~hit:3
-s_1053	Enlightenment~N~0~4~14~atk:5,def:5,cln:1
-s_1054	Omega Fist~X~0.7~0~34~hit:8,stn:30
-c_10	Monk~Grandmaster~👊~Fists of fury, mind of calm.~120~18~17~12~8~14~10~81,82,83,84,85,86,87,88,1050,1051,1052,1053,1054~DPS
-gt_w10	1~Hand Wraps,Knuckles,Bo Staff,Prayer Beads
-s_89	Aimed Shot~X~1.1~0~3~
-s_90	Twin Arrows~P~0.7~0~4~hit:2
-s_91	Hunter's Mark~N~0~0~5~wk:3
-s_92	Arrow Rain~P~0.8~1~10~
-s_93	Poison Arrow~P~1~0~6~psn:4
-s_94	Camouflage~N~0~4~6~def:3,rgn:2
-s_95	Piercing Volley~X~0.9~1~16~
-s_96	Bullseye~X~3.6~0~22~exe:1
-s_1055	Headshot~X~2.4~0~14~exe:1
-s_1056	Barrage~P~0.5~0~16~hit:6
-s_1057	Explosive Arrow~X~1.2~1~25~
-s_1058	Eagle Eye~N~0~3~22~atk:4
-s_1059	Rain of Arrows~X~0.5~1~43~hit:4
-c_11	Ranger~Sharpshooter~🏹~Never misses. Rarely, anyway.~95~20~16~10~8~15~15~89,90,91,92,93,94,95,96,1055,1056,1057,1058,1059~DPS
-gt_w11	1~Longbow,Crossbow,Recurve Bow,Sling
-c_n	12
-s_160	Mud Pie~M~1.1~0~5~psn:2
-m_0	Mole Patrol~🐀~1~45~10~10~6~8~7~11~0:3,160:1
-s_161	Cold Fire~P~0.6~1~0~
-m_1	Blue Blaze~🔥~1~40~0~11~5~0~10~10~0:2,161:1
-s_162	Bamboozle~M~0.4~0~6~stn:25
-m_2	Bamboozler~🎋~1~50~12~9~7~10~8~12~0:2,162:1
-s_163	Tail Whip~M~1.2~0~5~
-m_3	Sly Salamander~🦎~1~38~10~9~5~11~12~11~0:2,163:1
-s_164	Snap Back~P~0.8~0~0~wk:2
-m_4	Sunny Shoot~🌾~1~55~0~12~8~0~5~12~0:3,164:1
-s_165	Tiny Stare~M~1.1~0~5~
-s_166	Nap Time~H~1.5~4~6~
-m_5	Wee Cyclops~🟢~1~42~15~7~6~12~9~12~0:1,165:2,166:1
-s_167	Midnight Hoot~M~0.7~1~8~psn:2
-m_6	Night Owl~🦉~2~65~20~13~8~14~11~17~0:2,167:1
-s_168	Slobber Slam~P~1.5~0~0~
-m_7	Slobber Beast~🐾~2~85~0~14~10~0~6~18~0:2,168:1
-s_169	Nibble~M~1.2~0~6~stn:20
-m_8	Pipsqueak~🐭~2~55~20~10~7~15~15~17~0:1,169:2
-s_170	Pinch Pinch~H~1.5~3~6~
-m_9	Scuttle Crab~🦀~2~60~10~12~7~8~13~16~0:2,170:1
-s_171	Needle Roll~M~0.6~0~6~stn:30
-m_10	Prickle Pod~🌵~2~70~15~13~9~12~10~18~0:2,171:1
-s_172	Gold Dust~M~0.6~1~8~
-m_11	Golden Bandit~🦝~2~58~15~12~6~13~16~17~0:2,172:1
-s_173	Bamboo Jab~N~0~4~6~def:3
-s_174	Belly Flop~M~1.4~0~8~
-m_12	Pandamonium~🐼~3~90~25~15~11~16~12~25~0:2,173:1,174:1
-s_175	Shell Slam~P~1~1~0~wk:2
-m_13	Shell Shocker~🐢~3~110~0~16~15~0~4~26~0:2,175:1
-s_176	Rock Slide~N~0~4~0~def:2,rgn:2
-m_14	Boulderdash~🗿~3~120~0~17~14~0~5~27~0:3,176:1
-s_177	Soul Sip~M~1.2~0~6~drn:50
-m_15	Ghost Wisp~👻~3~80~30~10~9~18~13~26~0:1,177:2
-s_178	Chomp Charge~P~1.6~0~0~sac:10
-m_16	Dino-Mite~🦖~3~105~0~19~9~0~14~27~0:1,178:2
-s_179	Flicker Flare~M~1.4~0~8~
-m_17	Red Lantern~🏮~3~95~25~12~13~17~8~26~0:1,179:2
-s_180	Tongue Lash~P~1.2~1~0~sac:40
-m_18	Leap Frog~🐸~4~100~0~18~10~0~11~33~0:3,180:1
-s_181	Frenzy Bite~P~1.5~0~0~drn:40
-m_19	Red Piranha~🐟~4~130~0~21~12~0~13~36~0:2,181:1
-s_182	Glare~M~1.3~0~8~wk:2
-m_20	Evil Eye~👁️~4~115~35~14~12~20~10~36~0:1,182:2
-s_183	Tentacle Tangle~P~0.8~1~0~stn:15
-m_21	Octo-Punch~🐙~4~140~10~19~13~10~9~37~0:2,183:1
-s_184	Splash Slap~X~1.6~0~8~
-m_22	River Kappa~🐢~4~110~20~20~16~12~18~38~0:1,184:1
-s_185	Swamp Gas~M~1.2~0~8~wk:2
-s_186	Tantrum~M~0.8~1~12~
-m_23	Bog Lurker~🐸~5~150~40~18~14~22~11~48~0:1,185:2,186:1
-s_187	Talon Rake~H~2~4~0~
-s_188	Screech~P~1.6~0~0~
-m_24	Feather Fiend~🦉~5~165~0~23~13~0~10~46~0:2,187:1,188:1
-s_189	Fossil Roar~M~1~1~12~
-m_25	Rocky Rex~🦖~5~170~30~22~15~18~9~52~0:2,189:1
-s_190	Engulf~P~1.2~0~0~psn:3
-m_26	Slime Lime~🟩~5~190~0~20~10~0~5~50~0:2,190:1
-s_191	Roll Crush~P~1~0~0~stn:30
-m_27	Roly Poly~🐛~5~140~20~24~12~12~14~50~0:2,191:1
-s_192	Spore Puff~P~1.3~0~0~
-m_28	Fun Guy~🍄~1~46~0~11~7~0~9~11~0:2,192:1
-s_193	Gill Splash~M~1~0~5~wk:2
-m_29	Axolittle~🦎~1~40~12~9~5~11~11~11~0:2,193:1
-s_194	Fang Snap~P~1.3~0~0~
-m_30	Hiss Fit~🐍~1~44~0~12~6~0~12~11~0:2,194:1
-s_195	Bone Bonk~M~0.9~0~5~stn:20
-m_31	Blue Bonehead~💀~1~39~12~8~6~12~10~12~0:2,195:1
-s_196	Scale Up~N~0~4~0~def:3
-s_197	Tail Swipe~P~1.4~0~0~
-m_32	Wee Wyrm~🐉~2~80~0~13~11~0~7~17~0:2,196:1,197:1
-s_198	Lick Wounds~H~1.4~3~6~
-m_33	Red Cyclops~🔴~2~64~15~12~8~12~10~17~0:2,198:1
-s_199	Ember Shriek~M~0.6~1~7~stn:15
-m_34	Ember Wisp~🔥~2~56~22~9~6~15~13~17~0:1,199:2
-s_200	Spit Take~P~1.2~0~0~wk:2
-m_35	Trash Panda~🦝~2~68~10~13~8~9~12~17~0:2,200:1
-s_201	Burrow Ambush~P~1.5~0~0~
-m_36	Cranky Mole~🐀~3~112~0~18~13~0~8~26~0:2,201:1
-s_202	Goo Glob~P~0.8~1~0~wk:2
-m_37	Blue Slime~💧~3~100~10~15~14~8~11~26~0:2,202:1
-s_203	Fang Flurry~P~0.4~0~0~hit:5
-m_38	Fire Cobra~🐍~3~85~0~14~9~0~16~26~0:1,203:2
-s_204	Ghost Light~M~1.3~0~7~stn:15
-m_39	Jade Lantern~🏮~3~92~28~11~11~17~9~26~0:1,204:2
-s_205	Skull Blaze~M~1.3~0~7~wk:2
-m_40	Hot Head~💀~3~84~30~10~10~18~12~26~0:1,205:2
-s_206	Bear Hug~P~1.4~0~0~drn:30
-m_41	Grizzly Grump~🐻~4~145~0~20~14~0~9~36~0:2,206:1
-s_207	Blood Sip~M~1.2~0~8~drn:40
-m_42	Fang Flapper~🦇~4~115~35~13~12~20~11~36~0:1,207:2
-s_208	Eight-Leg Lunge~P~1.6~0~0~
-m_43	Red Recluse~🕷️~4~120~0~22~11~0~15~36~0:2,208:1
-s_209	Scorch~M~0.8~1~10~psn:2
-m_44	Flame Flicker~🔥~4~125~30~17~13~17~10~36~0:2,209:1
-s_210	Sting Wrap~P~1~0~0~psn:4,drn:30
-m_45	Jelly Jiggler~🪼~5~195~0~20~15~0~4~50~0:2,210:1
-s_211	Fire Breath~M~0.9~1~12~
-m_46	Ember Drake~🐉~5~160~35~21~14~20~10~50~0:2,211:1
-s_212	Bubble Blast~M~1.5~0~9~
-m_47	Frostolotl~🦎~5~135~45~15~12~24~16~50~0:1,212:2
-s_213	Icy Hiss~M~0.8~1~10~stn:15
-m_48	Frost Gecko~🦎~5~150~30~19~13~19~12~49~0:2,213:1
-s_214	Body Slam~P~1.4~0~0~stn:20
-m_49	Cloud Slime~☁️~5~185~0~22~16~0~7~50~0:2,214:1
-s_215	Abyss Gaze~M~1.4~0~10~wk:2
-m_50	Void Eye~👁️~6~215~50~22~17~29~12~64~0:1,215:2
-s_216	Dread Dust~M~0.8~1~12~psn:3
+s_2120	Arcane Guard~N~0~4~6~def:3,atk:2
+s_2121	Elemental Arc~M~1~1~11~
+s_2122	Imbue Ally~N~0~2~8~atk:3
+s_2123	Runic Slash~X~1.8~0~13~
+s_2124	Prism Blade~X~1~0~23~hit:3
+s_2125	Spellstorm~M~1.4~1~25~wk:2
+s_2126	Blade Ward~N~0~3~23~def:3,atk:2
+s_2127	Mana Rend~X~2.2~0~17~drn:40
+s_2128	Chain Edge~P~0.6~1~23~hit:3
+s_2129	Ragnablade~X~3.8~0~36~stn:30
+c_9	Spellblade~Runeblade~⚔️~Swordplay wrapped in elements.~110~24~15~12~14~11~8~2117,2118,2119,2120,2121,2122,2123,2124,2125,2126,2127,2128,2129~DPS~Knight:10,Elementalist:10~3~atk5,mag5
+gt_w9	1~Runesword,Saber,Rapier,Spell Glaive
+s_2130	Shuriken~P~0.6~0~3~hit:2
+s_2131	Venom Kunai~P~0.9~0~5~psn:3
+s_2132	Smoke Bomb~N~0~3~8~def:2
+s_2133	Pickpocket~P~0.8~0~4~stl:60
+s_2134	Shadow Clone~P~0.55~0~10~hit:4
+s_2135	Assassinate~X~1.8~0~12~exe:1
+s_2136	Thousand Cuts~P~0.4~1~16~hit:3
+s_2137	Eclipse Strike~X~1.2~0~24~hit:3,psn:3
+s_2138	Shadow Step~X~1.6~0~12~stn:30
+s_2139	Toxic Blades~P~0.5~1~18~hit:2,psn:4
+s_2140	Vanishing Veil~N~0~3~20~def:4
+s_2141	Death Blossom~P~0.4~0~22~hit:10
+s_2142	Thousand Shadows~X~0.6~1~36~hit:4,exe:1
+c_10	Shadow~Phantom~🥷~Strikes from the dark, then is gone.~95~18~18~8~8~18~22~2130,2131,2132,2133,2134,2135,2136,2137,2138,2139,2140,2141,2142~DPS~Thief:15,Monk:10~3~spd10
+gt_w10	1~Katana,Kunai,Shuriken,Kusarigama
+s_2143	Lance Thrust~X~1~0~3~
+s_2144	Jump~X~1.8~0~8~
+s_2145	Wyrm Scale~N~0~4~5~def:3
+s_2146	Dragon Dive~P~1~1~10~
+s_2147	Piercing Gale~X~1.6~0~10~wk:2
+s_2148	Sky Splitter~X~2.4~0~14~
+s_2149	Dragon Breath~X~1.2~1~18~
+s_2150	Ragnarok Lance~X~3.4~0~24~stn:40
+s_2151	Dragon's Fang~X~2.6~0~16~
+s_2152	Wyrm Wings~N~0~4~10~def:4,rgn:3
+s_2153	Draconic Roar~X~1~1~20~wk:2
+s_2154	Skyfall~X~1.4~1~28~stn:20
+s_2155	Elder Wyrm's Wrath~X~4.5~0~36~stn:40
+c_11	Wyvern Rider~Wyrmlord~🐉~Lancer who rides the sky and ignores armor.~115~16~18~13~5~12~8~2143,2144,2145,2146,2147,2148,2149,2150,2151,2152,2153,2154,2155~DPS~Knight:15,Ranger:10~3~def5,spd5
+gt_w11	0~Lance,Spear,Halberd,Glaive
+s_2156	Power Chord~M~1.2~0~4~
+s_2157	Rousing Anthem~N~0~3~10~atk:3
+s_2158	Lullaby~M~0.3~1~10~stn:30
+s_2159	Ballad of Mending~N~0~3~12~rgn:4
+s_2160	Discord~M~0.9~1~12~wk:2
+s_2161	Encore~MP~0.8~3~10~
+s_2162	Hymn of Heroes~N~0~3~20~atk:3,def:3
+s_2163	Grand Finale~M~2~1~30~stn:35
+s_2164	Requiem~M~1.4~1~20~wk:2
+s_2165	Symphony of Life~N~0~3~24~rgn:5,cln:1
+s_2166	Crescendo~M~2.4~0~18~stn:30
+s_2167	Overture of Valor~N~0~3~32~atk:4,def:4
+s_2168	Magnum Opus~M~2.4~1~48~stn:30,wk:2
+c_12	Bard~Virtuoso~🎸~Buffs the band, rocks the boss.~90~32~9~10~14~12~5~2156,2157,2158,2159,2160,2161,2162,2163,2164,2165,2166,2167,2168~Support~Ranger:10,Cleric:10~3~sAt
+gt_w12	2~Lute,Keytar,Ocarina,Electric Harp
+s_2169	Thorn Lash~P~1.2~0~4~psn:2
+s_2170	Mudslide~M~0.8~1~9~wk:2
+s_2171	Bark Skin~N~0~2~7~def:3
+s_2172	Quake~M~1~1~13~stn:15
+s_2173	Spring Water~H~1.2~3~15~
+s_2174	Entangle~M~1.2~0~9~stn:35
+s_2175	Wild Growth~N~0~3~18~rgn:4
+s_2176	Tidal Wave~M~1.8~1~31~
+s_2177	Landslide~M~1.6~1~29~stn:20
+s_2178	Grove Shelter~N~0~3~24~def:3,rgn:3
+s_2179	Venom Bloom~M~1~1~24~psn:4
+s_2180	Lightning Rod~M~2.6~0~22~
+s_2181	Wrath of Nature~M~2.4~1~51~wk:3
+c_13	Wildspeaker~Earthwarden~🌿~Calls on stone, vine and tide.~100~30~11~11~14~12~6~2169,2170,2171,2172,2173,2174,2175,2176,2177,2178,2179,2180,2181~Support/DPS~Ranger:15,Elementalist:10~3~hp5,mag5
+gt_w13	1~Totem Staff,Bone Club,Vine Whip,Stone Sling
+s_2182	Time Bolt~M~1.3~0~5~
+s_2183	Haste~N~0~2~6~atk:3
+s_2184	Slow~M~0.3~0~6~stn:35
+s_2185	Rewind~H~1.4~2~8~cln:1
+s_2186	Age~M~0.8~0~8~wk:3,psn:2
+s_2187	Hastega~N~0~3~18~atk:3
+s_2188	Stop~M~0.4~1~18~stn:40
+s_2189	Paradox~M~2.8~0~26~
+s_2190	Quicken~MP~0.8~3~22~
+s_2191	Time Loop~H~1.2~3~28~rgn:2
+s_2192	Entropy~M~1~1~26~wk:3
+s_2193	Borrowed Time~N~0~3~30~atk:3,def:3
+s_2194	Big Crunch~M~3~1~51~stn:30
+c_14	Chronomancer~Timelord~⏳~Speeds friends up and slows foes down.~80~38~6~8~17~14~6~2182,2183,2184,2185,2186,2187,2188,2189,2190,2191,2192,2193,2194~Support~Elementalist:15,Cleric:10~3~spd12
+gt_w14	2~Hourglass,Clock Staff,Chrono Rod,Pocket Watch
+s_2195	Rivet Shot~X~1~0~3~
+s_2196	Wrench Whack~P~1.3~0~4~stn:15
+s_2197	Smoke Stack~N~0~3~9~def:2
+s_2198	Grenade~M~1~1~11~
+s_2199	Oil Slick~M~0.4~1~9~wk:2
+s_2200	Repair Bot~H~1~3~15~
+s_2201	Steam Cannon~X~2.2~0~15~
+s_2202	Overdrive~P~1.6~1~24~sac:15
+s_2203	Rail Shot~X~2.8~0~19~
+s_2204	Flamethrower~M~1.2~1~24~psn:3
+s_2205	Tesla Coil~M~1.4~1~28~stn:25
+s_2206	Armor Plating~N~0~3~26~def:4
+s_2207	Boiler Burst~M~3~1~43~sac:25
+c_15	Steampunk~Machinist~⚙️~Builds it, bolts it, blows it up.~105~22~14~13~12~9~10~2195,2196,2197,2198,2199,2200,2201,2202,2203,2204,2205,2206,2207~DPS/Support~Thief:10,Alchemist:15~3~pot
+gt_w15	1~Wrench,Railway Rifle,Steam Gauntlet,Rivet Gun
+s_2208	Coin Toss~G~1.6~0~4~
+s_2209	Card Throw~P~0.6~1~7~
+s_2210	Loaded Dice~P~1~0~7~hit:2
+s_2211	Double Down~N~0~4~10~atk:3
+s_2212	Slot Machine~G~1.4~1~17~
+s_2213	Lucky Seven~X~0.35~0~17~hit:7
+s_2214	All In~G~3.5~0~22~sac:20
+s_2215	Jackpot~G~2.4~1~37~stl:50
+s_2216	Roulette Wheel~G~2~1~25~
+s_2217	Ace in the Hole~X~2.2~0~20~
+s_2218	Card Shark~P~0.5~1~27~hit:3,stl:30
+s_2219	Double or Nothing~G~5~0~25~sac:30
+s_2220	Royal Flush~G~3.4~1~49~stl:100
+c_16	Jester~Trickster~🃏~Plays the odds. Sometimes wins big.~90~28~13~9~12~13~15~2208,2209,2210,2211,2212,2213,2214,2215,2216,2217,2218,2219,2220~DPS~Thief:10,Bard:10~3~atk5,crt5
+gt_w16	1~Loaded Dice,Card Deck,Lucky Coin,Roulette Wheel
+s_2221	Pact Bolt~M~1.3~0~5~
+s_2222	Call Salamander~M~1.1~1~12~
+s_2223	Call Undine~H~1.2~3~14~
+s_2224	Call Sylph~N~0~3~12~def:3
+s_2225	Call Golem~M~1.8~0~12~stn:25
+s_2226	Call Fairy~N~0~3~16~rgn:4,cln:1
+s_2227	Call Leviathan~M~1.4~1~24~wk:2
+s_2228	Call Bahamut~M~2.2~1~36~
+s_2229	Call Phoenix~R~0.5~5~24~
+s_2230	Call Ifrit~M~1.8~1~30~psn:2
+s_2231	Call Shiva~M~1.6~1~28~stn:30
+s_2232	Call Titan~M~3.2~0~26~wk:3
+s_2233	Primordial~M~2.8~1~54~
+c_17	Summoner~Evoker~🌀~Calls ancient powers to the field.~78~42~5~8~19~10~5~2221,2222,2223,2224,2225,2226,2227,2228,2229,2230,2231,2232,2233~DPS~Cleric:15,Elementalist:15~3~sDf

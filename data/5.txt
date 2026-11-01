@@ -1,64 +1,89 @@
-w_r51	~~~~~~.......TTTTTTTTTTTTTTTTTT#.~~~#:::::::::::::%%%%%%^^^^^^~~^^^^^^^^^^^^^##***~~~~~~~~~~~~~~
-w_r52	~~~~~~~....B.TTTTTTTTTTT~~~TTT.######:::::::::::::%%%%%%^^^^^^^~^^^^^^^^^^^^^^#****~~~~~~~~~~~~~
-w_r53	~~~~~~~~~~..~TTTTTTTT~~~~~~TT::#:::#::::::::::::%%%%%%%%%%%^^^^~^^^^^^^^^^^^^*#*****~~~~~~~~~~~~
-w_r54	~~~~~~~~~~~~~~~TTT~~~~~~~~~~:::#:::#::"""""""":%%%%%%~%%%%%^^^^~^^^^^~^^^*****#******~~~~~~~~~~~
-w_r55	~~~~~~~~~~~~~~~~~~~~~~~~~~~~:::#:::#::"""""""""%%%%%~~~%%%%^^^^~^^~~~^^^^^****#******~~~~~~~~~~~
-w_r56	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~::#:::#::""""""""""%%%%~~~~~~~~~^~~~~~~~^^^^^^***#******~~~~~~~~~~~
-w_r57	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~::#:::#::""""""""""%%%~~~~~~~~~~~~~~~~~~^^^^^^***#*******~~~~~~~~~~
-w_r58	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~::#:::#::""""""""""%%%~~~~~~~~~~~~~~~~~~^^^^^^^**#*******~~~~~~~~~~
-w_r59	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:#:::#:""""""""""""~~~~~~~~~~~~~~~~~~~~^^^^^^^**#******~~~~~~~~~~~
-w_r60	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~####H:"""""""""""~"%%~~~~~~~~~~~~~~~~~^^^^^^^^^##*****~~~~~~~~~~~
-w_r61	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:::::""""""B""~""%%%%%~~~~~~~~~~~~~~~^^^^~~^^^^#****~~~~~~~~~~~~
-w_r62	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~:""~~~~~~~~""%%%%^^~~~~~~~~~~~~~~^^^^~^^^^^#####~~~~~~~~~~~~
-w_r63	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~""%%%%^^^~~~~~~~~~~~~~~~^^^~^^^^^***~=~~~~~~~~~~~~
-w_r64	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"%%%%%%^^~~~~~~~~~~~~~~~~^^~^^^^^**~~=~~~~***~~~~~
-w_r65	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%%%%%~~~~~~~~~~~~~~~~~^~^^^^**~~~=~~~*****~~~~
-w_r66	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%%%%~~~~~~~~~~~~~~~~~~~~~^~~~~~~~===###D***~~~
-w_r67	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~*****~~~~
-w_r68	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~***~~~~~
-w_r69	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-w_r70	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-w_r71	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-w_start	14|38
-w_lv	5|0.75
-w_t	.#T:"%*=HBD|1,0,6,12,20,30,40,0,0,0,0|7,2,10,9,11,11,12,0,0,0,0|Greenhorn Meadows,Road,Grindwood Forest,Dunes of Lag,Soggy Bottom Swamp,Spooky Scary Graveyard,Mount Doomscroll,Bridge,Town,Lair,Dungeon
-w_f	14,38,H,Noobton,4,0.9.4.7;31,50,H,Grindwood Village,6,0.9.4.7.1;35,60,H,Lag Oasis,14,0.1.3.4.5.7.9;49,42,H,Bogsworth,10,0.1.4.5.7.9;59,47,H,Last Save Point,18,1.2.3.5.6.7.8.9;70,19,H,Ashfall Outpost,24,1.2.3.5.6.7.8.9;11,52,B,Rentcoon's Rent Office,2,5;30,33,B,Crimson Tengu's Shrine,8,10;25,15,B,Sandworm Supremo's Pit,21,16;43,61,B,Venus Fly Tyrant's Garden,4,24;56,18,B,Boo-hemoth's Crypt,3,32;75,33,B,Crabclops's Peak,10,42;89,66,D,The Endless Depths,0,50
-w_v	2bee7fb0
-dcfg	40|3|10|5|40|50|0.06|0.1|25|2.0|0.6|25.0|1,4,2,2,10|5,5,5,5,5,5,5,2,5,5|6,6,5,5,5,4,2,1,15,10|4,10,20,35,60|0.5|0.055|10
-q_0	Noobton~-1~1~h,0,5~15,50,0:2,-1,
-q_1	Noobton~-1~2~g,13,33;f,22,33,2,45,70,2,Big Bamboozler~25,80,4:1,1,
-q_2	Noobton~-1~4~b,2~60,100,4:1.0:2,2,
-q_3	Noobton~-1~2~g,22,38;f,22,38,1,50,75,2,Crystal Mite~30,80,0:2,1,
-q_4	Grindwood Village~-1~8~h,10,6~35,50,1:2,-1,
-q_5	Grindwood Village~-1~9~h,11,5;g,38,50~45,80,9:2,1,
-q_6	Grindwood Village~-1~10~b,8~90,100,1:2,2,
-q_7	Grindwood Village~3~8~h,6,5;g,24,49;f,24,49,6,55,80,8,Owlbert the Hoarder~60,90,1:1,2,
-q_8	Lag Oasis~-1~15~g,29,58;h,38,6~55,70,5:1,1,
-q_9	Lag Oasis~-1~16~h,16,6;f,31,53,16,55,85,16,Big Boom Rex~70,90,6:1,2,
-q_10	Lag Oasis~7~15~g,41,53;f,41,53,9,60,85,15,Sandy Claws;b,21~90,100,5:1,2,
-q_11	Bogsworth~-1~22~h,18,8~80,50,6:1,-1,
-q_12	Bogsworth~-1~24~b,4~140,100,5:2,3,
-q_13	Bogsworth~-1~23~g,54,44;f,54,44,22,60,90,23,Kappa Champion~100,90,3:1,2,
-q_14	Bogsworth~10~22~h,23,6;g,40,41;f,40,41,18,65,90,22,Choirmaster Croak~130,100,3:1,3,
-q_15	Last Save Point~-1~30~h,17,5;h,39,5~110,70,7:1,2,
-q_16	Last Save Point~-1~31~g,59,40;f,59,40,31,65,95,31,Bonehead Prime~130,90,8:1,3,
-q_17	Last Save Point~14~30~g,55,38;b,3;f,55,38,20,70,95,30,The Glitch~180,100,8:1,3,
-q_18	Ashfall Outpost~-1~38~h,40,8~150,50,6:1,-1,
-q_19	Ashfall Outpost~-1~39~h,48,6;g,66,13~170,80,2:1,3,
-q_20	Ashfall Outpost~-1~40~f,76,25,46,75,100,40,Old Smolder~200,100,2:1,3,
-q_21	Ashfall Outpost~17~38~g,60,16;f,60,16,46,80,100,38,Cinder Warden;b,10~300,120,2:2.8:1,4,crystal_heart
-q_n	22
-qcfg	Noobton,2,8,0.1.2.28.30.5,2;Grindwood Village,10,18,6.8.10.35.11.3,2.8;Lag Oasis,18,30,9.14.16.38.13.12,8.21;Bogsworth,25,45,18.23.21.22.26.19,21.4;Last Save Point,32,60,15.17.39.20.40.31,4.3;Ashfall Outpost,40,80,46.44.25.24.48.40,3.10|5,9,30|45,80,50,2|90,3|3,8|2,25|3|5|Big,Chief,Old,King,Captain,Grumpy,Mega,Boss,Sir,Mama|12
-cur	Bitcorns|🌽|10|1.3.8.20.40.0.120|25|20
-md_lobby	https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1
-md_map	https://moist-cornbread.github.io/Battle-Crystal/music/map-orchestral-adventure.ogg
-md_town	https://moist-cornbread.github.io/Battle-Crystal/music/town-stage1.ogg https://moist-cornbread.github.io/Battle-Crystal/music/town-stage2.ogg
-md_battle	https://moist-cornbread.github.io/Battle-Crystal/music/battle-bossfight.ogg https://moist-cornbread.github.io/Battle-Crystal/music/battle-stageselect.ogg
-md_boss	https://opengameart.org/sites/default/files/hard_boss_battle_2_bpm210.mp3#v=0.65
-md_bigboss	https://moist-cornbread.github.io/Battle-Crystal/music/bigboss-determined-pursuit.ogg
-md_dungeon	https://moist-cornbread.github.io/Battle-Crystal/music/dungeon-grasslands.ogg
-i_0	Stim-Pak-ish~H~60~2~💉~1~Restores 60 HP to one ally.~5
-i_1	Estus-ish Flask~H~250~2~🧉~2~Restores 250 HP to one ally. Praise the sun.~18
-i_2	Sensu Bean~H~0~2~🫘~3~Fully restores one ally's HP. Grown on a very tall tower.~45
-i_3	Party Pizza~A~120~3~🍕~2~Restores 120 HP to the whole party. Cowabunga.~30
-i_4	Ether-net Cable~M~15~2~🔌~1~Restores 15 MP to one ally. Wired for speed.~8
+x_12	Gloomlord~🌑~818~120~21~12~23~16~350~2~0:2,507:1,508:1~4~2~Come into the dark. It is warm here.
+s_509	Flurry of Paws~P~0.4~0~0~hit:5
+s_510	Focus Shout~N~0~4~10~atk:3
+x_13	Grandmaster Raccoon~🦝~818~80~29~11~11~18~360~2~0:2,509:1,510:1~-1~0~You have much to learn. Lesson one: OUCH.
+s_511	Vine Lash~X~1.5~0~0~
+s_512	Root Grab~M~0.8~1~12~wk:2
+x_14	Tangle Hydra~🌿~782~120~20~17~19~8~360~2~0:2,511:1,512:1~-1~0~So many heads. So many ways to grab you.
+s_513	Wind Blade~M~1~1~14~
+s_514	Gale~M~1.5~0~8~wk:2
+x_15	Azure Tengu~🪶~627~140~21~12~21~15~360~2~0:1,513:2,514:1~-1~0~The wind answers to me.
+s_515	Lava Bite~P~1.9~0~0~
+s_516	Molten Frenzy~P~0.8~1~0~
+x_16	Magma Salamander~🦎~640~60~22~13~8~12~370~2~0:2,515:1,516:1~19~1~Hssss... it's warm in here. For me.
+s_517	Ink Cloud~M~0.8~1~12~wk:3
+s_518	Crushing Grip~M~1.8~0~10~
+x_17	The Kraken~🐙~532~150~13~14~20~9~370~2~0:1,517:2,518:1~23~1~Release ME? No. I release YOU... into the deep.
+s_519	Cursed Blade~M~1.6~0~10~
+s_520	Plague Touch~M~0.6~1~12~psn:3
+s_521	Dark Pact~H~1.4~4~15~
+x_18	Gilded Revenant~💀~819~140~18~15~22~9~370~2~0:1,519:1,520:1,521:1~-1~0~Death was only a short break.
+s_522	Haymaker~M~1~1~12~
+s_523	Taunt~M~0.6~0~8~stn:50
+x_19	Puncho Diablo~👊~581~150~16~14~20~12~370~2~0:1,522:2,523:1~26~1~Put 'em up! ...No, higher. Now DUCK.
+s_524	Crystal Charge~P~1~1~0~
+s_525	Shard Overload~N~0~4~12~atk:3,def:2
+x_20	Crystal Behemoth~💎~627~100~20~18~13~10~380~2~0:2,524:1,525:1~-1~0~Shatter!
+s_526	Spice Swallow~P~2~0~0~
+s_527	Thumper Quake~P~0.9~1~0~stn:15
+x_21	Sandworm Supremo~🪱~639~80~21~15~10~7~380~2~0:2,526:1,527:1~-1~0~The spice must flow. Into your eyes.
+s_528	Scythe Swipe~M~0.7~1~12~wk:2
+s_529	Curtain Call~M~1.8~0~10~
+x_22	The Masked Reaper~🎭~666~150~15~13~22~14~360~2~0:1,528:2,529:1~15~2~Take a bow. It is your final act.
+s_530	Branch Lash~M~0.7~1~12~psn:2
+s_531	Sap Drain~P~1.4~0~0~drn:50
+x_23	Haunted Willow~🌳~576~120~18~14~16~13~370~2~0:2,530:1,531:1~9~2~Your roots are shallow. Mine go deep.
+s_532	Moon Howl~X~1.6~0~8~
+s_533	Pack Call~N~0~4~12~rgn:3,atk:2
+x_24	Ash Werewolf~🐺~744~120~23~15~15~15~380~2~0:2,532:1,533:1~10~1~AWOOOO! The pack is coming.
+x_n	25
+gt_a1	Helm,Great Helm,Visor;Hood,Bandana,Mask;Hat,Circlet,Cowl
+gt_a2	Plate,Chainmail,Cuirass;Leather Vest,Gi,Jerkin;Robe,Vestments,Coat
+gt_a3	Greaves,Sabatons,Iron Boots;Boots,Tabi,Sneakers;Sandals,Slippers,Moccasins
+gt_x	Ring,Amulet,Charm,Earring,Belt,Pendant
+gt_p	Rusty,Plain,Worn,Basic;Sturdy,Fine,Polished,Keen;Runed,Masterwork,Enchanted,Gleaming;Mythril,Heroic,Starforged,Arcane;Celestial,Godslayer,Eternal,Fabled;Relic;Abyssal,Voidforged,Umbral,Deepwrought
+gt_s	of Extra Lives,of Infinite Mana,of the Nat 20,of Tanking,of Big Brain,of Speedrunning,of Crits
+gt_r0	Buster Sword-ish~0~1,0,3,0,0,0,0~
+gt_r1	Mjol-Not~0~0,0,2,0,2,0,0~atk
+gt_r2	Lightsaver (Eco Mode)~0~0,0,2,0,0,1,1~
+gt_r3	Sonic Screwmeister~0~0,1,0,0,3,1,0~
+gt_r4	Portal Gun (No Cake)~0~0,0,1,0,2,2,0~
+gt_r5	Rubber Chicken+Pulley~0~0,0,1,0,0,0,3~pot
+gt_r6	Sorting Hat (Unsure)~1~0,2,0,0,2,0,0~eth
+gt_r7	Cunning Knit Hat~1~2,0,0,1,0,0,0~def
+gt_r8	Red Shirt (Ensign)~2~3,0,0,0,0,0,1~
+gt_r9	Mithril-ish Vest~2~1,0,0,3,0,0,0~def
+gt_r10	Cloak of Invisib-ish~2~0,0,0,1,0,2,1~
+gt_r11	Gotta-Go-Fast Sneakers~3~1,0,0,0,0,3,0~
+gt_r12	Moon Princess Boots~3~0,1,0,0,1,2,0~rgn
+gt_r13	Towel (Don't Panic)~4~1,1,0,1,0,0,0~rgn
+gt_r14	Ring of Power (Low Bat)~4~0,0,2,0,2,0,0~
+gt_r15	Konami Amulet~4~3,0,0,0,0,0,0~pot
+gt_r16	Power Glove (So Bad)~4~0,0,2,0,0,0,2~atk
+gt_r17	Pip-Bracer 3000~4~0,1,0,0,0,1,1~eth
+gt_r18	Infinity Oven Mitt~4~1,0,1,1,1,0,0~atk.def
+gt_r19	Bag of Holding (Empty)~4~0,2,0,0,0,0,0~eth.pot
+gt_rn	20
+w_r0	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r1	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r2	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r3	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r4	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r5	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r6	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r7	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r8	~~~~~~~~~~~~~~~~~~~~~~~~:::::::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r9	~~~~~~~~~~~~~~~~~~~~~~:::::::::::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r10	~~~~~~~~~~~~~~~~~~~~~:::::::::::::~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r11	~~~~~~~~~~~~~~~~~~~~:::::::::::::::~~~~~~~~~~~~~~~~~~~%%%%%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r12	~~~~~~~~~~~~~~~~~~~::::::::::^:::::~~~~~~~~~~~~~~~~%%%%%%%%%%%%%%~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r13	~~~~~~~~~~~~~~~~~~::::::::::^^^::::~~~::TTTTTT~~~%%%%%%%%%%%%%%%***~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r14	~~~~~~~~~~~~~~~~~~::::::::::^^^::::~:::TTTTTTTTT%%%%%%%%%%%%%%%%*****~~~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r15	~~~~~~~~~~~~~~~~~~~::::::B::^^^:::~~::TTTTTTTTTT%%%%%%%%%%%%%%%********~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r16	~~~~~~~~~~~~~~~~~~~::::::::^^^::::~:::TTTTTTTTTT%%%%%%%%%%%%%%%**********~~~~~~~~~~~~~~~~~~~~~~~
+w_r17	~~~~~~~~~~~~~~~~~~~TTT::^^^^^^::~~~::TTTTTTTTTT^%%%%%%%%%%%%%%%***********~~~~~~~~~~~~~~~~~~~~~~
+w_r18	~~~~~~~~~~~~~~~~~~~~TTT^^^^^^^::=:::TTTTTTTTTT^^^%%%%%%%B%%%%%%%**********~~~~~~~~~~~~~~~~~~~~~~
+w_r19	~~~~~~~~~~~~~~~~~~~~~T^^^^^^^^^^^^::TTTTTTTTTTT^^^%^^^%%%%%%%%########H****~~~~~~~~~~~~~~~~~~~~~
+w_r20	~~~~~~~~~~~~~~~~~~~~~~T^^:^^^^^^^^^:TTTTTTTTTTT^^^^^^^^%%%%%%%#%%**********~~~~~~~~~~~~~~~~~~~~~
+w_r21	~~~~~~~~~~~~~~~~~~~~~~=~::^^^^^^^^^^TTTTTTTTTTT%^^^^^^^^%%%%%%#%%**********~~~~~~~~~~~~~~~~~~~~~
+w_r22	~~~~~~~~~~~~~~~~~~~~~~=~::^^^:::^^^^TTTTTTTTTTT^^^^^^^^^^^%%%%#%%*~~~~=~~~~~~~~~~~~~~~~~~~~~~~~~
