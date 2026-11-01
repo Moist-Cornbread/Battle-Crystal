@@ -274,7 +274,7 @@ function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{
  prev=(o&&o.c.length==c.length&&o.c.every((x,i)=>x.n==c[i].n)&&n.r>=o.r)?o.c:null;
  const anew=n.fx&&n.fx!=lastFx&&lastFx&&inBattle()&&aniStart(n);
  if((!o||o.r>n.r||!prev)&&n.r<=1&&!n.res&&n.boss&&o&&inBattle())sfx('boss');
- const k=n.r+':'+n.a+':'+n.mo;if(k!=tkey){tkey=k;tat=Date.now();sent=0;ui={m:'main'};const a=c[n.a];if(n.mo==1&&a&&a.k==me&&!n.res){sfx('turn');pingT=Date.now();pinged=0}}
+ const k=n.r+':'+n.a+':'+n.mo;if(k!=tkey){tkey=k;tat=Date.now();sent=0;ui={m:'main'};const a=c[n.a];if(n.mo==1&&a&&a.k==me&&!n.res){sfx('turn');pingT=Date.now();pinged=0;fetch('a',{method:'POST',body:'hv|t'}).catch(()=>{})}}
  if(n.fx&&n.fx!=lastFx){if(lastFx&&inBattle()){const e=n.fx.split('~')[1];if(anew)aniTO.push(setTimeout(()=>fxs(e),HIT-60));else fxs(e)}lastFx=n.fx}
  if(n.res&&o&&!o.res&&inBattle()){banner=Date.now();music(null);sfx(n.res==1?'win':n.res==2?'lose':'flee')}}
 // ---------- gear ----------
@@ -835,6 +835,6 @@ function cline(t){const p=t.split('|');return p[0]=='C'?{n:p[2],adv:p[3],ic:p[4]
 // the job catalog comes one job at a time (keeps the HUD script's memory small)
 async function loadCat(stamp){catLoading=1;try{const n=CN,out=[];for(let i=0;i<n;i++){const r=await fetch('c?i='+i+'&t='+Date.now(),{cache:'no-store'});const c=cline(await r.text());if(c)out[i]=c}
  if(out.filter(x=>x).length){CAT=out;catStamp=stamp;draw()}}catch(e){}catLoading=0}
-async function poll(){try{const r=await fetch('s?v='+v+'&sid='+sid+'&c='+(CN&&CAT.filter(x=>x).length>=CN?1:0)+'&t='+Date.now(),{cache:'no-store'});if(r.ok)parse(await r.text());else await wait(2000)}catch(e){await wait(2000)}poll()}
+async function poll(){const ab=new AbortController(),to=setTimeout(()=>ab.abort(),28000);try{const r=await fetch('s?v='+v+'&sid='+sid+'&c='+(CN&&CAT.filter(x=>x).length>=CN?1:0)+'&t='+Date.now(),{cache:'no-store',signal:ab.signal});clearTimeout(to);if(r.ok)parse(await r.text());else await wait(2000)}catch(e){clearTimeout(to);if(e.name!='AbortError')await wait(2000)}poll()}   // v12.1: a stuck request is dropped after 28 s and asked again
 draw();poll();
 </script></body></html>

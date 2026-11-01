@@ -11,7 +11,7 @@ s_2009	Stand Firm~N~0~3~20~def:4
 s_2010	Twin Slash~P~1.2~0~14~hit:2
 s_2011	Unyielding~N~0~4~14~tnt:4,rgn:4
 s_2012	Hero's Charge~X~3.6~0~28~stn:30
-c_0	Squire~Vanguard~🗡️~Sturdy all-rounder who learns every trick of the trade.~115~16~15~14~5~10~8~2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012~Tank/DPS~~1~hp10
+c_0	Squire~Vanguard~🗡️~Sturdy all-rounder who learns every trick of the trade.~110~16~16~12~5~10~8~2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012~Tank/DPS~~1~hp10
 gt_w0	0~Short Sword,Hand Axe,Training Spear,Buckler Blade
 s_2013	Spark~M~1.4~0~5~
 s_2014	Heal~H~1.5~2~6~
@@ -41,7 +41,7 @@ s_2035	Golden Elixir~R~0.7~5~22~
 s_2036	Volatile Compound~M~1.6~1~33~psn:3
 s_2037	Homunculus Strike~M~2.6~0~26~drn:50
 s_2038	Grand Transmutation~M~2.6~1~55~wk:3,psn:4
-c_2	Alchemist~Transmuter~⚗️~Bombs, brews and miracle cures.~95~30~10~11~14~10~5~2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038~Support/Healer~~1~itm25
+c_2	Alchemist~Transmuter~⚗️~Bombs, brews and miracle cures.~95~30~14~11~14~10~5~2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038~Support/Healer~~1~itm25
 gt_w2	2~Flask Sling,Bomb Satchel,Retort,Pestle
 s_2039	Shield Bash~P~1.1~0~4~stn:30
 s_2040	Provoke~N~0~4~6~tnt:3
