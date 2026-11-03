@@ -11,6 +11,9 @@ s_2009	Stand Firm~N~0~3~20~def:4
 s_2010	Twin Slash~P~1.2~0~14~hit:2
 s_2011	Unyielding~N~0~4~14~tnt:4,rgn:4
 s_2012	Hero's Charge~X~3.6~0~28~stn:30
+v_2005	Heavy Blow~P~1.8~0~8~stn:25,spd:140
+v_2008	Breakthrough~P~1.4~1~18~brk:2
+v_2012	Hero's Charge~X~4.4~0~28~stn:30,chg:50
 c_0	Squire~Vanguard~🗡️~Sturdy all-rounder who learns every trick of the trade.~110~16~16~12~5~10~8~2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012~Tank/DPS~~1~hp10
 gt_w0	0~Short Sword,Hand Axe,Training Spear,Buckler Blade
 s_2013	Spark~M~1.4~0~5~
@@ -26,6 +29,9 @@ s_2022	Greater Heal~H~1.4~3~28~
 s_2023	Arcane Storm~M~1.5~1~30~
 s_2024	Purify~H~1~3~24~cln:1,def:2
 s_2025	Starbolt~M~3~0~35~stn:30
+v_2015	Frost~M~1~0~6~slw:2
+v_2016	Ward~N~0~2~8~bar:20
+v_2025	Starbolt~M~3.8~0~35~stn:30,chg:50
 c_1	Initiate~Adept~🪄~Apprentice of both healing and harm.~80~38~6~9~17~10~5~2013,2014,2015,2016,2017,2018,2019,2020,2021,2022,2023,2024,2025~Healer/DPS~~1~mp10
 gt_w1	2~Apprentice Wand,Oak Staff,Primer,Chalk Rod
 s_2026	Acid Flask~M~1.2~0~4~wk:2
@@ -41,6 +47,9 @@ s_2035	Golden Elixir~R~0.7~5~22~
 s_2036	Volatile Compound~M~1.6~1~33~psn:3
 s_2037	Homunculus Strike~M~2.6~0~26~drn:50
 s_2038	Grand Transmutation~M~2.6~1~55~wk:3,psn:4
+v_2026	Acid Flask~M~1.2~0~4~brk:2
+v_2028	Fire Bomb~M~1~1~11~brn:2
+v_2033	Transmute~M~3.2~0~33~brk:3,psn:3
 c_2	Alchemist~Transmuter~⚗️~Bombs, brews and miracle cures.~95~30~14~11~14~10~5~2026,2027,2028,2029,2030,2031,2032,2033,2034,2035,2036,2037,2038~Support/Healer~~1~itm25
 gt_w2	2~Flask Sling,Bomb Satchel,Retort,Pestle
 s_2039	Shield Bash~P~1.1~0~4~stn:30
@@ -56,6 +65,9 @@ s_2048	Divine Shield~N~0~3~24~def:4,cln:1
 s_2049	Lay on Hands~R~0.8~5~26~
 s_2050	Crusade~P~1.6~1~29~stn:20
 s_2051	Last Bastion~N~0~4~33~tnt:5,rgn:5
+v_2039	Shield Bash~P~1.1~0~4~stn:20,dly:30
+v_2042	Bulwark~N~0~3~11~bar:20
+v_2048	Divine Shield~N~0~3~24~bar:25,cln:1
 c_3	Knight~Paladin~🛡️~Unbreakable tank who draws fire.~130~15~16~18~6~7~5~2039,2040,2041,2042,2043,2044,2045,2046,2047,2048,2049,2050,2051~Tank~Squire:10~2~def10
 gt_w3	0~Longsword,Broadsword,Bastard Sword,Arming Sword
 s_2052	Flurry~P~0.5~0~3~hit:3
@@ -71,6 +83,8 @@ s_2061	Chi Wave~N~0~3~20~rgn:4
 s_2062	Thousand Palms~P~0.5~1~24~hit:3
 s_2063	Enlightenment~N~0~4~14~atk:5,def:5,cln:1
 s_2064	Omega Fist~X~0.7~0~34~hit:8,stn:30
+v_2052	Flurry~P~0.5~0~3~hit:3,spd:70
+v_2057	Pressure Point~P~1.4~0~10~brk:3
 c_4	Monk~Sensei~👊~Fists of fury, mind of calm.~120~18~17~12~8~14~10~2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062,2063,2064~DPS~Squire:10,Alchemist:5~2~atk8
 gt_w4	1~Hand Wraps,Knuckles,Bo Staff,Prayer Beads
 s_2065	Mug~P~1.1~0~3~stl:50
@@ -86,6 +100,10 @@ s_2074	Dirty Trick~P~0.8~1~18~stn:25
 s_2075	Shadow Strike~X~3.2~0~16~exe:1
 s_2076	Escape Artist~N~0~4~12~def:4,cln:1
 s_2077	Master Thief~P~0.6~1~32~hit:3,stl:80
+v_2066	Quick Stab~P~0.65~0~3~hit:2,spd:60
+v_2067	Sand Toss~N~0~0~5~bld:2
+v_2074	Dirty Trick~P~0.8~1~18~bld:2,stn:15
+v_2076	Escape Artist~N~0~4~12~hst:3,cln:1
 c_5	Thief~Rogue~💰~Steals the loot before the monster drops it.~100~18~17~9~7~17~18~2065,2066,2067,2068,2069,2070,2071,2072,2073,2074,2075,2076,2077~DPS~Squire:5,Initiate:5~2~coin25
 gt_w5	1~Dagger,Knife,Stiletto,Kris
 s_2078	Fire Bolt~M~1.5~0~6~
@@ -101,6 +119,14 @@ s_2087	Blizzard~M~1.2~1~25~wk:2
 s_2088	Earthquake~M~0.6~1~29~stn:30
 s_2089	Mana Overflow~MP~1~3~23~
 s_2090	Big Bang~M~2.3~1~44~
+v_2078	Fire Bolt~M~1.5~0~6~brn:2
+v_2079	Ice Shard~M~1.2~0~5~slw:2
+v_2080	Flame Pillar~M~1.1~1~12~brn:1
+v_2081	Gust~M~0.9~1~10~dly:25
+v_2084	Meteor~M~2~1~27~brn:2,chg:60
+v_2085	Prism Ray~M~2.8~0~29~mdn:2
+v_2087	Blizzard~M~1.2~1~25~slw:2
+v_2090	Big Bang~M~3~1~44~chg:60
 c_6	Elementalist~Archmage~🔥~Fire, ice and thunder on command.~78~40~5~8~16~11~5~2078,2079,2080,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090~DPS~Initiate:10~2~mag8
 gt_w6	2~Staff,Tome,Wand,Codex
 s_2091	Cure~H~1.6~2~5~
@@ -116,23 +142,4 @@ s_2100	Rebirth~R~1~5~31~
 s_2101	Sanctuary~N~0~3~29~def:4,rgn:3
 s_2102	Holy Nova~M~2.8~0~25~stn:30
 s_2103	Miracle~H~3~3~52~cln:1,rgn:3
-c_7	Cleric~High Priest~✨~Healer who keeps the party standing.~88~38~7~9~18~11~5~2091,2092,2093,2094,2095,2096,2097,2098,2099,2100,2101,2102,2103~Healer~Alchemist:10,Initiate:5~2~sRg
-gt_w7	2~Holy Rod,Censer,Prayer Book,Star Chart
-s_2104	Aimed Shot~X~1.1~0~3~
-s_2105	Twin Arrows~P~0.7~0~4~hit:2
-s_2106	Hunter's Mark~N~0~0~5~wk:3
-s_2107	Arrow Rain~P~0.8~1~10~
-s_2108	Poison Arrow~P~1~0~6~psn:4
-s_2109	Camouflage~N~0~4~6~def:3,rgn:2
-s_2110	Piercing Volley~X~0.9~1~16~
-s_2111	Bullseye~X~3.6~0~22~exe:1
-s_2112	Headshot~X~2.4~0~14~exe:1
-s_2113	Barrage~P~0.5~0~16~hit:6
-s_2114	Explosive Arrow~X~1.2~1~25~
-s_2115	Eagle Eye~N~0~3~22~atk:4
-s_2116	Rain of Arrows~X~0.5~1~43~hit:4
-c_8	Ranger~Sharpshooter~🏹~Never misses. Rarely, anyway.~95~20~16~10~8~15~15~2104,2105,2106,2107,2108,2109,2110,2111,2112,2113,2114,2115,2116~DPS~Squire:5,Alchemist:10~2~crt5
-gt_w8	1~Longbow,Crossbow,Recurve Bow,Sling
-s_2117	Flame Edge~P~1.3~0~4~
-s_2118	Frost Edge~P~1~0~5~wk:2
-s_2119	Volt Edge~P~1~0~6~stn:20
+v_2092	Protect~N~0~3~8~bar:15

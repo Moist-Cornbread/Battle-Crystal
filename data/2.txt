@@ -1,3 +1,27 @@
+v_2102	Holy Nova~M~2.8~0~25~bld:2,stn:20
+c_7	Cleric~High Priest~✨~Healer who keeps the party standing.~88~38~7~9~18~11~5~2091,2092,2093,2094,2095,2096,2097,2098,2099,2100,2101,2102,2103~Healer~Alchemist:10,Initiate:5~2~sRg
+gt_w7	2~Holy Rod,Censer,Prayer Book,Star Chart
+s_2104	Aimed Shot~X~1.1~0~3~
+s_2105	Twin Arrows~P~0.7~0~4~hit:2
+s_2106	Hunter's Mark~N~0~0~5~wk:3
+s_2107	Arrow Rain~P~0.8~1~10~
+s_2108	Poison Arrow~P~1~0~6~psn:4
+s_2109	Camouflage~N~0~4~6~def:3,rgn:2
+s_2110	Piercing Volley~X~0.9~1~16~
+s_2111	Bullseye~X~3.6~0~22~exe:1
+s_2112	Headshot~X~2.4~0~14~exe:1
+s_2113	Barrage~P~0.5~0~16~hit:6
+s_2114	Explosive Arrow~X~1.2~1~25~
+s_2115	Eagle Eye~N~0~3~22~atk:4
+s_2116	Rain of Arrows~X~0.5~1~43~hit:4
+v_2105	Twin Arrows~P~0.7~0~4~hit:2,spd:70
+v_2106	Hunter's Mark~N~0~0~5~brk:3
+v_2111	Bullseye~X~4.4~0~22~exe:1,chg:50
+c_8	Ranger~Sharpshooter~🏹~Never misses. Rarely, anyway.~95~20~16~10~8~15~15~2104,2105,2106,2107,2108,2109,2110,2111,2112,2113,2114,2115,2116~DPS~Squire:5,Alchemist:10~2~crt5
+gt_w8	1~Longbow,Crossbow,Recurve Bow,Sling
+s_2117	Flame Edge~P~1.3~0~4~
+s_2118	Frost Edge~P~1~0~5~wk:2
+s_2119	Volt Edge~P~1~0~6~stn:20
 s_2120	Arcane Guard~N~0~4~6~def:3,atk:2
 s_2121	Elemental Arc~M~1~1~11~
 s_2122	Imbue Ally~N~0~2~8~atk:3
@@ -8,6 +32,9 @@ s_2126	Blade Ward~N~0~3~23~def:3,atk:2
 s_2127	Mana Rend~X~2.2~0~17~drn:40
 s_2128	Chain Edge~P~0.6~1~23~hit:3
 s_2129	Ragnablade~X~3.8~0~36~stn:30
+v_2117	Flame Edge~P~1.3~0~4~brn:2
+v_2118	Frost Edge~P~1~0~5~slw:2
+v_2120	Arcane Guard~N~0~4~6~def:3,mup:2
 c_9	Spellblade~Runeblade~⚔️~Swordplay wrapped in elements.~110~24~15~12~14~11~8~2117,2118,2119,2120,2121,2122,2123,2124,2125,2126,2127,2128,2129~DPS~Knight:10,Elementalist:10~3~atk5,mag5
 gt_w9	1~Runesword,Saber,Rapier,Spell Glaive
 s_2130	Shuriken~P~0.6~0~3~hit:2
@@ -23,6 +50,9 @@ s_2139	Toxic Blades~P~0.5~1~18~hit:2,psn:4
 s_2140	Vanishing Veil~N~0~3~20~def:4
 s_2141	Death Blossom~P~0.4~0~22~hit:10
 s_2142	Thousand Shadows~X~0.6~1~36~hit:4,exe:1
+v_2130	Shuriken~P~0.6~0~3~hit:2,spd:70
+v_2138	Shadow Step~X~1.6~0~12~stn:20,dly:30
+v_2140	Vanishing Veil~N~0~3~20~hst:2,def:3
 c_10	Shadow~Phantom~🥷~Strikes from the dark, then is gone.~95~18~18~8~8~18~22~2130,2131,2132,2133,2134,2135,2136,2137,2138,2139,2140,2141,2142~DPS~Thief:15,Monk:10~3~spd10
 gt_w10	1~Katana,Kunai,Shuriken,Kusarigama
 s_2143	Lance Thrust~X~1~0~3~
@@ -38,6 +68,9 @@ s_2152	Wyrm Wings~N~0~4~10~def:4,rgn:3
 s_2153	Draconic Roar~X~1~1~20~wk:2
 s_2154	Skyfall~X~1.4~1~28~stn:20
 s_2155	Elder Wyrm's Wrath~X~4.5~0~36~stn:40
+v_2144	Jump~X~2.6~0~8~chg:40
+v_2147	Piercing Gale~X~1.6~0~10~brk:2
+v_2155	Elder Wyrm's Wrath~X~5.4~0~36~stn:40,chg:50
 c_11	Wyvern Rider~Wyrmlord~🐉~Lancer who rides the sky and ignores armor.~115~16~18~13~5~12~8~2143,2144,2145,2146,2147,2148,2149,2150,2151,2152,2153,2154,2155~DPS~Knight:15,Ranger:10~3~def5,spd5
 gt_w11	0~Lance,Spear,Halberd,Glaive
 s_2156	Power Chord~M~1.2~0~4~
@@ -53,6 +86,9 @@ s_2165	Symphony of Life~N~0~3~24~rgn:5,cln:1
 s_2166	Crescendo~M~2.4~0~18~stn:30
 s_2167	Overture of Valor~N~0~3~32~atk:4,def:4
 s_2168	Magnum Opus~M~2.4~1~48~stn:30,wk:2
+v_2158	Lullaby~M~0.3~1~10~slp:40
+v_2162	Hymn of Heroes~N~0~3~20~atk:3,mup:3
+v_2164	Requiem~M~1.4~1~20~sil:2
 c_12	Bard~Virtuoso~🎸~Buffs the band, rocks the boss.~90~32~9~10~14~12~5~2156,2157,2158,2159,2160,2161,2162,2163,2164,2165,2166,2167,2168~Support~Ranger:10,Cleric:10~3~sAt
 gt_w12	2~Lute,Keytar,Ocarina,Electric Harp
 s_2169	Thorn Lash~P~1.2~0~4~psn:2
@@ -68,6 +104,9 @@ s_2178	Grove Shelter~N~0~3~24~def:3,rgn:3
 s_2179	Venom Bloom~M~1~1~24~psn:4
 s_2180	Lightning Rod~M~2.6~0~22~
 s_2181	Wrath of Nature~M~2.4~1~51~wk:3
+v_2170	Mudslide~M~0.8~1~9~slw:2
+v_2171	Bark Skin~N~0~2~7~bar:20
+v_2174	Entangle~M~1.2~0~9~slw:3,stn:20
 c_13	Wildspeaker~Earthwarden~🌿~Calls on stone, vine and tide.~100~30~11~11~14~12~6~2169,2170,2171,2172,2173,2174,2175,2176,2177,2178,2179,2180,2181~Support/DPS~Ranger:15,Elementalist:10~3~hp5,mag5
 gt_w13	1~Totem Staff,Bone Club,Vine Whip,Stone Sling
 s_2182	Time Bolt~M~1.3~0~5~
@@ -83,49 +122,13 @@ s_2191	Time Loop~H~1.2~3~28~rgn:2
 s_2192	Entropy~M~1~1~26~wk:3
 s_2193	Borrowed Time~N~0~3~30~atk:3,def:3
 s_2194	Big Crunch~M~3~1~51~stn:30
+v_2182	Time Bolt~M~1.3~0~5~dly:20
+v_2183	Haste~N~0~2~6~hst:3
+v_2184	Slow~M~0.3~0~6~slw:3,dly:20
+v_2187	Hastega~N~0~3~18~hst:3
+v_2188	Stop~M~0.4~1~18~slw:2,dly:40
+v_2193	Borrowed Time~N~0~3~30~hst:2,mup:3
+v_2194	Big Crunch~M~3.8~1~51~stn:30,chg:60
 c_14	Chronomancer~Timelord~⏳~Speeds friends up and slows foes down.~80~38~6~8~17~14~6~2182,2183,2184,2185,2186,2187,2188,2189,2190,2191,2192,2193,2194~Support~Elementalist:15,Cleric:10~3~spd12
 gt_w14	2~Hourglass,Clock Staff,Chrono Rod,Pocket Watch
 s_2195	Rivet Shot~X~1~0~3~
-s_2196	Wrench Whack~P~1.3~0~4~stn:15
-s_2197	Smoke Stack~N~0~3~9~def:2
-s_2198	Grenade~M~1~1~11~
-s_2199	Oil Slick~M~0.4~1~9~wk:2
-s_2200	Repair Bot~H~1~3~15~
-s_2201	Steam Cannon~X~2.2~0~15~
-s_2202	Overdrive~P~1.6~1~24~sac:15
-s_2203	Rail Shot~X~2.8~0~19~
-s_2204	Flamethrower~M~1.2~1~24~psn:3
-s_2205	Tesla Coil~M~1.4~1~28~stn:25
-s_2206	Armor Plating~N~0~3~26~def:4
-s_2207	Boiler Burst~M~3~1~43~sac:25
-c_15	Steampunk~Machinist~⚙️~Builds it, bolts it, blows it up.~105~22~14~13~12~9~10~2195,2196,2197,2198,2199,2200,2201,2202,2203,2204,2205,2206,2207~DPS/Support~Thief:10,Alchemist:15~3~pot
-gt_w15	1~Wrench,Railway Rifle,Steam Gauntlet,Rivet Gun
-s_2208	Coin Toss~G~1.6~0~4~
-s_2209	Card Throw~P~0.6~1~7~
-s_2210	Loaded Dice~P~1~0~7~hit:2
-s_2211	Double Down~N~0~4~10~atk:3
-s_2212	Slot Machine~G~1.4~1~17~
-s_2213	Lucky Seven~X~0.35~0~17~hit:7
-s_2214	All In~G~3.5~0~22~sac:20
-s_2215	Jackpot~G~2.4~1~37~stl:50
-s_2216	Roulette Wheel~G~2~1~25~
-s_2217	Ace in the Hole~X~2.2~0~20~
-s_2218	Card Shark~P~0.5~1~27~hit:3,stl:30
-s_2219	Double or Nothing~G~5~0~25~sac:30
-s_2220	Royal Flush~G~3.4~1~49~stl:100
-c_16	Jester~Trickster~🃏~Plays the odds. Sometimes wins big.~90~28~13~9~12~13~15~2208,2209,2210,2211,2212,2213,2214,2215,2216,2217,2218,2219,2220~DPS~Thief:10,Bard:10~3~atk5,crt5
-gt_w16	1~Loaded Dice,Card Deck,Lucky Coin,Roulette Wheel
-s_2221	Pact Bolt~M~1.3~0~5~
-s_2222	Call Salamander~M~1.1~1~12~
-s_2223	Call Undine~H~1.2~3~14~
-s_2224	Call Sylph~N~0~3~12~def:3
-s_2225	Call Golem~M~1.8~0~12~stn:25
-s_2226	Call Fairy~N~0~3~16~rgn:4,cln:1
-s_2227	Call Leviathan~M~1.4~1~24~wk:2
-s_2228	Call Bahamut~M~2.2~1~36~
-s_2229	Call Phoenix~R~0.5~5~24~
-s_2230	Call Ifrit~M~1.8~1~30~psn:2
-s_2231	Call Shiva~M~1.6~1~28~stn:30
-s_2232	Call Titan~M~3.2~0~26~wk:3
-s_2233	Primordial~M~2.8~1~54~
-c_17	Summoner~Evoker~🌀~Calls ancient powers to the field.~78~42~5~8~19~10~5~2221,2222,2223,2224,2225,2226,2227,2228,2229,2230,2231,2232,2233~DPS~Cleric:15,Elementalist:15~3~sDf
