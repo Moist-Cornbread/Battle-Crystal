@@ -111,19 +111,19 @@ s_2061	Chi Wave~N~0~3~20~rgn:4
 s_2062	Thousand Palms~P~0.5~1~24~hit:3
 s_2063	Enlightenment~N~0~4~14~atk:5,def:5,cln:1
 s_2064	Omega Fist~X~0.7~0~34~hit:8,stn:30
-v_2052	Rising Fist~P~1.25~0~-15~combo:UU
-v_2053	Low Sweep~P~1.1~0~-15~combo:DD,stn:20
-v_2054	Focus~N~0~4~-25~combo:LR
-v_2055	Twin Fist~P~0.75~0~-10~combo:UUD,hit:2
-v_2056	Sweeping Palm~P~1~1~20~combo:DDU
-v_2057	Healing Palm~P~1.5~0~25~combo:ULR,drn:30
-v_2058	Iron Skin~N~0~4~30~combo:RULD,def:3,tnt:2
-v_2059	Thousand Palms~X~2.1~0~40~combo:UDLR,stn:40
-v_2060	Serenity~H~0.9~3~50~combo:LRUDU,cln:1
-v_2061	Dragon's Roar~X~2.2~0~55~combo:UUDDLR,brk:3
-v_2062	Phoenix Palm~P~2~0~65~combo:DULRUDL,drn:50
-v_2063	Celestial Barrage~P~0.8~1~80~combo:UDUDLRLR,hit:2
-v_2064	Avatar of the Four Winds~X~2~0~100~combo:DURLUDRLU,hit:2,stn:50
+v_2052	Rising Fist~P~1.25~0~0~combo:UU
+v_2053	Low Sweep~P~1.1~0~0~combo:DD,stn:20
+v_2054	Focus~N~0~4~0~combo:LR,def:2
+v_2055	Twin Fist~P~0.75~0~0~combo:UUD,hit:2
+v_2056	Sweeping Palm~P~1~1~0~combo:DDU
+v_2057	Healing Palm~P~1.5~0~0~combo:ULR,drn:30
+v_2058	Iron Skin~N~0~4~0~combo:RULD,def:3,tnt:2
+v_2059	Thousand Palms~X~2.1~0~0~combo:UDLR,stn:40
+v_2060	Serenity~H~0.9~3~0~combo:LRUDU,cln:1
+v_2061	Dragon's Roar~X~2.2~0~0~combo:UUDDLR,brk:3
+v_2062	Phoenix Palm~P~2~0~0~combo:DULRUDL,drn:50
+v_2063	Celestial Barrage~P~0.8~1~0~combo:UDUDLRLR,hit:2
+v_2064	Avatar of the Four Winds~X~2~0~0~combo:DURLUDRLU,hit:2,stn:50
 c_4	Monk~Sensei~👊~Fists of fury, mind of calm.~120~18~17~12~8~14~10~2052,2053,2054,2055,2056,2057,2058,2059,2060,2061,2062,2063,2064~DPS~Squire:10,Alchemist:5~2~atk8
 gt_w4	1~Hand Wraps,Knuckles,Bo Staff,Prayer Beads
 s_2065	Mug~P~1.1~0~3~stl:50

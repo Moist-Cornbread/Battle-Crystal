@@ -189,22 +189,76 @@ const ICN={"uri": "https://moist-cornbread.github.io/Battle-Crystal/hud/icons.pn
 (()=>{const st=document.createElement('style');st.textContent='.lic{display:inline-block;width:1.15em;height:1.15em;vertical-align:-.2em;background:currentColor;-webkit-mask-image:url('+ICN.uri+');-webkit-mask-size:'+(ICN.cols*100)+'% '+(ICN.rows*100)+'%;mask-image:url('+ICN.uri+');mask-size:'+(ICN.cols*100)+'% '+(ICN.rows*100)+'%}';document.head.appendChild(st)})();
 function ico(id,col,extra){const k=ICN.idx?ICN.idx[id]:undefined;if(k==null)return '';const x=(k%ICN.cols)/(ICN.cols-1)*100,y=ICN.rows>1?Math.floor(k/ICN.cols)/(ICN.rows-1)*100:0;
  return '<i class="lic" style="color:'+(col||'#fff')+';-webkit-mask-position:'+x+'% '+y+'%;mask-position:'+x+'% '+y+'%'+(extra?';'+extra:'')+'"></i>'}
-// ---------- v17: Monk Arts. Arrow combos (U D L R) from the "combo:" rider; Spirit = the MP bar (0-100) ----------
-let ART='';const AR={U:'⬆',D:'⬇',L:'⬅',R:'➡'};
+// ---------- v19: Monk Arts — Legaia style. AP = inputs per turn (mmp). Every arrow = a hit OR an Art via tail-match. ----------
+const AR={U:'⬆',D:'⬇',L:'⬅',R:'➡'};
 function cmb(s){const m=/combo:([UDLR]+)/.exec(s.r||'');return m?m[1]:''}
-function arw(c){return [...c].map(x=>AR[x]).join('')}
-function artSeen(){const n=K.filter(s=>cmb(s)&&s.n!='???').map(s=>s.n);if(!n.length)return;const o=JSON.parse(lsGet('mka')||'[]');const m=[...new Set(o.concat(n))];if(m.length!=o.length)lsSet('mka',JSON.stringify(m))}
-function artKey(d){if(!B||ui.m!='art'||sent)return;if(d=='<'){ART=ART.slice(0,-1)}else if(ART.length<9)ART+=d;sfx('click');draw()}
-function artGo(i){ART='';sk(i)}
-function artBox(a){const arts=K.map((s,i)=>({s,i,c:cmb(s)})).filter(x=>x.c),hit=arts.find(x=>x.c==ART),pre=ART&&arts.some(x=>x.c.startsWith(ART)&&x.c!=ART);
- let msg;if(!ART)msg='<span class="sm">Press arrows (or your arrow keys) to start a combo.</span>';
- else if(hit){const s=hit.s,ok=a.mp>=s.cost;msg='<b style="color:#ffd75a">'+(s.n=='???'?'??? — an Art you haven\'t mastered yet!':esc(s.n))+'</b> <small>'+(s.cost<0?'+'+(-s.cost)+' Spirit':s.cost+' Spirit')+'</small> <button class="gold"'+(ok?'':' disabled')+(s.n=='???'?'':tipAttr('<b>'+esc(s.n)+'</b><br>'+desc(s.e,s.pw,s.tg,s.cost,s.r,s.n)))+' onclick="artGo('+hit.i+')">'+(ok?'Unleash!':'Not enough Spirit')+'</button>'+(pre?' <small>…or keep going</small>':'')}
- else if(pre)msg='✨ <i>Your chi stirs… keep going.</i>';else msg='<span style="color:#ff8a8a">Nothing answers that rhythm.</span>';
- const known=arts.filter(x=>x.s.n!='???');
- return '<div class="h">Arts · Spirit '+a.mp+' / '+a.mmp+' · '+known.length+' of '+arts.length+' found</div>'
- +'<div style="display:flex;gap:8px;align-items:center;margin:4px 0"><div style="font-size:22px;min-width:200px;letter-spacing:2px">'+(ART?arw(ART):'·')+'</div>'+['L','U','D','R'].map(d=>'<button style="font-size:20px;padding:4px 12px" onclick="artKey(\''+d+'\')">'+AR[d]+'</button>').join('')+'<button onclick="artKey(\'<\')">⌫</button></div>'
- +'<div style="min-height:30px">'+msg+'</div>'
- +'<div class="sm" style="max-height:34px;overflow:auto">'+(known.length?known.map(x=>esc(x.s.n)+' '+arw(x.c)).join(' · '):'No Arts found yet. Experiment!')+'</div><button onclick="ART=\'\';back()">◀ Back</button>'+tbar()}
+function arw(c){return [...c].map(x=>AR[x]||x).join('')}
+// AP queue: array of {type:'hit'} or {type:'art',idx,name,tg}
+let APQ=[],APS='';   // APS = raw input string so far (for tail-match)
+function artsSeen(){                                         // cosmetic discovery log in localStorage
+  const o=JSON.parse(lsGet('mka')||'[]');
+  const found=K.filter(s=>cmb(s)).map(s=>s.n);
+  const m=[...new Set(o.concat(found))];
+  if(m.length!=o.length)lsSet('mka',JSON.stringify(m));
+}
+function artInput(d){                                        // called on each arrow press
+  if(!B||ui.m!='art'||sent)return;
+  const a=B.c[B.a];if(!a)return;
+  const ap=a.mmp;                                           // AP budget = mmp
+  if(APQ.length>=ap)return;                                 // budget exhausted
+  APS+=d;sfx('click');
+  // tail-match: find longest Art whose combo === the tail of APS
+  const arts=K.map((s,i)=>({s,i,c:cmb(s)})).filter(x=>x.c);
+  let matched=null;
+  for(let len=Math.min(APS.length,9);len>=2;len--){
+    const tail=APS.slice(-len);
+    const hit=arts.find(x=>x.c===tail);
+    if(hit){matched=hit;break;}
+  }
+  if(matched){APQ.push({type:'art',idx:matched.i,name:matched.s.n,tg:matched.s.tg});}
+  else{APQ.push({type:'hit'});}
+  draw();
+}
+function artUndo(){if(!APQ.length)return;APQ.pop();APS=APS.slice(0,-1);sfx('click');draw()}
+function artReset(){APQ=[];APS='';sfx('click');draw()}
+function artDone(){                                          // send queued actions to the crystal
+  if(!APQ.length||sent)return;
+  const a=B.c[B.a];if(!a)return;
+  // find a default foe target
+  const foeI=B.c.findIndex(x=>x.t==1&&x.hp>0);
+  // check if any Art needs manual target selection (tg==0 is foe, handled; tg==1 party, tg==2 fallen need a pick)
+  // For simplicity target the first foe for all single-foe Arts; group Arts use tg flag server-side
+  const ids=APQ.map(q=>q.type==='hit'?0:K[q.idx].o).join(',');
+  send('arts|'+ids+'|'+foeI);
+  APQ=[];APS='';
+}
+function artBox(a){
+  const arts=K.map((s,i)=>({s,i,c:cmb(s)})).filter(x=>x.c);
+  const ap=a.mmp,used=APQ.length,left=ap-used;
+  // AP bar
+  const pct=used/ap*100;
+  const apBar='<div style="margin:4px 0 6px"><div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px"><span>AP used</span><span>'+used+' / '+ap+'</span></div><div class="bar" style="height:7px"><i style="width:'+pct+'%;background:linear-gradient(#ffd75a,#c8880a)"></i></div></div>';
+  // queue display
+  const qDisplay=APQ.length?APQ.map(q=>{
+    if(q.type==='hit')return '<span style="display:inline-block;padding:2px 7px;margin:1px;background:#1d3a6a;border:1px solid #4a6aaa;border-radius:5px;font-size:13px">👊 Hit</span>';
+    return '<span style="display:inline-block;padding:2px 7px;margin:1px;background:#2a1a5a;border:1px solid #ffd75a;border-radius:5px;font-size:13px;color:#ffd75a">✨ '+esc(q.name)+'</span>';
+  }).join(''):'<span class="sm">Press arrows to build your turn.</span>';
+  // known Arts reference
+  const disc=JSON.parse(lsGet('mka')||'[]');
+  const known=arts.filter(x=>disc.includes(x.s.n));
+  const ref=known.length?'<div class="sm" style="max-height:30px;overflow:auto;margin-top:4px">'+known.map(x=>esc(x.s.n)+' '+arw(x.c)).join(' · ')+'</div>':'';
+  return '<div class="h">Arts · AP '+left+' left · '+known.length+' of '+arts.length+' Arts found</div>'
+   +apBar
+   +'<div style="min-height:28px;margin:3px 0">'+qDisplay+'</div>'
+   +'<div style="display:flex;gap:6px;align-items:center;margin:5px 0">'
+   +['L','U','D','R'].map(d=>'<button style="font-size:20px;padding:4px 11px"'+(left<=0?' disabled':'')+' onclick="artInput(\''+d+'\')">'+AR[d]+'</button>').join('')
+   +'<button onclick="artUndo()" style="padding:4px 10px">⌫</button>'
+   +'<button onclick="artReset()" style="padding:4px 10px">↺</button>'
+   +'<button class="gold"'+(APQ.length?'':' disabled')+' onclick="artDone()">⚔ Done</button>'
+   +'</div>'
+   +ref
+   +'<button onclick="APQ=[];APS=\'\';back()">◀ Back</button>'+tbar()
+}
 function skIco(n){const s=ICN.skill&&ICN.skill[n];return s?ico(s[0],s[1])+' ':''}
 const FLC={G:'#9fd0ff',P:'#a6ff6a',S:'#ffe066',A:'#ff9a6a',D:'#6cc4ff',W:'#c9a0ff',T:'#ffd75a',R:'#7dff8a',E:'#ff5a4a'};
 const FL={};[['G','Guard'],['P','Poison'],['S','Stunned'],['A','ATK up'],['D','DEF up'],['W','Weakened'],['T','Taunting'],['R','Regen'],['E','Enraged']].forEach(([k,n])=>FL[k]=[ico(ICN.status[k],FLC[k]),n]);
@@ -231,7 +285,7 @@ function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';
   if(p[0]=='L'){L={busy:p[1]=='1',max:+p[2],m:p[3]?p[3].split(';').map(x=>{const f=x.split('~');return{k:f[0],n:f[1],lv:f[2],c:f[3],t:f[4],hp:f[5]==null||f[5]===''?100:+f[5],mp:f[6]==null||f[6]===''?100:+f[6],afk:f[7]=='1',pic:f[8]||'',mnu:!!f[9],spr:f[10]||''}}):[],chk:+p[4]||0,rdy:(p[5]||'').split(',').filter(x=>x),by:p[6]||'',force:p[7]=='1',lead:p[8]&&p[8]!='00000000-0000-0000-0000-000000000000'?p[8]:'',ask:p[9]&&p[9]!='00000000-0000-0000-0000-000000000000'?p[9]:''};L.rdy=L.rdy.map(fullK);L.by=fullK(L.by);L.lead=fullK(L.lead);L.ask=fullK(L.ask);if(L.chk&&!lastChk&&L.m.some(x=>x.k==me)&&L.by!=me)sfx('ready');lastChk=L.chk}
   else if(p[0]=='P'){P={c:p[1],lv:+p[2],xp:+p[3],need:+p[4],t:p[5],hero:+p[6]||1,mp:p[8]==null||p[8]===''?100:+p[8],hp:p[9]==null||p[9]===''?100:+p[9],its:(p[10]||'').split('.').map(Number),coins:+p[11]||0,pic:p[13]||'',spr:p[14]||'',pas:(p[15]||'').split(','),bx:Object.fromEntries((p[12]||'').split(',').filter(x=>x).map(x=>{const f=x.split(':');return[f[0],+f[1]]})),jl:{}};(p[7]||'').split(',').forEach(x=>{const f=x.split(':');if(f[0])P.jl[f[0]]=+f[1]})}
   else if(p[0]=='B')nb(p);
-  else if(p[0]=='K'){K=p[1]?p[1].split(';').map(x=>{const f=x.split('~');return{o:+f[0],n:f[1],cost:+f[2],tg:+f[3],e:f[4],pw:f[5],r:f[6]}}):[];artSeen()}
+  else if(p[0]=='K'){K=p[1]?p[1].split(';').map(x=>{const f=x.split('~');return{o:+f[0],n:f[1],cost:+f[2],tg:+f[3],e:f[4],pw:f[5],r:f[6]}}):[];artsSeen()}
   else if(p[0]=='G')ng.push(p.slice(1).join('|'));
   else if(p[0]=='Q')gq[+p[1]]=p.slice(2).join('|');
   else if(p[0]=='M')mparse(p);
@@ -421,7 +475,7 @@ function mapSend(path,from){if(!canMove()||!path)return;const st=from||predEnd2(
 function mapStep(d){if(!Wd)return;const st=predEnd2(),x=st.x+DIRS[d][0],y=st.y+DIRS[d][1];if(walk_(x,y))mapSend(d,st);else sfx('click')}
 function mapClick(e){const r=e.target.getBoundingClientRect(),k=cam();const x=Math.floor(k.x+(e.clientX-r.left)/TS),y=Math.floor(k.y+(e.clientY-r.top)/TS);const st=predEnd2();if(canMove())mapSend(bfs(st.x,st.y,x,y),st)}
 document.addEventListener('keydown',e=>{if(!$('#mc'))return;const d={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R',w:'U',s:'D',a:'L',d:'R'}[e.key];if(d){e.preventDefault();mapStep(d)}});
-document.addEventListener('keydown',e=>{if(ui.m!='art'||!B)return;const t=document.activeElement;if(t&&t.tagName=='INPUT')return;const d={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R',Backspace:'<'}[e.key];if(d){e.preventDefault();artKey(d)}else if(e.key=='Enter'){const h=K.find(s=>cmb(s)&&cmb(s)==ART);if(h&&B.c[B.a]&&B.c[B.a].mp>=h.cost){e.preventDefault();artGo(K.indexOf(h))}}});
+document.addEventListener('keydown',e=>{if(ui.m!='art'||!B)return;const t=document.activeElement;if(t&&t.tagName=='INPUT')return;const d={ArrowUp:'U',ArrowDown:'D',ArrowLeft:'L',ArrowRight:'R'}[e.key];if(d){e.preventDefault();artInput(d)}else if(e.key=='Backspace'){e.preventDefault();artUndo()}else if(e.key=='Enter'){e.preventDefault();artDone()}else if(e.key=='Escape'){e.preventDefault();artReset()}});
 document.addEventListener('keydown',e=>{if(e.key!='Escape')return;const t=document.activeElement;if(t&&(t.tagName=='INPUT'||t.tagName=='TEXTAREA'))return;
  if(gearOpen){gearOpen=0;gsel=null;back();return}
  if(picking){picking=0;back();return}
@@ -710,7 +764,21 @@ function inBattle(){return !!(B&&B.c&&B.c.some(x=>x.k==me))}   // only party mem
 function drawInner(){
  const bn=banner&&Date.now()-banner<banLen;
  if(B&&inBattle()&&(L.busy||bn)){if(!wasBt){wasBt=1;RUN=B.r<=1&&!B.res?Date.now():0}battle(bn)}else{wasBt=0;document.body.className='';$('#ov').style.display='none';if(!banner)music(mapOpen&&P&&P.c&&Wd&&CAT.length&&!picking&&!gearOpen&&L.m.some(x=>x.k==me)?(DP&&DP.f?'dungeon':Wd&&(feat(Wd.x,Wd.y)||[])[2]=='H'?'town':'map'):'lobby');lobby()}}
-function skillList(j,lv){const mk=j.n=='Monk'?JSON.parse(lsGet('mka')||'[]'):null;return '<div class="sk">'+j.sk.map(s=>{if(mk&&!mk.includes(s[0])){const c=/combo:([UDLR]+)/.exec(s[6]||'');return '<div'+(+s[1]<=lv?'':' class="lk"')+tipAttr('<b>A hidden Art</b><br>'+(c?c[1].length+' presses. ':'')+'Find it by experimenting in battle.',1)+'>'+(+s[1]<=lv?'❔':'🔒')+' ??? <small>'+(c?c[1].length+' presses':'')+(+s[1]<=lv?'':' · Lv '+s[1])+'</small></div>'}const tp=tipAttr('<b>'+esc(s[0])+'</b> <small>(job Lv '+s[1]+')</small><br>'+desc(s[2],s[3],s[4],s[5],s[6],s[0]),1);return +s[1]<=lv?'<div'+tp+'>'+skIco(s[0])+esc(s[0])+'</div>':'<div class="lk"'+tp+'>🔒 '+esc(s[0])+' <small>Lv '+s[1]+'</small></div>'}).join('')+'</div>'}
+function skillList(j,lv){
+  const disc=j.n=='Monk'?JSON.parse(lsGet('mka')||'[]'):null;
+  return '<div class="sk">'+j.sk.map(s=>{
+    const c=cmb({r:s[6]||''});
+    const unlocked=+s[1]<=lv;
+    const found=!disc||disc.includes(s[0]);
+    if(c){  // Art: show combo, mark if found
+      const tip=tipAttr('<b>'+esc(s[0])+'</b> <small>(job Lv '+s[1]+')</small><br>'+arw(c)+' ('+c.length+' inputs)<br>'+desc(s[2],s[3],s[4],s[5],s[6],s[0]),1);
+      const badge=found?'✨':'❔';
+      return '<div'+(unlocked?'':' class="lk"')+tip+'>'+(unlocked?badge:'🔒')+' '+esc(s[0])+' <small>'+arw(c)+(unlocked?'':' · Lv '+s[1])+'</small></div>';
+    }
+    const tp=tipAttr('<b>'+esc(s[0])+'</b> <small>(job Lv '+s[1]+')</small><br>'+desc(s[2],s[3],s[4],s[5],s[6],s[0]),1);
+    return unlocked?'<div'+tp+'>'+skIco(s[0])+esc(s[0])+'</div>':'<div class="lk"'+tp+'>🔒 '+esc(s[0])+' <small>Lv '+s[1]+'</small></div>';
+  }).join('')+'</div>';
+}
 function readyBox(){const iR=L.rdy.includes(me),what=L.chk==2?'💀 BOSS FIGHT':L.chk==3?'🚪 HEADING OUT':'⚔ BATTLE';
  let s='<div style="grid-column:1/3;background:#0006;border:2px solid #ffd75a;border-radius:8px;padding:8px;text-align:center"><b style="color:#ffd75a">READY CHECK · '+what+'</b><div>'+L.rdy.length+' / '+L.m.length+' ready</div></div>';
  if(!iR)s+='<button class="gold" style="font-size:18px;padding:11px" onclick="send(\'Ready\')">✔ Ready</button><button class="red" style="font-size:18px;padding:11px" onclick="send(\'Not Ready\')">✖ Not ready</button>';
@@ -788,7 +856,7 @@ function cmd(my,a){
  if(ui.m=='s')return '<div class="h">Skills · MP '+a.mp+' / '+a.mmp+' · hover a skill for details</div><div class="btns s4 btns3">'+K.map((s,i)=>'<button'+(a.mp<s.cost||(silenced(a)&&SPELL[s.e])?' disabled':'')+tipAttr('<b>'+esc(s.n)+'</b><br>'+desc(s.e,s.pw,s.tg,s.cost,s.r,s.n))+' onclick="sk('+i+')">'+skIco(s.n)+esc(s.n)+(elOf(s.r,s.n)&&'PXMG'.includes(s.e)?' <span class="elb">'+ELD.e[elOf(s.r,s.n)-1][1]+'</span>':'')+' <small>'+s.cost+'</small></button>').join('')+'<button onclick="back()">◀ Back</button></div>'+tbar();
  if(ui.m=='i'){const own=IT.map((t,i)=>i).filter(i=>a.it[i]>0);return '<div class="h">Items · hover one for details</div><div class="btns s4 btns3">'+(own.length?own.map(i=>'<button'+tipAttr('<b>'+IT[i][4]+' '+esc(IT[i][0])+'</b> ×'+a.it[i]+'<br>'+esc(IT[i][6]))+' onclick="itm('+i+')">'+IT[i][4]+' '+esc(IT[i][0])+' <small>×'+a.it[i]+'</small></button>').join(''):'<div style="grid-column:1/4;padding:8px" class="sm">Your bag is empty! Win battles to find items.</div>')+'<button onclick="back()">◀ Back</button></div>'+tbar()}
  const ri=repInfo(a);
- return '<div class="h">'+esc(a.n)+' — what will you do?'+(ri?'<button class="gold" style="float:right;margin-top:-4px;padding:3px 10px;font-size:13px" onclick="repeatAct()"'+tipAttr('Do your last command again'+(ri.t!=null?' on the same target':' (pick a target)'))+'>↻ '+esc(ri.l)+(ri.t!=null&&B.c[ri.t]?' → '+esc(B.c[ri.t].n):'')+'</button>':'')+'</div><div class="btns">'+(B.ctb?'<button class="gold"'+tipAttr('<b>Quick Strike</b><br>A light hit (0.65× ATK) that brings your next turn sooner. Good for finishing foes and getting ahead on the timeline. Armor blunts it more.')+' onclick="atk(\'q\')">⚡ Quick</button><button class="gold"'+tipAttr('<b>Heavy Strike</b><br>A big hit (1.6× ATK) but your next turn comes later. Good against armored foes.')+' onclick="atk(\'h\')">🔨 Heavy</button>':'<button class="gold" onclick="atk()">⚔ Attack</button>')+(K.some(x=>cmb(x))?'<button onclick="ART=\'\';mode(\'art\')"'+tipAttr('<b>Arts</b><br>Press arrows to string a combo. Short combos build Spirit; long ones spend it.')+'>👊 Arts</button>':'<button onclick="mode(\'s\')">✦ Skills</button>')+'<button onclick="mode(\'i\')">🧪 Items</button><button'+tipAttr('<b>Defend</b><br>Halve damage until your next turn and restore 10% of your max MP.'+(a.c=='Knight'||a.c=='Paladin'?'<br><b>Knight:</b> while guarding, send half of each hit back and gain MP from it.':''))+' onclick="send(\'act|defend\')">🛡 Defend</button><button onclick="send(\'act|flee\')"'+(B.boss?' disabled':'')+'>🏃 Flee</button></div>'+tbar()}
+ return '<div class="h">'+esc(a.n)+' — what will you do?'+(ri?'<button class="gold" style="float:right;margin-top:-4px;padding:3px 10px;font-size:13px" onclick="repeatAct()"'+tipAttr('Do your last command again'+(ri.t!=null?' on the same target':' (pick a target)'))+'>↻ '+esc(ri.l)+(ri.t!=null&&B.c[ri.t]?' → '+esc(B.c[ri.t].n):'')+'</button>':'')+'</div><div class="btns">'+(B.ctb?'<button class="gold"'+tipAttr('<b>Quick Strike</b><br>A light hit (0.65× ATK) that brings your next turn sooner. Good for finishing foes and getting ahead on the timeline. Armor blunts it more.')+' onclick="atk(\'q\')">⚡ Quick</button><button class="gold"'+tipAttr('<b>Heavy Strike</b><br>A big hit (1.6× ATK) but your next turn comes later. Good against armored foes.')+' onclick="atk(\'h\')">🔨 Heavy</button>':'<button class="gold" onclick="atk()">⚔ Attack</button>')+(K.some(x=>cmb(x))?'<button onclick="APQ=[];APS=\'\';mode(\'art\')"'+tipAttr('<b>Arts</b><br>Press arrows to build your turn — every input lands a hit, and patterns fire Arts automatically. AP '+( (B.c[B.a]||{}).mmp||'?')+' inputs this turn.')+'>👊 Arts</button>':'<button onclick="mode(\'s\')">✦ Skills</button>')+'<button onclick="mode(\'i\')">🧪 Items</button><button'+tipAttr('<b>Defend</b><br>Halve damage until your next turn and restore 10% of your max MP.'+(a.c=='Knight'||a.c=='Paladin'?'<br><b>Knight:</b> while guarding, send half of each hit back and gain MP from it.':''))+' onclick="send(\'act|defend\')">🛡 Defend</button><button onclick="send(\'act|flee\')"'+(B.boss?' disabled':'')+'>🏃 Flee</button></div>'+tbar()}
 // ---------- battle animations: the crystal sends who acted + the move type; targets come from HP changes ----------
 const FXS={cut:[4,32,32],cutx:[4,32,32],claw:[4,32,32],fire:[5,40,30],ice:[10,32,32],bolt:[5,32,28],water:[11,40,33],rock:[14,30,30],leaf:[6,40,28],boom:[9,40,40],spark:[9,30,35],boost:[8,53,35],shield:[6,24,26],ring:[6,32,32]};
 const AT=1300,HIT=430,KO=700;let ANI=null,RUN=0,wasBt=0,aniTO=[];
