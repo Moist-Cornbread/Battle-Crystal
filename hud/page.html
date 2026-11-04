@@ -293,6 +293,8 @@ function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{
 const SLOT=['Weapon','Head','Body','Feet','Accessory'],SLI=ICN.slot.map(i=>ico(i,'#ffe9a8')),RAR=['Common','Uncommon','Rare','Epic','Legendary','Relic','Abyssal'];
 const STN=['HP','MP','ATK','DEF','MAG','SPD','CRIT'];
 const SPC={rgn:'Starts each battle with Regen',atk:'Starts each battle with ATK up',def:'Starts each battle with DEF up',pot:'+1 Potion each battle',eth:'+1 Ether each battle',aby:'In The Endless Depths: +4% to all stats'};
+const ELN=['Fire','Ice','Lightning','Water','Wind','Earth','Light','Dark'],ELE=['🔥','❄️','⚡','💧','🌪️','🪨','✨','🌑'];
+function spcT(x){const n=+x.slice(2)-1;if(x.slice(0,2)=='el')return ELE[n]+' '+ELN[n]+' weapon: your Attack, Quick/Heavy Strike and plain physical skills deal '+ELN[n]+' damage';if(x.slice(0,2)=='wd')return ELE[n]+' '+ELN[n]+' ward: take 35% less '+ELN[n]+' damage (two wards: 60%)';return SPC[x]||x}
 const RELIC=["Comically oversized. Spiky hair not included.", "You are not worthy. It works anyway.", "Hums at a very reasonable volume.", "Does everything except wood.", "The cake is a lie. The damage is not.", "A rubber chicken with a pulley in the middle. Useful, apparently.", "Hmm... difficult. VERY difficult.", "Knitted by Mom. Folks know you're not afraid of anything.", "Statistically, you won't survive the away mission.", "Light as a feather. Wear it under your shirt.", "You can still see it. It's mostly a vibe.", "Blue. Spiky. Extremely fast.", "In the name of the moon, kick!", "The most massively useful thing an adventurer can have.", "One ring to rule them all. Needs a charger.", "Up up down down left right left right B A. 30 lives not included.", "It's so bad. (That means good.)", "V.A.T.S. not included. Radiation sold separately.", "Only five of six stones. Snaps at half power.", "Contents may have shifted during travel."];
 function gitm(t){if(!t)return null;const f=t.split('^');return{n:f[0],s:+f[1],r:+f[2],j:f[3]||'',lv:+f[4],st:(f[5]||'').split('.').map(Number),sp:(f[6]||'').split('.').filter(x=>x),ri:+f[7]}}
 function gearParse(q){if(q[0]!=null)GW=q[0].split(';').concat(['','','','','']).slice(0,5).map(gitm);
@@ -301,7 +303,7 @@ function gearParse(q){if(q[0]!=null)GW=q[0].split(';').concat(['','','','','']).
 function stl(st,sep){return st.map((v,i)=>v?'+'+v+(i==6?'%':'')+' '+STN[i]:'').filter(x=>x).join(sep||' · ')}
 function wOff(it){return it&&it.s==0&&it.j&&P&&it.j!=P.c}
 function itemTip(it,c){if(!it)return '';let h='<b class="r'+it.r+'">'+(it.r==5?'★ ':'')+esc(it.n)+'</b><br><small>'+RAR[it.r]+' '+SLOT[it.s]+' · item level '+it.lv+(it.j?' · '+esc(it.j)+' weapon':'')+'</small><br>'+stl(it.st,c?' · ':'<br>');
- it.sp.forEach(x=>h+=(c?' · ✨ ':'<br>✨ ')+SPC[x]);if(it.r==5&&RELIC[it.ri])h+='<br><i>“'+esc(RELIC[it.ri])+'”</i>';if(wOff(it))h+='<br><span style="color:#ff8a8a">Only works while you are a '+esc(it.j)+'.</span>';return h}
+ it.sp.forEach(x=>h+=(c?' · ':'<br>')+(/^(el|wd)/.test(x)?'':'✨ ')+spcT(x));if(it.r==5&&RELIC[it.ri])h+='<br><i>“'+esc(RELIC[it.ri])+'”</i>';if(wOff(it))h+='<br><span style="color:#ff8a8a">Only works while you are a '+esc(it.j)+'.</span>';return h}
 function gearTot(){const t=[0,0,0,0,0,0,0];GW.forEach(it=>{if(it&&!wOff(it))it.st.forEach((v,i)=>t[i]+=v)});return t}
 function openGear(){sfx('click');gearOpen=1;gsel=null;dropAsk=0;gearSeen=gearCount;draw()}
 function gpick(w,i){sfx('click');gsel={w,i};dropAsk=0;draw()}
