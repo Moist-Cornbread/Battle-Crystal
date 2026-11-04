@@ -1,3 +1,8 @@
+c_16	Jester~Trickster~🃏~Plays the odds. Sometimes wins big.~90~28~13~9~12~13~15~2208,2209,2210,2211,2212,2213,2214,2215,2216,2217,2218,2219,2220~DPS~Thief:10,Bard:10~3~atk5,crt5
+gt_w16	1~Loaded Dice,Card Deck,Lucky Coin,Roulette Wheel
+s_2221	Pact Bolt~M~1.3~0~5~
+s_2222	Call Salamander~M~1.1~1~12~
+s_2223	Call Undine~H~1.2~3~14~
 s_2224	Call Sylph~N~0~3~12~def:3
 s_2225	Call Golem~M~1.8~0~12~stn:25
 s_2226	Call Fairy~N~0~3~16~rgn:4,cln:1
@@ -128,13 +133,3 @@ s_2289	Bat Screech~M~0.5~1~11~stn:25
 s_2290	Spore Cloud~M~0.6~1~14~psn:3
 s_2291	Devour~P~2~0~11~exe:1,drn:50
 s_2292	Molt~N~0~4~9~rgn:4,cln:1
-s_2293	Fire Breath~M~1.6~1~30~
-s_2294	Gorge~P~1.8~0~16~drn:80
-s_2295	Tentacle Lash~P~0.6~1~23~hit:2
-s_2296	Petrify Gaze~M~0.8~0~21~stn:50
-s_2297	Regenerate~N~0~4~18~rgn:5,def:3
-s_2298	Apex Roar~M~2.6~1~55~wk:3
-v_2286	Bite~P~1.2~0~2~drn:30
-v_2287	Slime Spit~M~1~0~4~psn:3,el:4
-v_2288	Hard Shell~N~0~4~4~tnt:2
-v_2289	Bat Screech~M~0.6~1~7~sil:2

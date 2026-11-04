@@ -1,3 +1,6 @@
+w_r21	~~~~~~~~~~~~~~~~~~~~~~=~::^^^^^^^^^^TTTTTTTTTTT%^^^^^^^^%%%%%%#%%**********~~~~~~~~~~~~~~~~~~~~~
+w_r22	~~~~~~~~~~~~~~~~~~~~~~=~::^^^:::^^^^TTTTTTTTTTT^^^^^^^^^^^%%%%#%%*~~~~=~~~~~~~~~~~~~~~~~~~~~~~~~
+w_r23	~~~~~~~~~~~~~~~~~~~~TTTT::^^^::::^^^:TTTTTTTT^^^^^^^^^^^^^^%%%#%%~~^^^********~*******~~~~~~~~~~
 w_r24	~~~~~~~~~~~~~~~~~TT~~TTT::^^^:::::::TTTTTTTT"^^^^^^^^^^^^^^^%%#%%~^^^^********~********~~~~~~~~~
 w_r25	~~~~~~~~~~~~~~~~TTTT=TTT^^^^^~~~:::TTTTTTTT^^^^^""^^^^^^^^^^^^#%^^^^^^^^******~*********~~~~~~~~
 w_r26	~~~~~~~~~~~~~~~TTTTT~~^^^^^^~~~~~:TTTTTTTT^^^^""""^^^^^^^^^^^^#^^^^^^^^^^*****~*********~~~~~~~~
@@ -51,8 +54,3 @@ w_lv	8|0.65
 w_t	.#T:"%*=HBD|1,0,6,12,20,30,40,0,0,0,0|7,2,10,9,11,11,12,0,0,0,0|Greenhorn Meadows,Road,Grindwood Forest,Dunes of Lag,Soggy Bottom Swamp,Spooky Scary Graveyard,Mount Doomscroll,Bridge,Town,Lair,Dungeon
 w_f	14,38,H,Noobton,4,0.9.4.7;31,50,H,Grindwood Village,6,0.9.4.7.1;35,60,H,Lag Oasis,14,0.1.3.4.5.7.9;49,42,H,Bogsworth,10,0.1.4.5.7.9;59,47,H,Last Save Point,18,1.2.3.5.6.7.8.9;70,19,H,Ashfall Outpost,24,1.2.3.5.6.7.8.9;11,52,B,Rentcoon's Rent Office,2,5;30,33,B,Crimson Tengu's Shrine,8,10;25,15,B,Sandworm Supremo's Pit,21,16;43,61,B,Venus Fly Tyrant's Garden,4,24;56,18,B,Boo-hemoth's Crypt,3,32;75,33,B,Crabclops's Peak,10,42;89,66,D,The Endless Depths,0,50
 w_v	2bee7fb0
-dcfg	40|3|10|5|40|50|0.06|0.1|25|2.0|0.6|25.0|1,4,2,2,10|5,5,5,5,5,5,5,2,5,5|6,6,5,5,5,4,2,1,15,10|4,10,20,35,60|0.5|0.055|10
-q_0	Noobton~-1~1~h,0,5~15,50,0:2,-1,
-q_1	Noobton~-1~2~g,13,33;f,22,33,2,45,70,2,Big Bamboozler~25,80,4:1,1,
-q_2	Noobton~-1~4~b,2~60,100,4:1.0:2,2,
-q_3	Noobton~-1~2~g,22,38;f,22,38,1,50,75,2,Crystal Mite~30,80,0:2,1,

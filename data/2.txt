@@ -1,3 +1,9 @@
+v_2070	Poison Blade~P~1.2~0~7~psn:4
+v_2072	Grand Heist~P~1.68~1~17~stl:60
+v_2074	Dirty Trick~P~0.8~1~18~bld:2,stn:15
+v_2075	Shadow Strike~X~3.2~0~16~exe:1,el:8
+v_2076	Escape Artist~N~0~4~12~hst:3,cln:1
+v_2077	Master Thief~P~0.72~1~27~hit:3,stl:80
 c_5	Thief~Rogue~💰~Steals the loot before the monster drops it.~100~18~19~9~7~17~18~2065,2066,2067,2068,2069,2070,2071,2072,2073,2074,2075,2076,2077~DPS~Squire:5,Initiate:5~2~coin25
 gt_w5	1~Dagger,Knife,Stiletto,Kris
 s_2078	Fire Bolt~M~1.5~0~6~
@@ -136,10 +142,3 @@ s_2146	Dragon Dive~P~1~1~10~
 s_2147	Piercing Gale~X~1.6~0~10~wk:2
 s_2148	Sky Splitter~X~2.4~0~14~
 s_2149	Dragon Breath~X~1.2~1~18~
-s_2150	Ragnarok Lance~X~3.4~0~24~stn:40
-s_2151	Dragon's Fang~X~2.6~0~16~
-s_2152	Wyrm Wings~N~0~4~10~def:4,rgn:3
-s_2153	Draconic Roar~X~1~1~20~wk:2
-s_2154	Skyfall~X~1.4~1~28~stn:20
-s_2155	Elder Wyrm's Wrath~X~4.5~0~36~stn:40
-v_2143	Lance Thrust~X~1~0~2~

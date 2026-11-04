@@ -1,3 +1,10 @@
+s_2150	Ragnarok Lance~X~3.4~0~24~stn:40
+s_2151	Dragon's Fang~X~2.6~0~16~
+s_2152	Wyrm Wings~N~0~4~10~def:4,rgn:3
+s_2153	Draconic Roar~X~1~1~20~wk:2
+s_2154	Skyfall~X~1.4~1~28~stn:20
+s_2155	Elder Wyrm's Wrath~X~4.5~0~36~stn:40
+v_2143	Lance Thrust~X~1~0~2~
 v_2144	Jump~X~2.6~0~6~chg:40
 v_2145	Wyrm Scale~N~0~4~4~def:3
 v_2146	Dragon Dive~P~1.2~1~7~
@@ -137,8 +144,3 @@ v_2215	Jackpot~G~2.88~1~31~stl:50
 v_2216	Roulette Wheel~G~2.4~1~21~
 v_2218	Card Shark~P~0.6~1~23~hit:3,stl:30
 v_2220	Royal Flush~G~4.08~1~42~stl:100
-c_16	Jester~Trickster~🃏~Plays the odds. Sometimes wins big.~90~28~13~9~12~13~15~2208,2209,2210,2211,2212,2213,2214,2215,2216,2217,2218,2219,2220~DPS~Thief:10,Bard:10~3~atk5,crt5
-gt_w16	1~Loaded Dice,Card Deck,Lucky Coin,Roulette Wheel
-s_2221	Pact Bolt~M~1.3~0~5~
-s_2222	Call Salamander~M~1.1~1~12~
-s_2223	Call Undine~H~1.2~3~14~
