@@ -1,3 +1,31 @@
+c_5	Thief~Rogue~💰~Steals the loot before the monster drops it.~100~18~19~9~7~17~18~2065,2066,2067,2068,2069,2070,2071,2072,2073,2074,2075,2076,2077~DPS~Squire:5,Initiate:5~2~coin25
+gt_w5	1~Dagger,Knife,Stiletto,Kris
+s_2078	Fire Bolt~M~1.5~0~6~
+s_2079	Ice Shard~M~1.2~0~5~wk:2
+s_2080	Flame Pillar~M~1.1~1~12~
+s_2081	Gust~M~0.9~1~10~stn:15
+s_2082	Thunderclap~M~2~0~14~stn:25
+s_2083	Mana Font~MP~0.8~2~4~
+s_2084	Meteor~M~1.4~1~27~
+s_2085	Prism Ray~M~2.8~0~29~wk:2
+s_2086	Arcane Torrent~M~1.4~0~23~hit:2
+s_2087	Blizzard~M~1.2~1~25~wk:2
+s_2088	Earthquake~M~0.6~1~29~stn:30
+s_2089	Mana Overflow~MP~1~3~23~
+s_2090	Big Bang~M~2.3~1~44~
+v_2078	Fire Bolt~M~1.5~0~4~brn:2,el:1
+v_2079	Ice Shard~M~1.2~0~4~slw:2,el:2
+v_2080	Flame Pillar~M~1.32~1~7~brn:1,el:1
+v_2081	Gust~M~0.9~1~8~dly:25,el:5
+v_2082	Thunderclap~M~2~0~11~stn:25,el:3
+v_2083	Mana Font~MP~1.25~2~10~
+v_2084	Meteor~M~2.4~1~22~brn:2,chg:60,el:1
+v_2085	Prism Ray~M~2.8~0~29~mdn:2,el:7
+v_2086	Arcane Torrent~M~1.4~0~23~hit:2,el:4
+v_2087	Blizzard~M~1.44~1~21~slw:2,el:2
+v_2088	Earthquake~M~0.6~1~29~stn:30,el:6
+v_2089	Mana Overflow~MP~1.5~3~23~
+v_2090	Big Bang~M~3.6~1~37~chg:60
 c_6	Elementalist~Archmage~🔥~Fire, ice and thunder on command.~78~40~5~8~16~11~5~2078,2079,2080,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090~DPS~Initiate:10~2~mag8
 gt_w6	2~Staff,Tome,Wand,Codex
 s_2091	Cure~H~1.6~2~5~
@@ -13,9 +41,14 @@ s_2100	Rebirth~R~1~5~31~
 s_2101	Sanctuary~N~0~3~29~def:4,rgn:3
 s_2102	Holy Nova~M~2.8~0~25~stn:30
 s_2103	Miracle~H~3~3~52~cln:1,rgn:3
-v_2092	Protect~N~0~3~8~bar:15
-v_2093	Holy~M~1.4~0~6~el:7
-v_2099	Judgment Light~M~1.6~1~25~el:7
+v_2091	Cure~H~1.6~2~4~
+v_2092	Protect~N~0~3~6~bar:15
+v_2093	Holy~M~1.4~0~4~el:7
+v_2094	Esuna~H~0.8~2~5~cln:1
+v_2095	Life~R~0.4~5~12~
+v_2096	Blessing~H~1~3~17~cln:1
+v_2097	Regen~N~0~3~16~rgn:4
+v_2099	Judgment Light~M~1.92~1~21~el:7
 v_2102	Holy Nova~M~2.8~0~25~bld:2,stn:20,el:7
 c_7	Cleric~High Priest~✨~Healer who keeps the party standing.~88~38~7~9~18~11~5~2091,2092,2093,2094,2095,2096,2097,2098,2099,2100,2101,2102,2103~Healer~Alchemist:10,Initiate:5~2~sRg
 gt_w7	2~Holy Rod,Censer,Prayer Book,Star Chart
@@ -32,10 +65,16 @@ s_2113	Barrage~P~0.5~0~16~hit:6
 s_2114	Explosive Arrow~X~1.2~1~25~
 s_2115	Eagle Eye~N~0~3~22~atk:4
 s_2116	Rain of Arrows~X~0.5~1~43~hit:4
-v_2105	Twin Arrows~P~0.7~0~4~hit:2,spd:70
-v_2106	Hunter's Mark~N~0~0~5~brk:3
+v_2104	Aimed Shot~X~1.1~0~2~
+v_2105	Twin Arrows~P~0.7~0~3~hit:2,spd:70
+v_2106	Hunter's Mark~N~0~0~4~brk:3
+v_2107	Arrow Rain~P~0.96~1~7~
+v_2108	Poison Arrow~P~1~0~5~psn:4
+v_2109	Camouflage~N~0~4~5~def:3,rgn:2
+v_2110	Piercing Volley~X~1.08~1~13~
 v_2111	Bullseye~X~4.4~0~22~exe:1,chg:50
-v_2114	Explosive Arrow~X~1.2~1~25~el:1
+v_2114	Explosive Arrow~X~1.44~1~21~el:1
+v_2116	Rain of Arrows~X~0.6~1~37~hit:4
 c_8	Ranger~Sharpshooter~🏹~Never misses. Rarely, anyway.~95~20~16~10~8~15~15~2104,2105,2106,2107,2108,2109,2110,2111,2112,2113,2114,2115,2116~DPS~Squire:5,Alchemist:10~2~crt5
 gt_w8	1~Longbow,Crossbow,Recurve Bow,Sling
 s_2117	Flame Edge~P~1.3~0~4~
@@ -51,13 +90,16 @@ s_2126	Blade Ward~N~0~3~23~def:3,atk:2
 s_2127	Mana Rend~X~2.2~0~17~drn:40
 s_2128	Chain Edge~P~0.6~1~23~hit:3
 s_2129	Ragnablade~X~3.8~0~36~stn:30
-v_2117	Flame Edge~P~1.3~0~4~brn:2,el:1
-v_2118	Frost Edge~P~1~0~5~slw:2,el:2
-v_2119	Volt Edge~P~1~0~6~stn:20,el:3
-v_2120	Arcane Guard~N~0~4~6~def:3,mup:2
+v_2117	Flame Edge~P~1.3~0~3~brn:2,el:1
+v_2118	Frost Edge~P~1~0~4~slw:2,el:2
+v_2119	Volt Edge~P~1~0~4~stn:20,el:3
+v_2120	Arcane Guard~N~0~4~5~def:3,mup:2
+v_2121	Elemental Arc~M~1.2~1~8~
+v_2122	Imbue Ally~N~0~2~7~atk:3
+v_2123	Runic Slash~X~1.8~0~12~
 v_2124	Prism Blade~X~1~0~23~hit:3,el:7
-v_2125	Spellstorm~M~1.4~1~25~wk:2,el:3
-v_2128	Chain Edge~P~0.6~1~23~hit:3,el:3
+v_2125	Spellstorm~M~1.68~1~21~wk:2,el:3
+v_2128	Chain Edge~P~0.72~1~20~hit:3,el:3
 c_9	Spellblade~Runeblade~⚔️~Swordplay wrapped in elements.~110~24~15~12~14~11~8~2117,2118,2119,2120,2121,2122,2123,2124,2125,2126,2127,2128,2129~DPS~Knight:10,Elementalist:10~3~atk5,mag5
 gt_w9	1~Runesword,Saber,Rapier,Spell Glaive
 s_2130	Shuriken~P~0.6~0~3~hit:2
@@ -73,12 +115,18 @@ s_2139	Toxic Blades~P~0.5~1~18~hit:2,psn:4
 s_2140	Vanishing Veil~N~0~3~20~def:4
 s_2141	Death Blossom~P~0.4~0~22~hit:10
 s_2142	Thousand Shadows~X~0.6~1~36~hit:4,exe:1
-v_2130	Shuriken~P~0.6~0~3~hit:2,spd:70
-v_2134	Shadow Clone~P~0.55~0~10~hit:4,el:8
+v_2130	Shuriken~P~0.6~0~2~hit:2,spd:70
+v_2131	Venom Kunai~P~0.9~0~4~psn:3
+v_2132	Smoke Bomb~N~0~3~6~def:2
+v_2133	Pickpocket~P~0.8~0~3~stl:60
+v_2134	Shadow Clone~P~0.55~0~8~hit:4,el:8
+v_2135	Assassinate~X~1.8~0~11~exe:1
+v_2136	Thousand Cuts~P~0.48~1~13~hit:3
 v_2137	Eclipse Strike~X~1.2~0~24~hit:3,psn:3,el:8
 v_2138	Shadow Step~X~1.6~0~12~stn:20,dly:30,el:8
+v_2139	Toxic Blades~P~0.6~1~15~hit:2,psn:4
 v_2140	Vanishing Veil~N~0~3~20~hst:2,def:3
-v_2142	Thousand Shadows~X~0.6~1~36~hit:4,exe:1,el:8
+v_2142	Thousand Shadows~X~0.72~1~31~hit:4,exe:1,el:8
 c_10	Shadow~Phantom~🥷~Strikes from the dark, then is gone.~95~18~18~8~8~18~22~2130,2131,2132,2133,2134,2135,2136,2137,2138,2139,2140,2141,2142~DPS~Thief:15,Monk:10~3~spd10
 gt_w10	1~Katana,Kunai,Shuriken,Kusarigama
 s_2143	Lance Thrust~X~1~0~3~
@@ -94,45 +142,4 @@ s_2152	Wyrm Wings~N~0~4~10~def:4,rgn:3
 s_2153	Draconic Roar~X~1~1~20~wk:2
 s_2154	Skyfall~X~1.4~1~28~stn:20
 s_2155	Elder Wyrm's Wrath~X~4.5~0~36~stn:40
-v_2144	Jump~X~2.6~0~8~chg:40
-v_2147	Piercing Gale~X~1.6~0~10~brk:2,el:5
-v_2148	Sky Splitter~X~2.4~0~14~el:5
-v_2149	Dragon Breath~X~1.2~1~18~el:1
-v_2154	Skyfall~X~1.4~1~28~stn:20,el:5
-v_2155	Elder Wyrm's Wrath~X~5.4~0~36~stn:40,chg:50
-c_11	Wyvern Rider~Wyrmlord~🐉~Lancer who rides the sky and ignores armor.~115~16~18~13~5~12~8~2143,2144,2145,2146,2147,2148,2149,2150,2151,2152,2153,2154,2155~DPS~Knight:15,Ranger:10~3~def5,spd5
-gt_w11	0~Lance,Spear,Halberd,Glaive
-s_2156	Power Chord~M~1.2~0~4~
-s_2157	Rousing Anthem~N~0~3~10~atk:3
-s_2158	Lullaby~M~0.3~1~10~stn:30
-s_2159	Ballad of Mending~N~0~3~12~rgn:4
-s_2160	Discord~M~0.9~1~12~wk:2
-s_2161	Encore~MP~0.8~3~10~
-s_2162	Hymn of Heroes~N~0~3~20~atk:3,def:3
-s_2163	Grand Finale~M~2~1~30~stn:35
-s_2164	Requiem~M~1.4~1~20~wk:2
-s_2165	Symphony of Life~N~0~3~24~rgn:5,cln:1
-s_2166	Crescendo~M~2.4~0~18~stn:30
-s_2167	Overture of Valor~N~0~3~32~atk:4,def:4
-s_2168	Magnum Opus~M~2.4~1~48~stn:30,wk:2
-v_2158	Lullaby~M~0.3~1~10~slp:40
-v_2162	Hymn of Heroes~N~0~3~20~atk:3,mup:3
-v_2164	Requiem~M~1.4~1~20~sil:2
-c_12	Bard~Virtuoso~🎸~Buffs the band, rocks the boss.~90~32~9~10~14~12~5~2156,2157,2158,2159,2160,2161,2162,2163,2164,2165,2166,2167,2168~Support~Ranger:10,Cleric:10~3~sAt
-gt_w12	2~Lute,Keytar,Ocarina,Electric Harp
-s_2169	Thorn Lash~P~1.2~0~4~psn:2
-s_2170	Mudslide~M~0.8~1~9~wk:2
-s_2171	Bark Skin~N~0~2~7~def:3
-s_2172	Quake~M~1~1~13~stn:15
-s_2173	Spring Water~H~1.2~3~15~
-s_2174	Entangle~M~1.2~0~9~stn:35
-s_2175	Wild Growth~N~0~3~18~rgn:4
-s_2176	Tidal Wave~M~1.8~1~31~
-s_2177	Landslide~M~1.6~1~29~stn:20
-s_2178	Grove Shelter~N~0~3~24~def:3,rgn:3
-s_2179	Venom Bloom~M~1~1~24~psn:4
-s_2180	Lightning Rod~M~2.6~0~22~
-s_2181	Wrath of Nature~M~2.4~1~51~wk:3
-v_2169	Thorn Lash~P~1.2~0~4~psn:2,el:6
-v_2170	Mudslide~M~0.8~1~9~slw:2,el:6
-v_2171	Bark Skin~N~0~2~7~bar:20
+v_2143	Lance Thrust~X~1~0~2~

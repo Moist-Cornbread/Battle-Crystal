@@ -1,6 +1,101 @@
-v_437	Swamp Gas~M~1.2~0~8~mdn:2,el:4
+v_2290	Spore Cloud~M~0.72~1~10~psn:3,slp:20
+v_2291	Devour~P~2~0~10~exe:1,drn:50
+v_2292	Molt~N~0~4~8~rgn:4,cln:1
+v_2293	Fire Breath~M~1.92~1~26~brn:2,el:1
+v_2295	Tentacle Lash~P~0.72~1~20~hit:2
+v_2296	Petrify Gaze~M~0.8~0~21~slw:3,stn:35,el:6
+v_2298	Apex Roar~M~3.12~1~47~wk:3
+c_22	Monster~Chimera~👾~Fights like the things it has eaten.~125~26~15~13~13~11~8~2286,2287,2288,2289,2290,2291,2292,2293,2294,2295,2296,2297,2298~DPS/Tank~Ranger:20,Alchemist:20,bx:50~4~hp8,atk5
+gt_w22	1~Fang,Horn,Claws,Tail Spike
+s_2299	Ripple~M~1.2~0~4~
+s_2300	Mirror Strike~P~1.2~0~4~
+s_2301	Reflect~N~0~2~8~def:3
+s_2302	Resound~M~0.9~1~9~stn:15
+s_2303	Harmonize~H~1.2~3~13~
+s_2304	Repeat~P~0.6~0~9~hit:3
+s_2305	Afterimage~N~0~3~15~atk:3,def:2
+s_2306	Feedback~M~2.8~0~23~drn:30
+s_2307	Reverb~M~1.4~1~23~wk:2
+s_2308	Mirror Wall~N~0~3~23~def:4,cln:1
+s_2309	Double Echo~X~1.2~0~17~hit:2
+s_2310	Resonant Mend~H~1.6~3~28~rgn:2
+s_2311	Infinite Echo~M~0.8~1~45~hit:3
+v_2299	Ripple~M~1.2~0~3~
+v_2300	Mirror Strike~P~1.2~0~3~
+v_2301	Reflect~N~0~2~6~bar:20
+v_2302	Resound~M~0.9~1~7~stn:15
+v_2303	Harmonize~H~1.2~3~11~
+v_2304	Repeat~P~0.6~0~8~hit:3
+v_2305	Afterimage~N~0~3~14~atk:3,mup:2
+v_2307	Reverb~M~1.68~1~20~wk:2
+v_2311	Infinite Echo~M~0.96~1~38~hit:3
+c_23	Echo~Resonance~🔔~Remembers every job it ever mastered.~100~30~13~11~13~13~9~2299,2300,2301,2302,2303,2304,2305,2306,2307,2308,2309,2310,2311~Support~*:5~4~E
+gt_w23	1~Tuning Fork,Mirror Blade,Echo Bell,Prism
+c_n	24
+jcfg	20|3
+jold	Sage,Elementalist,Oracle,Cleric,Ninja,Shadow,Dragoon,Wyvern Rider,Gambler,Jester,Berserker,Bloodknight
+s_412	Mud Pie~M~1.1~0~5~psn:2
+v_412	Mud Pie~M~1.1~0~5~psn:2,el:6
+m_0	Mole Patrol~🐀~1~45~10~10~6~8~7~11~0:3,412:1
+s_413	Cold Fire~P~0.6~1~0~
+v_413	Cold Fire~P~0.6~1~0~el:2
+m_1	Blue Blaze~🔥~1~40~0~11~5~0~10~10~0:2,413:1
+s_414	Bamboozle~M~0.4~0~6~stn:25
+v_414	Bamboozle~M~0.4~0~6~bld:2
+m_2	Bamboozler~🎋~1~50~12~9~7~10~8~12~0:2,414:1
+s_415	Tail Whip~M~1.2~0~5~
+m_3	Sly Salamander~🦎~1~38~10~9~5~11~12~11~0:2,415:1
+s_416	Snap Back~P~0.8~0~0~wk:2
+m_4	Sunny Shoot~🌾~1~55~0~12~8~0~5~12~0:3,416:1
+s_417	Tiny Stare~M~1.1~0~5~
+s_418	Nap Time~H~1.5~4~6~
+m_5	Wee Cyclops~🟢~1~42~15~7~6~12~9~12~0:1,417:2,418:1
+s_419	Midnight Hoot~M~0.7~1~8~psn:2
+v_419	Midnight Hoot~M~0.7~1~8~psn:2,el:8
+m_6	Night Owl~🦉~2~65~20~13~8~14~11~17~0:2,419:1
+s_420	Slobber Slam~P~1.3~0~0~
+m_7	Slobber Beast~🐾~2~85~0~12~10~0~6~18~0:2,420:1
+s_421	Nibble~M~0.7~0~6~stn:25
+m_8	Pipsqueak~🐭~2~55~20~10~7~11~15~17~0:2,421:1
+s_422	Pinch Pinch~H~1.5~3~6~
+m_9	Scuttle Crab~🦀~2~60~10~12~7~8~13~16~0:2,422:1
+s_423	Needle Roll~M~0.6~0~6~stn:30
+v_423	Needle Roll~M~0.6~0~6~stn:30,el:6
+m_10	Prickle Pod~🌵~2~70~15~13~9~12~10~18~0:2,423:1
+s_424	Gold Dust~M~0.6~1~8~
+v_424	Gold Dust~M~0.6~1~8~el:7
+m_11	Golden Bandit~🦝~2~58~15~12~6~13~16~17~0:2,424:1
+s_425	Bamboo Jab~N~0~4~6~def:3
+s_426	Belly Flop~M~1.4~0~8~
+m_12	Pandamonium~🐼~3~90~25~15~11~16~12~25~0:2,425:1,426:1
+s_427	Shell Slam~P~1~1~0~wk:2
+m_13	Shell Shocker~🐢~3~110~0~16~15~0~4~26~0:2,427:1
+s_428	Rock Slide~N~0~4~0~def:2,rgn:2
+m_14	Boulderdash~🗿~3~120~0~17~14~0~5~27~0:3,428:1
+s_429	Soul Sip~M~1.2~0~6~drn:50
+v_429	Soul Sip~M~1.2~0~6~drn:50,el:8
+m_15	Ghost Wisp~👻~3~80~30~10~9~18~13~26~0:1,429:2
+s_430	Chomp Charge~P~1.6~0~0~sac:10
+m_16	Dino-Mite~🦖~3~105~0~19~9~0~14~27~0:1,430:2
+s_431	Flicker Flare~M~1.4~0~8~
+v_431	Flicker Flare~M~1.4~0~8~el:1
+m_17	Red Lantern~🏮~3~95~25~12~13~17~8~26~0:1,431:2
+s_432	Tongue Lash~P~1.2~1~0~sac:40
+m_18	Leap Frog~🐸~4~100~0~18~10~0~11~33~0:3,432:1
+s_433	Frenzy Bite~P~1.5~0~0~drn:40
+m_19	Red Piranha~🐟~4~130~0~21~12~0~13~36~0:2,433:1
+s_434	Glare~M~1.3~0~8~wk:2
+v_434	Glare~M~1.3~0~8~brk:2,el:8
+m_20	Evil Eye~👁️~4~115~35~14~12~20~10~36~0:1,434:2
+s_435	Tentacle Tangle~P~0.8~1~0~stn:15
+m_21	Octo-Punch~🐙~4~140~10~19~13~10~9~37~0:2,435:1
+s_436	Splash Slap~X~1.6~0~8~
+v_436	Splash Slap~X~1.6~0~8~el:4
+m_22	River Kappa~🐢~4~110~20~20~16~12~18~38~0:1,436:1
+s_437	Swamp Gas~M~1~0~8~wk:2
+v_437	Swamp Gas~M~1~0~8~mdn:2,el:4
 s_438	Tantrum~M~0.8~1~12~
-m_23	Bog Lurker~🐸~5~150~40~18~14~22~11~48~0:1,437:2,438:1
+m_23	Bog Lurker~🐸~5~150~40~18~14~17~11~48~0:2,437:1,438:1
 s_439	Talon Rake~H~2~4~0~
 s_440	Screech~P~1.6~0~0~
 m_24	Feather Fiend~🦉~5~165~0~23~13~0~10~46~0:2,439:1,440:1
@@ -48,94 +143,3 @@ s_458	Bear Hug~P~1.4~0~0~drn:30
 m_41	Grizzly Grump~🐻~4~145~0~20~14~0~9~36~0:2,458:1
 s_459	Blood Sip~M~1.2~0~8~drn:40
 v_459	Blood Sip~M~1.2~0~8~drn:40,el:8
-m_42	Fang Flapper~🦇~4~115~35~13~12~20~11~36~0:1,459:2
-s_460	Eight-Leg Lunge~P~1.6~0~0~
-m_43	Red Recluse~🕷️~4~120~0~22~11~0~15~36~0:2,460:1
-s_461	Scorch~M~0.8~1~10~psn:2
-v_461	Scorch~M~0.8~1~10~brn:2,el:1
-m_44	Flame Flicker~🔥~4~125~30~17~13~17~10~36~0:2,461:1
-s_462	Sting Wrap~P~1~0~0~psn:4,drn:30
-m_45	Jelly Jiggler~🪼~5~195~0~20~15~0~4~50~0:2,462:1
-s_463	Fire Breath~M~0.9~1~12~
-v_463	Fire Breath~M~0.9~1~12~brn:1,el:1
-m_46	Ember Drake~🐉~5~160~35~21~14~20~10~50~0:2,463:1
-s_464	Bubble Blast~M~1.5~0~9~
-v_464	Bubble Blast~M~1.5~0~9~el:4
-m_47	Frostolotl~🦎~5~135~45~15~12~24~16~50~0:1,464:2
-s_465	Icy Hiss~M~0.8~1~10~stn:15
-v_465	Icy Hiss~M~0.8~1~10~slw:2,el:2
-m_48	Frost Gecko~🦎~5~150~30~19~13~19~12~49~0:2,465:1
-s_466	Body Slam~P~1.4~0~0~stn:20
-m_49	Cloud Slime~☁️~5~185~0~22~16~0~7~50~0:2,466:1
-s_467	Abyss Gaze~M~1.4~0~10~wk:2
-v_467	Abyss Gaze~M~1.4~0~10~sil:2,el:8
-m_50	Void Eye~👁️~6~215~50~22~17~29~12~64~0:1,467:2
-s_468	Dread Dust~M~0.8~1~12~psn:3
-v_468	Dread Dust~M~0.8~1~12~psn:3,el:8
-m_51	Gloom Moth~🦋~6~185~45~20~14~27~18~62~0:2,468:1
-s_469	Lure Bite~P~1.6~0~0~drn:40
-m_52	Abyss Angler~🐟~6~225~0~27~16~0~13~64~0:2,469:1
-s_470	Undertow~X~1.7~0~10~
-v_470	Undertow~X~1.7~0~10~el:4
-m_53	Shade Kappa~🐢~6~235~30~25~19~18~15~66~0:2,470:1
-s_471	Shadow Lunge~P~1.5~0~0~
-v_471	Shadow Lunge~P~1.5~0~0~el:8
-s_472	Fade~N~0~4~0~def:3
-m_54	Umbral Lizard~🦎~6~195~0~26~15~0~19~63~0:2,471:1,472:1
-s_473	Plague Nip~M~1.2~0~8~psn:3
-v_473	Plague Nip~M~1.2~0~8~psn:3,el:8
-m_55	Hollow Rat~🐀~6~190~40~21~14~26~17~62~0:1,473:2
-s_474	Sleep Spores~M~0.6~1~10~stn:25
-v_474	Sleep Spores~M~0.6~1~10~slp:30
-s_475	Mycelium Mend~H~1.5~3~8~
-m_56	Deepcap~🍄~6~210~60~18~16~27~10~65~0:1,475:1,474:1
-s_476	Ink Cloud~M~0.9~1~12~wk:2
-v_476	Ink Cloud~M~0.9~1~12~bld:2,el:8
-s_477	Crushing Coil~P~1.4~0~0~stn:15
-v_477	Crushing Coil~P~1.4~0~0~slw:2,stn:15
-m_57	Ink Horror~🐙~6~245~40~25~17~20~11~67~0:1,476:1,477:1
-s_478	Dissolve~P~1.3~0~0~psn:3
-m_58	Abyss Ooze~🟪~6~285~0~23~13~0~7~66~0:2,478:1
-s_479	Venom Fang~P~1.5~0~0~psn:4
-m_59	Night Adder~🐍~6~200~0~27~14~0~18~64~0:2,479:1
-s_480	Hex Web~M~1~1~12~stn:20
-v_480	Hex Web~M~1~1~12~slw:2,el:8
-m_60	Hex Spider~🕷️~6~205~45~22~15~25~15~64~0:1,480:2
-s_481	Life Leech~M~1.3~0~8~drn:50
-v_481	Life Leech~M~1.3~0~8~drn:50,el:8
-m_61	Dusk Bat~🦇~6~190~45~20~13~27~17~63~0:1,481:2
-m_n	62
-s_482	Shadow Fog~M~0.6~1~10~psn:3
-v_482	Shadow Fog~M~0.6~1~10~psn:3,el:8
-s_483	Pommel Strike~M~1.6~0~8~stn:25
-x_0	The Black Knight~⚔️~694~120~21~12~21~10~320~2~0:2,482:2,483:1~-1~0~Kneel, and I will make it quick.
-s_484	Trumpet Blast~M~1.3~1~20~
-v_484	Trumpet Blast~M~1.3~1~20~el:5
-s_485	Tusk Toss~P~1.8~0~0~
-x_1	Iron Mammoth~🐘~707~100~23~13~18~9~340~2~0:2,484:1,485:1~-1~0~HRRAWOOO!
-s_486	Late Fee Stomp~P~1~1~0~
-s_487	Raise The Rent~N~0~4~10~atk:3
-x_2	Rentcoon~🦝~738~60~22~15~9~7~360~2~0:3,486:1,487:1~-1~0~Your security deposit is MINE.
-s_488	Soul Fire~M~1.7~0~10~
-v_488	Soul Fire~M~1.7~0~10~el:1
-s_489	Haunt~H~1.5~4~15~
-v_489	Haunt~H~1.5~4~15~el:8
-s_490	Spooky Wail~M~0.7~1~12~wk:2
-v_490	Spooky Wail~M~0.7~1~12~sil:2,el:8
-x_3	Boo-hemoth~👻~774~150~15~11~27~11~340~2~0:1,488:2,489:1,490:1~-1~0~Boo. BOO. B O O O O!
-s_491	Pollen Stench~M~0.7~1~10~psn:3
-v_491	Pollen Stench~M~0.7~1~10~psn:3,el:5
-s_492	Petal Chomp~P~1.7~0~0~drn:30
-x_4	Venus Fly Tyrant~🌿~623~80~19~14~14~12~360~2~0:2,491:1,492:1~-1~0~Come closer. I won't bite. Much.
-s_493	Tiger Pounce~P~1.5~0~0~wk:2
-v_493	Tiger Pounce~P~1.5~0~0~brk:2
-s_494	Blaze Roar~M~1~1~12~
-v_494	Blaze Roar~M~1~1~12~brn:2,el:1
-x_5	Blaze Tiger~🐯~756~100~22~14~20~9~350~2~0:2,493:1,494:1~-1~0~GRRRAAAH!
-s_495	Belly Flop~N~0~4~8~rgn:3,def:2
-s_496	Tongue Snag~M~1.4~0~8~stn:20
-x_6	Toad Almighty~🐸~1040~120~22~12~25~14~330~2~0:1,495:2,496:2~-1~0~RIBBIT. (That means lunch.)
-s_497	Evil Stare~M~1.6~0~10~
-v_497	Evil Stare~M~1.6~0~10~el:8
-s_498	Horn Ram~M~0.8~1~12~stn:15
-x_7	Eye-Gor~👁️~768~140~17~16~24~10~340~2~0:1,497:2,498:1~3~2~I see you. I ALWAYS see you.

@@ -1,9 +1,62 @@
-v_2172	Quake~M~1~1~13~stn:15,el:6
-v_2174	Entangle~M~1.2~0~9~slw:3,stn:20,el:6
-v_2176	Tidal Wave~M~1.8~1~31~el:4
+v_2144	Jump~X~2.6~0~6~chg:40
+v_2145	Wyrm Scale~N~0~4~4~def:3
+v_2146	Dragon Dive~P~1.2~1~7~
+v_2147	Piercing Gale~X~1.6~0~8~brk:2,el:5
+v_2148	Sky Splitter~X~2.4~0~12~el:5
+v_2149	Dragon Breath~X~1.44~1~14~el:1
+v_2153	Draconic Roar~X~1.2~1~17~wk:2
+v_2154	Skyfall~X~1.4~1~28~stn:20,el:5
+v_2155	Elder Wyrm's Wrath~X~5.4~0~36~stn:40,chg:50
+c_11	Wyvern Rider~Wyrmlord~🐉~Lancer who rides the sky and ignores armor.~115~16~18~13~5~12~8~2143,2144,2145,2146,2147,2148,2149,2150,2151,2152,2153,2154,2155~DPS~Knight:15,Ranger:10~3~def5,spd5
+gt_w11	0~Lance,Spear,Halberd,Glaive
+s_2156	Power Chord~M~1.2~0~4~
+s_2157	Rousing Anthem~N~0~3~10~atk:3
+s_2158	Lullaby~M~0.3~1~10~stn:30
+s_2159	Ballad of Mending~N~0~3~12~rgn:4
+s_2160	Discord~M~0.9~1~12~wk:2
+s_2161	Encore~MP~0.8~3~10~
+s_2162	Hymn of Heroes~N~0~3~20~atk:3,def:3
+s_2163	Grand Finale~M~2~1~30~stn:35
+s_2164	Requiem~M~1.4~1~20~wk:2
+s_2165	Symphony of Life~N~0~3~24~rgn:5,cln:1
+s_2166	Crescendo~M~2.4~0~18~stn:30
+s_2167	Overture of Valor~N~0~3~32~atk:4,def:4
+s_2168	Magnum Opus~M~2.4~1~48~stn:30,wk:2
+v_2156	Power Chord~M~1.2~0~3~
+v_2157	Rousing Anthem~N~0~3~7~atk:3
+v_2158	Lullaby~M~0.36~1~6~slp:40
+v_2159	Ballad of Mending~N~0~3~9~rgn:4
+v_2160	Discord~M~1.08~1~8~wk:2
+v_2161	Encore~MP~1.5~3~10~
+v_2162	Hymn of Heroes~N~0~3~19~atk:3,mup:3
+v_2164	Requiem~M~1.68~1~17~sil:2
+c_12	Bard~Virtuoso~🎸~Buffs the band, rocks the boss.~90~32~9~10~14~12~5~2156,2157,2158,2159,2160,2161,2162,2163,2164,2165,2166,2167,2168~Support~Ranger:10,Cleric:10~3~sAt
+gt_w12	2~Lute,Keytar,Ocarina,Electric Harp
+s_2169	Thorn Lash~P~1.2~0~4~psn:2
+s_2170	Mudslide~M~0.8~1~9~wk:2
+s_2171	Bark Skin~N~0~2~7~def:3
+s_2172	Quake~M~1~1~13~stn:15
+s_2173	Spring Water~H~1.2~3~15~
+s_2174	Entangle~M~1.2~0~9~stn:35
+s_2175	Wild Growth~N~0~3~18~rgn:4
+s_2176	Tidal Wave~M~1.8~1~31~
+s_2177	Landslide~M~1.6~1~29~stn:20
+s_2178	Grove Shelter~N~0~3~24~def:3,rgn:3
+s_2179	Venom Bloom~M~1~1~24~psn:4
+s_2180	Lightning Rod~M~2.6~0~22~
+s_2181	Wrath of Nature~M~2.4~1~51~wk:3
+v_2169	Thorn Lash~P~1.2~0~3~psn:2,el:6
+v_2170	Mudslide~M~0.96~1~5~slw:2,el:6
+v_2171	Bark Skin~N~0~2~5~bar:20
+v_2172	Quake~M~1~1~10~stn:15,el:6
+v_2173	Spring Water~H~1.2~3~12~
+v_2174	Entangle~M~1.2~0~8~slw:3,stn:20,el:6
+v_2175	Wild Growth~N~0~3~17~rgn:4
+v_2176	Tidal Wave~M~2.16~1~26~el:4
 v_2177	Landslide~M~1.6~1~29~stn:20,el:6
+v_2179	Venom Bloom~M~1.2~1~20~psn:4
 v_2180	Lightning Rod~M~2.6~0~22~el:3
-v_2181	Wrath of Nature~M~2.4~1~51~wk:3,el:5
+v_2181	Wrath of Nature~M~2.88~1~43~wk:3,el:5
 c_13	Wildspeaker~Earthwarden~🌿~Calls on stone, vine and tide.~100~30~11~11~14~12~6~2169,2170,2171,2172,2173,2174,2175,2176,2177,2178,2179,2180,2181~Support/DPS~Ranger:15,Elementalist:10~3~hp5,mag5
 gt_w13	1~Totem Staff,Bone Club,Vine Whip,Stone Sling
 s_2182	Time Bolt~M~1.3~0~5~
@@ -19,11 +72,15 @@ s_2191	Time Loop~H~1.2~3~28~rgn:2
 s_2192	Entropy~M~1~1~26~wk:3
 s_2193	Borrowed Time~N~0~3~30~atk:3,def:3
 s_2194	Big Crunch~M~3~1~51~stn:30
-v_2182	Time Bolt~M~1.3~0~5~dly:20
-v_2183	Haste~N~0~2~6~hst:3
-v_2184	Slow~M~0.3~0~6~slw:3,dly:20
-v_2187	Hastega~N~0~3~18~hst:3
-v_2188	Stop~M~0.4~1~18~slw:2,dly:40
+v_2182	Time Bolt~M~1.3~0~4~dly:20
+v_2183	Haste~N~0~2~4~hst:3
+v_2184	Slow~M~0.3~0~4~slw:3,dly:20
+v_2185	Rewind~H~1.4~2~6~cln:1
+v_2186	Age~M~0.8~0~7~wk:3,psn:2
+v_2187	Hastega~N~0~3~16~hst:3
+v_2188	Stop~M~0.4~1~17~slw:2,dly:40
+v_2190	Quicken~MP~1.5~3~22~
+v_2192	Entropy~M~1.2~1~22~wk:3
 v_2193	Borrowed Time~N~0~3~30~hst:2,mup:3
 v_2194	Big Crunch~M~3.8~1~51~stn:30,chg:60
 c_14	Chronomancer~Timelord~⏳~Speeds friends up and slows foes down.~80~38~6~8~17~14~6~2182,2183,2184,2185,2186,2187,2188,2189,2190,2191,2192,2193,2194~Support~Elementalist:15,Cleric:10~3~spd12
@@ -41,15 +98,19 @@ s_2204	Flamethrower~M~1.2~1~24~psn:3
 s_2205	Tesla Coil~M~1.4~1~28~stn:25
 s_2206	Armor Plating~N~0~3~26~def:4
 s_2207	Boiler Burst~M~3~1~43~sac:25
-v_2196	Wrench Whack~P~1.3~0~4~stn:15,spd:140
-v_2198	Grenade~M~1~1~11~el:1
-v_2199	Oil Slick~M~0.4~1~9~slw:2
-v_2201	Steam Cannon~X~2.9~0~15~chg:40,el:4
+v_2195	Rivet Shot~X~1~0~2~
+v_2196	Wrench Whack~P~1.3~0~3~stn:15,spd:140
+v_2197	Smoke Stack~N~0~3~7~def:2
+v_2198	Grenade~M~1.2~1~7~el:1
+v_2199	Oil Slick~M~0.48~1~6~slw:2
+v_2200	Repair Bot~H~1~3~13~
+v_2201	Steam Cannon~X~2.9~0~14~chg:40,el:4
+v_2202	Overdrive~P~1.92~1~20~sac:15
 v_2203	Rail Shot~X~3.6~0~19~chg:50,el:3
-v_2204	Flamethrower~M~1.2~1~24~brn:3,el:1
+v_2204	Flamethrower~M~1.44~1~20~brn:3,el:1
 v_2205	Tesla Coil~M~1.4~1~28~stn:25,el:3
 v_2206	Armor Plating~N~0~3~26~bar:25
-v_2207	Boiler Burst~M~3~1~43~sac:25,el:1
+v_2207	Boiler Burst~M~3.6~1~37~sac:25,el:1
 c_15	Steampunk~Machinist~⚙️~Builds it, bolts it, blows it up.~105~22~14~13~12~9~10~2195,2196,2197,2198,2199,2200,2201,2202,2203,2204,2205,2206,2207~DPS/Support~Thief:10,Alchemist:15~3~pot
 gt_w15	1~Wrench,Railway Rifle,Steam Gauntlet,Rivet Gun
 s_2208	Coin Toss~G~1.6~0~4~
@@ -65,70 +126,19 @@ s_2217	Ace in the Hole~X~2.2~0~20~
 s_2218	Card Shark~P~0.5~1~27~hit:3,stl:30
 s_2219	Double or Nothing~G~5~0~25~sac:30
 s_2220	Royal Flush~G~3.4~1~49~stl:100
+v_2208	Coin Toss~G~1.6~0~3~
+v_2209	Card Throw~P~0.72~1~4~
+v_2210	Loaded Dice~P~1~0~5~hit:2
+v_2211	Double Down~N~0~4~8~atk:3
+v_2212	Slot Machine~G~1.68~1~12~
+v_2213	Lucky Seven~X~0.35~0~15~hit:7
+v_2214	All In~G~3.5~0~21~sac:20
+v_2215	Jackpot~G~2.88~1~31~stl:50
+v_2216	Roulette Wheel~G~2.4~1~21~
+v_2218	Card Shark~P~0.6~1~23~hit:3,stl:30
+v_2220	Royal Flush~G~4.08~1~42~stl:100
 c_16	Jester~Trickster~🃏~Plays the odds. Sometimes wins big.~90~28~13~9~12~13~15~2208,2209,2210,2211,2212,2213,2214,2215,2216,2217,2218,2219,2220~DPS~Thief:10,Bard:10~3~atk5,crt5
 gt_w16	1~Loaded Dice,Card Deck,Lucky Coin,Roulette Wheel
 s_2221	Pact Bolt~M~1.3~0~5~
 s_2222	Call Salamander~M~1.1~1~12~
 s_2223	Call Undine~H~1.2~3~14~
-s_2224	Call Sylph~N~0~3~12~def:3
-s_2225	Call Golem~M~1.8~0~12~stn:25
-s_2226	Call Fairy~N~0~3~16~rgn:4,cln:1
-s_2227	Call Leviathan~M~1.4~1~24~wk:2
-s_2228	Call Bahamut~M~2.2~1~36~
-s_2229	Call Phoenix~R~0.5~5~24~
-s_2230	Call Ifrit~M~1.8~1~30~psn:2
-s_2231	Call Shiva~M~1.6~1~28~stn:30
-s_2232	Call Titan~M~3.2~0~26~wk:3
-s_2233	Primordial~M~2.8~1~54~
-v_2222	Call Salamander~M~1.1~1~12~brn:2,el:1
-v_2224	Call Sylph~N~0~3~12~hst:2,mup:2
-v_2225	Call Golem~M~1.8~0~12~dly:40,el:6
-v_2227	Call Leviathan~M~1.4~1~24~wk:2,el:4
-v_2228	Call Bahamut~M~2.9~1~36~chg:60
-v_2230	Call Ifrit~M~1.8~1~30~brn:3,el:1
-v_2231	Call Shiva~M~1.6~1~28~slw:2,stn:15,el:2
-v_2232	Call Titan~M~3.2~0~26~wk:3,el:6
-v_2233	Primordial~M~3.6~1~54~chg:60
-c_17	Summoner~Evoker~🌀~Calls ancient powers to the field.~78~42~5~8~19~10~5~2221,2222,2223,2224,2225,2226,2227,2228,2229,2230,2231,2232,2233~DPS~Cleric:15,Elementalist:15~3~sDf
-gt_w17	2~Summoning Rod,Pact Grimoire,Crystal Orb,Pact Ring
-s_2234	Life Leech~M~1.1~0~5~drn:60
-s_2235	Grave Rot~M~0.6~0~4~psn:4
-s_2236	Bone Shield~N~0~4~6~def:3
-s_2237	Curse of Frailty~M~0.5~1~12~wk:3
-s_2238	Raise Fallen~R~0.35~5~14~
-s_2239	Plague~M~0.7~1~17~psn:3
-s_2240	Soul Harvest~M~1.3~1~25~drn:30
-s_2241	Death's Embrace~M~2.6~0~29~exe:1,drn:50
-s_2242	Soul Siphon~M~1.8~0~19~drn:80
-s_2243	Unholy Revival~R~0.6~5~21~
-s_2244	Withering Curse~M~0.8~1~29~wk:4,psn:4
-s_2245	Phylactery~N~0~4~17~rgn:5,def:4
-s_2246	Apocalypse~M~2.2~1~52~drn:40
-v_2234	Life Leech~M~1.1~0~5~drn:60,el:8
-v_2235	Grave Rot~M~0.6~0~4~psn:4,el:8
-v_2236	Bone Shield~N~0~4~6~bar:20
-v_2240	Soul Harvest~M~1.3~1~25~drn:30,el:8
-v_2241	Death's Embrace~M~2.6~0~29~exe:1,drn:50,el:8
-v_2242	Soul Siphon~M~1.8~0~19~drn:80,el:8
-v_2244	Withering Curse~M~0.8~1~29~wk:3,brk:3,psn:4
-v_2245	Phylactery~N~0~4~17~rgn:5,def:4,mup:3
-v_2246	Apocalypse~M~2.2~1~52~drn:40,el:8
-c_18	Necromancer~Lich~💀~Drains life, spreads plague.~80~40~6~8~18~10~5~2234,2235,2236,2237,2238,2239,2240,2241,2242,2243,2244,2245,2246~DPS~Cleric:15,Shadow:10~3~mp8,mag5
-gt_w18	2~Bone Wand,Skull Staff,Grimoire,Soul Lantern
-s_2247	Bear Swipe~P~1.2~0~3~
-s_2248	Bear Roar~N~0~4~6~tnt:3
-s_2249	Wolf Bite~P~0.6~0~6~hit:2,psn:2
-s_2250	Owl Gaze~M~1.2~0~7~wk:2
-s_2251	Stag Bloom~H~1.2~3~15~cln:1
-s_2252	Wolf Pack~P~0.8~1~13~
-s_2253	Owl Starfall~M~1.4~1~22~
-s_2254	Bear Maul~P~2.6~0~20~stn:25
-s_2255	Stag Renewal~N~0~3~22~rgn:5
-s_2256	Feral Frenzy~P~0.5~0~20~hit:6
-s_2257	Moonbeam~M~2.6~0~24~wk:2
-s_2258	Ursine Bulwark~N~0~4~15~tnt:5,def:4
-s_2259	Primal Storm~M~2.2~1~48~stn:20
-v_2250	Owl Gaze~M~1.2~0~7~bld:2
-v_2253	Owl Starfall~M~1.4~1~22~el:7
-v_2257	Moonbeam~M~2.6~0~24~wk:2,el:7
-v_2259	Primal Storm~M~2.2~1~48~stn:20,el:3

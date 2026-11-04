@@ -1,3 +1,76 @@
+s_2224	Call Sylph~N~0~3~12~def:3
+s_2225	Call Golem~M~1.8~0~12~stn:25
+s_2226	Call Fairy~N~0~3~16~rgn:4,cln:1
+s_2227	Call Leviathan~M~1.4~1~24~wk:2
+s_2228	Call Bahamut~M~2.2~1~36~
+s_2229	Call Phoenix~R~0.5~5~24~
+s_2230	Call Ifrit~M~1.8~1~30~psn:2
+s_2231	Call Shiva~M~1.6~1~28~stn:30
+s_2232	Call Titan~M~3.2~0~26~wk:3
+s_2233	Primordial~M~2.8~1~54~
+v_2221	Pact Bolt~M~1.3~0~4~
+v_2222	Call Salamander~M~1.32~1~7~brn:2,el:1
+v_2223	Call Undine~H~1.2~3~10~
+v_2224	Call Sylph~N~0~3~9~hst:2,mup:2
+v_2225	Call Golem~M~1.8~0~10~dly:40,el:6
+v_2226	Call Fairy~N~0~3~14~rgn:4,cln:1
+v_2227	Call Leviathan~M~1.68~1~19~wk:2,el:4
+v_2228	Call Bahamut~M~3.48~1~31~chg:60
+v_2230	Call Ifrit~M~2.16~1~26~brn:3,el:1
+v_2231	Call Shiva~M~1.6~1~28~slw:2,stn:15,el:2
+v_2232	Call Titan~M~3.2~0~26~wk:3,el:6
+v_2233	Primordial~M~4.32~1~46~chg:60
+c_17	Summoner~Evoker~🌀~Calls ancient powers to the field.~78~42~5~8~19~10~5~2221,2222,2223,2224,2225,2226,2227,2228,2229,2230,2231,2232,2233~DPS~Cleric:15,Elementalist:15~3~sDf
+gt_w17	2~Summoning Rod,Pact Grimoire,Crystal Orb,Pact Ring
+s_2234	Life Leech~M~1.1~0~5~drn:60
+s_2235	Grave Rot~M~0.6~0~4~psn:4
+s_2236	Bone Shield~N~0~4~6~def:3
+s_2237	Curse of Frailty~M~0.5~1~12~wk:3
+s_2238	Raise Fallen~R~0.35~5~14~
+s_2239	Plague~M~0.7~1~17~psn:3
+s_2240	Soul Harvest~M~1.3~1~25~drn:30
+s_2241	Death's Embrace~M~2.6~0~29~exe:1,drn:50
+s_2242	Soul Siphon~M~1.8~0~19~drn:80
+s_2243	Unholy Revival~R~0.6~5~21~
+s_2244	Withering Curse~M~0.8~1~29~wk:4,psn:4
+s_2245	Phylactery~N~0~4~17~rgn:5,def:4
+s_2246	Apocalypse~M~2.2~1~52~drn:40
+v_2234	Life Leech~M~1.1~0~4~drn:60,el:8
+v_2235	Grave Rot~M~0.6~0~3~psn:4,el:8
+v_2236	Bone Shield~N~0~4~4~bar:20
+v_2237	Curse of Frailty~M~0.6~1~8~wk:3
+v_2238	Raise Fallen~R~0.35~5~11~
+v_2239	Plague~M~0.84~1~13~psn:3
+v_2240	Soul Harvest~M~1.56~1~20~drn:30,el:8
+v_2241	Death's Embrace~M~2.6~0~29~exe:1,drn:50,el:8
+v_2242	Soul Siphon~M~1.8~0~19~drn:80,el:8
+v_2244	Withering Curse~M~0.96~1~25~wk:3,brk:3,psn:4
+v_2245	Phylactery~N~0~4~17~rgn:5,def:4,mup:3
+v_2246	Apocalypse~M~2.64~1~44~drn:40,el:8
+c_18	Necromancer~Lich~💀~Drains life, spreads plague.~80~40~6~8~18~10~5~2234,2235,2236,2237,2238,2239,2240,2241,2242,2243,2244,2245,2246~DPS~Cleric:15,Shadow:10~3~mp8,mag5
+gt_w18	2~Bone Wand,Skull Staff,Grimoire,Soul Lantern
+s_2247	Bear Swipe~P~1.2~0~3~
+s_2248	Bear Roar~N~0~4~6~tnt:3
+s_2249	Wolf Bite~P~0.6~0~6~hit:2,psn:2
+s_2250	Owl Gaze~M~1.2~0~7~wk:2
+s_2251	Stag Bloom~H~1.2~3~15~cln:1
+s_2252	Wolf Pack~P~0.8~1~13~
+s_2253	Owl Starfall~M~1.4~1~22~
+s_2254	Bear Maul~P~2.6~0~20~stn:25
+s_2255	Stag Renewal~N~0~3~22~rgn:5
+s_2256	Feral Frenzy~P~0.5~0~20~hit:6
+s_2257	Moonbeam~M~2.6~0~24~wk:2
+s_2258	Ursine Bulwark~N~0~4~15~tnt:5,def:4
+s_2259	Primal Storm~M~2.2~1~48~stn:20
+v_2247	Bear Swipe~P~1.2~0~2~
+v_2248	Bear Roar~N~0~4~4~tnt:3
+v_2249	Wolf Bite~P~0.6~0~4~hit:2,psn:2
+v_2250	Owl Gaze~M~1.2~0~5~bld:2
+v_2251	Stag Bloom~H~1.2~3~12~cln:1
+v_2252	Wolf Pack~P~0.96~1~10~
+v_2253	Owl Starfall~M~1.68~1~18~el:7
+v_2257	Moonbeam~M~2.6~0~24~wk:2,el:7
+v_2259	Primal Storm~M~2.2~1~48~stn:20,el:3
 c_19	Druid~Archdruid~🐻~Bear, wolf, owl or stag: one body, four shapes.~110~30~13~12~13~11~7~2247,2248,2249,2250,2251,2252,2253,2254,2255,2256,2257,2258,2259~Tank/Healer~Wildspeaker:15,Cleric:10~3~hp6,def6
 gt_w19	1~Druid Staff,Claw,Moon Sickle,Antler Rod
 s_2260	Dragon Flurry~P~0.55~0~3~hit:3
@@ -13,8 +86,15 @@ s_2269	Heavenly Kick~X~2.4~0~14~stn:30
 s_2270	Storm of Palms~P~0.55~1~23~hit:3
 s_2271	Nirvana~N~0~4~14~atk:5,def:5,cln:1
 s_2272	Final Heaven~X~0.8~0~35~hit:8,stn:35
-v_2264	Tornado Kick~P~1.1~1~10~el:5
+v_2260	Dragon Flurry~P~0.55~0~2~hit:3
+v_2261	Still Mind~N~0~4~4~rgn:3,cln:1,atk:2
+v_2262	Rising Dragon~X~1.4~0~4~stn:25
+v_2263	Iron Body~N~0~4~5~def:4
+v_2264	Tornado Kick~P~1.32~1~7~el:5
+v_2265	Vital Strike~X~1.6~0~9~wk:3
+v_2266	Thousand Fists~P~0.45~0~15~hit:8
 v_2267	Phoenix Palm~X~2.4~0~22~hit:2,stn:30,el:1
+v_2270	Storm of Palms~P~0.66~1~20~hit:3
 c_20	Grandmaster~Fist of Heaven~🥋~The Monk's path, walked to its end.~130~20~19~13~9~15~12~2260,2261,2262,2263,2264,2265,2266,2267,2268,2269,2270,2271,2272~DPS~Monk:30,Shadow:15~4~atk10
 gt_w20	1~Dragon Wraps,Iron Knuckles,Master's Staff,Jade Beads
 s_2273	Reckless Swing~P~1.6~0~0~sac:8
@@ -30,7 +110,15 @@ s_2282	Bloodbath~P~1.2~1~17~drn:40
 s_2283	Execution~X~2.6~0~15~exe:1
 s_2284	Undying Rage~N~0~4~13~rgn:5,cln:1,atk:5
 s_2285	Cataclysm~P~2.8~1~25~sac:25
-v_2280	Avalanche of Rage~P~2~1~21~sac:15,el:6
+v_2274	War Cry~N~0~4~3~atk:3
+v_2275	Bloodlust~P~1.3~0~3~drn:50
+v_2276	Rampage~P~0.96~1~5~sac:10
+v_2277	Unstoppable~N~0~4~5~rgn:3,cln:1
+v_2278	Skullsplitter~P~2.4~0~10~exe:1
+v_2279	Berserk Fury~P~0.9~0~12~hit:4,sac:10
+v_2280	Avalanche of Rage~P~2.4~1~18~sac:15,el:6
+v_2282	Bloodbath~P~1.44~1~14~drn:40
+v_2285	Cataclysm~P~3.36~1~21~sac:25
 c_21	Bloodknight~Blood Lord~🩸~Trades blood for raw damage.~140~12~20~8~3~9~10~2273,2274,2275,2276,2277,2278,2279,2280,2281,2282,2283,2284,2285~DPS~Knight:25,Necromancer:15~4~hp12
 gt_w21	0~Greataxe,War Hammer,Cleaver,Maul
 s_2286	Bite~P~1.2~0~3~drn:30
@@ -46,89 +134,7 @@ s_2295	Tentacle Lash~P~0.6~1~23~hit:2
 s_2296	Petrify Gaze~M~0.8~0~21~stn:50
 s_2297	Regenerate~N~0~4~18~rgn:5,def:3
 s_2298	Apex Roar~M~2.6~1~55~wk:3
-v_2287	Slime Spit~M~1~0~6~psn:3,el:4
-v_2289	Bat Screech~M~0.5~1~11~sil:2
-v_2290	Spore Cloud~M~0.6~1~14~psn:3,slp:20
-v_2293	Fire Breath~M~1.6~1~30~brn:2,el:1
-v_2296	Petrify Gaze~M~0.8~0~21~slw:3,stn:35,el:6
-c_22	Monster~Chimera~👾~Fights like the things it has eaten.~125~26~15~13~13~11~8~2286,2287,2288,2289,2290,2291,2292,2293,2294,2295,2296,2297,2298~DPS/Tank~Ranger:20,Alchemist:20,bx:50~4~hp8,atk5
-gt_w22	1~Fang,Horn,Claws,Tail Spike
-s_2299	Ripple~M~1.2~0~4~
-s_2300	Mirror Strike~P~1.2~0~4~
-s_2301	Reflect~N~0~2~8~def:3
-s_2302	Resound~M~0.9~1~9~stn:15
-s_2303	Harmonize~H~1.2~3~13~
-s_2304	Repeat~P~0.6~0~9~hit:3
-s_2305	Afterimage~N~0~3~15~atk:3,def:2
-s_2306	Feedback~M~2.8~0~23~drn:30
-s_2307	Reverb~M~1.4~1~23~wk:2
-s_2308	Mirror Wall~N~0~3~23~def:4,cln:1
-s_2309	Double Echo~X~1.2~0~17~hit:2
-s_2310	Resonant Mend~H~1.6~3~28~rgn:2
-s_2311	Infinite Echo~M~0.8~1~45~hit:3
-v_2301	Reflect~N~0~2~8~bar:20
-v_2305	Afterimage~N~0~3~15~atk:3,mup:2
-c_23	Echo~Resonance~🔔~Remembers every job it ever mastered.~100~30~13~11~13~13~9~2299,2300,2301,2302,2303,2304,2305,2306,2307,2308,2309,2310,2311~Support~*:5~4~E
-gt_w23	1~Tuning Fork,Mirror Blade,Echo Bell,Prism
-c_n	24
-jcfg	20|3
-jold	Sage,Elementalist,Oracle,Cleric,Ninja,Shadow,Dragoon,Wyvern Rider,Gambler,Jester,Berserker,Bloodknight
-s_412	Mud Pie~M~1.1~0~5~psn:2
-v_412	Mud Pie~M~1.1~0~5~psn:2,el:6
-m_0	Mole Patrol~🐀~1~45~10~10~6~8~7~11~0:3,412:1
-s_413	Cold Fire~P~0.6~1~0~
-v_413	Cold Fire~P~0.6~1~0~el:2
-m_1	Blue Blaze~🔥~1~40~0~11~5~0~10~10~0:2,413:1
-s_414	Bamboozle~M~0.4~0~6~stn:25
-v_414	Bamboozle~M~0.4~0~6~bld:2
-m_2	Bamboozler~🎋~1~50~12~9~7~10~8~12~0:2,414:1
-s_415	Tail Whip~M~1.2~0~5~
-m_3	Sly Salamander~🦎~1~38~10~9~5~11~12~11~0:2,415:1
-s_416	Snap Back~P~0.8~0~0~wk:2
-m_4	Sunny Shoot~🌾~1~55~0~12~8~0~5~12~0:3,416:1
-s_417	Tiny Stare~M~1.1~0~5~
-s_418	Nap Time~H~1.5~4~6~
-m_5	Wee Cyclops~🟢~1~42~15~7~6~12~9~12~0:1,417:2,418:1
-s_419	Midnight Hoot~M~0.7~1~8~psn:2
-v_419	Midnight Hoot~M~0.7~1~8~psn:2,el:8
-m_6	Night Owl~🦉~2~65~20~13~8~14~11~17~0:2,419:1
-s_420	Slobber Slam~P~1.5~0~0~
-m_7	Slobber Beast~🐾~2~85~0~14~10~0~6~18~0:2,420:1
-s_421	Nibble~M~1.2~0~6~stn:20
-m_8	Pipsqueak~🐭~2~55~20~10~7~15~15~17~0:1,421:2
-s_422	Pinch Pinch~H~1.5~3~6~
-m_9	Scuttle Crab~🦀~2~60~10~12~7~8~13~16~0:2,422:1
-s_423	Needle Roll~M~0.6~0~6~stn:30
-v_423	Needle Roll~M~0.6~0~6~stn:30,el:6
-m_10	Prickle Pod~🌵~2~70~15~13~9~12~10~18~0:2,423:1
-s_424	Gold Dust~M~0.6~1~8~
-v_424	Gold Dust~M~0.6~1~8~el:7
-m_11	Golden Bandit~🦝~2~58~15~12~6~13~16~17~0:2,424:1
-s_425	Bamboo Jab~N~0~4~6~def:3
-s_426	Belly Flop~M~1.4~0~8~
-m_12	Pandamonium~🐼~3~90~25~15~11~16~12~25~0:2,425:1,426:1
-s_427	Shell Slam~P~1~1~0~wk:2
-m_13	Shell Shocker~🐢~3~110~0~16~15~0~4~26~0:2,427:1
-s_428	Rock Slide~N~0~4~0~def:2,rgn:2
-m_14	Boulderdash~🗿~3~120~0~17~14~0~5~27~0:3,428:1
-s_429	Soul Sip~M~1.2~0~6~drn:50
-v_429	Soul Sip~M~1.2~0~6~drn:50,el:8
-m_15	Ghost Wisp~👻~3~80~30~10~9~18~13~26~0:1,429:2
-s_430	Chomp Charge~P~1.6~0~0~sac:10
-m_16	Dino-Mite~🦖~3~105~0~19~9~0~14~27~0:1,430:2
-s_431	Flicker Flare~M~1.4~0~8~
-v_431	Flicker Flare~M~1.4~0~8~el:1
-m_17	Red Lantern~🏮~3~95~25~12~13~17~8~26~0:1,431:2
-s_432	Tongue Lash~P~1.2~1~0~sac:40
-m_18	Leap Frog~🐸~4~100~0~18~10~0~11~33~0:3,432:1
-s_433	Frenzy Bite~P~1.5~0~0~drn:40
-m_19	Red Piranha~🐟~4~130~0~21~12~0~13~36~0:2,433:1
-s_434	Glare~M~1.3~0~8~wk:2
-v_434	Glare~M~1.3~0~8~brk:2,el:8
-m_20	Evil Eye~👁️~4~115~35~14~12~20~10~36~0:1,434:2
-s_435	Tentacle Tangle~P~0.8~1~0~stn:15
-m_21	Octo-Punch~🐙~4~140~10~19~13~10~9~37~0:2,435:1
-s_436	Splash Slap~X~1.6~0~8~
-v_436	Splash Slap~X~1.6~0~8~el:4
-m_22	River Kappa~🐢~4~110~20~20~16~12~18~38~0:1,436:1
-s_437	Swamp Gas~M~1.2~0~8~wk:2
+v_2286	Bite~P~1.2~0~2~drn:30
+v_2287	Slime Spit~M~1~0~4~psn:3,el:4
+v_2288	Hard Shell~N~0~4~4~tnt:2
+v_2289	Bat Screech~M~0.6~1~7~sil:2
