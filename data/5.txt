@@ -1,21 +1,96 @@
+v_437	Swamp Gas~M~1.2~0~8~mdn:2,el:4
+s_438	Tantrum~M~0.8~1~12~
+m_23	Bog Lurker~🐸~5~150~40~18~14~22~11~48~0:1,437:2,438:1
+s_439	Talon Rake~H~2~4~0~
+s_440	Screech~P~1.6~0~0~
+m_24	Feather Fiend~🦉~5~165~0~23~13~0~10~46~0:2,439:1,440:1
+s_441	Fossil Roar~M~1~1~12~
+v_441	Fossil Roar~M~1~1~12~el:6
+m_25	Rocky Rex~🦖~5~170~30~22~15~18~9~52~0:2,441:1
+s_442	Engulf~P~1.2~0~0~psn:3
+m_26	Slime Lime~🟩~5~190~0~20~10~0~5~50~0:2,442:1
+s_443	Roll Crush~P~1~0~0~stn:30
+m_27	Roly Poly~🐛~5~140~20~24~12~12~14~50~0:2,443:1
+s_444	Spore Puff~P~1.3~0~0~
+m_28	Fun Guy~🍄~1~46~0~11~7~0~9~11~0:2,444:1
+s_445	Gill Splash~M~1~0~5~wk:2
+v_445	Gill Splash~M~1~0~5~wk:2,el:4
+m_29	Axolittle~🦎~1~40~12~9~5~11~11~11~0:2,445:1
+s_446	Fang Snap~P~1.3~0~0~
+m_30	Hiss Fit~🐍~1~44~0~12~6~0~12~11~0:2,446:1
+s_447	Bone Bonk~M~0.9~0~5~stn:20
+m_31	Blue Bonehead~💀~1~39~12~8~6~12~10~12~0:2,447:1
+s_448	Scale Up~N~0~4~0~def:3
+s_449	Tail Swipe~P~1.4~0~0~
+m_32	Wee Wyrm~🐉~2~80~0~13~11~0~7~17~0:2,448:1,449:1
+s_450	Lick Wounds~H~1.4~3~6~
+m_33	Red Cyclops~🔴~2~64~15~12~8~12~10~17~0:2,450:1
+s_451	Ember Shriek~M~0.6~1~7~stn:15
+v_451	Ember Shriek~M~0.6~1~7~stn:15,el:1
+m_34	Ember Wisp~🔥~2~56~22~9~6~15~13~17~0:1,451:2
+s_452	Spit Take~P~1.2~0~0~wk:2
+v_452	Spit Take~P~1.2~0~0~bld:2
+m_35	Trash Panda~🦝~2~68~10~13~8~9~12~17~0:2,452:1
+s_453	Burrow Ambush~P~1.5~0~0~
+m_36	Cranky Mole~🐀~3~112~0~18~13~0~8~26~0:2,453:1
+s_454	Goo Glob~P~0.8~1~0~wk:2
+v_454	Goo Glob~P~0.8~1~0~slw:2,el:4
+m_37	Blue Slime~💧~3~100~10~15~14~8~11~26~0:2,454:1
+s_455	Fang Flurry~P~0.4~0~0~hit:5
+m_38	Fire Cobra~🐍~3~85~0~14~9~0~16~26~0:1,455:2
+s_456	Ghost Light~M~1.3~0~7~stn:15
+v_456	Ghost Light~M~1.3~0~7~stn:15,el:8
+m_39	Jade Lantern~🏮~3~92~28~11~11~17~9~26~0:1,456:2
+s_457	Skull Blaze~M~1.3~0~7~wk:2
+v_457	Skull Blaze~M~1.3~0~7~wk:2,el:1
+m_40	Hot Head~💀~3~84~30~10~10~18~12~26~0:1,457:2
+s_458	Bear Hug~P~1.4~0~0~drn:30
+m_41	Grizzly Grump~🐻~4~145~0~20~14~0~9~36~0:2,458:1
+s_459	Blood Sip~M~1.2~0~8~drn:40
+v_459	Blood Sip~M~1.2~0~8~drn:40,el:8
+m_42	Fang Flapper~🦇~4~115~35~13~12~20~11~36~0:1,459:2
+s_460	Eight-Leg Lunge~P~1.6~0~0~
+m_43	Red Recluse~🕷️~4~120~0~22~11~0~15~36~0:2,460:1
+s_461	Scorch~M~0.8~1~10~psn:2
+v_461	Scorch~M~0.8~1~10~brn:2,el:1
+m_44	Flame Flicker~🔥~4~125~30~17~13~17~10~36~0:2,461:1
+s_462	Sting Wrap~P~1~0~0~psn:4,drn:30
+m_45	Jelly Jiggler~🪼~5~195~0~20~15~0~4~50~0:2,462:1
+s_463	Fire Breath~M~0.9~1~12~
+v_463	Fire Breath~M~0.9~1~12~brn:1,el:1
+m_46	Ember Drake~🐉~5~160~35~21~14~20~10~50~0:2,463:1
+s_464	Bubble Blast~M~1.5~0~9~
+v_464	Bubble Blast~M~1.5~0~9~el:4
+m_47	Frostolotl~🦎~5~135~45~15~12~24~16~50~0:1,464:2
+s_465	Icy Hiss~M~0.8~1~10~stn:15
+v_465	Icy Hiss~M~0.8~1~10~slw:2,el:2
+m_48	Frost Gecko~🦎~5~150~30~19~13~19~12~49~0:2,465:1
+s_466	Body Slam~P~1.4~0~0~stn:20
+m_49	Cloud Slime~☁️~5~185~0~22~16~0~7~50~0:2,466:1
+s_467	Abyss Gaze~M~1.4~0~10~wk:2
+v_467	Abyss Gaze~M~1.4~0~10~sil:2,el:8
 m_50	Void Eye~👁️~6~215~50~22~17~29~12~64~0:1,467:2
 s_468	Dread Dust~M~0.8~1~12~psn:3
+v_468	Dread Dust~M~0.8~1~12~psn:3,el:8
 m_51	Gloom Moth~🦋~6~185~45~20~14~27~18~62~0:2,468:1
 s_469	Lure Bite~P~1.6~0~0~drn:40
 m_52	Abyss Angler~🐟~6~225~0~27~16~0~13~64~0:2,469:1
 s_470	Undertow~X~1.7~0~10~
+v_470	Undertow~X~1.7~0~10~el:4
 m_53	Shade Kappa~🐢~6~235~30~25~19~18~15~66~0:2,470:1
 s_471	Shadow Lunge~P~1.5~0~0~
+v_471	Shadow Lunge~P~1.5~0~0~el:8
 s_472	Fade~N~0~4~0~def:3
 m_54	Umbral Lizard~🦎~6~195~0~26~15~0~19~63~0:2,471:1,472:1
 s_473	Plague Nip~M~1.2~0~8~psn:3
+v_473	Plague Nip~M~1.2~0~8~psn:3,el:8
 m_55	Hollow Rat~🐀~6~190~40~21~14~26~17~62~0:1,473:2
 s_474	Sleep Spores~M~0.6~1~10~stn:25
 v_474	Sleep Spores~M~0.6~1~10~slp:30
 s_475	Mycelium Mend~H~1.5~3~8~
 m_56	Deepcap~🍄~6~210~60~18~16~27~10~65~0:1,475:1,474:1
 s_476	Ink Cloud~M~0.9~1~12~wk:2
-v_476	Ink Cloud~M~0.9~1~12~bld:2
+v_476	Ink Cloud~M~0.9~1~12~bld:2,el:8
 s_477	Crushing Coil~P~1.4~0~0~stn:15
 v_477	Crushing Coil~P~1.4~0~0~slw:2,stn:15
 m_57	Ink Horror~🐙~6~245~40~25~17~20~11~67~0:1,476:1,477:1
@@ -24,98 +99,43 @@ m_58	Abyss Ooze~🟪~6~285~0~23~13~0~7~66~0:2,478:1
 s_479	Venom Fang~P~1.5~0~0~psn:4
 m_59	Night Adder~🐍~6~200~0~27~14~0~18~64~0:2,479:1
 s_480	Hex Web~M~1~1~12~stn:20
-v_480	Hex Web~M~1~1~12~slw:2
+v_480	Hex Web~M~1~1~12~slw:2,el:8
 m_60	Hex Spider~🕷️~6~205~45~22~15~25~15~64~0:1,480:2
 s_481	Life Leech~M~1.3~0~8~drn:50
+v_481	Life Leech~M~1.3~0~8~drn:50,el:8
 m_61	Dusk Bat~🦇~6~190~45~20~13~27~17~63~0:1,481:2
 m_n	62
 s_482	Shadow Fog~M~0.6~1~10~psn:3
+v_482	Shadow Fog~M~0.6~1~10~psn:3,el:8
 s_483	Pommel Strike~M~1.6~0~8~stn:25
 x_0	The Black Knight~⚔️~694~120~21~12~21~10~320~2~0:2,482:2,483:1~-1~0~Kneel, and I will make it quick.
 s_484	Trumpet Blast~M~1.3~1~20~
+v_484	Trumpet Blast~M~1.3~1~20~el:5
 s_485	Tusk Toss~P~1.8~0~0~
 x_1	Iron Mammoth~🐘~707~100~23~13~18~9~340~2~0:2,484:1,485:1~-1~0~HRRAWOOO!
 s_486	Late Fee Stomp~P~1~1~0~
 s_487	Raise The Rent~N~0~4~10~atk:3
 x_2	Rentcoon~🦝~738~60~22~15~9~7~360~2~0:3,486:1,487:1~-1~0~Your security deposit is MINE.
-s_488	Spooky Wail~M~0.7~1~12~wk:2
-v_488	Spooky Wail~M~0.7~1~12~sil:2
-s_489	Soul Fire~M~1.7~0~10~
-s_490	Haunt~H~1.5~4~15~
-x_3	Boo-hemoth~👻~774~150~15~11~27~11~340~2~0:1,489:2,490:1,488:1~-1~0~Boo. BOO. B O O O O!
+s_488	Soul Fire~M~1.7~0~10~
+v_488	Soul Fire~M~1.7~0~10~el:1
+s_489	Haunt~H~1.5~4~15~
+v_489	Haunt~H~1.5~4~15~el:8
+s_490	Spooky Wail~M~0.7~1~12~wk:2
+v_490	Spooky Wail~M~0.7~1~12~sil:2,el:8
+x_3	Boo-hemoth~👻~774~150~15~11~27~11~340~2~0:1,488:2,489:1,490:1~-1~0~Boo. BOO. B O O O O!
 s_491	Pollen Stench~M~0.7~1~10~psn:3
+v_491	Pollen Stench~M~0.7~1~10~psn:3,el:5
 s_492	Petal Chomp~P~1.7~0~0~drn:30
 x_4	Venus Fly Tyrant~🌿~623~80~19~14~14~12~360~2~0:2,491:1,492:1~-1~0~Come closer. I won't bite. Much.
 s_493	Tiger Pounce~P~1.5~0~0~wk:2
 v_493	Tiger Pounce~P~1.5~0~0~brk:2
 s_494	Blaze Roar~M~1~1~12~
-v_494	Blaze Roar~M~1~1~12~brn:2
+v_494	Blaze Roar~M~1~1~12~brn:2,el:1
 x_5	Blaze Tiger~🐯~756~100~22~14~20~9~350~2~0:2,493:1,494:1~-1~0~GRRRAAAH!
 s_495	Belly Flop~N~0~4~8~rgn:3,def:2
 s_496	Tongue Snag~M~1.4~0~8~stn:20
 x_6	Toad Almighty~🐸~1040~120~22~12~25~14~330~2~0:1,495:2,496:2~-1~0~RIBBIT. (That means lunch.)
 s_497	Evil Stare~M~1.6~0~10~
+v_497	Evil Stare~M~1.6~0~10~el:8
 s_498	Horn Ram~M~0.8~1~12~stn:15
 x_7	Eye-Gor~👁️~768~140~17~16~24~10~340~2~0:1,497:2,498:1~3~2~I see you. I ALWAYS see you.
-s_499	Feather Barrage~M~0.8~1~10~wk:2
-s_500	Gust~P~1.6~0~0~
-x_8	Crimson Tengu~👺~738~110~22~11~22~13~330~2~0:2,499:1,500:1~11~1~Leave my mountain, or leave in pieces!
-s_501	Jelly Shield~N~0~4~10~def:3
-v_501	Jelly Shield~N~0~4~10~bar:20
-s_502	Slime Wave~M~1.4~1~30~
-x_9	Slimezilla~💧~1016~80~21~18~19~6~370~2~0:2,502:1,501:1~-1~0~Bloop. (That was a threat.)
-s_503	Claw Crush~M~0.9~1~12~psn:2
-s_504	Shell Mend~H~1.5~4~15~
-x_10	Crabclops~🦀~629~100~22~14~16~13~370~2~0:2,503:1,504:1~18~1~Snip snip. You're next.
-s_505	Iai Slash~M~1~0~8~stn:40
-s_506	Battle Cry~M~0.6~1~10~wk:3
-x_11	The Blue Shogun~🗡️~918~120~23~15~23~11~350~2~0:2,505:1,506:1~-1~0~Draw your blade. Mine is already out.
-s_507	Grasping Dark~M~0.7~1~10~stn:20
-s_508	Void Drain~M~1.5~0~8~drn:30
-x_12	Gloomlord~🌑~818~120~21~12~23~16~350~2~0:2,507:1,508:1~4~2~Come into the dark. It is warm here.
-s_509	Flurry of Paws~P~0.4~0~0~hit:5
-s_510	Focus Shout~N~0~4~10~atk:3
-x_13	Grandmaster Raccoon~🦝~818~80~29~11~11~18~360~2~0:2,509:1,510:1~-1~0~You have much to learn. Lesson one: OUCH.
-s_511	Root Grab~M~0.8~1~12~wk:2
-v_511	Root Grab~M~0.8~1~12~slw:2
-s_512	Vine Lash~X~1.5~0~0~
-x_14	Tangle Hydra~🌿~782~120~20~17~19~8~360~2~0:2,512:1,511:1~-1~0~So many heads. So many ways to grab you.
-s_513	Wind Blade~M~1~1~14~
-s_514	Gale~M~1.5~0~8~wk:2
-x_15	Azure Tengu~🪶~627~140~21~12~21~15~360~2~0:1,513:2,514:1~-1~0~The wind answers to me.
-s_515	Lava Bite~P~1.9~0~0~
-v_515	Lava Bite~P~1.9~0~0~brn:2
-s_516	Molten Frenzy~P~0.8~1~0~
-x_16	Magma Salamander~🦎~640~60~22~13~8~12~370~2~0:2,515:1,516:1~19~1~Hssss... it's warm in here. For me.
-s_517	Ink Cloud~M~0.8~1~12~wk:3
-v_517	Ink Cloud~M~0.8~1~12~bld:2
-s_518	Crushing Grip~M~1.8~0~10~
-x_17	The Kraken~🐙~532~150~13~14~20~9~370~2~0:1,517:2,518:1~23~1~Release ME? No. I release YOU... into the deep.
-s_519	Cursed Blade~M~1.6~0~10~
-s_520	Plague Touch~M~0.6~1~12~psn:3
-s_521	Dark Pact~H~1.4~4~15~
-x_18	Gilded Revenant~💀~819~140~18~15~22~9~370~2~0:1,519:1,520:1,521:1~-1~0~Death was only a short break.
-s_522	Haymaker~M~1~1~12~
-s_523	Taunt~M~0.6~0~8~stn:50
-x_19	Puncho Diablo~👊~581~150~16~14~20~12~370~2~0:1,522:2,523:1~26~1~Put 'em up! ...No, higher. Now DUCK.
-s_524	Crystal Charge~P~1~1~0~
-s_525	Shard Overload~N~0~4~12~atk:3,def:2
-x_20	Crystal Behemoth~💎~627~100~20~18~13~10~380~2~0:2,524:1,525:1~-1~0~Shatter!
-s_526	Thumper Quake~P~0.9~1~0~stn:15
-v_526	Thumper Quake~P~0.9~1~0~dly:20
-s_527	Spice Swallow~P~2~0~0~
-x_21	Sandworm Supremo~🪱~639~80~21~15~10~7~380~2~0:2,527:1,526:1~-1~0~The spice must flow. Into your eyes.
-s_528	Scythe Swipe~M~0.7~1~12~wk:2
-s_529	Curtain Call~M~1.8~0~10~
-x_22	The Masked Reaper~🎭~666~150~15~13~22~14~360~2~0:1,528:2,529:1~15~2~Take a bow. It is your final act.
-s_530	Branch Lash~M~0.7~1~12~psn:2
-s_531	Sap Drain~P~1.4~0~0~drn:50
-x_23	Haunted Willow~🌳~576~120~18~14~16~13~370~2~0:2,530:1,531:1~9~2~Your roots are shallow. Mine go deep.
-s_532	Pack Call~N~0~4~12~rgn:3,atk:2
-v_532	Pack Call~N~0~4~12~rgn:3,hst:2
-s_533	Moon Howl~X~1.6~0~8~
-x_24	Ash Werewolf~🐺~744~120~23~15~15~15~380~2~0:2,533:1,532:1~10~1~AWOOOO! The pack is coming.
-x_n	25
-gt_a1	Helm,Great Helm,Visor;Hood,Bandana,Mask;Hat,Circlet,Cowl
-gt_a2	Plate,Chainmail,Cuirass;Leather Vest,Gi,Jerkin;Robe,Vestments,Coat
-gt_a3	Greaves,Sabatons,Iron Boots;Boots,Tabi,Sneakers;Sandals,Slippers,Moccasins

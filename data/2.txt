@@ -1,4 +1,22 @@
-v_2102	Holy Nova~M~2.8~0~25~bld:2,stn:20
+c_6	Elementalist~Archmage~🔥~Fire, ice and thunder on command.~78~40~5~8~16~11~5~2078,2079,2080,2081,2082,2083,2084,2085,2086,2087,2088,2089,2090~DPS~Initiate:10~2~mag8
+gt_w6	2~Staff,Tome,Wand,Codex
+s_2091	Cure~H~1.6~2~5~
+s_2092	Protect~N~0~3~8~def:2
+s_2093	Holy~M~1.4~0~6~
+s_2094	Esuna~H~0.8~2~6~cln:1
+s_2095	Life~R~0.4~5~15~
+s_2096	Blessing~H~1~3~19~cln:1
+s_2097	Regen~N~0~3~17~rgn:4
+s_2098	Benediction~H~2.4~3~42~cln:1,def:3
+s_2099	Judgment Light~M~1.6~1~25~
+s_2100	Rebirth~R~1~5~31~
+s_2101	Sanctuary~N~0~3~29~def:4,rgn:3
+s_2102	Holy Nova~M~2.8~0~25~stn:30
+s_2103	Miracle~H~3~3~52~cln:1,rgn:3
+v_2092	Protect~N~0~3~8~bar:15
+v_2093	Holy~M~1.4~0~6~el:7
+v_2099	Judgment Light~M~1.6~1~25~el:7
+v_2102	Holy Nova~M~2.8~0~25~bld:2,stn:20,el:7
 c_7	Cleric~High Priest~✨~Healer who keeps the party standing.~88~38~7~9~18~11~5~2091,2092,2093,2094,2095,2096,2097,2098,2099,2100,2101,2102,2103~Healer~Alchemist:10,Initiate:5~2~sRg
 gt_w7	2~Holy Rod,Censer,Prayer Book,Star Chart
 s_2104	Aimed Shot~X~1.1~0~3~
@@ -17,6 +35,7 @@ s_2116	Rain of Arrows~X~0.5~1~43~hit:4
 v_2105	Twin Arrows~P~0.7~0~4~hit:2,spd:70
 v_2106	Hunter's Mark~N~0~0~5~brk:3
 v_2111	Bullseye~X~4.4~0~22~exe:1,chg:50
+v_2114	Explosive Arrow~X~1.2~1~25~el:1
 c_8	Ranger~Sharpshooter~🏹~Never misses. Rarely, anyway.~95~20~16~10~8~15~15~2104,2105,2106,2107,2108,2109,2110,2111,2112,2113,2114,2115,2116~DPS~Squire:5,Alchemist:10~2~crt5
 gt_w8	1~Longbow,Crossbow,Recurve Bow,Sling
 s_2117	Flame Edge~P~1.3~0~4~
@@ -32,9 +51,13 @@ s_2126	Blade Ward~N~0~3~23~def:3,atk:2
 s_2127	Mana Rend~X~2.2~0~17~drn:40
 s_2128	Chain Edge~P~0.6~1~23~hit:3
 s_2129	Ragnablade~X~3.8~0~36~stn:30
-v_2117	Flame Edge~P~1.3~0~4~brn:2
-v_2118	Frost Edge~P~1~0~5~slw:2
+v_2117	Flame Edge~P~1.3~0~4~brn:2,el:1
+v_2118	Frost Edge~P~1~0~5~slw:2,el:2
+v_2119	Volt Edge~P~1~0~6~stn:20,el:3
 v_2120	Arcane Guard~N~0~4~6~def:3,mup:2
+v_2124	Prism Blade~X~1~0~23~hit:3,el:7
+v_2125	Spellstorm~M~1.4~1~25~wk:2,el:3
+v_2128	Chain Edge~P~0.6~1~23~hit:3,el:3
 c_9	Spellblade~Runeblade~⚔️~Swordplay wrapped in elements.~110~24~15~12~14~11~8~2117,2118,2119,2120,2121,2122,2123,2124,2125,2126,2127,2128,2129~DPS~Knight:10,Elementalist:10~3~atk5,mag5
 gt_w9	1~Runesword,Saber,Rapier,Spell Glaive
 s_2130	Shuriken~P~0.6~0~3~hit:2
@@ -51,8 +74,11 @@ s_2140	Vanishing Veil~N~0~3~20~def:4
 s_2141	Death Blossom~P~0.4~0~22~hit:10
 s_2142	Thousand Shadows~X~0.6~1~36~hit:4,exe:1
 v_2130	Shuriken~P~0.6~0~3~hit:2,spd:70
-v_2138	Shadow Step~X~1.6~0~12~stn:20,dly:30
+v_2134	Shadow Clone~P~0.55~0~10~hit:4,el:8
+v_2137	Eclipse Strike~X~1.2~0~24~hit:3,psn:3,el:8
+v_2138	Shadow Step~X~1.6~0~12~stn:20,dly:30,el:8
 v_2140	Vanishing Veil~N~0~3~20~hst:2,def:3
+v_2142	Thousand Shadows~X~0.6~1~36~hit:4,exe:1,el:8
 c_10	Shadow~Phantom~🥷~Strikes from the dark, then is gone.~95~18~18~8~8~18~22~2130,2131,2132,2133,2134,2135,2136,2137,2138,2139,2140,2141,2142~DPS~Thief:15,Monk:10~3~spd10
 gt_w10	1~Katana,Kunai,Shuriken,Kusarigama
 s_2143	Lance Thrust~X~1~0~3~
@@ -69,7 +95,10 @@ s_2153	Draconic Roar~X~1~1~20~wk:2
 s_2154	Skyfall~X~1.4~1~28~stn:20
 s_2155	Elder Wyrm's Wrath~X~4.5~0~36~stn:40
 v_2144	Jump~X~2.6~0~8~chg:40
-v_2147	Piercing Gale~X~1.6~0~10~brk:2
+v_2147	Piercing Gale~X~1.6~0~10~brk:2,el:5
+v_2148	Sky Splitter~X~2.4~0~14~el:5
+v_2149	Dragon Breath~X~1.2~1~18~el:1
+v_2154	Skyfall~X~1.4~1~28~stn:20,el:5
 v_2155	Elder Wyrm's Wrath~X~5.4~0~36~stn:40,chg:50
 c_11	Wyvern Rider~Wyrmlord~🐉~Lancer who rides the sky and ignores armor.~115~16~18~13~5~12~8~2143,2144,2145,2146,2147,2148,2149,2150,2151,2152,2153,2154,2155~DPS~Knight:15,Ranger:10~3~def5,spd5
 gt_w11	0~Lance,Spear,Halberd,Glaive
@@ -104,31 +133,6 @@ s_2178	Grove Shelter~N~0~3~24~def:3,rgn:3
 s_2179	Venom Bloom~M~1~1~24~psn:4
 s_2180	Lightning Rod~M~2.6~0~22~
 s_2181	Wrath of Nature~M~2.4~1~51~wk:3
-v_2170	Mudslide~M~0.8~1~9~slw:2
+v_2169	Thorn Lash~P~1.2~0~4~psn:2,el:6
+v_2170	Mudslide~M~0.8~1~9~slw:2,el:6
 v_2171	Bark Skin~N~0~2~7~bar:20
-v_2174	Entangle~M~1.2~0~9~slw:3,stn:20
-c_13	Wildspeaker~Earthwarden~🌿~Calls on stone, vine and tide.~100~30~11~11~14~12~6~2169,2170,2171,2172,2173,2174,2175,2176,2177,2178,2179,2180,2181~Support/DPS~Ranger:15,Elementalist:10~3~hp5,mag5
-gt_w13	1~Totem Staff,Bone Club,Vine Whip,Stone Sling
-s_2182	Time Bolt~M~1.3~0~5~
-s_2183	Haste~N~0~2~6~atk:3
-s_2184	Slow~M~0.3~0~6~stn:35
-s_2185	Rewind~H~1.4~2~8~cln:1
-s_2186	Age~M~0.8~0~8~wk:3,psn:2
-s_2187	Hastega~N~0~3~18~atk:3
-s_2188	Stop~M~0.4~1~18~stn:40
-s_2189	Paradox~M~2.8~0~26~
-s_2190	Quicken~MP~0.8~3~22~
-s_2191	Time Loop~H~1.2~3~28~rgn:2
-s_2192	Entropy~M~1~1~26~wk:3
-s_2193	Borrowed Time~N~0~3~30~atk:3,def:3
-s_2194	Big Crunch~M~3~1~51~stn:30
-v_2182	Time Bolt~M~1.3~0~5~dly:20
-v_2183	Haste~N~0~2~6~hst:3
-v_2184	Slow~M~0.3~0~6~slw:3,dly:20
-v_2187	Hastega~N~0~3~18~hst:3
-v_2188	Stop~M~0.4~1~18~slw:2,dly:40
-v_2193	Borrowed Time~N~0~3~30~hst:2,mup:3
-v_2194	Big Crunch~M~3.8~1~51~stn:30,chg:60
-c_14	Chronomancer~Timelord~⏳~Speeds friends up and slows foes down.~80~38~6~8~17~14~6~2182,2183,2184,2185,2186,2187,2188,2189,2190,2191,2192,2193,2194~Support~Elementalist:15,Cleric:10~3~spd12
-gt_w14	2~Hourglass,Clock Staff,Chrono Rod,Pocket Watch
-s_2195	Rivet Shot~X~1~0~3~
