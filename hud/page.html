@@ -229,7 +229,7 @@ function artDone(){                                          // send queued acti
   // check if any Art needs manual target selection (tg==0 is foe, handled; tg==1 party, tg==2 fallen need a pick)
   // For simplicity target the first foe for all single-foe Arts; group Arts use tg flag server-side
   const ids=APQ.map(q=>q.type==='hit'?0:K[q.idx].o).join(',');
-  send('arts|'+ids+'|'+foeI);
+  send('act|arts|'+ids+'|'+foeI);
   APQ=[];APS='';
 }
 function artBox(a){
