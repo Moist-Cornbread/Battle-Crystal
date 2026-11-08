@@ -265,11 +265,27 @@ const FL={};[['G','Guard'],['P','Poison'],['S','Stunned'],['A','ATK up'],['D','D
 // v13 statuses (emoji until they get icons)
 [['M','✨','Magic up'],['H','💨','Haste'],['B','🔰','Barrier'],['N','🌀','Magic down'],['K','💔','Armor Break'],['L','🐌','Slow'],['F','🔥','Burn'],['Q','🔇','Silence'],['X','🙈','Blind'],['Z','💤','Asleep'],['C','✴️','Charging']].forEach(([k,e,n])=>FL[k]=['<span style="font-size:12px;line-height:1">'+e+'</span>',n]);
 IT.forEach((d,i)=>d[4]=ico(ICN.item[i],['#ff8a8a','#ffb36b','#7dff8a','#ffcf6a','#6cc4ff','#9fb6ff','#c9a0ff','#ffd2e8','#ff6a8a','#cfd6ff'][i]||'#fff'));
-const TURN=45000;
+const TURN=60000;function turnMs(){return B&&B.tok?B.tok.dl*1000||TURN:45000}   // M2: the crystal says how long a turn lasts (older crystals: 45 s)
 let sid=0,hudOld=0;setInterval(()=>{if(me)fetch('a',{method:'POST',body:'hv|1'}).catch(()=>{})},60000);setTimeout(()=>{if(me)fetch('a',{method:'POST',body:'hv|1'}).catch(()=>{})},5000);
 const MUDEF={"lobby": "https://opengameart.org/sites/default/files/CalmTownTheme_0.mp3#v=1", "map": "https://moist-cornbread.github.io/Battle-Crystal/music/map-orchestral-adventure.ogg", "town": "https://moist-cornbread.github.io/Battle-Crystal/music/town-stage1.ogg https://moist-cornbread.github.io/Battle-Crystal/music/town-stage2.ogg", "battle": "https://moist-cornbread.github.io/Battle-Crystal/music/battle-bossfight.ogg https://moist-cornbread.github.io/Battle-Crystal/music/battle-stageselect.ogg", "boss": "https://opengameart.org/sites/default/files/hard_boss_battle_2_bpm210.mp3#v=0.65", "bigboss": "https://moist-cornbread.github.io/Battle-Crystal/music/bigboss-determined-pursuit.ogg", "dungeon": "https://moist-cornbread.github.io/Battle-Crystal/music/dungeon-grasslands.ogg"};
 let FM=null,FS={},catStamp=null,catLoading=0,mini=0,wasBusy=false,MU=null,AU=null,auFail={},GW=['','','','',''],GB=[],gearOpen=0,gsel=null,dropAsk=0,gearSeen=-1,gearCount=0,lastChk=0,info=false,CN=0,v=-1,me='',L=null,P=null,B=null,K=[],G=[],CAT=[],prev=null,ui={m:'main'},banner=0,picking=0,sent=0,tkey='',tat=0,lastFx='',lastRes=0;
-function send(c){sfx('click');sent=1;fetch('a',{method:'POST',body:c}).catch(()=>{});draw();setTimeout(()=>{if(sent){sent=0;draw()}},5000)}
+function tokC(c){return B&&B.tok&&/^act\|/.test(c)&&c!='act|vote'&&!/^act\|t\d/.test(c)?'act|t'+B.tok.bid+'.'+B.tok.turn+'|'+c.slice(4):c}   // M2: battle commands name the turn they were made for
+function send(c){const t=tokC(c);sfx('click');sent=1;
+ if(t!=c){pend={c:t,bid:B.tok.bid,turn:B.tok.turn,at:Date.now(),n:0};ackSt='send';rfMsg='';post(t);draw();return}   // M2: wait for the crystal's answer (retries below), no 5 s guess
+ fetch('a',{method:'POST',body:c}).catch(()=>{});draw();setTimeout(()=>{if(sent&&!pend){sent=0;draw()}},5000)}
+// ---------- M2 reliability: the crystal answers every command; the page retries lost ones and asks for the latest state when it misses one ----------
+let pend=null,ackSt='',rfMsg='',rfAt=0,seqAt=0,bsAt=0,busyAt=0;
+const RF={n:'That turn is already over.',g:"That choice isn't possible right now. Pick another.",p:'Not enough MP.',s:"You're silenced: no spells right now.",b:"You can't run from a boss!",u:'Your screen is out of date. Reload the HUD.'};
+function post(t){fetch('a',{method:'POST',body:t}).then(r=>{if(r.ok&&pend&&pend.c==t&&ackSt=='send'){ackSt='hud';draw()}}).catch(()=>{})}
+function bsync(){bsAt=Date.now();fetch('a',{method:'POST',body:'bs'}).catch(()=>{})}
+function ackCheck(n){if(!pend||!n.tok||n.tok.bid!=pend.bid)return;const r=n.tok.res.includes(':')?n.tok.res.split(':'):[n.tok.turn,n.tok.res];if(+r[0]!=pend.turn||!r[1])return;
+ if(r[1]=='k'){if(ackSt!='ok'){ackSt='ok';sent=1;draw()}return}
+ pend=null;sent=0;ackSt='';rfMsg=RF[r[1]]||'The crystal refused that command.';rfAt=Date.now();ui={m:'main'};sfx('click');draw()}
+setInterval(()=>{const now=Date.now();if(L&&L.busy){if(!busyAt)busyAt=now}else busyAt=0;
+ if(pend&&ackSt!='ok'){const e=now-pend.at;if(pend.n<3&&e>=[3000,6000,10000][pend.n]){pend.n++;post(pend.c)}   // same command, same token: the crystal carries it out at most once
+  else if(pend.n>=3&&e>=13000&&ackSt!='trouble'){ackSt='trouble';sent=0;bsync();draw()}}
+ if(B&&B.tok&&!B.res&&inBattle()&&now-bsAt>5000&&now-seqAt>((B.mo==1?2:1)*B.tok.dl+5)*1000)bsync();   // watchdog: the next state is overdue
+ else if((!B||B.res)&&L&&L.busy&&L.m.some(x=>x.k==me)&&now-bsAt>5000&&now-seqAt>8000&&now-busyAt>8000)bsync()},500)   // my party is fighting but this screen has no battle state yet
 function voteRetreat(){sfx('click');fetch('a',{method:'POST',body:'act|vote'}).catch(()=>{})}
 function back(){sfx('click');ui={m:'main'};draw()}
 function mode(m){sfx('click');ui={m};draw()}
@@ -351,14 +367,17 @@ function guide(){sfx('click');const g=$('#guide');if(g.style.display=='block'){g
  g.style.display='block'}
 function fullK(s){if(!s||s.length!=8)return s;if(me&&me.startsWith(s))return me;const m=L&&L.m.find(x=>x.k.startsWith(s));return m?m.k:s}   // v12: the crystal sends heroes' keys shortened to 8 characters
 function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:fullK(f[2]),hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6],f:f[7]||'',it:(f[8]||'').split('.').map(Number),c:f[11],ic:f[12]}}):[];
- const vt=(p[8]||'0~1').split('~');const n={r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1],ord:p[9]!=null&&p[9]!==''?p[9].replace(/^T/,'').split(',').map(Number):null,ctb:/^T/.test(p[9]||'')};
+ const vt=(p[8]||'0~1').split('~'),tq=(vt[2]||'').split('.');const n={tok:vt[2]?{bid:tq[0],seq:+tq[1],turn:+tq[2],res:tq[3]||'',dl:+tq[4]||0}:null,r:+p[1],a:+p[2],mo:+p[3],res:+p[4],boss:+p[5],fx:p[6],c,votes:+vt[0],need:+vt[1],ord:p[9]!=null&&p[9]!==''?p[9].replace(/^T/,'').split(',').map(Number):null,ctb:/^T/.test(p[9]||'')};
+ if(n.tok&&B&&B.tok&&n.tok.bid==B.tok.bid&&n.tok.seq<B.tok.seq)return;   // M2: a state that arrives late never replaces a newer one
+ if(n.tok){seqAt=Date.now();if(!B&&!n.res&&n.c.some(x=>x.k==me))bsync()}   // just loaded in a battle: make sure this is the latest state
  MK={};(p[10]||'').split(',').forEach(x=>{const f=x.split(':');if(f[1]!=null&&MKS[f[0]])MK[f[0]]=+f[1]});if(n.res){pal='';mkPick=''}
  const o=B;B=n;
  prev=(o&&o.c.length==c.length&&o.c.every((x,i)=>x.n==c[i].n)&&n.r>=o.r)?o.c:null;
  const anew=n.fx&&n.fx!=lastFx&&lastFx&&inBattle()&&aniStart(n);
  if((!o||o.r>n.r||!prev)&&n.r<=1&&!n.res&&n.boss&&o&&inBattle())sfx('boss');
- const k=n.r+':'+n.a+':'+n.mo;if(k!=tkey){tkey=k;tat=Date.now();sent=0;ui={m:'main'};const a=c[n.a];if(n.mo==1&&a&&a.k==me&&!n.res){sfx('turn');pingT=Date.now();pinged=0;fetch('a',{method:'POST',body:'hv|t'}).catch(()=>{})}}
+ const k=n.tok?n.tok.bid+'.'+n.tok.turn+':'+n.mo:n.r+':'+n.a+':'+n.mo;if(k!=tkey){tkey=k;tat=Date.now();sent=0;pend=null;ackSt='';ui={m:'main'};const a=c[n.a];if(n.mo==1&&a&&a.k==me&&!n.res){sfx('turn');pingT=Date.now();pinged=0;fetch('a',{method:'POST',body:'hv|t'}).catch(()=>{})}}
  if(n.fx&&n.fx!=lastFx){if(lastFx&&inBattle()){const e=n.fx.split('~')[1];if(anew)aniTO.push(setTimeout(()=>fxs(e),HIT-60));else fxs(e)}lastFx=n.fx}
+ ackCheck(n);
  if(n.res&&o&&!o.res&&inBattle()){banner=Date.now();music(null);sfx(n.res==1?'win':n.res==2?'lose':'flee')}}
 // ---------- gear ----------
 const SLOT=['Weapon','Head','Body','Feet','Accessory'],SLI=ICN.slot.map(i=>ico(i,'#ffe9a8')),RAR=['Common','Uncommon','Rare','Epic','Legendary','Relic','Abyssal'];
@@ -854,17 +873,18 @@ function battle(bn){
  h+='<div class="w" id="cmd">'+cmd(my,a)+'</div>';
  A.innerHTML=h;aniPaint();const lg=$('#blog');if(lg)lg.scrollTop=1e5;
  const o=$('#ov');if(bn){o.style.display='flex';o.innerHTML=['','VICTORY!','DEFEAT…','ESCAPED!'][B.res]+(B.res==1&&XA?xpPanel():'<small>'+(B.res==1?'Counting up your XP…':B.res==2?'The party will recover in the lobby.':'Live to fight another day.')+'</small>');o.style.color=['','#ffd75a','#ff6a6a','#8df'][B.res]}else o.style.display='none'}
-function tbar(){return B.mo==1?'<div class="tm" id="tm" style="width:'+Math.max(0,1-(Date.now()-tat)/TURN)*100+'%"></div>':''}
+function tbar(){return B.mo==1?'<div class="tm" id="tm" style="width:'+Math.max(0,1-(Date.now()-tat)/turnMs())*100+'%"></div>':''}
 function cmd(my,a){
  if(B.res)return '<div class="h">Battle over</div><div style="font-size:18px">Returning to the lobby…</div>';
  if(!my)return '<div class="h">Waiting</div><div style="font-size:19px;margin-top:10px">'+(B.mo==1?esc(a.n)+' is choosing a command…':B.mo>=2&&B.mo!=5?esc(a.n)+' prepares to strike!':'…')+'</div>'+tbar();
- if(sent)return '<div class="h">Command sent</div><div style="font-size:18px;margin-top:10px">…</div>';
+ if(sent)return '<div class="h">'+(ackSt=='ok'?'Command accepted ✓':ackSt=='hud'?'Sent… waiting for the crystal':ackSt=='send'?'Sending…':'Command sent')+'</div><div style="font-size:18px;margin-top:10px">'+(ackSt=='ok'?'Here it comes!':pend&&pend.n?'No answer yet, trying again ('+pend.n+')…':'…')+'</div>';
+ const rw=(rfMsg&&Date.now()-rfAt<8000?'<div style="color:#ff9a9a;font-size:15px;margin-bottom:4px">⚠ '+esc(rfMsg)+'</div>':'')+(ackSt=='trouble'?'<div style="color:#ffcf7a;font-size:15px;margin-bottom:4px">⚠ Connection trouble: no answer from the crystal. Choose again.</div>':'');
  if(ui.m=='t')return '<div class="h">'+esc(ui.l)+' — choose a target</div><div style="font-size:18px;margin:12px 0 14px">Click a glowing '+(ui.k==0?'enemy':ui.k==2?'fallen ally':'ally')+' ▼ on the field'+(ui.k?' or in the party list':'')+'.</div><button onclick="back()">◀ Back</button>'+tbar();
  if(ui.m=='art')return artBox(a);
  if(ui.m=='s')return '<div class="h">Skills · MP '+a.mp+' / '+a.mmp+' · hover a skill for details</div><div class="btns s4 btns3">'+K.map((s,i)=>'<button'+(a.mp<s.cost||(silenced(a)&&SPELL[s.e])?' disabled':'')+tipAttr('<b>'+esc(s.n)+'</b><br>'+desc(s.e,s.pw,s.tg,s.cost,s.r,s.n))+' onclick="sk('+i+')">'+skIco(s.n)+esc(s.n)+(elOf(s.r,s.n)&&'PXMG'.includes(s.e)?' <span class="elb">'+ELD.e[elOf(s.r,s.n)-1][1]+'</span>':'')+' <small>'+s.cost+'</small></button>').join('')+'<button onclick="back()">◀ Back</button></div>'+tbar();
  if(ui.m=='i'){const own=IT.map((t,i)=>i).filter(i=>a.it[i]>0);return '<div class="h">Items · hover one for details</div><div class="btns s4 btns3">'+(own.length?own.map(i=>'<button'+tipAttr('<b>'+IT[i][4]+' '+esc(IT[i][0])+'</b> ×'+a.it[i]+'<br>'+esc(IT[i][6]))+' onclick="itm('+i+')">'+IT[i][4]+' '+esc(IT[i][0])+' <small>×'+a.it[i]+'</small></button>').join(''):'<div style="grid-column:1/4;padding:8px" class="sm">Your bag is empty! Win battles to find items.</div>')+'<button onclick="back()">◀ Back</button></div>'+tbar()}
  const ri=repInfo(a);
- return '<div class="h">'+esc(a.n)+' — what will you do?'+(ri?'<button class="gold" style="float:right;margin-top:-4px;padding:3px 10px;font-size:13px" onclick="repeatAct()"'+tipAttr('Do your last command again'+(ri.t!=null?' on the same target':' (pick a target)'))+'>↻ '+esc(ri.l)+(ri.t!=null&&B.c[ri.t]?' → '+esc(B.c[ri.t].n):'')+'</button>':'')+'</div><div class="btns">'+(B.ctb?'<button class="gold"'+tipAttr('<b>Quick Strike</b><br>A light hit (0.65× ATK) that brings your next turn sooner. Good for finishing foes and getting ahead on the timeline. Armor blunts it more.')+' onclick="atk(\'q\')">⚡ Quick</button><button class="gold"'+tipAttr('<b>Heavy Strike</b><br>A big hit (1.6× ATK) but your next turn comes later. Good against armored foes.')+' onclick="atk(\'h\')">🔨 Heavy</button>':'<button class="gold" onclick="atk()">⚔ Attack</button>')+(K.some(x=>cmb(x))?'<button onclick="APQ=[];APS=\'\';mode(\'art\')"'+tipAttr('<b>Arts</b><br>Press arrows to build your turn — every input lands a hit, and patterns fire Arts automatically. AP '+( (B.c[B.a]||{}).mmp||'?')+' inputs this turn.')+'>👊 Arts</button>':'<button onclick="mode(\'s\')">✦ Skills</button>')+'<button onclick="mode(\'i\')">🧪 Items</button><button'+tipAttr('<b>Defend</b><br>Halve damage until your next turn and restore 10% of your max MP.'+(a.c=='Knight'||a.c=='Paladin'?'<br><b>Knight:</b> while guarding, send half of each hit back and gain MP from it.':''))+' onclick="send(\'act|defend\')">🛡 Defend</button><button onclick="send(\'act|flee\')"'+(B.boss?' disabled':'')+'>🏃 Flee</button></div>'+tbar()}
+ return rw+'<div class="h">'+esc(a.n)+' — what will you do?'+(ri?'<button class="gold" style="float:right;margin-top:-4px;padding:3px 10px;font-size:13px" onclick="repeatAct()"'+tipAttr('Do your last command again'+(ri.t!=null?' on the same target':' (pick a target)'))+'>↻ '+esc(ri.l)+(ri.t!=null&&B.c[ri.t]?' → '+esc(B.c[ri.t].n):'')+'</button>':'')+'</div><div class="btns">'+(B.ctb?'<button class="gold"'+tipAttr('<b>Quick Strike</b><br>A light hit (0.65× ATK) that brings your next turn sooner. Good for finishing foes and getting ahead on the timeline. Armor blunts it more.')+' onclick="atk(\'q\')">⚡ Quick</button><button class="gold"'+tipAttr('<b>Heavy Strike</b><br>A big hit (1.6× ATK) but your next turn comes later. Good against armored foes.')+' onclick="atk(\'h\')">🔨 Heavy</button>':'<button class="gold" onclick="atk()">⚔ Attack</button>')+(K.some(x=>cmb(x))?'<button onclick="APQ=[];APS=\'\';mode(\'art\')"'+tipAttr('<b>Arts</b><br>Press arrows to build your turn — every input lands a hit, and patterns fire Arts automatically. AP '+( (B.c[B.a]||{}).mmp||'?')+' inputs this turn.')+'>👊 Arts</button>':'<button onclick="mode(\'s\')">✦ Skills</button>')+'<button onclick="mode(\'i\')">🧪 Items</button><button'+tipAttr('<b>Defend</b><br>Halve damage until your next turn and restore 10% of your max MP.'+(a.c=='Knight'||a.c=='Paladin'?'<br><b>Knight:</b> while guarding, send half of each hit back and gain MP from it.':''))+' onclick="send(\'act|defend\')">🛡 Defend</button><button onclick="send(\'act|flee\')"'+(B.boss?' disabled':'')+'>🏃 Flee</button></div>'+tbar()}
 // ---------- battle animations: the crystal sends who acted + the move type; targets come from HP changes ----------
 const FXS={cut:[4,32,32],cutx:[4,32,32],claw:[4,32,32],fire:[5,40,30],ice:[10,32,32],bolt:[5,32,28],water:[11,40,33],rock:[14,30,30],leaf:[6,40,28],boom:[9,40,40],spark:[9,30,35],boost:[8,53,35],shield:[6,24,26],ring:[6,32,32]};
 const AT=1300,HIT=430,KO=700;let ANI=null,RUN=0,wasBt=0,aniTO=[];
@@ -887,7 +907,7 @@ function aniPaint(){const f=$('#fld');if(!f)return;f.querySelectorAll('.fxs,.pop
  const hl=ANI.k=='heal'||ANI.k=='item'&&ANI.d.length&&ANI.d.every(q=>q[1]>0);ANI.tg.forEach(i=>add(i,ANI.fx,HIT-80,hl?'heal':''));
  if(el>=HIT&&el<HIT+1200)ANI.d.forEach(([i,df])=>{const e=$('#c'+i);if(!e)return;const s=document.createElement('div');s.className='pop ani '+(df<0?'dmg':'heal');s.textContent=(df>0?'+':'')+df;s.style.animationDelay=-(el-HIT)+'ms';e.appendChild(s);if(df<0&&el<HIT+350){e.classList.add('hit');const r=$('#r'+i);if(r)r.classList.add('hit')}})}
 function pops(){if(!prev||!B)return;const pv=prev;prev=null;let hurt=0,healed=0,ko=0;B.c.forEach((x,i)=>{const d=x.hp-pv[i].hp;if(!d)return;if(d<0)hurt++;else healed++;if(x.hp<=0&&pv[i].hp>0)ko++;const e=document.getElementById('c'+i);if(!e)return;const s=document.createElement('div');s.className='pop '+(d<0?'dmg':'heal');s.textContent=(d>0?'+':'')+d;e.appendChild(s);if(d<0){e.classList.add('hit');const r=document.getElementById('r'+i);if(r)r.classList.add('hit')}});if(ko)setTimeout(()=>sfx('ko'),180)}
-setInterval(()=>{if(banner&&Date.now()-banner>banLen){banner=0;banLen=5000;XA=null;draw()}const t=$('#tm');if(t)t.style.width=Math.max(0,1-(Date.now()-tat)/TURN)*100+'%'},1000);
+setInterval(()=>{if(banner&&Date.now()-banner>banLen){banner=0;banLen=5000;XA=null;draw()}const t=$('#tm');if(t)t.style.width=Math.max(0,1-(Date.now()-tat)/turnMs())*100+'%'},1000);
 // ---------- audio: everything is synthesized, no files ----------
 let AC=null,MG=null,SG=null,muted=false,cur=null,step=0,nextT=0,seq=null;
 let VOL={m:.8,s:.8};try{muted=localStorage.getItem('bhm')=='1';VOL=Object.assign(VOL,JSON.parse(localStorage.getItem('bhv')||'{}'))}catch(e){}
