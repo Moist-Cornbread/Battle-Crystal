@@ -153,10 +153,12 @@ function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)
 // ---------- the grid rules (the crystal checks them again; this only decides what to highlight) ----------
 const dist=(a,b,w)=>Math.max(Math.abs(a%w-b%w),Math.abs(Math.floor(a/w)-Math.floor(b/w)));
 function standing(i){return B.c[i].hp>0}
+// moving: up to 2 steps in straight lines only (owner, 2026-11-10: no diagonal moves); through friends, never through enemies
+const steps=(a,b,w)=>Math.abs(a%w-b%w)+Math.abs(Math.floor(a/w)-Math.floor(b/w));
 function reachable(){const g=B.g,w=g.w,a=myIdx(),from=myTile(),out=[];
- for(let t=0;t<w*6;t++){const d=dist(from,t,w);if(d==0||d>2)continue;
+ for(let t=0;t<w*6;t++){const d=steps(from,t,w);if(d==0||d>2)continue;
   if(g.t.some((x,i)=>i!=a&&x==t&&standing(i)))continue;
-  if(d==2){let ok=false;for(let m=0;m<w*6&&!ok;m++)if(dist(from,m,w)==1&&dist(m,t,w)==1&&!g.t.some((x,i)=>x==m&&standing(i)&&B.c[i].t!=B.c[a].t))ok=true;if(!ok)continue}
+  if(d==2){let ok=false;for(let m=0;m<w*6&&!ok;m++)if(steps(from,m,w)==1&&steps(m,t,w)==1&&!g.t.some((x,i)=>x==m&&standing(i)&&B.c[i].t!=B.c[a].t))ok=true;if(!ok)continue}
   out.push(t)}
  return out}
 function preds(){return [pend&&pend.pr,queued&&queued.pr].filter(x=>x)}
