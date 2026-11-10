@@ -1,0 +1,210 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><title>Battle Crystal - combat test</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:1024px;height:512px;overflow:hidden;background:#0b0f1d;color:#e8ecff;font:14px/1.25 "Trebuchet MS",Verdana,sans-serif;user-select:none}
+button{font:inherit;color:#e8ecff;background:#27304f;border:1px solid #5a6aa8;border-radius:6px;padding:7px 12px;cursor:pointer}
+button:hover:not(:disabled){background:#3a4676}
+button:disabled{opacity:.4;cursor:default}
+button.go{background:#2f6b3f;border-color:#7be08f}
+button.go:hover:not(:disabled){background:#3d8a52}
+button.on{background:#6b5a1f;border-color:#ffd75a}
+#app{position:relative;width:1024px;height:512px}
+/* ---------- lobby ---------- */
+#lobby{position:absolute;inset:0;padding:34px 60px;background:linear-gradient(#1b2547,#0b0f1d)}
+#lobby h1{font-size:26px;margin-bottom:4px}
+#lobby .sub{color:#9fb0e8;margin-bottom:18px}
+#lobby .row{display:flex;gap:10px;flex-wrap:wrap;margin:10px 0}
+#lobby .mem{padding:8px 12px;background:#1e2748;border:1px solid #3d4b86;border-radius:8px;min-width:140px}
+#lobby .mem b{display:block}
+#lobby .mem small{color:#9fb0e8}
+#lobby .note{color:#ffd75a;margin-top:10px;min-height:20px}
+/* ---------- battle ---------- */
+#field{position:absolute;left:0;top:0;width:1024px;height:366px;overflow:hidden;
+ background:linear-gradient(#f6d9a0 0,#f0b98a 14%,#9ed08a 14.5%,#6fae6a 40%,#5c9a5a 100%)}
+#field:before{content:"";position:absolute;inset:0;background:repeating-linear-gradient(100deg,rgba(255,255,255,.05) 0 18px,rgba(0,0,0,.05) 18px 36px);top:14%}
+#board{position:absolute;display:grid;gap:2px}
+.t{width:54px;height:54px;border-radius:5px;background:rgba(20,40,20,.22);border:1px solid rgba(255,255,255,.12);position:relative}
+.t.half{background:rgba(20,40,20,.30)}
+.t.rn{background:rgba(255,215,90,.32);border-color:#ffd75a;cursor:pointer}
+.t.rn:hover{background:rgba(255,215,90,.55)}
+.t.pend{background:rgba(120,200,255,.35);border-color:#9fe;cursor:pointer}
+.f{position:absolute;width:54px;height:54px;transition:left .35s,top .35s;text-align:center;pointer-events:none}
+.f .ic{font-size:30px;line-height:36px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.55))}
+.f .nm{font-size:10px;line-height:11px;text-shadow:0 1px 2px #000;color:#fff;white-space:nowrap;overflow:hidden}
+.f .hp{position:absolute;left:6px;right:6px;bottom:0;height:4px;background:#00000066;border-radius:2px}
+.f .hp i{display:block;height:100%;background:#7be08f;border-radius:2px}
+.f.mon .ic{transform:scaleX(-1)}
+.f.dead{opacity:.28}
+.f.act:after{content:"";position:absolute;left:3px;right:3px;top:0;bottom:0;border:2px solid #ffd75a;border-radius:8px}
+.f.me .nm{color:#ffd75a}
+.f.tgt{pointer-events:auto;cursor:pointer}
+.f.tgt:after{content:"";position:absolute;left:1px;right:1px;top:-1px;bottom:-1px;border:2px solid #ff6a6a;border-radius:8px;background:rgba(255,80,80,.18)}
+.f.tgt:hover:after{background:rgba(255,80,80,.4)}
+#order{position:absolute;right:8px;top:8px;width:96px;background:#0b0f1dcc;border:1px solid #3d4b86;border-radius:8px;padding:5px}
+#order h4{font-size:10px;color:#9fb0e8;font-weight:normal;margin-bottom:3px}
+#order div{display:flex;align-items:center;gap:4px;padding:2px 3px;border-radius:4px;font-size:11px;white-space:nowrap;overflow:hidden}
+#order div.now{background:#6b5a1f}
+#order div.h{color:#bfe8ff}
+#log{position:absolute;left:8px;top:8px;width:200px;background:#0b0f1dcc;border:1px solid #3d4b86;border-radius:8px;padding:5px 8px;font-size:12px;min-height:22px}
+#log div{margin:1px 0}
+#log div:not(:last-child){opacity:.6}
+#timer{position:absolute;left:0;right:0;top:366px;height:5px;background:#10162c}
+#timer i{display:block;height:100%;width:100%;background:#7be08f}
+#bar{position:absolute;left:0;top:371px;width:1024px;height:141px;background:linear-gradient(#161e3b,#0b0f1d);border-top:1px solid #3d4b86;padding:8px 10px}
+#cards{position:absolute;left:10px;top:10px;display:flex;gap:6px;width:620px;flex-wrap:wrap}
+.card{width:196px;height:56px;background:#1e2748;border:1px solid #3d4b86;border-radius:8px;padding:4px 8px;position:relative}
+.card.cur{border-color:#ffd75a;background:#2d2f4a}
+.card.me b{color:#ffd75a}
+.card.down{opacity:.45}
+.card.pk{cursor:pointer;border-color:#7be08f}
+.card b{font-size:12px;display:block;white-space:nowrap;overflow:hidden}
+.bar{height:8px;background:#0b0f1d;border-radius:4px;margin-top:3px;position:relative;overflow:hidden}
+.bar i{display:block;height:100%;border-radius:4px}
+.bar.hp i{background:#5fd078}.bar.mp i{background:#5aa0ff}
+.bar span{position:absolute;right:3px;top:-2px;font-size:9px;color:#fff;text-shadow:0 1px 1px #000}
+#cmd{position:absolute;left:650px;top:8px;width:364px}
+#cmd .row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
+#cmd button{min-width:84px}
+#msg{position:absolute;left:650px;bottom:6px;width:364px;font-size:12px;color:#9fb0e8;min-height:16px}
+#over{position:absolute;inset:0;background:#000a;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;gap:12px}
+#over small{font-size:15px;color:#cfd8ff}
+.hide{display:none!important}
+</style></head><body><div id="app"></div>
+<script>
+// =====================================================================
+//  Battle Crystal: COMBAT TEST screen (private test build)
+//  Only what the combat + multiplayer test needs: join, Begin Battle, the grid, Move / Attack / Defend / Potion, turn order, 60 s timer.
+//  Talks to the Battle HUD script the same way the full screen does: GET s?v=.. for state, POST a for commands.
+// =====================================================================
+const TC='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+let voteSeen=0,v=-1,sid=0,me='',L=null,P=null,B=null,G=[],ui={m:'',tile:null},sent=0,pend=null,ackSt='',rfMsg='',rfAt=0,seqAt=0,bsAt=0,tkey='',tat=0,over=null,live=0,note='',joined=0;
+const RF={n:'That turn is already over.',g:"That isn't possible right now.",p:'Not enough MP.',v:"You can't do that from here. Pick a highlighted tile or a target in reach.",u:'Your screen is out of date. Take the HUD off and put it back on.'};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+function isMe(k){return !!k&&!!me&&me.indexOf(k)==0}
+function fullK(k){if(!k||k.length>=36||!L)return k;const m=L.m.find(x=>x.k.indexOf(k)==0);return m?m.k:k}
+// ---------- sending (M2 protocol: every battle command names its turn; the crystal answers every command; lost ones are re-sent) ----------
+function tokC(c){return B&&B.tok&&/^act\|/.test(c)&&!/^act\|t\d/.test(c)&&c!='act|vote'?'act|t'+B.tok.bid+'.'+B.tok.turn+'|'+c.slice(4):c}
+function post(t){fetch('a',{method:'POST',body:t}).then(r=>{if(r.ok&&pend&&pend.c==t&&ackSt=='send'){ackSt='hud';draw()}}).catch(()=>{})}
+function hud(c){fetch('a',{method:'POST',body:c}).catch(()=>{})}
+function send(c){const t=tokC(c);if(t!=c){pend={c:t,bid:B.tok.bid,turn:B.tok.turn,at:Date.now(),n:0};ackSt='send';rfMsg='';sent=1;ui={m:'',tile:null};post(t);draw();return}hud(c)}
+function bsync(){bsAt=Date.now();hud('bs')}
+function ackCheck(n){if(!pend||!n.tok||n.tok.bid!=pend.bid)return;const r=n.tok.res.includes(':')?n.tok.res.split(':'):[n.tok.turn,n.tok.res];if(+r[0]!=pend.turn||!r[1])return;
+ if(r[1]=='k'){if(ackSt!='ok'){ackSt='ok';draw()}return}
+ pend=null;sent=0;ackSt='';rfMsg=RF[r[1]]||'The crystal refused that command.';rfAt=Date.now();ui={m:'',tile:null};draw()}
+setInterval(()=>{const now=Date.now();
+ if(pend&&ackSt!='ok'){const e=now-pend.at;if(pend.n<3&&e>=[3000,6000,10000][pend.n]){pend.n++;post(pend.c)}else if(pend.n>=3&&e>=13000&&ackSt!='trouble'){ackSt='trouble';sent=0;bsync();draw()}}
+ if(B&&B.tok&&!B.res&&inBattle()&&now-bsAt>5000&&now-seqAt>((B.mo==1?2:1)*B.tok.dl+5)*1000)bsync();
+ else if((!B||B.res)&&L&&L.busy&&L.m.some(x=>isMe(x.k))&&now-bsAt>5000&&now-seqAt>8000)bsync();
+ if(rfMsg&&now-rfAt>6000){rfMsg='';draw()}
+ if(inBattle()&&B.mo==1&&B.a!=myIdx()&&!voteSeen&&now-tat>15000){voteSeen=1;draw()}
+ if(over&&now>over.until){over=null;draw()}
+ timerTick()},500);
+setInterval(()=>{if(me)hud('hv|1')},60000);setTimeout(()=>{if(me)hud('hv|1')},5000);
+// ---------- parsing ----------
+function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';if(h[5])sid=h[5];const ng=[];let same=0;
+ for(const l of ln.slice(1)){const p=l.split('|');
+  if(p[0]=='L')L={busy:p[1]=='1',max:+p[2],m:p[3]?p[3].split(';').map(x=>{const f=x.split('~');return{k:f[0],n:f[1],lv:f[2],c:f[3],afk:f[7]=='1'}}):[],chk:+p[4]||0,rdy:(p[5]||'').split(',').filter(x=>x),by:p[6]||'',force:p[7]=='1'};
+  else if(p[0]=='P')P={c:p[1]||'',lv:+p[2]||0};
+  else if(p[0]=='B')nb(p);
+  else if(p[0]=='G0')same=1;
+  else if(p[0]=='G')ng.push(p.slice(1).join('|'))}
+ if(L){L.rdy=L.rdy.map(fullK);L.by=fullK(L.by)}
+ if(!same&&ng.length)G=ng.slice(-4);
+ draw()}
+function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6]||1,f:f[7]||'',it:(f[8]||'').split('.').map(Number),ic:f[12]||'?'}}):[];
+ const vt=(p[8]||'0~1').split('~'),tq=(vt[2]||'').split('.');
+ const n={tok:vt[2]?{bid:tq[0],seq:+tq[1],turn:+tq[2],res:tq[3]||'',dl:+tq[4]||0}:null,r:+p[1],a:+p[2],mo:+p[3],res:+p[4],c,ord:p[9]!=null&&/^T/.test(p[9])?p[9].slice(1).split(',').filter(x=>x!=='').map(Number):[],g:null};
+ for(const q of p.slice(10))if(q[0]=='G'&&q.indexOf(':')>0){const a=q.slice(1).split(':');n.g={w:+a[0][0],arena:a[0][1],t:[...a[1]].map(ch=>TC.indexOf(ch))}}
+ if(n.tok&&B&&B.tok&&n.tok.bid==B.tok.bid&&n.tok.seq<B.tok.seq)return;       // a late state never replaces a newer one
+ if(n.tok){seqAt=Date.now();if(!B&&!n.res&&n.c.some(x=>isMe(x.k)))bsync()}
+ const o=B;B=n;
+ if(n.res&&live&&(!o||!o.res)){over={res:n.res,until:Date.now()+7000}}
+ if(!n.res){live=1;over=null}
+ const k=n.tok?n.tok.bid+'.'+n.tok.turn+':'+n.mo:n.r+':'+n.a+':'+n.mo;
+ if(k!=tkey){tkey=k;tat=Date.now();voteSeen=0;sent=0;pend=null;ackSt='';ui={m:'',tile:null};const a=c[n.a];if(n.mo==1&&a&&isMe(a.k)&&!n.res){beep();hud('hv|t')}}
+ ackCheck(n)}
+function inBattle(){return !!(B&&!B.res&&B.g&&(!L||L.m.some(x=>isMe(x.k))))}   // (someone voted out of the party goes back to the party screen)
+function myIdx(){return B?B.c.findIndex(x=>x.t==0&&isMe(x.k)):-1}
+function myTurn(){return inBattle()&&B.mo==1&&B.a==myIdx()&&myIdx()>=0&&!sent}
+function beep(){try{const a=new (window.AudioContext||window.webkitAudioContext)(),o=a.createOscillator(),g=a.createGain();o.connect(g);g.connect(a.destination);o.frequency.value=660;g.gain.value=.05;o.start();o.stop(a.currentTime+.12)}catch(e){}}
+// ---------- the grid rules (the crystal checks them again; this only decides what to highlight) ----------
+const dist=(a,b,w)=>Math.max(Math.abs(a%w-b%w),Math.abs(Math.floor(a/w)-Math.floor(b/w)));
+function standing(i){return B.c[i].hp>0}
+function reachable(){const g=B.g,w=g.w,a=myIdx(),from=g.t[a],out=[];
+ for(let t=0;t<w*6;t++){const d=dist(from,t,w);if(d==0||d>2)continue;
+  if(g.t.some((x,i)=>i!=a&&x==t&&standing(i)))continue;
+  if(d==2){let ok=false;for(let m=0;m<w*6&&!ok;m++)if(dist(from,m,w)==1&&dist(m,t,w)==1&&!g.t.some((x,i)=>x==m&&standing(i)&&B.c[i].t!=B.c[a].t))ok=true;if(!ok)continue}
+  out.push(t)}
+ return out}
+function myTile(){return ui.tile!=null?ui.tile:B.g.t[myIdx()]}
+// ---------- actions ----------
+function mvPart(){return ui.tile!=null?'m'+TC[ui.tile]+'|':''}
+function actAttack(i){send('act|'+mvPart()+'attack|'+i)}
+function actMove(){if(ui.tile!=null)send('act|m'+TC[ui.tile]+'|move')}
+function actDefend(){send('act|defend')}
+function actPotion(i){send('act|item|0|'+i)}
+function clickEnemy(i){if(!myTurn())return;const g=B.g;
+ if(dist(myTile(),g.t[i],g.w)<=1)return actAttack(i);
+ if(ui.tile==null){                                   // not in reach: walk up to it (shortest walk), then attack
+  let best=null;for(const t of reachable())if(dist(t,g.t[i],g.w)<=1&&(best==null||dist(g.t[myIdx()],t,g.w)<dist(g.t[myIdx()],best,g.w)))best=t;
+  if(best!=null){ui.tile=best;return actAttack(i)}}
+ rfMsg='Too far away. Move closer first.';rfAt=Date.now();draw()}
+function clickTile(t){if(!myTurn())return;if(ui.m=='move'||ui.m=='attack'){ui.tile=(ui.tile==t?null:t);ui.m='attack';draw()}}
+function setMode(m){ui.m=ui.m==m?'':m;if(m!='attack'&&m!='move')ui.tile=null;draw()}
+function voteOut(i){const m=L&&L.m.find(x=>x.k.indexOf(B.c[i].k)==0);if(!m)return;hud('vote|'+m.k);rfMsg='Vote sent. The party removes them when most players agree.';rfAt=Date.now();draw()}
+function cancel(){ui={m:'',tile:null};draw()}
+document.addEventListener('keydown',e=>{if(e.key=='Escape')cancel()});
+// ---------- drawing ----------
+function draw(){const app=$('app');
+ if(!me){app.innerHTML='<div id="lobby"><h1>Battle Crystal</h1><div class="sub">Connecting to the crystal...</div></div>';return}
+ if(inBattle()){battleView();return}
+ lobbyView()}
+function lobbyView(){const inP=L&&L.m.some(x=>isMe(x.k)),busy=L&&L.busy;let h='<div id="lobby"><h1>Battle Crystal</h1><div class="sub">Combat test: a quick fight to see how it plays with friends.</div>';
+ if(!P||!P.c||P.c=='(no job)'){h+='<div>Pick your fighter:</div><div class="row">'+[['Squire','🗡️','Sturdy front-liner'],['Initiate','🪄','Spark and heal'],['Alchemist','⚗️','Bombs and brews']].map(j=>'<button style="width:210px;height:76px" onclick="hud(\''+j[0]+'\')"><span style="font-size:26px">'+j[1]+'</span><br><b>'+j[0]+'</b> <small>'+j[2]+'</small></button>').join('')+'</div>'}
+ else{h+='<div class="row">'+(L?L.m:[]).map(m=>'<div class="mem"><b>'+(isMe(m.k)?'⭐ ':'')+esc(m.n)+'</b><small>'+esc(m.c)+'</small>'+(L.chk&&L.rdy.some(r=>r.indexOf(m.k)==0||m.k.indexOf(r)==0)?'<br><small style="color:#7be08f">ready</small>':'')+'</div>').join('')+'</div><div class="row">';
+  if(!inP)h+=busy?'<button disabled>A fight is in progress. You can join after it.</button>':'<button class="go" onclick="hud(\'Join\')">Join the party</button>';
+  else if(busy)h+='<button disabled>The party is fighting...</button>';
+  else if(!L.chk)h+='<button class="go" onclick="hud(\'Begin Battle\')">⚔ Begin Battle</button><button onclick="hud(\'Leave Party\')">Leave party</button>';
+  else{const rd=L.rdy.some(r=>isMe(r)||r.indexOf(me.slice(0,8))==0);
+   if(!rd)h+='<button class="go" onclick="hud(\'Ready\')">✔ Ready</button>';else h+='<button disabled>Waiting for the others...</button>';
+   h+='<button onclick="hud(\'Not Ready\')">Not ready</button>';
+   if(L.force&&isMe(L.by))h+='<button onclick="hud(\'Begin Battle\')">Start with whoever is ready</button>'}
+  h+='</div>'}
+ h+='<div class="note">'+esc(rfMsg||note)+'</div></div>';
+ if(over)h+=overHtml();
+ $('app').innerHTML=h}
+function overHtml(){return '<div id="over"><div>'+(over.res==1?'Victory!':over.res==2?'Defeated':'The party escaped')+'</div><small>Back to the party screen in a moment</small></div>'}
+function barH(cls,v,m){const p=Math.max(0,Math.min(100,m?Math.round(v*100/m):0));return '<div class="bar '+cls+'"><i style="width:'+p+'%"></i><span>'+v+'</span></div>'}
+function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
+ const bw=w*56,bh=6*56,bx=Math.round((1024-bw)/2)-30,by=Math.round((366-bh)/2)+8;
+ let rn=[],tg=[];
+ if(mt){if(ui.m=='move'||ui.m=='attack')rn=reachable();if(ui.m=='attack'||ui.m=='')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i))}
+ let h='<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
+ for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(ui.tile==t?' pend':'');h+='<div class="'+cls+'"'+((rn.includes(t)||ui.tile==t)?' onclick="clickTile('+t+')"':'')+'></div>'}
+ h+='</div>';
+ B.c.forEach((e,i)=>{const t=g.t[i];if(t==null||t<0)return;if(e.hp<=0&&e.t==1)return;
+  let px=bx+(t%w)*56,py=by+Math.floor(t/w)*56;if(i==a&&ui.tile!=null){px=bx+(ui.tile%w)*56;py=by+Math.floor(ui.tile/w)*56}
+  const cl='f '+(e.t?'mon':'hero')+(e.hp<=0?' dead':'')+(i==B.a?' act':'')+(i==a?' me':'')+(tg.includes(i)&&e.t==1?' tgt':'');
+  h+='<div class="'+cl+'" id="f'+i+'" style="left:'+px+'px;top:'+py+'px"'+(tg.includes(i)&&e.t==1?' onclick="clickEnemy('+i+')"':'')+'><div class="ic">'+esc(e.ic)+'</div><div class="nm">'+esc(e.n)+'</div>'+(e.hp<e.mhp&&e.hp>0?'<div class="hp"><i style="width:'+Math.round(e.hp*100/e.mhp)+'%"></i></div>':'')+'</div>'});
+ // turn order (right margin, next 5)
+ h+='<div id="order"><h4>TURN ORDER</h4>'+(B.ord.length?B.ord:[B.a]).slice(0,5).map((i,n)=>{const e=B.c[i];return e?'<div class="'+(n==0?'now ':'')+(e.t?'':'h')+'"><span>'+esc(e.ic)+'</span><span>'+esc(e.n)+'</span></div>':''}).join('')+'</div>';
+ h+='<div id="log">'+(G.length?G.slice(-3).map(x=>'<div>'+esc(x)+'</div>').join(''):'<div>Fight!</div>')+'</div></div>';
+ h+='<div id="timer"><i id="tmr"></i></div><div id="bar"><div id="cards">';
+ B.c.forEach((e,i)=>{if(e.t!=0)return;const pk=mt&&ui.m=='potion'&&e.hp>0&&e.hp<e.mhp;const vt=i==B.a&&i!=a&&B.mo==1&&Date.now()-tat>15000;h+='<div class="card'+(i==B.a?' cur':'')+(i==a?' me':'')+(e.hp<=0?' down':'')+(pk?' pk':'')+'"'+(pk?' onclick="actPotion('+i+')"':'')+'><b>'+esc(e.ic)+' '+esc(e.n)+(e.f?' <small>'+esc(e.f)+'</small>':'')+'</b>'+barH('hp',e.hp,e.mhp)+barH('mp',e.mp,e.mmp)+(vt?'<button style="position:absolute;right:4px;top:3px;padding:1px 6px;font-size:11px" onclick="voteOut('+i+')">Vote to remove</button>':'')+'</div>'});
+ h+='</div><div id="cmd">';
+ if(mt){const pots=(B.c[a].it[0]||0);
+  if(ui.m=='move'||ui.m=='attack'){h+='<div class="row"><button class="'+(ui.m=='attack'?'on':'')+'" onclick="setMode(\'attack\')">⚔ Attack</button>'+(ui.tile!=null?'<button class="go" onclick="actMove()">Move only</button>':'')+'<button onclick="cancel()">Back</button></div>'}
+  else if(ui.m=='potion'){h+='<div class="row"><button onclick="cancel()">Back</button></div>'}
+  else h+='<div class="row"><button onclick="setMode(\'attack\')">⚔ Attack</button><button onclick="setMode(\'move\')">👣 Move</button><button onclick="actDefend()">🛡 Defend</button><button '+(pots>0?'':'disabled ')+'onclick="setMode(\'potion\')">💉 Potion ×'+pots+'</button></div>';
+  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='move'?'Pick a yellow tile, then Attack or Move only.':ui.m=='attack'?'Pick an enemy next to you'+(ui.tile!=null?' (after your move)':'')+', or a yellow tile to step first.':ui.m=='potion'?'Pick a hurt hero.':'Your turn. Click an enemy to attack it.')+'</div>'}
+ else{const who=B.c[B.a];h+='<div style="font-size:15px;margin-top:6px">'+(B.mo==5?'...':esc(who?who.n:'')+'\'s turn')+'</div>'}
+ h+='</div><div id="msg">'+esc(rfMsg||(ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Command accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
+ if(over)h+=overHtml();
+ $('app').innerHTML=h;timerTick()}
+function timerTick(){const e=$('tmr');if(!e)return;if(!B||!B.tok||B.mo!=1){e.style.width='0';return}const tot=(B.tok.dl||60)*1000,left=Math.max(0,1-(Date.now()-tat)/tot);e.style.width=(left*100)+'%';e.style.background=left<.25?'#ff6a6a':left<.5?'#ffd75a':'#7be08f'}
+const wait=ms=>new Promise(r=>setTimeout(r,ms));
+async function poll(){const ab=new AbortController(),to=setTimeout(()=>ab.abort(),28000);try{const r=await fetch('s?v='+v+'&sid='+sid+'&t='+Date.now(),{cache:'no-store',signal:ab.signal});clearTimeout(to);if(r.ok)parse(await r.text());else await wait(2000)}catch(e){clearTimeout(to);if(e.name!='AbortError')await wait(2000)}poll()}
+draw();poll();
+</script></body></html>
