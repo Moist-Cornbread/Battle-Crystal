@@ -53,6 +53,7 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 .f.tgt:after{content:"";position:absolute;left:1px;right:1px;top:-1px;bottom:-1px;border:2px solid #ff6a6a;border-radius:8px;background:rgba(255,80,80,.18)}
 .f.tgt:hover:after{background:rgba(255,80,80,.4)}
 #cmd button.sm{padding:5px 8px;margin:2px;min-width:0}
+#afk{position:absolute;left:50%;top:6px;transform:translateX(-50%);z-index:60;display:flex;gap:10px;align-items:center;padding:6px 12px;background:#5a4300;border:2px solid #ffd75a;border-radius:8px;font-weight:bold;white-space:nowrap}
 #order{position:absolute;right:8px;top:8px;width:96px;background:#0b0f1dcc;border:1px solid #3d4b86;border-radius:8px;padding:5px}
 #order h4{font-size:10px;color:#9fb0e8;font-weight:normal;margin-bottom:3px}
 #order div{display:flex;align-items:center;gap:4px;padding:2px 3px;border-radius:4px;font-size:11px;white-space:nowrap;overflow:hidden}
@@ -190,6 +191,11 @@ function waitMode(){if(!myTurn())return;ui.m=ui.m=='face'?'':'face';draw()}
 function face(d){if(!myTurn())return;send('act|wait|'+d,{face:d,end:1})}
 function back(){if(ui.m){ui.m='';draw()}}
 function cancel(){back()}
+// AFK (owner bug report 2026-11-10): after missing two turns the crystal skips you until it hears from you, so the screen offers "I'm back!"
+let backAt=0;
+function amAfk(){return !!(L&&L.m.some(x=>isMe(x.k)&&x.afk))&&Date.now()-backAt>8000}
+function imBack(){backAt=Date.now();hud('act|here');rfMsg="Welcome back. You'll get your next turn.";rfAt=Date.now();draw()}
+function afkBar(){return amAfk()?'<div id="afk">💤 You were marked AFK, so the party isn\'t waiting for you. <button class="go" onclick="imBack()">I\'m back!</button></div>':''}
 function voteOut(i){const m=L&&L.m.find(x=>x.k.indexOf(B.c[i].k)==0);if(!m)return;hud('vote|'+m.k);rfMsg='Vote sent. The party removes them when most players agree.';rfAt=Date.now();draw()}
 document.addEventListener('keydown',e=>{if(e.key=='Escape')cancel()});
 // ---------- drawing ----------
@@ -247,6 +253,7 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
   h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':fm?'Pick the way your hero faces. That ends your turn.':!moved&&!acted?'Your turn: tap a yellow tile to move, choose an action, then Wait.':moved?'Choose an action, Undo move, or Wait.':'Tap a yellow tile to move, or Wait.')+'</div>'}
  else{const who=B.c[B.a];h+='<div style="font-size:15px;margin-top:6px">'+(B.mo==5?'...':esc(who?who.n:'')+'\'s turn')+'</div>'}
  h+='</div><div id="msg">'+esc(rfMsg||(pend&&pend.pr&&ackSt!='trouble'?'':ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
+ h+=afkBar();
  if(over)h+=overHtml();
  $('app').innerHTML=h;
  document.querySelectorAll('#field .f').forEach(e=>{const o=oldPos[e.id];if(!o||(o[0]==e.style.left&&o[1]==e.style.top))return;const nl=e.style.left,nt=e.style.top;e.style.left=o[0];e.style.top=o[1];void e.offsetWidth;e.style.left=nl;e.style.top=nt});   // glide to the new tile
