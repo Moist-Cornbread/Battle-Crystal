@@ -170,7 +170,7 @@ function faceOf(i){let f=B.g.f[i];if(i==myIdx())for(const p of preds())if(p.face
 // MOVE (tap a yellow tile; Undo move until you act), one ACTION (Attack / Defend / Potion), in either order, then WAIT: pick the way you face.
 const POTION_REACH=1,ATTACK_REACH=1;        // must match POTION_REACH / ATTACK_REACH in the crystal's Battlefield script (attack reach will later depend on the weapon or job)
 function st(){const s=Object.assign({sc:0,fr:'',ad:0},B.tok);for(const p of preds()){if(p.fr!=null)s.fr=p.fr;if(p.ad!=null)s.ad=p.ad}return s}
-function clickTile(t){if(!myTurn()||st().fr||ui.m)return;send('act|mv|'+TC[t],{tile:t,fr:TC[myTile()],face:stepFace(myTile(),t)})}
+function clickTile(t){if(!myTurn()||st().fr||(ui.m&&ui.m!='face'))return;ui.m='';send('act|mv|'+TC[t],{tile:t,fr:TC[myTile()],face:stepFace(myTile(),t)})}
 function stepFace(a,b){const w=B.g.w,dx=b%w-a%w,dy=Math.floor(b/w)-Math.floor(a/w);if(!dx&&!dy)return null;return Math.abs(dx)>=Math.abs(dy)?(dx>0?'e':'w'):(dy>0?'s':'n')}
 function pickAct(k){if(!myTurn()||st().ad)return;
  if(k=='defend')return send('act|defend',{ad:2});
@@ -223,8 +223,8 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
  const oldPos={};document.querySelectorAll('#field .f').forEach(e=>{oldPos[e.id]=[e.style.left,e.style.top]});
  const bw=w*56,bh=6*56,bx=Math.round((1024-bw)/2)-30,by=Math.round((366-bh)/2)+8;
  let rn=[],tg=[];
- let rg=[];const S=st(),fm=mt&&(ui.m=='face'||(S.fr&&S.ad));   // fm: choosing the way to face (Wait)
- if(mt){if(!S.fr&&!ui.m)rn=reachable();
+ let rg=[];const S=st(),fm=mt&&!(ui.m=='attack'||ui.m=='potion')&&(ui.m=='face'||S.ad>0);   // fm: choosing the way to face (Wait) - shown as soon as you've acted (owner feedback 2026-11-10: a tester thought moving was needed to end the turn); you can still move first
+ if(mt){if(!S.fr&&(!ui.m||(ui.m=='face'&&S.ad)))rn=reachable();
   if(ui.m=='attack')for(let t=0;t<w*6;t++){if(hitOK(t))rg.push(t)}
   if(ui.m=='potion')B.c.forEach((e,i)=>{if(itemOK(i,POTION_REACH))rg.push(i==a?myTile():g.t[i])})
   if(ui.m=='attack')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&hitOK(B.g.t[i]))}
@@ -250,7 +250,7 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
   else if(ui.m=='attack'||ui.m=='potion')h+='<div class="row"><b>Action:</b><button onclick="back()">Back</button></div>';
   else{h+='<div class="row">'+(acted?'':'<b>Action:</b><button onclick="pickAct(\'attack\')">⚔ Attack</button><button onclick="pickAct(\'defend\')">🛡 Defend</button><button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+'</button>')+'<button class="go" onclick="waitMode()">⏳ Wait</button></div>'}
   if((moved&&!acted)||done)h+='<div class="row">'+(moved&&!acted?'<button onclick="undoMove()">↩ Undo move</button>':'')+'<span style="font-size:12px;color:#9fe0b0">'+done+'</span></div>';
-  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':fm?'Pick the way your hero faces. That ends your turn.':!moved&&!acted?'Your turn: tap a yellow tile to move, choose an action, then Wait.':moved?'Choose an action, Undo move, or Wait.':'Tap a yellow tile to move, or Wait.')+'</div>'}
+  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':fm?(S.ad&&!S.fr?'Pick the way your hero faces to end your turn, or tap a yellow tile to move first.':'Pick the way your hero faces. That ends your turn.'):!moved&&!acted?'Your turn: tap a yellow tile to move, choose an action, then Wait.':moved?'Choose an action, Undo move, or Wait.':'Tap a yellow tile to move, or Wait.')+'</div>'}
  else{const who=B.c[B.a];h+='<div style="font-size:15px;margin-top:6px">'+(B.mo==5?'...':esc(who?who.n:'')+'\'s turn')+'</div>'}
  h+='</div><div id="msg">'+esc(rfMsg||(pend&&pend.pr&&ackSt!='trouble'?'':ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
  h+=afkBar();
