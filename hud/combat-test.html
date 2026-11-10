@@ -35,13 +35,22 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 .f .nm{font-size:10px;line-height:11px;text-shadow:0 1px 2px #000;color:#fff;white-space:nowrap;overflow:hidden}
 .f .hp{position:absolute;left:6px;right:6px;bottom:0;height:4px;background:#00000066;border-radius:2px}
 .f .hp i{display:block;height:100%;background:#7be08f;border-radius:2px}
-.f.mon .ic{transform:scaleX(-1)}
+.f.fl .ic{transform:scaleX(-1)}
+.f .fc{position:absolute;width:0;height:0;border:5px solid transparent;opacity:.85}
+.f .fc.n{left:22px;top:-6px;border-bottom:6px solid #ffd75a;border-top:0}
+.f .fc.s{left:22px;bottom:-7px;border-top:6px solid #ffd75a;border-bottom:0}
+.f .fc.e{right:-6px;top:16px;border-left:6px solid #ffd75a;border-right:0}
+.f .fc.w{left:-6px;top:16px;border-right:6px solid #ffd75a;border-left:0}
+.f.mon .fc.n{border-bottom-color:#ff8a8a}.f.mon .fc.s{border-top-color:#ff8a8a}.f.mon .fc.e{border-left-color:#ff8a8a}.f.mon .fc.w{border-right-color:#ff8a8a}
+.fa{position:absolute;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font-size:15px;color:#ffd75a;background:rgba(255,215,90,.18);border:2px solid #ffd75a;border-radius:10px;cursor:pointer;z-index:5}
+.fa:hover{background:rgba(255,215,90,.45)}
 .f.dead{opacity:.28}
 .f.act:after{content:"";position:absolute;left:3px;right:3px;top:0;bottom:0;border:2px solid #ffd75a;border-radius:8px}
 .f.me .nm{color:#ffd75a}
 .f.tgt{pointer-events:auto;cursor:pointer}
 .f.tgt:after{content:"";position:absolute;left:1px;right:1px;top:-1px;bottom:-1px;border:2px solid #ff6a6a;border-radius:8px;background:rgba(255,80,80,.18)}
 .f.tgt:hover:after{background:rgba(255,80,80,.4)}
+#cmd button.sm{padding:5px 8px;margin:2px;min-width:0}
 #order{position:absolute;right:8px;top:8px;width:96px;background:#0b0f1dcc;border:1px solid #3d4b86;border-radius:8px;padding:5px}
 #order h4{font-size:10px;color:#9fb0e8;font-weight:normal;margin-bottom:3px}
 #order div{display:flex;align-items:center;gap:4px;padding:2px 3px;border-radius:4px;font-size:11px;white-space:nowrap;overflow:hidden}
@@ -79,21 +88,24 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 //  Talks to the Battle HUD script the same way the full screen does: GET s?v=.. for state, POST a for commands.
 // =====================================================================
 const TC='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-let voteSeen=0,v=-1,sid=0,me='',L=null,P=null,B=null,G=[],ui={m:'',tile:null,mv:null,act:null,st:[]},sent=0,pend=null,ackSt='',rfMsg='',rfAt=0,seqAt=0,bsAt=0,tkey='',tat=0,over=null,live=0,note='',joined=0;
+let voteSeen=0,v=-1,sid=0,me='',L=null,P=null,B=null,G=[],ui={m:''},bp='',sent=0,pend=null,ackSt='',rfMsg='',rfAt=0,seqAt=0,bsAt=0,tkey='',tat=0,over=null,live=0,note='',joined=0;
 const RF={n:'That turn is already over.',g:"That isn't possible right now.",p:'Not enough MP.',v:"You can't do that from here. Pick a highlighted tile or a target in reach.",u:'Your screen is out of date. Take the HUD off and put it back on.'};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function isMe(k){return !!k&&!!me&&me.indexOf(k)==0}
 function fullK(k){if(!k||k.length>=36||!L)return k;const m=L.m.find(x=>x.k.indexOf(k)==0);return m?m.k:k}
 // ---------- sending (M2 protocol: every battle command names its turn; the crystal answers every command; lost ones are re-sent) ----------
-function tokC(c){return B&&B.tok&&/^act\|/.test(c)&&!/^act\|t\d/.test(c)&&c!='act|vote'?'act|t'+B.tok.bid+'.'+B.tok.turn+'|'+c.slice(4):c}
+function tokC(c){return B&&B.tok&&/^act\|/.test(c)&&!/^act\|t\d/.test(c)&&c!='act|vote'?'act|t'+B.tok.bid+'.'+B.tok.turn+'.'+B.tok.sc+'|'+c.slice(4):c}   // live turns: the turn and the step this command is for
 function post(t){fetch('a',{method:'POST',body:t}).then(r=>{if(r.ok&&pend&&pend.c==t&&ackSt=='send'){ackSt='hud';draw()}}).catch(()=>{})}
 function hud(c){fetch('a',{method:'POST',body:c}).catch(()=>{})}
-function send(c){const t=tokC(c);if(t!=c){pend={c:t,bid:B.tok.bid,turn:B.tok.turn,at:Date.now(),n:0};ackSt='send';rfMsg='';sent=1;ui={m:'',tile:null,mv:null,act:null,st:[]};post(t);draw();return}hud(c)}
+function send(c){const t=tokC(c);if(t!=c){pend={c:t,bid:B.tok.bid,turn:B.tok.turn,sc:B.tok.sc,at:Date.now(),n:0};ackSt='send';rfMsg='';sent=1;ui={m:''};post(t);draw();return}hud(c)}
 function bsync(){bsAt=Date.now();hud('bs')}
-function ackCheck(n){if(!pend||!n.tok||n.tok.bid!=pend.bid)return;const r=n.tok.res.includes(':')?n.tok.res.split(':'):[n.tok.turn,n.tok.res];if(+r[0]!=pend.turn||!r[1])return;
+// a step is done when the crystal's step count passes it (or the turn moved on); a refusal names the turn and step ("<turn>s<step>:<code>")
+function ackCheck(n){if(!pend||!n.tok||n.tok.bid!=pend.bid)return;
+ if(n.tok.turn!=pend.turn||n.tok.sc>pend.sc){pend=null;sent=0;ackSt='';return}
+ const r=n.tok.res.split(':');if(r.length<2||r[0]!=pend.turn+'s'+pend.sc)return;
  if(r[1]=='k'){if(ackSt!='ok'){ackSt='ok';draw()}return}
- pend=null;sent=0;ackSt='';rfMsg=RF[r[1]]||'The crystal refused that command.';rfAt=Date.now();ui={m:'',tile:null,mv:null,act:null,st:[]};draw()}
+ pend=null;sent=0;ackSt='';rfMsg=RF[r[1]]||'The crystal refused that command.';rfAt=Date.now();ui={m:''};draw()}
 setInterval(()=>{const now=Date.now();
  if(pend&&ackSt!='ok'){const e=now-pend.at;if(pend.n<3&&e>=[3000,6000,10000][pend.n]){pend.n++;post(pend.c)}else if(pend.n>=3&&e>=13000&&ackSt!='trouble'){ackSt='trouble';sent=0;bsync();draw()}}
  if(B&&B.tok&&!B.res&&inBattle()&&now-bsAt>5000&&now-seqAt>((B.mo==1?2:1)*B.tok.dl+5)*1000)bsync();
@@ -116,15 +128,16 @@ function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';
  draw()}
 function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6]||1,f:f[7]||'',it:(f[8]||'').split('.').map(Number),ic:f[12]||'?'}}):[];
  const vt=(p[8]||'0~1').split('~'),tq=(vt[2]||'').split('.');
- const n={tok:vt[2]?{bid:tq[0],seq:+tq[1],turn:+tq[2],res:tq[3]||'',dl:+tq[4]||0}:null,r:+p[1],a:+p[2],mo:+p[3],res:+p[4],c,ord:p[9]!=null&&/^T/.test(p[9])?p[9].slice(1).split(',').filter(x=>x!=='').map(Number):[],g:null};
- for(const q of p.slice(10))if(q[0]=='G'&&q.indexOf(':')>0){const a=q.slice(1).split(':');n.g={w:+a[0][0],arena:a[0][1],t:[...a[1]].map(ch=>TC.indexOf(ch))}}
+ const n={tok:vt[2]?{bid:tq[0],seq:+tq[1],turn:+tq[2],res:tq[3]||'',dl:+tq[4]||0,sc:+tq[5]||0,fr:tq[6]||'',ad:+tq[7]||0}:null,r:+p[1],a:+p[2],mo:+p[3],res:+p[4],c,ord:p[9]!=null&&/^T/.test(p[9])?p[9].slice(1).split(',').filter(x=>x!=='').map(Number):[],g:null};
+ for(const q of p.slice(10))if(q[0]=='G'&&q.indexOf(':')>0){const a=q.slice(1).split(':');n.g={w:+a[0][0],arena:a[0][1],t:[...a[1]].map(ch=>TC.indexOf(ch)),f:a[2]||''}}
  if(n.tok&&B&&B.tok&&n.tok.bid==B.tok.bid&&n.tok.seq<B.tok.seq)return;       // a late state never replaces a newer one
  if(n.tok){seqAt=Date.now();if(!B&&!n.res&&n.c.some(x=>isMe(x.k)))bsync()}
  const o=B;B=n;
  if(n.res&&live&&(!o||!o.res)){over={res:n.res,until:Date.now()+7000}}
  if(!n.res){live=1;over=null}
- const k=n.tok?n.tok.bid+'.'+n.tok.turn+':'+n.mo:n.r+':'+n.a+':'+n.mo;
- if(k!=tkey){tkey=k;tat=Date.now();voteSeen=0;sent=0;pend=null;ackSt='';ui={m:'',tile:null,mv:null,act:null,st:[]};const a=c[n.a];if(n.mo==1&&a&&isMe(a.k)&&!n.res){beep();hud('hv|t')}}
+ const k=n.tok?n.tok.bid+'.'+n.tok.turn:n.r+':'+n.a+':'+n.mo;   // one key per turn (a live turn has several steps)
+ if(k!=tkey){tkey=k;tat=Date.now();voteSeen=0;sent=0;pend=null;ackSt='';ui={m:''}}
+ {const a=c[n.a];if(bp!=k&&n.mo==1&&a&&isMe(a.k)&&!n.res){bp=k;beep();hud('hv|t')}}
  ackCheck(n)}
 function inBattle(){return !!(B&&!B.res&&B.g&&(!L||L.m.some(x=>isMe(x.k))))}   // (someone voted out of the party goes back to the party screen)
 function myIdx(){return B?B.c.findIndex(x=>x.t==0&&isMe(x.k)):-1}
@@ -139,36 +152,27 @@ function reachable(){const g=B.g,w=g.w,a=myIdx(),from=g.t[a],out=[];
   if(d==2){let ok=false;for(let m=0;m<w*6&&!ok;m++)if(dist(from,m,w)==1&&dist(m,t,w)==1&&!g.t.some((x,i)=>x==m&&standing(i)&&B.c[i].t!=B.c[a].t))ok=true;if(!ok)continue}
   out.push(t)}
  return out}
-function myTile(){return typeof ui.mv=='number'?ui.mv:B.g.t[myIdx()]}   // where you stand for reach purposes: the tile you decided to move to, else where you are now
+function myTile(){return B.g.t[myIdx()]}   // where you stand now (moves happen at once)
+function faceOf(i){const f=B.g.f[i];return f&&'nesw'.includes(f)?f:(B.c[i].t?'e':'w')}
 // ---------- actions ----------
-// A turn is a MOVE and an ACTION, in either order. You decide both (Stay here counts as deciding the move); nothing is done for you.
-// Whatever you decide first happens first: move first = reach is measured from the new tile, act first = from where you stand now.
-const POTION_REACH=1;                       // must match POTION_REACH in the crystal's Battlefield script (provisional)
-function decided(k){ui.st.push(k);if(ui.mv!=null&&ui.act!=null)return fire();draw()}
-function fire(){const first=ui.st[0],tl=typeof ui.mv=='number'?TC[ui.mv]:null,A=ui.act;
- if(A.k=='none')return send('act|m'+tl+'|move');
- const body=A.k=='attack'?'attack|'+A.t:A.k=='item'?'item|0|'+A.t:'defend';
- if(tl==null)return send('act|'+body);
- send(first=='mv'?'act|m'+tl+'|'+body:'act|'+body+'|n'+tl)}
-function actStay(){if(!myTurn()||ui.mv!=null)return;ui.mv='stay';ui.tile=null;decided('mv')}
-function actGo(){if(!myTurn()||ui.mv!=null||ui.tile==null)return;ui.mv=ui.tile;decided('mv')}
-function clickTile(t){if(!myTurn()||ui.mv!=null)return;
- if(ui.act==null){ui.mv=t;ui.tile=null;return decided('mv')}   // nothing done yet: your hero moves there right now; Undo puts you back
- ui.tile=(ui.tile==t?null:t);draw()}                          // you already acted: mark the tile and confirm, because moving now ends the turn
-function pickAct(k){if(!myTurn()||ui.act!=null)return;
- if(k=='defend'||(k=='none'&&typeof ui.mv=='number')){ui.act={k:k};ui.m='';return decided('act')}
- if(k=='attack'||k=='potion'){ui.m=ui.m==k?'':k;draw()}}
+// A turn is live steps, done the moment you choose them (owner, 2026-11-10, Final Fantasy Tactics style):
+// MOVE (tap a yellow tile; Undo move until you act), one ACTION (Attack / Defend / Potion), in either order, then WAIT: pick the way you face.
+const POTION_REACH=1;                       // must match POTION_REACH in the crystal's Battlefield script
+function st(){return B.tok||{sc:0,fr:'',ad:0}}
+function clickTile(t){if(!myTurn()||st().fr||ui.m)return;send('act|mv|'+TC[t])}
+function pickAct(k){if(!myTurn()||st().ad)return;
+ if(k=='defend')return send('act|defend');
+ ui.m=ui.m==k?'':k;draw()}
 function clickEnemy(i){if(!myTurn()||ui.m!='attack')return;
- if(dist(myTile(),B.g.t[i],B.g.w)<=1){ui.act={k:'attack',t:i};ui.m='';return decided('act')}
- rfMsg='Too far away from where you will stand.';rfAt=Date.now();draw()}
-function actPotion(i){if(!myTurn()||ui.m!='potion')return;ui.act={k:'item',t:i};ui.m='';decided('act')}
-// take back the last thing you decided (before the turn is sent)
-function undo(){if(!myTurn())return;
- if(ui.m){ui.m='';return draw()}
- if(ui.mv==null&&ui.tile!=null){ui.tile=null;return draw()}
- const l=ui.st.pop();if(l=='mv'){ui.mv=null;ui.tile=null}else if(l=='act')ui.act=null;draw()}
+ if(dist(myTile(),B.g.t[i],B.g.w)<=1)return send('act|attack|'+i);
+ rfMsg='Too far away. Pick an enemy on a red tile.';rfAt=Date.now();draw()}
+function actPotion(i){if(!myTurn()||ui.m!='potion')return;send('act|item|0|'+i)}
+function undoMove(){if(!myTurn()||!st().fr||st().ad)return;send('act|back')}
+function waitMode(){if(!myTurn())return;ui.m=ui.m=='face'?'':'face';draw()}
+function face(d){if(!myTurn())return;send('act|wait|'+d)}
+function back(){if(ui.m){ui.m='';draw()}}
+function cancel(){back()}
 function voteOut(i){const m=L&&L.m.find(x=>x.k.indexOf(B.c[i].k)==0);if(!m)return;hud('vote|'+m.k);rfMsg='Vote sent. The party removes them when most players agree.';rfAt=Date.now();draw()}
-function cancel(){undo()}
 document.addEventListener('keydown',e=>{if(e.key=='Escape')cancel()});
 // ---------- drawing ----------
 function draw(){const app=$('app');
@@ -195,36 +199,36 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
  const oldPos={};document.querySelectorAll('#field .f').forEach(e=>{oldPos[e.id]=[e.style.left,e.style.top]});
  const bw=w*56,bh=6*56,bx=Math.round((1024-bw)/2)-30,by=Math.round((366-bh)/2)+8;
  let rn=[],tg=[];
- let rg=[];const pvt=typeof ui.mv=='number'?ui.mv:ui.tile;
- if(mt){if(ui.mv==null)rn=reachable();
+ let rg=[];const S=st(),fm=mt&&(ui.m=='face'||(S.fr&&S.ad));   // fm: choosing the way to face (Wait)
+ if(mt){if(!S.fr&&!ui.m)rn=reachable();
   if(ui.m=='attack'||ui.m=='potion'){const rr=ui.m=='attack'?1:POTION_REACH;for(let t=0;t<w*6;t++){const d=dist(myTile(),t,w);if(d>=1&&d<=rr)rg.push(t)}}
   if(ui.m=='attack')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&dist(myTile(),B.g.t[i],w)<=1)}
  let h='<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
- for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng':'')+(pvt==t?' pend':'');h+='<div class="'+cls+'"'+((rn.includes(t)||ui.tile==t)?' onclick="clickTile('+t+')"':'')+'></div>'}
+ for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng':'')+(mt&&S.fr&&TC.indexOf(S.fr)==t?' pend':'');h+='<div class="'+cls+'"'+(rn.includes(t)?' onclick="clickTile('+t+')"':'')+'></div>'}
  h+='</div>';
  B.c.forEach((e,i)=>{const t=g.t[i];if(t==null||t<0)return;if(e.hp<=0&&e.t==1)return;
-  let px=bx+(t%w)*56,py=by+Math.floor(t/w)*56;if(i==a&&pvt!=null){px=bx+(pvt%w)*56;py=by+Math.floor(pvt/w)*56}
-  const cl='f '+(e.t?'mon':'hero')+(e.hp<=0?' dead':'')+(i==B.a?' act':'')+(i==a?' me':'')+(tg.includes(i)&&e.t==1?' tgt':'');
-  h+='<div class="'+cl+'" id="f'+i+'" style="left:'+px+'px;top:'+py+'px"'+(tg.includes(i)&&e.t==1?' onclick="clickEnemy('+i+')"':'')+'><div class="ic">'+esc(e.ic)+'</div><div class="nm">'+esc(e.n)+'</div>'+(e.hp<e.mhp&&e.hp>0?'<div class="hp"><i style="width:'+Math.round(e.hp*100/e.mhp)+'%"></i></div>':'')+'</div>'});
+  const px=bx+(t%w)*56,py=by+Math.floor(t/w)*56,fc=faceOf(i);
+  const cl='f '+(e.t?'mon':'hero')+(e.hp<=0?' dead':'')+(i==B.a?' act':'')+(i==a?' me':'')+(tg.includes(i)&&e.t==1?' tgt':'')+(fc=='e'||(e.t&&fc!='w')?' fl':'');
+  h+='<div class="'+cl+'" id="f'+i+'" style="left:'+px+'px;top:'+py+'px"'+(tg.includes(i)&&e.t==1?' onclick="clickEnemy('+i+')"':'')+'><div class="fc '+fc+'"></div><div class="ic">'+esc(e.ic)+'</div><div class="nm">'+esc(e.n)+'</div>'+(e.hp<e.mhp&&e.hp>0?'<div class="hp"><i style="width:'+Math.round(e.hp*100/e.mhp)+'%"></i></div>':'')+'</div>'});
+ if(fm){const t=g.t[a],x0=bx+(t%w)*56,y0=by+Math.floor(t/w)*56;   // Wait: four arrows around your hero, tap one to face that way and end the turn
+  [['n',0,-1,'▲'],['e',1,0,'▶'],['s',0,1,'▼'],['w',-1,0,'◀']].forEach(d=>{h+='<div class="fa" style="left:'+(x0+12+d[1]*40)+'px;top:'+(y0+12+d[2]*40)+'px" onclick="face(\''+d[0]+'\')" title="Face this way">'+d[3]+'</div>'})}
  // turn order (right margin, next 5)
  h+='<div id="order"><h4>TURN ORDER</h4>'+(B.ord.length?B.ord:[B.a]).slice(0,5).map((i,n)=>{const e=B.c[i];return e?'<div class="'+(n==0?'now ':'')+(e.t?'':'h')+'"><span>'+esc(e.ic)+'</span><span>'+esc(e.n)+'</span></div>':''}).join('')+'</div>';
  h+='<div id="log">'+(G.length?G.slice(-3).map(x=>'<div>'+esc(x)+'</div>').join(''):'<div>Fight!</div>')+'</div></div>';
  h+='<div id="timer"><i id="tmr"></i></div><div id="bar"><div id="cards">';
  B.c.forEach((e,i)=>{if(e.t!=0)return;const pk=mt&&ui.m=='potion'&&e.hp>0&&e.hp<e.mhp&&dist(myTile(),B.g.t[i],w)<=POTION_REACH;const vt=i==B.a&&i!=a&&B.mo==1&&Date.now()-tat>15000;h+='<div class="card'+(i==B.a?' cur':'')+(i==a?' me':'')+(e.hp<=0?' down':'')+(pk?' pk':'')+'"'+(pk?' onclick="actPotion('+i+')"':'')+'><b>'+esc(e.ic)+' '+esc(e.n)+(e.f?' <small>'+esc(e.f)+'</small>':'')+'</b>'+barH('hp',e.hp,e.mhp)+barH('mp',e.mp,e.mmp)+(vt?'<button style="position:absolute;right:4px;top:3px;padding:1px 6px;font-size:11px" onclick="voteOut('+i+')">Vote to remove</button>':'')+'</div>'});
  h+='</div><div id="cmd">';
- if(mt){const pots=(B.c[a].it[0]||0);
-  const mvD=ui.mv!=null,acD=ui.act!=null,movedT=typeof ui.mv=='number';
+ if(mt){const pots=(B.c[a].it[0]||0),moved=!!S.fr,acted=S.ad>0;
   const inR=B.c.some((e,i)=>e.t==1&&standing(i)&&dist(myTile(),B.g.t[i],w)<=1);
   const potT=pots>0&&B.c.some((e,i)=>e.t==0&&e.hp>0&&e.hp<e.mhp&&dist(myTile(),B.g.t[i],w)<=POTION_REACH);
-  const sum=(mvD?(movedT?'👣 moving':'🧍 staying'):'')+(mvD&&acD?'  ·  ':'')+(acD?(ui.act.k=='attack'?'⚔ attacking':ui.act.k=='item'?'💉 potion':ui.act.k=='defend'?'🛡 defending':'no action'):'');
-  if(!mvD)h+='<div class="row"><b>Move:</b><button class="go" onclick="actStay()">🧍 Stay here</button>'+(ui.tile!=null?'<button class="go" onclick="actGo()">👣 Move to the marked tile</button>':'')+'</div>';
-  if(!acD){
-   if(ui.m=='attack'||ui.m=='potion')h+='<div class="row"><b>Action:</b><button onclick="undo()">Back</button></div>';
-   else h+='<div class="row"><b>Action:</b><button '+(inR?'':'disabled ')+'onclick="pickAct(\'attack\')">⚔ Attack</button><button onclick="pickAct(\'defend\')">🛡 Defend</button><button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+'</button>'+(movedT?'<button onclick="pickAct(\'none\')">⏭ No action</button>':'')+'</div>'}
-  if(mvD||acD||ui.tile!=null)h+='<div class="row"><button onclick="undo()">↩ Undo'+(ui.st[ui.st.length-1]=='mv'&&movedT?' move':'')+'</button><span style="font-size:12px;color:#9fe0b0">'+sum+'</span></div>';
-  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap an enemy on a red tile.':ui.m=='potion'?'Pick a hurt hero on a red tile.':!mvD&&!acD?'Your turn: decide how to move (stay, or tap a yellow tile) and what to do, in either order.':mvD&&!acD?(movedT?'You moved. Choose your action, or Undo move to step back.':'Now choose your action.')+(inR?'':' No enemy is in reach from there.'):'Now decide your movement: stay put, or tap a yellow tile.')+'</div>'}
+  const done=(moved?'👣 moved':'')+(moved&&acted?'  ·  ':'')+(acted?'✔ acted':'');
+  if(fm){h+='<div class="row"><b>Wait:</b><button class="sm" onclick="face(\'n\')">▲ Up</button><button class="sm" onclick="face(\'e\')">▶ Right</button><button class="sm" onclick="face(\'s\')">▼ Down</button><button class="sm" onclick="face(\'w\')">◀ Left</button>'+(ui.m=='face'?'<button class="sm" onclick="back()">Back</button>':'')+'</div>'}
+  else if(ui.m=='attack'||ui.m=='potion')h+='<div class="row"><b>Action:</b><button onclick="back()">Back</button></div>';
+  else{h+='<div class="row">'+(acted?'':'<b>Action:</b><button '+(inR?'':'disabled ')+'onclick="pickAct(\'attack\')">⚔ Attack</button><button onclick="pickAct(\'defend\')">🛡 Defend</button><button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+'</button>')+'<button class="go" onclick="waitMode()">⏳ Wait</button></div>'}
+  if((moved&&!acted)||done)h+='<div class="row">'+(moved&&!acted?'<button onclick="undoMove()">↩ Undo move</button>':'')+'<span style="font-size:12px;color:#9fe0b0">'+done+'</span></div>';
+  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap an enemy on a red tile.':ui.m=='potion'?'Pick a hurt hero on a red tile.':fm?'Pick the way your hero faces. That ends your turn.':!moved&&!acted?'Your turn: tap a yellow tile to move, choose an action, then Wait.':moved?'Choose an action, Undo move, or Wait.':'Tap a yellow tile to move, or Wait.')+'</div>'}
  else{const who=B.c[B.a];h+='<div style="font-size:15px;margin-top:6px">'+(B.mo==5?'...':esc(who?who.n:'')+'\'s turn')+'</div>'}
- h+='</div><div id="msg">'+esc(rfMsg||(ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Command accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
+ h+='</div><div id="msg">'+esc(rfMsg||(ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
  if(over)h+=overHtml();
  $('app').innerHTML=h;
  document.querySelectorAll('#field .f').forEach(e=>{const o=oldPos[e.id];if(!o||(o[0]==e.style.left&&o[1]==e.style.top))return;const nl=e.style.left,nt=e.style.top;e.style.left=o[0];e.style.top=o[1];void e.offsetWidth;e.style.left=nl;e.style.top=nt});   // glide to the new tile
