@@ -29,6 +29,8 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 .t.rn{background:rgba(255,215,90,.32);border-color:#ffd75a;cursor:pointer}
 .t.rn:hover{background:rgba(255,215,90,.55)}
 .t.rng{background:rgba(255,106,106,.20);border-color:#ff6a6a}
+.t.hit{cursor:pointer}
+.t.hit:hover{background:rgba(255,80,80,.55);border-color:#ffb0b0;box-shadow:inset 0 0 0 2px #ffb0b0}
 .t.pend{background:rgba(120,200,255,.35);border-color:#9fe;cursor:pointer}
 .f{position:absolute;width:54px;height:54px;transition:left .35s,top .35s;text-align:center;pointer-events:none}
 .f .ic{font-size:30px;line-height:36px;filter:drop-shadow(0 2px 1px rgba(0,0,0,.55))}
@@ -215,7 +217,7 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
   if(ui.m=='potion')for(let t=0;t<w*6;t++){const d=dist(myTile(),t,w);if(d>=1&&d<=POTION_REACH)rg.push(t)}
   if(ui.m=='attack')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&hitOK(B.g.t[i]))}
  let h='<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
- for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng':'')+(mt&&S.fr&&TC.indexOf(S.fr)==t?' pend':'');h+='<div class="'+cls+'"'+(rn.includes(t)?' onclick="clickTile('+t+')"':ui.m=='attack'&&rg.includes(t)?' onclick="hitTile('+t+')" style="cursor:pointer"':'')+'></div>'}
+ for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng'+(ui.m=='attack'?' hit':''):'')+(mt&&S.fr&&TC.indexOf(S.fr)==t?' pend':'');h+='<div class="'+cls+'"'+(rn.includes(t)?' onclick="clickTile('+t+')"':ui.m=='attack'&&rg.includes(t)?' onclick="hitTile('+t+')"':'')+'></div>'}
  h+='</div>';
  B.c.forEach((e,i)=>{const t=i==a&&a>=0?myTile():g.t[i];if(t==null||t<0)return;if(e.hp<=0&&e.t==1)return;
   const px=bx+(t%w)*56,py=by+Math.floor(t/w)*56,fc=faceOf(i);
