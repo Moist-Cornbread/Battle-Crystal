@@ -152,7 +152,9 @@ function fire(){const first=ui.st[0],tl=typeof ui.mv=='number'?TC[ui.mv]:null,A=
  send(first=='mv'?'act|m'+tl+'|'+body:'act|'+body+'|n'+tl)}
 function actStay(){if(!myTurn()||ui.mv!=null)return;ui.mv='stay';ui.tile=null;decided('mv')}
 function actGo(){if(!myTurn()||ui.mv!=null||ui.tile==null)return;ui.mv=ui.tile;decided('mv')}
-function clickTile(t){if(!myTurn()||ui.mv!=null)return;ui.tile=(ui.tile==t?null:t);draw()}
+function clickTile(t){if(!myTurn()||ui.mv!=null)return;
+ if(ui.act==null){ui.mv=t;ui.tile=null;return decided('mv')}   // nothing done yet: your hero moves there right now; Undo puts you back
+ ui.tile=(ui.tile==t?null:t);draw()}                          // you already acted: mark the tile and confirm, because moving now ends the turn
 function pickAct(k){if(!myTurn()||ui.act!=null)return;
  if(k=='defend'||(k=='none'&&typeof ui.mv=='number')){ui.act={k:k};ui.m='';return decided('act')}
  if(k=='attack'||k=='potion'){ui.m=ui.m==k?'':k;draw()}}
@@ -190,6 +192,7 @@ function lobbyView(){const inP=L&&L.m.some(x=>isMe(x.k)),busy=L&&L.busy;let h='<
 function overHtml(){return '<div id="over"><div>'+(over.res==1?'Victory!':over.res==2?'Defeated':'The party escaped')+'</div><small>Back to the party screen in a moment</small></div>'}
 function barH(cls,v,m){const p=Math.max(0,Math.min(100,m?Math.round(v*100/m):0));return '<div class="bar '+cls+'"><i style="width:'+p+'%"></i><span>'+v+'</span></div>'}
 function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
+ const oldPos={};document.querySelectorAll('#field .f').forEach(e=>{oldPos[e.id]=[e.style.left,e.style.top]});
  const bw=w*56,bh=6*56,bx=Math.round((1024-bw)/2)-30,by=Math.round((366-bh)/2)+8;
  let rn=[],tg=[];
  let rg=[];const pvt=typeof ui.mv=='number'?ui.mv:ui.tile;
@@ -218,12 +221,14 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
   if(!acD){
    if(ui.m=='attack'||ui.m=='potion')h+='<div class="row"><b>Action:</b><button onclick="undo()">Back</button></div>';
    else h+='<div class="row"><b>Action:</b><button '+(inR?'':'disabled ')+'onclick="pickAct(\'attack\')">⚔ Attack</button><button onclick="pickAct(\'defend\')">🛡 Defend</button><button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+'</button>'+(movedT?'<button onclick="pickAct(\'none\')">⏭ No action</button>':'')+'</div>'}
-  if(mvD||acD||ui.tile!=null)h+='<div class="row"><button onclick="undo()">↩ Undo</button><span style="font-size:12px;color:#9fe0b0">'+sum+'</span></div>';
-  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap an enemy on a red tile.':ui.m=='potion'?'Pick a hurt hero on a red tile.':!mvD&&!acD?'Your turn: decide how to move (stay, or tap a yellow tile) and what to do, in either order.':mvD&&!acD?'Now choose your action.'+(inR?'':' No enemy is in reach from there.'):'Now decide your movement: stay put, or tap a yellow tile.')+'</div>'}
+  if(mvD||acD||ui.tile!=null)h+='<div class="row"><button onclick="undo()">↩ Undo'+(ui.st[ui.st.length-1]=='mv'&&movedT?' move':'')+'</button><span style="font-size:12px;color:#9fe0b0">'+sum+'</span></div>';
+  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap an enemy on a red tile.':ui.m=='potion'?'Pick a hurt hero on a red tile.':!mvD&&!acD?'Your turn: decide how to move (stay, or tap a yellow tile) and what to do, in either order.':mvD&&!acD?(movedT?'You moved. Choose your action, or Undo move to step back.':'Now choose your action.')+(inR?'':' No enemy is in reach from there.'):'Now decide your movement: stay put, or tap a yellow tile.')+'</div>'}
  else{const who=B.c[B.a];h+='<div style="font-size:15px;margin-top:6px">'+(B.mo==5?'...':esc(who?who.n:'')+'\'s turn')+'</div>'}
  h+='</div><div id="msg">'+esc(rfMsg||(ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Command accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
  if(over)h+=overHtml();
- $('app').innerHTML=h;timerTick()}
+ $('app').innerHTML=h;
+ document.querySelectorAll('#field .f').forEach(e=>{const o=oldPos[e.id];if(!o||(o[0]==e.style.left&&o[1]==e.style.top))return;const nl=e.style.left,nt=e.style.top;e.style.left=o[0];e.style.top=o[1];void e.offsetWidth;e.style.left=nl;e.style.top=nt});   // glide to the new tile
+ timerTick()}
 function timerTick(){const e=$('tmr');if(!e)return;if(!B||!B.tok||B.mo!=1){e.style.width='0';return}const tot=(B.tok.dl||60)*1000,left=Math.max(0,1-(Date.now()-tat)/tot);e.style.width=(left*100)+'%';e.style.background=left<.25?'#ff6a6a':left<.5?'#ffd75a':'#7be08f'}
 const wait=ms=>new Promise(r=>setTimeout(r,ms));
 async function poll(){const ab=new AbortController(),to=setTimeout(()=>ab.abort(),28000);try{const r=await fetch('s?v='+v+'&sid='+sid+'&t='+Date.now(),{cache:'no-store',signal:ab.signal});clearTimeout(to);if(r.ok)parse(await r.text());else await wait(2000)}catch(e){clearTimeout(to);if(e.name!='AbortError')await wait(2000)}poll()}
