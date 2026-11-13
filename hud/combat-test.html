@@ -18,7 +18,32 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 #lobby .mem{padding:8px 12px;background:#1e2748;border:1px solid #3d4b86;border-radius:8px;min-width:140px}
 #lobby .mem b{display:block}
 #lobby .mem small{color:#9fb0e8}
+#lobby .flp{margin:10px auto;max-width:520px;padding:10px 14px;background:#1a2342;border:1px solid #3d4b86;border-radius:8px;text-align:left}
+#lobby .flp .bar{position:relative;height:16px;margin:3px 0 8px;background:#0e1430;border-radius:4px;overflow:hidden}
+#lobby .flp .bar i{display:block;height:100%;background:#4c8bf5}#lobby .flp .bar.mx i{background:#c79a3a}
+#lobby .flp .bar span{position:absolute;left:6px;top:0;font-size:11px;line-height:16px;color:#fff}
+#lobby .flp .ab{font-size:13px;padding:4px 8px}#lobby .flp .ab.on{border-color:#7be08f}
 #lobby .note{color:#ffd75a;margin-top:10px;min-height:20px}
+/* ---------- town (step F, Millhaven) ---------- */
+#town{position:absolute;inset:0;padding:14px 22px;background:linear-gradient(#2a3556,#0b0f1d)}
+#town h1{font-size:22px;display:inline-block;margin-right:14px}
+#town .hd{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+#town .purse{margin-left:auto;color:#ffd75a;font-weight:bold}
+#town .tabs{display:flex;gap:6px;margin-bottom:8px}
+#town .tabs button.on{background:#6b5a1f;border-color:#ffd75a}
+#town .pane{display:flex;gap:14px;height:366px}
+#town .col{flex:1;overflow:hidden}
+#town .it{display:flex;align-items:center;gap:8px;padding:6px 8px;margin-bottom:5px;background:#1e2748;border:1px solid #3d4b86;border-radius:8px}
+#town .it .tx{flex:1;min-width:0}
+#town .it small{color:#9fb0e8;display:block}
+#town .it button{padding:5px 10px}
+#town .bar{height:10px;background:#0b0f1d;border-radius:5px;margin:3px 0 7px;overflow:hidden}
+#town .bar i{display:block;height:100%}
+#town .bar.hp i{background:#5fd078}#town .bar.mp i{background:#5aa0ff}#town .bar.pg i{background:#c79a3a}
+#town .card{display:inline-block;width:70px;height:98px;line-height:98px;text-align:center;font-size:34px;font-weight:bold;color:#222;background:#f4efe0;border:2px solid #fff;border-radius:8px;margin:4px 8px 4px 0}
+#town .card.red{color:#b32}
+#town .sub2{color:#9fb0e8;margin:2px 0 6px}
+#town input{width:64px;font:inherit;padding:5px;background:#0e1430;color:#e8ecff;border:1px solid #5a6aa8;border-radius:6px}
 /* ---------- battle ---------- */
 #field{position:absolute;left:0;top:0;width:1024px;height:366px;overflow:hidden;
  background:linear-gradient(#f6d9a0 0,#f0b98a 14%,#9ed08a 14.5%,#6fae6a 40%,#5c9a5a 100%)}
@@ -70,6 +95,7 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 .card.cur{border-color:#ffd75a;background:#2d2f4a}
 .card.me b{color:#ffd75a}
 .card.down{opacity:.45}
+.pips{position:absolute;right:6px;top:3px;font-size:10px;color:#ffd75a;letter-spacing:1px;white-space:nowrap}.pips span{opacity:.35}.pips b{display:inline!important;color:#cfd8ff;font-size:9px;letter-spacing:0}
 .card.pk{cursor:pointer;border-color:#7be08f}
 .card b{font-size:12px;display:block;white-space:nowrap;overflow:hidden}
 .bar{height:8px;background:#0b0f1d;border-radius:4px;margin-top:3px;position:relative;overflow:hidden}
@@ -91,8 +117,10 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 //  Talks to the Battle HUD script the same way the full screen does: GET s?v=.. for state, POST a for commands.
 // =====================================================================
 const TC='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
+/*TOWN*/const TOWN={"town":"Millhaven","inn":{"free_through_level":4,"per_level":3},"potion":{"item":0,"buy":8,"sell":2,"cap":9},"payout":95,"cards":13,"betPct":10,"minBet":1,"hold":2,"noteGold":18,"gear":[{"id":"w1","n":"Mill Sword","slot":0,"st":[0,0,3,0,0,0,0],"pr":21,"b":"A plain farm blade. Any hero may use it."},{"id":"b1","n":"Farmer's Jerkin","slot":2,"st":[6,0,0,3,0,0,0],"pr":18,"b":"Padded cloth that turns a glancing blow."},{"id":"h1","n":"Straw Cap","slot":1,"st":[0,0,0,2,0,0,0],"pr":9,"b":"Better than nothing. Mostly sun."},{"id":"f1","n":"Field Boots","slot":3,"st":[0,0,0,1,0,1,0],"pr":7,"b":"Mud-proof, mostly."},{"id":"a1","n":"Hearty Bead","slot":4,"st":[12,0,0,0,0,0,0],"pr":40,"b":"A warm little bead on a string."}],"notices":[{"id":"n1","t":"Mole trouble","m":"Mole Patrol","c":3},{"id":"n2","t":"Pipsqueak pests","m":"Pipsqueak","c":3},{"id":"n3","t":"Field sweep","m":"","c":6},{"id":"n4","t":"Mole burrows","m":"Mole Patrol","c":5},{"id":"n5","t":"Pipsqueak nest","m":"Pipsqueak","c":5},{"id":"n6","t":"Clear the fields","m":"","c":10}],"board":3};/*END TOWN*/
+let TN=null,town=0,AB=null,ttab='inn',tshop='buy',GQ=['','','',''];
 let voteSeen=0,v=-1,sid=0,me='',L=null,P=null,B=null,G=[],ui={m:''},bp='',sent=0,pend=null,queued=null,ackSt='',rfMsg='',rfAt=0,seqAt=0,bsAt=0,tkey='',tat=0,over=null,live=0,note='',joined=0;
-const RF={n:'That turn is already over.',g:"That isn't possible right now.",p:'Not enough MP.',v:"You can't do that from here. Pick a highlighted tile or a target in reach.",u:'Your screen is out of date. Take the HUD off and put it back on.'};
+const RF={n:'That turn is already over.',g:"That isn't possible right now.",p:'Not enough MP.',q:'Not enough AP for that.',v:"You can't do that from here. Pick a highlighted tile or a target in reach.",u:'Your screen is out of date. Take the HUD off and put it back on.',c:'That needs another turn to recover first.',m:'Not enough Mana.',s:'That chain is longer than you can manage right now.',k:'Not enough scrap for that.',w:'Nothing left to dig here right now (or your scrap is full). The wreckage turns up more every few turns.',x:"You need to be at your Sentry's controls for that (and step off it to dig).",y:'Your Sentry is still standing. Only one at a time.',r:'Out of reach. Pick a highlighted target.'};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function isMe(k){return !!k&&!!me&&me.indexOf(k)==0}
@@ -124,10 +152,18 @@ setInterval(()=>{const now=Date.now();
  timerTick()},500);
 setInterval(()=>{if(me)hud('hv|1')},60000);setTimeout(()=>{if(me)hud('hv|1')},5000);
 // ---------- parsing ----------
+let FL=null; // step D: the Freelancer summary from the crystal ("FL~level~xp~need~rank~mxp~mneed~used~max~id:name:cost:equipped;...")
+function fl(s){if(!s||s.slice(0,3)!='FL~')return null;const f=s.split('~');return{lv:+f[1],xp:+f[2],need:+f[3],rk:+f[4],mx:+f[5],mneed:+f[6],used:+f[7],max:+f[8],ab:(f[9]||'').split(';').filter(x=>x).map(x=>{const q=x.split(':');return{id:q[0],n:q[1],c:+q[2],eq:q[3]=='1'}}),
+ job:f[10]||'',jobs:(f[11]||'').split(';').filter(x=>x).map(x=>{const q=x.split(':');return{id:q[0],n:q[1],rk:+q[2],mx:+q[3],mneed:+q[4]}}),
+ acts:(f[12]||'').split(';').filter(x=>x).map(x=>{const q=x.split(':');return{id:q[0],n:q[1],ap:+q[2],mana:+q[3],mp:+q[4],k:q[5]}})}}   // step G: current job, discovered jobs, the current job's known actions (only what the crystal sends: nothing undiscovered appears)
+function jobName(c){return c=='Squire'?'Freelancer':c} // legacy starter slot stands in for the Freelancer until the job tree is migrated (step G)
 function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';if(h[5])sid=h[5];const ng=[];let same=0;
  for(const l of ln.slice(1)){const p=l.split('|');
   if(p[0]=='L')L={busy:p[1]=='1',max:+p[2],m:p[3]?p[3].split(';').map(x=>{const f=x.split('~');return{k:f[0],n:f[1],lv:f[2],c:f[3],afk:f[7]=='1'}}):[],chk:+p[4]||0,rdy:(p[5]||'').split(',').filter(x=>x),by:p[6]||'',force:p[7]=='1'};
-  else if(p[0]=='P')P={c:p[1]||'',lv:+p[2]||0};
+  else if(p[0]=='P'){P={c:p[1]||'',lv:+p[2]||0};FL=fl(p[16])}
+  else if(p[0]=='F'&&p[1]=='T')TN=tnParse(p)
+  else if(p[0]=='F'&&p[1]=='A')AB={on:p[2]=='1',s:+p[3]||0,st:+p[4]||0,chip:p[5]||'',note:p.slice(6).join('|')}
+  else if(p[0]=='Q'&&/^[0-3]$/.test(p[1]||''))GQ[+p[1]]=p[2]||''
   else if(p[0]=='B')nb(p);
   else if(p[0]=='G0')same=1;
   else if(p[0]=='G')ng.push(p.slice(1).join('|'))}
@@ -136,7 +172,7 @@ function parse(t){const ln=t.split('\n'),h=ln[0].split('|');v=+h[0];me=h[1]||'';
  draw()}
 function nb(p){const c=p[7]?p[7].split(';').map(x=>{const f=x.split('~');return{n:f[0],t:+f[1],k:f[2],hp:+f[3],mhp:+f[4]||1,mp:+f[5],mmp:+f[6]||1,f:f[7]||'',it:(f[8]||'').split('.').map(Number),ic:f[12]||'?'}}):[];
  const vt=(p[8]||'0~1').split('~'),tq=(vt[2]||'').split('.');
- const n={tok:vt[2]?{bid:tq[0],seq:+tq[1],turn:+tq[2],res:tq[3]||'',dl:+tq[4]||0,sc:+tq[5]||0,fr:tq[6]||'',ad:+tq[7]||0}:null,r:+p[1],a:+p[2],mo:+p[3],res:+p[4],c,ord:p[9]!=null&&/^T/.test(p[9])?p[9].slice(1).split(',').filter(x=>x!=='').map(Number):[],g:null};
+ const n={tok:vt[2]?{bid:tq[0],seq:+tq[1],turn:+tq[2],res:tq[3]||'',dl:+tq[4]||0,sc:+tq[5]||0,fr:tq[6]||'',ad:+tq[7]||0,ap:tq[8]!=null?+tq[8]:6,mp:tq[9]!=null?+tq[9]:2,gd:+tq[10]||0}:null,r:+p[1],a:+p[2],mo:+p[3],res:+p[4],c,ord:p[9]!=null&&/^T/.test(p[9])?p[9].slice(1).split(',').filter(x=>x!=='').map(Number):[],g:null};
  for(const q of p.slice(10))if(q[0]=='G'&&q.indexOf(':')>0){const a=q.slice(1).split(':');n.g={w:+a[0][0],arena:a[0][1],t:[...a[1]].map(ch=>TC.indexOf(ch)),f:a[2]||''}}
  if(n.tok&&B&&B.tok&&n.tok.bid==B.tok.bid&&n.tok.seq<B.tok.seq)return;       // a late state never replaces a newer one
  if(n.tok){seqAt=Date.now();if(!B&&!n.res&&n.c.some(x=>isMe(x.k)))bsync()}
@@ -157,7 +193,8 @@ function standing(i){return B.c[i].hp>0}
 // moving: up to 2 steps in straight lines only (owner, 2026-11-10: no diagonal moves); through friends, never through enemies
 const steps=(a,b,w)=>Math.abs(a%w-b%w)+Math.abs(Math.floor(a/w)-Math.floor(b/w));
 function reachable(){const g=B.g,w=g.w,a=myIdx(),from=myTile(),out=[];
- for(let t=0;t<w*6;t++){const d=steps(from,t,w);if(d==0||d>2)continue;
+ const mp=Math.min(2,st().mp);
+ for(let t=0;t<w*6;t++){const d=steps(from,t,w);if(d==0||d>mp)continue;
   if(g.t.some((x,i)=>i!=a&&x==t&&standing(i)))continue;
   if(d==2){let ok=false;for(let m=0;m<w*6&&!ok;m++)if(steps(from,m,w)==1&&steps(m,t,w)==1&&!g.t.some((x,i)=>x==m&&standing(i)&&B.c[i].t!=B.c[a].t))ok=true;if(!ok)continue}
   out.push(t)}
@@ -168,16 +205,17 @@ function faceOf(i){let f=B.g.f[i];if(i==myIdx())for(const p of preds())if(p.face
 // ---------- actions ----------
 // A turn is live steps, done the moment you choose them (owner, 2026-11-10, Final Fantasy Tactics style):
 // MOVE (tap a yellow tile; Undo move until you act), one ACTION (Attack / Defend / Potion), in either order, then WAIT: pick the way you face.
-const POTION_REACH=1,ATTACK_REACH=1;        // must match POTION_REACH / ATTACK_REACH in the crystal's Battlefield script (attack reach will later depend on the weapon or job)
-function st(){const s=Object.assign({sc:0,fr:'',ad:0},B.tok);for(const p of preds()){if(p.fr!=null)s.fr=p.fr;if(p.ad!=null)s.ad=p.ad}return s}
-function clickTile(t){if(!myTurn()||st().fr||(ui.m&&ui.m!='face'))return;ui.m='';send('act|mv|'+TC[t],{tile:t,fr:TC[myTile()],face:stepFace(myTile(),t)})}
+const POTION_REACH=1,ATTACK_REACH=1,AP_ATK=3,AP_POT=2,AP_GRD=2;        // AP costs: PLACEHOLDERS, must match AP_ATK / AP_POT / AP_GRD in the crystal's Engine (weapons will carry their own AP later)
+        // must match POTION_REACH / ATTACK_REACH in the crystal's Battlefield script (attack reach will later depend on the weapon or job)
+function st(){const s=Object.assign({sc:0,fr:'',ad:0,ap:6,mp:2,gd:0},B.tok);for(const p of preds()){if(p.fr!=null)s.fr=p.fr;if(p.ad!=null)s.ad=p.ad;if(p.apc)s.ap-=p.apc;if(p.mpc)s.mp-=p.mpc;if(p.gd)s.gd=1}return s}   // what the crystal said, plus your own steps still on their way
+function clickTile(t){const S=st();if(!myTurn()||S.mp<1||(ui.m&&ui.m!='face'))return;ui.m='';send('act|mv|'+TC[t],{tile:t,fr:S.fr||TC[myTile()],mpc:steps(myTile(),t,B.g.w),face:stepFace(myTile(),t)})}   // a run of moves: Undo goes back to where the run began
 function stepFace(a,b){const w=B.g.w,dx=b%w-a%w,dy=Math.floor(b/w)-Math.floor(a/w);if(!dx&&!dy)return null;return Math.abs(dx)>=Math.abs(dy)?(dx>0?'e':'w'):(dy>0?'s':'n')}
-function pickAct(k){if(!myTurn()||st().ad)return;
- if(k=='defend')return send('act|defend',{ad:2});
+function pickAct(k){const S=st(),c={attack:AP_ATK,potion:AP_POT,defend:AP_GRD}[k];if(!myTurn()||S.ap<c||(k=='defend'&&S.gd))return;
+ if(k=='defend')return send('act|defend',{ad:2,apc:AP_GRD,gd:1,fr:''});
  ui.m=ui.m==k?'':k;draw()}
 // Attack is always available (owner, 2026-11-10): you attack a TILE in reach - an enemy on it, or empty ground. Not an ally's tile.
 function hitOK(t){const w=B.g.w,d=dist(myTile(),t,w),a=myIdx();return d>=1&&d<=ATTACK_REACH&&!B.c.some((e,i)=>i!=a&&e.t==0&&standing(i)&&B.g.t[i]==t)}
-function hitTile(t){if(!myTurn()||ui.m!='attack'||!hitOK(t))return;send('act|at|'+TC[t],{ad:1,face:stepFace(myTile(),t)})}
+function hitTile(t){if(!myTurn()||ui.m!='attack'||!hitOK(t))return;send('act|at|'+TC[t],{ad:1,apc:AP_ATK,fr:'',face:stepFace(myTile(),t)})}
 function clickEnemy(i){if(!myTurn()||ui.m!='attack')return;
  if(hitOK(B.g.t[i]))return hitTile(B.g.t[i]);
  rfMsg='Too far away. Pick a red tile.';rfAt=Date.now();draw()}
@@ -185,8 +223,36 @@ function clickEnemy(i){if(!myTurn()||ui.m!='attack')return;
 // later items (ethers, herbs, thrown items) use the same rule with their own reach.
 function itemOK(i,reach){return B.c[i]&&B.c[i].t==0&&standing(i)&&dist(myTile(),i==myIdx()?myTile():B.g.t[i],B.g.w)<=reach}
 function itemTile(t){const i=B.c.findIndex((e,k)=>e.t==0&&standing(k)&&(k==myIdx()?myTile():B.g.t[k])==t);if(i>=0)actPotion(i)}
-function actPotion(i){if(!myTurn()||ui.m!='potion'||!itemOK(i,POTION_REACH))return;send('act|item|0|'+i,{ad:1})}
-function undoMove(){const s=st();if(!myTurn()||!s.fr||s.ad)return;send('act|back',{tile:TC.indexOf(s.fr),fr:''})}
+function actPotion(i){if(!myTurn()||ui.m!='potion'||!itemOK(i,POTION_REACH))return;send('act|item|0|'+i,{ad:1,apc:AP_POT,fr:''})}
+// step G: a job's own actions (from the crystal: id, name, AP, Mana, MP, kind s self / a adjacent foe / e foe in reach 3 / l landing tile next to a friend)
+function jAct(id){return FL&&FL.acts.find(x=>x.id==id)}
+function jOK(x,t){const w=B.g.w,a=myIdx(),me=myTile(),on=B.c.findIndex((e,i)=>standing(i)&&(i==a?me:B.g.t[i])==t);
+ if(x.k=='a'||x.k=='e')return on>=0&&B.c[on].t==1&&dist(me,t,w)<=(x.k=='a'?1:3);
+ if(x.k=='l')return on<0&&steps(me,t,w)<=4&&B.c.some((e,i)=>i!=a&&e.t==0&&standing(i)&&dist(B.g.t[i],t,w)==1);
+ if(x.k=='t')return on<0&&steps(me,t,w)>=1&&steps(me,t,w)<=2;   // a trap on a free tile close by
+ if(x.k=='n'||x.k=='f'){if(on<0||B.c[on].t!=1)return false;if(x.k=='f')return steps(me,t,w)<=4;const dx=t%w-me%w,dy=Math.floor(t/w)-Math.floor(me/w);if(dx&&dy)return false;const k=Math.abs(dx+dy),sx=Math.sign(dx),sy=Math.sign(dy);if(k>3)return false;
+  for(let s=1;s<k;s++)if(B.c.some((e,i)=>standing(i)&&(i==a?me:B.g.t[i])==me+s*(sx+sy*w)))return false;return true}   // Steampunk: Railshot down a clear row/column (n); Sentry Barrage, foe within 4 steps (f)
+ if(x.k=='h')return on<0&&steps(me,t,w)>=1&&steps(me,t,w)<=3;   // Steampunk Pressure Leap: any free tile within 3 steps, over anyone
+ if(x.k=='c'){const dx=t%w-me%w,dy=Math.floor(t/w)-Math.floor(me/w);if(dx&&dy)return false;const k=Math.abs(dx+dy),sx=Math.sign(dx),sy=Math.sign(dy);if(!k||k>4)return false;
+  for(let s=1;s<k;s++)if(B.c.some((e,i)=>standing(i)&&(i==a?me:B.g.t[i])==me+s*(sx+sy*w)))return false;return on<0||(B.c[on].t==1&&k>=2)}   // Steampunk Cablecaster: reel to a free tile, or yank the first foe 2+ away
+ if(x.k=='r')return VS.length>=3&&on>=0&&B.c[on].t==1&&dist(me,t,w)<=1;   // Veyran Arts: a chain of 3+ arrows at a foe next to you
+ if(x.k=='g'){if(on<0||B.c[on].t!=1)return false;const dx=t%w-me%w,dy=Math.floor(t/w)-Math.floor(me/w);if(dx&&dy)return false;const k=Math.abs(dx+dy),sx=Math.sign(dx),sy=Math.sign(dy);
+  if(k+1>st().mp)return false;for(let s=1;s<k;s++){const o=B.c.findIndex((e,i)=>standing(i)&&(i==a?me:B.g.t[i])==me+s*(sx+sy*w));if(o>=0&&B.c[o].t==0)return false}
+  const lx=t%w+sx,ly=Math.floor(t/w)+sy;return lx>=0&&lx<w&&ly>=0&&ly<6&&!B.c.some((e,i)=>standing(i)&&(i==a?me:B.g.t[i])==ly*w+lx)}   // slip through a foe in a straight line
+ return false}
+function pickJob(id){const x=jAct(id),S=st();if(!x||!myTurn()||S.ap<x.ap||(x.mp&&S.mp<x.mp))return;
+ if(x.k=='s')return send('act|jb|'+id+'|-1',{ad:1,apc:x.ap,fr:''});
+ VS='';ui.m=ui.m=='j:'+id?'':'j:'+id;draw()}
+// step G Veyran: the chain is typed here; it travels inside the tile number (inputs in base 5, U1 D2 L3 R4) as 'va<AP>'
+let VS='';const VA={U:'↑',D:'↓',L:'←',R:'→'};
+function vySlots(){const lv=FL?FL.lv:1;return 4+(lv>=3)+(lv>=9)+(lv>=19)}
+function vyKey(k){if(k=='x')VS=VS.slice(0,-1);else if(VS.length<9)VS+=k;draw()}
+function jobTile(t){const id=(ui.m||'').slice(2),x=jAct(id);if(!x||!myTurn()||!jOK(x,t))return;
+ if(x.k=='r'){const c=Math.min(VS.length,st().ap);let code=0;for(const k of VS)code=code*5+' UDLR'.indexOf(k);VS='';return send('act|jb|va'+c+'|'+(t+1000*code),{ad:1,apc:c,fr:'',face:stepFace(myTile(),t)})}
+ if(x.k=='g'){const w=B.g.w,me=myTile(),dx=t%w-me%w,dy=Math.floor(t/w)-Math.floor(me/w);return send('act|jb|'+id+'|'+t,{ad:1,apc:0,mpc:Math.abs(dx+dy)+1,fr:'',tile:t+Math.sign(dx)+Math.sign(dy)*w})}
+ if(x.k=='h'||(x.k=='c'&&!B.c.some((e,i)=>standing(i)&&i!=myIdx()&&B.g.t[i]==t)))return send('act|jb|'+id+'|'+t,{ad:1,apc:x.ap,mpc:x.mp||0,fr:'',tile:t});
+ send('act|jb|'+id+'|'+t,x.k=='l'?{ad:1,apc:x.ap,mpc:x.mp,fr:'',tile:t}:{ad:1,apc:x.ap,mpc:x.mp||0,fr:'',face:stepFace(myTile(),t)})}
+function undoMove(){const s=st();if(!myTurn()||!s.fr)return;send('act|back',{tile:TC.indexOf(s.fr),fr:'',mpc:-Math.min(2-s.mp,steps(myTile(),TC.indexOf(s.fr),B.g.w))})}   // (the MP shown meanwhile is a guess; the crystal's number replaces it)
 function waitMode(){if(!myTurn())return;ui.m=ui.m=='face'?'':'face';draw()}
 function face(d){if(!myTurn())return;send('act|wait|'+d,{face:d,end:1})}
 function back(){if(ui.m){ui.m='';draw()}}
@@ -202,10 +268,13 @@ document.addEventListener('keydown',e=>{if(e.key=='Escape')cancel()});
 function draw(){const app=$('app');
  if(!me){app.innerHTML='<div id="lobby"><h1>Battle Crystal</h1><div class="sub">Connecting to the crystal...</div></div>';return}
  if(inBattle()){battleView();return}
+ if(town&&P&&P.c){townView();return}
  lobbyView()}
 function lobbyView(){const inP=L&&L.m.some(x=>isMe(x.k)),busy=L&&L.busy;let h='<div id="lobby"><h1>Battle Crystal</h1><div class="sub">Combat test: a quick fight to see how it plays with friends.</div>';
- if(!P||!P.c||P.c=='(no job)'){h+='<div>Pick your fighter:</div><div class="row">'+[['Squire','🗡️','Sturdy front-liner'],['Initiate','🪄','Spark and heal'],['Alchemist','⚗️','Bombs and brews']].map(j=>'<button style="width:210px;height:76px" onclick="hud(\''+j[0]+'\')"><span style="font-size:26px">'+j[1]+'</span><br><b>'+j[0]+'</b> <small>'+j[2]+'</small></button>').join('')+'</div>'}
- else{h+='<div class="row">'+(L?L.m:[]).map(m=>'<div class="mem"><b>'+(isMe(m.k)?'⭐ ':'')+esc(m.n)+'</b><small>'+esc(m.c)+'</small>'+(L.chk&&L.rdy.some(r=>r.indexOf(m.k)==0||m.k.indexOf(r)==0)?'<br><small style="color:#7be08f">ready</small>':'')+'</div>').join('')+'</div><div class="row">';
+ if(!P||!P.c||P.c=='(no job)'){h+='<div>Everyone starts as a Freelancer.</div><div class="row">'+[['Squire','🧭','Freelancer','Adaptable, respected, and free to become anything']].map(j=>'<button style="width:260px;height:76px" onclick="hud(\''+j[0]+'\')"><span style="font-size:26px">'+j[1]+'</span><br><b>'+j[2]+'</b> <small>'+j[3]+'</small></button>').join('')+'</div>'}
+ else{h+='<div class="row">'+(L?L.m:[]).map(m=>'<div class="mem"><b>'+(isMe(m.k)?'⭐ ':'')+esc(m.n)+'</b><small>'+esc(jobName(m.c))+(isMe(m.k)&&FL?' · level '+FL.lv:'')+'</small>'+(L.chk&&L.rdy.some(r=>r.indexOf(m.k)==0||m.k.indexOf(r)==0)?'<br><small style="color:#7be08f">ready</small>':'')+'</div>').join('')+'</div><div class="row">';
+  if(FL&&!busy)h+=flPanel();
+  if(TOWN.town&&!busy&&!L.chk)h+='<button onclick="openTown()">🏘 '+esc(TOWN.town)+'</button>';
   if(!inP)h+=busy?'<button disabled>A fight is in progress. You can join after it.</button>':'<button class="go" onclick="hud(\'Join\')">Join the party</button>';
   else if(busy)h+='<button disabled>The party is fighting...</button>';
   else if(!L.chk)h+='<button class="go" onclick="hud(\'Begin Battle\')">⚔ Begin Battle</button><button onclick="hud(\'Leave Party\')">Leave party</button>';
@@ -217,40 +286,113 @@ function lobbyView(){const inP=L&&L.m.some(x=>isMe(x.k)),busy=L&&L.busy;let h='<
  h+='<div class="note">'+esc(rfMsg||note)+'</div></div>';
  if(over)h+=overHtml();
  $('app').innerHTML=h}
+function flPanel(){const x=FL,xp=x.need?Math.round(x.xp*100/x.need):100,mp=x.mneed?Math.round(Math.min(x.mx,x.mneed)*100/x.mneed):100;
+ let h='<div class="flp"><div><b>Freelancer</b> · level '+x.lv+(x.need?'':' (max)')+'</div><div class="bar xp"><i style="width:'+xp+'%"></i><span>XP '+x.xp+(x.need?' / '+x.need:'')+'</span></div>'
+  +'<div>Freelancer rank '+x.rk+'</div><div class="bar mx"><i style="width:'+mp+'%"></i><span>'+(x.mneed?x.mx+' / '+x.mneed:'max')+(x.mx>x.mneed&&x.mneed?' (waiting for your next level)':'')+'</span></div>'
+  +'<div>Equip points '+x.used+' / '+x.max+'</div><div class="row">'
+  +x.ab.map(a=>'<button class="ab'+(a.eq?' on':'')+'" onclick="hud(\''+(a.eq?'un':'eq')+'|'+a.id+'\')">'+esc(a.n)+' <small>'+a.c+' pts '+(a.eq?'· equipped':'')+'</small></button>').join('')+'</div>'
+  +(x.jobs.length?'<div style="margin-top:6px">Job</div><div class="row"><button class="ab'+(x.job?'':' on')+'" onclick="hud(\'job|\')">Freelancer</button>'+x.jobs.map(j=>'<button class="ab'+(x.job==j.id?' on':'')+'" onclick="hud(\'job|'+j.id+'\')">'+esc(j.n)+' <small>rank '+j.rk+'</small></button>').join('')+'</div>'
+   +x.jobs.filter(j=>j.id==x.job).map(j=>'<div class="bar mx"><i style="width:'+(j.mneed?Math.round(Math.min(j.mx,j.mneed)*100/j.mneed):100)+'%"></i><span>'+esc(j.n)+' rank '+j.rk+': '+(j.mneed?j.mx+' / '+j.mneed:'max')+'</span></div>').join('')
+   +(x.acts.length?'<div style="font-size:12px;color:#cfd8ff">Known: '+x.acts.map(a=>esc(a.n)).join(', ')+'</div>':''):'')+'</div>';return h}
+
+// ---------- town (step F): Millhaven. The crystal's Town script answers every command with one F|T message; prices and names come from TOWN (town.json, no secrets) ----------
+const STN=['HP','MP','ATK','DEF','MAG','SPD','CRIT'],SLN=['Weapon','Head','Body','Feet','Accessory'];
+function tnParse(p){const hd=(p[11]||'').split('~').map(Number),ls=(p[12]||'').split('~').map(Number);
+ return{gold:+p[2]||0,pots:+p[3]||0,hp:+p[4],mp:+p[5],lv:+p[6]||1,inn:+p[7]||0,board:(p[8]||'').split(',').filter(x=>x),mine:(p[9]||'').split(',').filter(x=>x).map(x=>{const q=x.split(':');return{id:q[0],n:+q[1]||0}}),done:(p[10]||'').split(',').filter(x=>x),
+  hand:p[11]?{c:hd[0],bet:hd[1],ph:hd[2],pl:hd[3]}:null,last:p[12]?{c1:ls[0],c2:ls[1],d:ls[2]}:null,note:p[13]||'',maxbet:+p[14]||1}}
+function openTown(){town=1;ttab='inn';TN=null;hud('tn|open');draw()}
+function leaveTown(){town=0;draw()}
+function tn(c){hud('tn|'+c)}
+function tab(t){ttab=t;if(t=='gear')hud('hello');if(t=='ab')hud('ab|open');draw()}
+// Abyss test slice (run A): the crystal sends only the current room's line; nothing about rooms or pressures ahead lives in this public page
+// a pressure's chip: the crystal sends it only after the party has felt it (no names or effects of unfelt pressures live here)
+function abChip(){return AB&&AB.on&&AB.chip?'<span style="background:#3a2a55;color:#e8d8ff;padding:2px 8px;border-radius:8px;font-size:12px" title="'+esc(AB.chip)+'">🌀 '+esc(AB.chip.split(':')[0])+'</span>':''}
+function abPane(){const a=AB,busy=L&&L.busy;if(!a)return '<div class="sub2">...</div>';let h='<div class="col"><div class="sub2">Test build only: this way in is temporary.</div>';
+ if(a.on)h+='<div><b>Stratum '+a.s+'</b>'+(a.chip?' '+abChip():'')+'</div>';
+ if(a.note)h+='<div style="margin:6px 0">'+esc(a.note)+'</div>';
+ if(busy&&a.st!=3)return h+'<div class="sub2">The party is in a fight.</div></div>';
+ if(!a.on)h+='<button class="go" onclick="hud(\'ab|enter\')">Go down</button>';
+ else if(a.st==1)h+='<button class="go" onclick="hud(\'ab|fight\')">⚔ Face them</button><button onclick="hud(\'ab|leave\')">Leave</button>';
+ else if(a.st==2)h+='<button class="go" onclick="hud(\'ab|on\')">Go on</button><button onclick="hud(\'ab|leave\')">Leave</button>';
+ return h+'</div>'}
+function stTxt(st){const o=[];st.forEach((v,i)=>{if(+v)o.push((v>0?'+':'')+v+' '+STN[i])});return o.join(', ')||'no bonus'}
+function itInfo(s){const f=s.split('^');return{n:f[0],slot:+f[1],st:(f[5]||'').split('.').map(Number)}}
+function myGear(){const eq=(GQ[0]||'').split(';');while(eq.length<5)eq.push('');const bag=[GQ[1],GQ[2],GQ[3]].join(';').split(';').filter(x=>x);return{eq:eq.slice(0,5),bag}}
+function cardFace(c){return c==1?'A':c==11?'J':c==12?'Q':c==13?'K':c}
+function townView(){const t=TN,busy=L&&L.busy;
+ let h='<div id="town"><div class="hd"><h1>🏘 '+esc(TOWN.town)+'</h1>';
+ if(!t){return $('app').innerHTML=h+'<div class="sub2">Walking into town...</div><button onclick="leaveTown()">◀ Back</button></div>'}
+ h+='<button onclick="leaveTown()">◀ Back to the party</button><span class="purse">💰 '+t.gold+' gold</span></div>';
+ h+='<div class="tabs">'+[['inn','🛏 Inn'],['shop','🧪 Shop'],['gear','🛡 Outfitter'],['note','📌 Notices'],['cc','🃏 Crooked Crown'],['ab','🌀 Abyss (test)']].map(x=>'<button class="'+(ttab==x[0]?'on':'')+'" onclick="tab(\''+x[0]+'\')">'+x[1]+'</button>').join('')+'</div>';
+ if(busy)h+='<div class="sub2">The party is in a fight. The town waits.</div>';
+ h+='<div class="pane">'+(ttab=='inn'?innPane(t):ttab=='shop'?shopPane(t):ttab=='gear'?gearPane(t):ttab=='note'?notePane(t):ttab=='ab'?abPane():ccPane(t))+'</div>';
+ h+='<div class="note" style="margin-top:6px;color:#ffd75a;min-height:18px">'+esc(t.note)+'</div></div>';
+ $('app').innerHTML=h}
+function innPane(t){return '<div class="col"><div class="sub2">A warm bed, a hot meal and a quiet word. Sleeping restores everyone\'s HP and Mana and gets a fallen friend back on their feet.</div>'
+ +'<div>HP '+t.hp+'%</div><div class="bar hp"><i style="width:'+t.hp+'%"></i></div><div>Mana '+t.mp+'%</div><div class="bar mp"><i style="width:'+t.mp+'%"></i></div>'
+ +'<button class="go" '+((t.hp>=100&&t.mp>=100)||t.gold<t.inn?'disabled ':'')+'onclick="tn(\'inn\')">Rest '+(t.inn?'('+t.inn+' gold)':'(free)')+'</button>'
+ +'<div class="sub2" style="margin-top:8px">'+(t.inn?'Beds cost '+TOWN.inn.per_level+' gold a level.':'Beds are free for the first few levels.')+'</div></div>'}
+function shopPane(t){const P=TOWN.potion;
+ return '<div class="col"><div class="sub2">You carry '+t.pots+' / '+P.cap+' Potions.</div>'
+  +'<div class="it"><span style="font-size:26px">🧪</span><div class="tx"><b>Potion</b><small>Heals a friend in reach 1.</small></div>'
+  +'<button '+(t.gold<P.buy||t.pots>=P.cap?'disabled ':'')+'onclick="tn(\'pb\')">Buy '+P.buy+'</button>'
+  +'<button '+(t.pots<1?'disabled ':'')+'onclick="tn(\'ps\')">Sell '+P.sell+'</button></div></div>'}
+function gearPane(t){const G=myGear(),stock=TOWN.gear;
+ const worn=G.eq.map((x,i)=>{const it=x?itInfo(x):null;return '<div class="it"><div class="tx"><b>'+SLN[i]+'</b>: '+(it?esc(it.n):'<i>empty</i>')+'<small>'+(it?stTxt(it.st):'')+'</small></div></div>'}).join('');
+ const def=G.eq.reduce((a,x)=>a+(x?(itInfo(x).st[3]||0):0),0);
+ return '<div class="col"><div class="sub2">For sale</div>'+stock.map(g=>'<div class="it"><div class="tx"><b>'+esc(g.n)+'</b> <small style="display:inline">· '+SLN[g.slot]+'</small><small>'+stTxt(g.st)+' — '+esc(g.b)+'</small></div><button '+(t.gold<g.pr?'disabled ':'')+'onclick="tn(\'g|'+g.id+'\')">Buy '+g.pr+'</button></div>').join('')+'</div>'
+  +'<div class="col"><div class="sub2">You wear · Defense '+def+'</div>'+worn
+  +(G.bag.length?'<div class="sub2">In your bag</div>'+G.bag.slice(0,5).map((x,i)=>{const it=itInfo(x);return '<div class="it"><div class="tx"><b>'+esc(it.n)+'</b> <small style="display:inline">· '+SLN[it.slot]+'</small><small>'+stTxt(it.st)+'</small></div><button onclick="hud(\'gear|eq|'+i+'\')">Wear</button></div>'}).join(''):'')+'</div>'}
+function notePane(t){const N=TOWN.notices,by=id=>N.find(n=>n.id==id);
+ return '<div class="col"><div class="sub2">Today\'s notices (you can carry '+TOWN.hold+'). Each pays '+TOWN.noteGold+' gold a level and some experience.</div>'
+  +t.board.map(id=>{const n=by(id);if(!n)return '';const m=t.mine.find(x=>x.id==id),dn=t.done.includes(id),what='Defeat '+n.c+' '+(n.m||'monsters of any kind');
+   return '<div class="it"><div class="tx"><b>'+esc(n.t)+'</b><small>'+esc(what)+'</small>'+(m?'<div class="bar pg"><i style="width:'+Math.round(Math.min(m.n,n.c)*100/n.c)+'%"></i></div><small>'+Math.min(m.n,n.c)+' / '+n.c+'</small>':'')+'</div>'
+   +(m?(m.n>=n.c?'<button class="go" onclick="tn(\'nh|'+id+'\')">Hand in</button>':'')+'<button onclick="tn(\'nd|'+id+'\')">Drop</button>':dn?'<small>done / dropped today</small>':'<button '+(t.mine.length>=TOWN.hold?'disabled ':'')+'onclick="tn(\'nt|'+id+'\')">Take</button>')+'</div>'}).join('')+'</div>'}
+function ccPane(t){const h=t.hand,pc=Math.round(100-TOWN.payout);
+ let s='<div class="col"><div class="sub2">The Crooked Crown: High or Low. The dealer turns a card, you guess whether the next is higher or lower. A tie loses. The house keeps at least '+pc+'%. Bets are at most '+TOWN.betPct+'% of your purse.</div>';
+ if(!h)s+=(t.last?'<div>Last hand: <span class="card'+'">'+cardFace(t.last.c1)+'</span> then <span class="card">'+cardFace(t.last.c2)+'</span> '+(t.last.d>0?'(you won '+t.last.d+')':'(you lost '+(-t.last.d)+')')+'</div>':'')
+   +'<div style="margin:8px 0">Bet <input id="bet" type="number" min="'+TOWN.minBet+'" max="'+t.maxbet+'" value="'+Math.min(t.maxbet,Math.max(TOWN.minBet,5))+'"> gold (up to '+t.maxbet+')</div><button class="go" '+(t.gold<TOWN.minBet?'disabled ':'')+'onclick="tn(\'cd|\'+(+$(\'bet\').value||0))">Deal</button>';
+ else s+='<div><span class="card">'+cardFace(h.c)+'</span> <small>your stake: '+h.bet+'</small></div><div style="margin-top:6px"><button '+(h.ph?'':'disabled ')+'onclick="tn(\'cg|h\')">Higher'+(h.ph?' (pays '+h.ph+')':'')+'</button> <button '+(h.pl?'':'disabled ')+'onclick="tn(\'cg|l\')">Lower'+(h.pl?' (pays '+h.pl+')':'')+'</button></div>';
+ return s+'</div>'}
 function overHtml(){return '<div id="over"><div>'+(over.res==1?'Victory!':over.res==2?'Defeated':'The party escaped')+'</div><small>Back to the party screen in a moment</small></div>'}
+function pips(s){return '<div class="pips"><b>AP</b> '+'●'.repeat(Math.max(0,s.ap))+'<span>'+'○'.repeat(Math.max(0,6-s.ap))+'</span> &nbsp;<b>MP</b> '+'●'.repeat(Math.max(0,s.mp))+'<span>'+'○'.repeat(Math.max(0,2-s.mp))+'</span></div>'}   // Action Points (6) and Movement Points (2) left this turn
 function barH(cls,v,m){const p=Math.max(0,Math.min(100,m?Math.round(v*100/m):0));return '<div class="bar '+cls+'"><i style="width:'+p+'%"></i><span>'+v+'</span></div>'}
 function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
  const oldPos={};document.querySelectorAll('#field .f').forEach(e=>{oldPos[e.id]=[e.style.left,e.style.top]});
  const bw=w*56,bh=6*56,bx=Math.round((1024-bw)/2)-30,by=Math.round((366-bh)/2)+8;
  let rn=[],tg=[];
- let rg=[];const S=st(),fm=mt&&!(ui.m=='attack'||ui.m=='potion')&&(ui.m=='face'||S.ad>0);   // fm: choosing the way to face (Wait) - shown as soon as you've acted (owner feedback 2026-11-10: a tester thought moving was needed to end the turn); you can still move first
- if(mt){if(!S.fr&&(!ui.m||(ui.m=='face'&&S.ad)))rn=reachable();
+ let rg=[];const S=st(),fm=mt&&!(ui.m=='attack'||ui.m=='potion'||(ui.m||'').slice(0,2)=='j:')&&(ui.m=='face'||S.ad>0||S.mp<1);   // fm: choosing the way to face (Wait) - shown as soon as you've acted (owner feedback 2026-11-10: a tester thought moving was needed to end the turn); you can still move first
+ if(mt){if(S.mp>0&&(!ui.m||ui.m=='face'))rn=reachable();
   if(ui.m=='attack')for(let t=0;t<w*6;t++){if(hitOK(t))rg.push(t)}
   if(ui.m=='potion')B.c.forEach((e,i)=>{if(itemOK(i,POTION_REACH))rg.push(i==a?myTile():g.t[i])})
-  if(ui.m=='attack')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&hitOK(B.g.t[i]))}
- let h='<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
- for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng hit':'')+(mt&&S.fr&&TC.indexOf(S.fr)==t?' pend':'');h+='<div class="'+cls+'"'+(rn.includes(t)?' onclick="clickTile('+t+')"':ui.m=='attack'&&rg.includes(t)?' onclick="hitTile('+t+')"':ui.m=='potion'&&rg.includes(t)?' onclick="itemTile('+t+')"':'')+'></div>'}
+  if(ui.m=='attack')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&hitOK(B.g.t[i]))
+  const jx=(ui.m||'').slice(0,2)=='j:'?jAct(ui.m.slice(2)):null;if(jx){for(let t=0;t<w*6;t++)if(jOK(jx,t))rg.push(t);tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&rg.includes(B.g.t[i]))}}
+ let h=(AB&&AB.on&&AB.chip?'<div style="position:absolute;left:8px;top:4px;z-index:5">'+abChip()+'</div>':'')+'<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
+ for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng hit':'')+(mt&&S.fr&&TC.indexOf(S.fr)==t&&S.fr!=TC[myTile()]?' pend':'');h+='<div class="'+cls+'"'+(rn.includes(t)?' onclick="clickTile('+t+')"':ui.m=='attack'&&rg.includes(t)?' onclick="hitTile('+t+')"':ui.m=='potion'&&rg.includes(t)?' onclick="itemTile('+t+')"':(ui.m||'').slice(0,2)=='j:'&&rg.includes(t)?' onclick="jobTile('+t+')"':'')+'></div>'}
  h+='</div>';
  B.c.forEach((e,i)=>{const t=i==a&&a>=0?myTile():g.t[i];if(t==null||t<0)return;if(e.hp<=0&&e.t==1)return;
   const px=bx+(t%w)*56,py=by+Math.floor(t/w)*56,fc=faceOf(i);
   const cl='f '+(e.t?'mon':'hero')+(e.hp<=0?' dead':'')+(i==B.a?' act':'')+(i==a?' me':'')+(tg.includes(i)&&e.t==1?' tgt':'')+(fc=='e'||(e.t&&fc!='w')?' fl':'');
-  h+='<div class="'+cl+'" id="f'+i+'" style="left:'+px+'px;top:'+py+'px"'+(tg.includes(i)&&e.t==1?' onclick="clickEnemy('+i+')"':'')+'><div class="fc '+fc+'"></div><div class="ic">'+esc(e.ic)+'</div><div class="nm">'+esc(e.n)+'</div>'+(e.hp<e.mhp&&e.hp>0?'<div class="hp"><i style="width:'+Math.round(e.hp*100/e.mhp)+'%"></i></div>':'')+'</div>'});
+  h+='<div class="'+cl+'" id="f'+i+'" style="left:'+px+'px;top:'+py+'px"'+(tg.includes(i)&&e.t==1?' onclick="'+((ui.m||'').slice(0,2)=='j:'?'jobTile('+g.t[i]+')':'clickEnemy('+i+')')+'"':'')+'><div class="fc '+fc+'"></div><div class="ic">'+esc(e.ic)+'</div><div class="nm">'+esc(e.n)+'</div>'+(e.hp<e.mhp&&e.hp>0?'<div class="hp"><i style="width:'+Math.round(e.hp*100/e.mhp)+'%"></i></div>':'')+'</div>'});
  if(fm){const t=g.t[a],x0=bx+(t%w)*56,y0=by+Math.floor(t/w)*56;   // Wait: four arrows around your hero, tap one to face that way and end the turn
   [['n',0,-1,'▲'],['e',1,0,'▶'],['s',0,1,'▼'],['w',-1,0,'◀']].forEach(d=>{h+='<div class="fa" style="left:'+(x0+12+d[1]*40)+'px;top:'+(y0+12+d[2]*40)+'px" onclick="face(\''+d[0]+'\')" title="Face this way">'+d[3]+'</div>'})}
  // turn order (right margin, next 5)
  h+='<div id="order"><h4>TURN ORDER</h4>'+(B.ord.length?B.ord:[B.a]).slice(0,5).map((i,n)=>{const e=B.c[i];return e?'<div class="'+(n==0?'now ':'')+(e.t?'':'h')+'"><span>'+esc(e.ic)+'</span><span>'+esc(e.n)+'</span></div>':''}).join('')+'</div>';
  h+='<div id="log">'+(G.length?G.slice(-3).map(x=>'<div>'+esc(x)+'</div>').join(''):'<div>Fight!</div>')+'</div></div>';
  h+='<div id="timer"><i id="tmr"></i></div><div id="bar"><div id="cards">';
- B.c.forEach((e,i)=>{if(e.t!=0)return;const pk=mt&&ui.m=='potion'&&itemOK(i,POTION_REACH);const vt=i==B.a&&i!=a&&B.mo==1&&Date.now()-tat>15000;h+='<div class="card'+(i==B.a?' cur':'')+(i==a?' me':'')+(e.hp<=0?' down':'')+(pk?' pk':'')+'"'+(pk?' onclick="actPotion('+i+')"':'')+'><b>'+esc(e.ic)+' '+esc(e.n)+(e.f?' <small>'+esc(e.f)+'</small>':'')+'</b>'+barH('hp',e.hp,e.mhp)+barH('mp',e.mp,e.mmp)+(vt?'<button style="position:absolute;right:4px;top:3px;padding:1px 6px;font-size:11px" onclick="voteOut('+i+')">Vote to remove</button>':'')+'</div>'});
+ B.c.forEach((e,i)=>{if(e.t!=0)return;const pk=mt&&ui.m=='potion'&&itemOK(i,POTION_REACH);const vt=i==B.a&&i!=a&&B.mo==1&&Date.now()-tat>15000;const pp=i==B.a&&B.tok&&B.mo==1?(i==a&&mt?pips(st()):pips(B.tok)):'';h+='<div class="card'+(i==B.a?' cur':'')+(i==a?' me':'')+(e.hp<=0?' down':'')+(pk?' pk':'')+'"'+(pk?' onclick="actPotion('+i+')"':'')+'><b>'+esc(e.ic)+' '+esc(e.n)+(e.f?' <small'+(/Y\d/.test(e.f)?' title="Steadied: recently shaken free of a hold; further stuns and immobilization cannot take hold yet."':'')+'>'+esc(e.f)+'</small>':'')+'</b>'+barH('hp',e.hp,e.mhp)+barH('mp',e.mp,e.mmp)+pp+(vt?'<button style="position:absolute;right:4px;top:3px;padding:1px 6px;font-size:11px" onclick="voteOut('+i+')">Vote to remove</button>':'')+'</div>'});
  h+='</div><div id="cmd">';
  if(mt){const pots=(B.c[a].it[0]||0),moved=!!S.fr,acted=S.ad>0;
-  const potT=pots>0;   // you can always use one on yourself
+  const potT=pots>0&&S.ap>=AP_POT;   // you can always use one on yourself (when you have the AP)
   const done=(moved?'👣 moved':'')+(moved&&acted?'  ·  ':'')+(acted?'✔ acted':'');
-  if(fm){h+='<div class="row"><b>Wait:</b><button class="sm" onclick="face(\'n\')">▲ Up</button><button class="sm" onclick="face(\'e\')">▶ Right</button><button class="sm" onclick="face(\'s\')">▼ Down</button><button class="sm" onclick="face(\'w\')">◀ Left</button>'+(ui.m=='face'?'<button class="sm" onclick="back()">Back</button>':'')+'</div>'}
-  else if(ui.m=='attack'||ui.m=='potion')h+='<div class="row"><b>Action:</b><button onclick="back()">Back</button></div>';
-  else{h+='<div class="row">'+(acted?'':'<b>Action:</b><button onclick="pickAct(\'attack\')">⚔ Attack</button><button onclick="pickAct(\'defend\')">🛡 Defend</button><button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+'</button>')+'<button class="go" onclick="waitMode()">⏳ Wait</button></div>'}
-  if((moved&&!acted)||done)h+='<div class="row">'+(moved&&!acted?'<button onclick="undoMove()">↩ Undo move</button>':'')+'<span style="font-size:12px;color:#9fe0b0">'+done+'</span></div>';
-  h+='<div style="font-size:12px;color:#cfd8ff">'+(ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':fm?(S.ad&&!S.fr?'Pick the way your hero faces to end your turn, or tap a yellow tile to move first.':'Pick the way your hero faces. That ends your turn.'):!moved&&!acted?'Your turn: tap a yellow tile to move, choose an action, then Wait.':moved?'Choose an action, Undo move, or Wait.':'Tap a yellow tile to move, or Wait.')+'</div>'}
+  const jm=(ui.m||'').slice(0,2)=='j:',me=B.c[a];
+  if(ui.m=='attack'||ui.m=='potion'||jm)h+='<div class="row"><b>Action:</b><button onclick="back()">Back</button></div>';
+  if(jm&&(jAct(ui.m.slice(2))||{}).k=='r')h+='<div class="row"><b>Chain:</b>'+['U','D','L','R'].map(k=>'<button class="sm" onclick="vyKey(\''+k+'\')">'+VA[k]+'</button>').join('')+'<button class="sm" onclick="vyKey(\'x\')">⌫</button><span style="font-size:14px;color:#ffd27a;margin-left:6px">'+(VS?VS.split('').map(k=>VA[k]).join(''):'…')+'</span></div><div style="font-size:12px;color:#cfd8ff">'+VS.length+' input'+(VS.length==1?'':'s')+(VS.length>=3?', '+Math.min(VS.length,S.ap)+' AP':', at least 3')+' · up to '+vySlots()+' (+2 after Spirit). Every input is a hit.</div>';
+  else{h+='<div class="row"><b>Action:</b><button '+(S.ap<AP_ATK?'disabled ':'')+'onclick="pickAct(\'attack\')">⚔ Attack <small>'+AP_ATK+' AP</small></button><button '+(S.ap<AP_GRD||S.gd?'disabled ':'')+'title="You brace against the next blow." onclick="pickAct(\'defend\')">🛡 Guard <small>'+AP_GRD+' AP</small></button><button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+' <small>'+AP_POT+' AP</small></button><button class="go" onclick="waitMode()">⏳ Wait</button></div>';
+   if(FL&&FL.acts.length)h+='<div class="row"><b>'+esc((FL.jobs.find(j=>j.id==FL.job)||{n:''}).n)+':</b>'+FL.acts.map(x=>'<button '+(S.ap<x.ap||(x.mana&&me.mp<x.mana)||(x.mp&&S.mp<x.mp)?'disabled ':'')+'onclick="pickJob(\''+x.id+'\')">'+esc(x.n)+' <small>'+x.ap+' AP'+(x.mana?' · '+x.mana+' Mana':'')+(x.mp?' · '+x.mp+' MP':'')+'</small></button>').join('')+'</div>'}
+  if(fm&&ui.m!='attack'&&ui.m!='potion'&&ui.m=='face'){h+='<div class="row"><b>Wait:</b><button class="sm" onclick="face(\'n\')">▲ Up</button><button class="sm" onclick="face(\'e\')">▶ Right</button><button class="sm" onclick="face(\'s\')">▼ Down</button><button class="sm" onclick="face(\'w\')">◀ Left</button><button class="sm" onclick="back()">Back</button></div>'}
+  else if(moved||done)h+='<div class="row">'+(moved?'<button onclick="undoMove()">↩ Undo move</button>':'')+'<span style="font-size:12px;color:#9fe0b0">'+done+'</span></div>';
+  h+='<div style="font-size:12px;color:#cfd8ff">'+(jm?((jAct(ui.m.slice(2))||{}).k=='r'?(VS.length<3?'Enter at least 3 arrows, then tap a foe next to you.':'Tap a foe next to you to unleash the chain.'):'Tap a red tile for '+esc((jAct(ui.m.slice(2))||{n:''}).n)+'.'):ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':ui.m=='face'?'Pick the way your hero faces. That ends your turn.':fm?'Pick an arrow to face that way and end your turn, or keep acting while you have AP / MP.':S.mp>0?'Your turn: '+S.ap+' AP and '+S.mp+' MP. Tap a yellow tile to move, choose an action, or Wait.':'Your turn: '+S.ap+' AP. Choose an action, Undo move, or Wait.')+'</div>'}
  else{const who=B.c[B.a];h+='<div style="font-size:15px;margin-top:6px">'+(B.mo==5?'...':esc(who?who.n:'')+'\'s turn')+'</div>'}
  h+='</div><div id="msg">'+esc(rfMsg||(pend&&pend.pr&&ackSt!='trouble'?'':ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
  h+=afkBar();
