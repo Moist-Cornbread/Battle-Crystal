@@ -37,6 +37,7 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 #town .it{display:flex;align-items:center;gap:8px;padding:6px 8px;margin-bottom:5px;background:#1e2748;border:1px solid #3d4b86;border-radius:8px}
 #town .it .tx{flex:1;min-width:0}
 #town .it small{color:#9fb0e8;display:block}
+#town .it small.cmp{color:#cfd8ff;font-size:11px}
 #town .it button{padding:5px 10px}
 #town .bar{height:10px;background:#0b0f1d;border-radius:5px;margin:3px 0 7px;overflow:hidden}
 #town .bar i{display:block;height:100%}
@@ -103,13 +104,18 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 .bar i{display:block;height:100%;border-radius:4px}
 .bar.hp i{background:#5fd078}.bar.mp i{background:#5aa0ff}
 .bar span{position:absolute;right:3px;top:-2px;font-size:9px;color:#fff;text-shadow:0 1px 1px #000}
-#cmd{position:absolute;left:650px;top:8px;width:364px}
+#cmd{position:absolute;left:650px;top:8px;width:364px;max-height:128px;overflow-y:auto}
+#cmd.big{position:fixed;left:650px;top:126px;width:364px;max-height:378px;box-sizing:border-box;padding:8px;background:rgba(11,15,29,.96);border:1px solid #5a6aa8;border-radius:8px;z-index:20}
+#cmd .menu{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:5px}
+#cmd .menu button{text-align:left}
+#cmd .list button{display:block;width:100%;text-align:left;margin-bottom:2px}
+#cmd .list .ds{font-size:11px;color:#aebcf0;margin:0 0 6px 4px}
 .chip{display:inline-block;font-size:10px;line-height:13px;padding:0 4px;margin:0 2px 1px 0;border-radius:6px;background:#3a2a55;color:#e8d8ff;border:1px solid #6b55a0;cursor:help;white-space:nowrap}
 .mst{position:absolute;left:0;right:0;top:-12px;text-align:center;white-space:nowrap;z-index:4}.mst .chip{font-size:9px;line-height:11px;padding:0 2px;margin:0 1px}
 .cst{font-weight:normal}
 #tip{position:fixed;z-index:99;max-width:260px;padding:5px 8px;background:#0e1430;border:1px solid #8a7ad0;border-radius:6px;color:#e8ecff;font-size:12px;pointer-events:none;display:none}
-#cmd .row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
-#cmd button{min-width:84px}
+#cmd .row{display:flex;gap:4px;flex-wrap:wrap;margin-bottom:4px;align-items:center}
+#cmd button{min-width:0;padding:5px 9px;font-size:13px}
 #msg{position:absolute;left:650px;bottom:6px;width:364px;font-size:12px;color:#9fb0e8;min-height:16px}
 #over{position:absolute;inset:0;background:#000a;display:flex;flex-direction:column;align-items:center;justify-content:center;font-size:44px;gap:12px}
 #over small{font-size:15px;color:#cfd8ff}
@@ -122,10 +128,10 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 //  Talks to the Battle HUD script the same way the full screen does: GET s?v=.. for state, POST a for commands.
 // =====================================================================
 const TC='0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz';
-/*TOWN*/const TOWN={"town":"Millhaven","inn":{"free_through_level":4,"per_level":3},"potion":{"item":0,"buy":8,"sell":2,"cap":9},"payout":95,"cards":13,"betPct":10,"minBet":1,"hold":2,"noteGold":18,"gear":[{"id":"w1","n":"Mill Sword","slot":0,"st":[0,0,3,0,0,0,0],"pr":21,"b":"A plain farm blade. Any hero may use it."},{"id":"b1","n":"Farmer's Jerkin","slot":2,"st":[6,0,0,3,0,0,0],"pr":18,"b":"Padded cloth that turns a glancing blow."},{"id":"h1","n":"Straw Cap","slot":1,"st":[0,0,0,2,0,0,0],"pr":9,"b":"Better than nothing. Mostly sun."},{"id":"f1","n":"Field Boots","slot":3,"st":[0,0,0,1,0,1,0],"pr":7,"b":"Mud-proof, mostly."},{"id":"a1","n":"Hearty Bead","slot":4,"st":[12,0,0,0,0,0,0],"pr":40,"b":"A warm little bead on a string."}],"notices":[{"id":"n1","t":"Mole trouble","m":"Mole Patrol","c":3},{"id":"n2","t":"Pipsqueak pests","m":"Pipsqueak","c":3},{"id":"n3","t":"Field sweep","m":"","c":6},{"id":"n4","t":"Mole burrows","m":"Mole Patrol","c":5},{"id":"n5","t":"Pipsqueak nest","m":"Pipsqueak","c":5},{"id":"n6","t":"Clear the fields","m":"","c":10}],"board":3};/*END TOWN*/
+/*TOWN*/const TOWN={"town":"Millhaven","inn":{"free_through_level":4,"per_level":3},"potion":{"item":0,"buy":8,"sell":2,"cap":9},"payout":95,"cards":13,"betPct":10,"minBet":5,"hold":2,"noteGold":18,"gear":[{"id":"w1","n":"Mill Sword","slot":0,"st":[0,0,3,0,0,0,0],"pr":21,"b":"A plain farm blade. Any hero may use it."},{"id":"b1","n":"Farmer's Jerkin","slot":2,"st":[6,0,0,3,0,0,0],"pr":18,"b":"Padded cloth that turns a glancing blow."},{"id":"h1","n":"Straw Cap","slot":1,"st":[0,0,0,2,0,0,0],"pr":9,"b":"Better than nothing. Mostly sun."},{"id":"f1","n":"Field Boots","slot":3,"st":[0,0,0,1,0,1,0],"pr":7,"b":"Mud-proof, mostly."},{"id":"a1","n":"Hearty Bead","slot":4,"st":[12,0,0,0,0,0,0],"pr":40,"b":"A warm little bead on a string."}],"notices":[{"id":"n1","t":"Mole trouble","m":"Mole Patrol","c":3},{"id":"n2","t":"Pipsqueak pests","m":"Pipsqueak","c":3},{"id":"n3","t":"Field sweep","m":"","c":6},{"id":"n4","t":"Mole burrows","m":"Mole Patrol","c":5},{"id":"n5","t":"Pipsqueak nest","m":"Pipsqueak","c":5},{"id":"n6","t":"Clear the fields","m":"","c":10}],"board":3};/*END TOWN*/
 let TN=null,town=0,AB=null,ttab='inn',tshop='buy',GQ=['','','',''];
 let voteSeen=0,v=-1,sid=0,me='',L=null,P=null,B=null,G=[],ui={m:''},bp='',sent=0,pend=null,queued=null,ackSt='',rfMsg='',rfAt=0,seqAt=0,bsAt=0,tkey='',tat=0,over=null,live=0,note='',joined=0;
-const RF={n:'That turn is already over.',g:"That isn't possible right now.",p:'Not enough MP.',q:'Not enough AP for that.',v:"You can't do that from here. Pick a highlighted tile or a target in reach.",u:'Your screen is out of date. Take the HUD off and put it back on.',c:'That needs another turn to recover first.',m:'Not enough Mana.',s:'That chain is longer than you can manage right now.',k:'Not enough scrap for that.',w:'Nothing left to dig here right now (or your scrap is full). The wreckage turns up more every few turns.',x:"You need to be at your Sentry's controls for that (and step off it to dig).",y:'Your Sentry is still standing. Only one at a time.',r:'Out of reach. Pick a highlighted target.'};
+const RF={n:'That turn is already over.',g:"That isn't possible right now.",p:'Not enough MP.',q:'Not enough AP for that.',v:"You can't do that from here. Pick a highlighted tile or a target in reach.",u:'Your screen is out of date. Take the HUD off and put it back on.',c:'That needs another turn to recover first.',m:'Not enough Mana.',s:'That chain is longer than you can manage right now.',k:'Not enough scrap for that.',w:'Nothing left to dig here right now (or your scrap is full). The wreckage turns up more every few turns.',x:"You need to be at your Sentry's controls for that (and step off it to dig).",y:'Your Sentry is still standing. Only one at a time.',r:'Out of reach. Pick a highlighted target.',e:'Not enough runes for that yet.',a:'That friend is already warded.'};
 const $=id=>document.getElementById(id);
 const esc=s=>String(s==null?'':s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 function isMe(k){return !!k&&!!me&&me.indexOf(k)==0}
@@ -210,14 +216,14 @@ function faceOf(i){let f=B.g.f[i];if(i==myIdx())for(const p of preds())if(p.face
 // ---------- actions ----------
 // A turn is live steps, done the moment you choose them (owner, 2026-11-10, Final Fantasy Tactics style):
 // MOVE (tap a yellow tile; Undo move until you act), one ACTION (Attack / Defend / Potion), in either order, then WAIT: pick the way you face.
-const POTION_REACH=1,ATTACK_REACH=1,AP_ATK=3,AP_POT=2,AP_GRD=2;        // AP costs: PLACEHOLDERS, must match AP_ATK / AP_POT / AP_GRD in the crystal's Engine (weapons will carry their own AP later)
+const POTION_REACH=1,ATTACK_REACH=1,AP_ATK=3,AP_POT=2,AP_GRD=2,AP_FLEE=3;        // AP costs: PLACEHOLDERS, must match AP_ATK / AP_POT / AP_GRD in the crystal's Engine (weapons will carry their own AP later)
         // must match POTION_REACH / ATTACK_REACH in the crystal's Battlefield script (attack reach will later depend on the weapon or job)
 function st(){const s=Object.assign({sc:0,fr:'',ad:0,ap:6,mp:2,gd:0},B.tok);for(const p of preds()){if(p.fr!=null)s.fr=p.fr;if(p.ad!=null)s.ad=p.ad;if(p.apc)s.ap-=p.apc;if(p.mpc)s.mp-=p.mpc;if(p.gd)s.gd=1}return s}   // what the crystal said, plus your own steps still on their way
 function clickTile(t){const S=st();if(!myTurn()||S.mp<1||(ui.m&&ui.m!='face'))return;ui.m='';send('act|mv|'+TC[t],{tile:t,fr:S.fr||TC[myTile()],mpc:steps(myTile(),t,B.g.w),face:stepFace(myTile(),t)})}   // a run of moves: Undo goes back to where the run began
 function stepFace(a,b){const w=B.g.w,dx=b%w-a%w,dy=Math.floor(b/w)-Math.floor(a/w);if(!dx&&!dy)return null;return Math.abs(dx)>=Math.abs(dy)?(dx>0?'e':'w'):(dy>0?'s':'n')}
 function pickAct(k){const S=st(),c={attack:AP_ATK,potion:AP_POT,defend:AP_GRD}[k];if(!myTurn()||S.ap<c||(k=='defend'&&S.gd))return;
  if(k=='defend')return send('act|defend',{ad:2,apc:AP_GRD,gd:1,fr:''});
- ui.m=ui.m==k?'':k;draw()}
+ if((ui.m||'').slice(0,4)=='cat:')ui.cat=ui.m;else if(k!='potion')ui.cat='';ui.m=ui.m==k?'':k;draw()}
 // Attack is always available (owner, 2026-11-10): you attack a TILE in reach - an enemy on it, or empty ground. Not an ally's tile.
 function hitOK(t){const w=B.g.w,d=steps(myTile(),t,w),a=myIdx();   // straight lines only (owner, 2026-11-13)
  return d>=1&&d<=ATTACK_REACH&&!B.c.some((e,i)=>i!=a&&e.t==0&&standing(i)&&B.g.t[i]==t)}
@@ -234,6 +240,9 @@ function actPotion(i){if(!myTurn()||ui.m!='potion'||!itemOK(i,POTION_REACH))retu
 function jAct(id){return FL&&FL.acts.find(x=>x.id==id)}
 function jOK(x,t){const w=B.g.w,a=myIdx(),me=myTile(),on=B.c.findIndex((e,i)=>standing(i)&&(i==a?me:B.g.t[i])==t);
  if(x.k=='a'||x.k=='e')return on>=0&&B.c[on].t==1&&dist(me,t,w)<=(x.k=='a'?1:3);
+ if(x.k=='q')return on>=0&&B.c[on].t==0&&dist(me,t,w)<=1;   // First Aid (Freelancer, Q105): yourself or a friend in reach 1
+ if(x.k=='i')return on>=0&&B.c[on].t==1&&dist(me,t,w)<=4;   // Iskora spells and Conflux: a foe within 4
+ if(x.k=='u'||x.k=='v')return on>=0&&(x.k=='u'||B.c[on].t==0)&&dist(me,t,w)<=3;   // Iskora Mending Stream (anyone) / Elemental Aegis (a friend or yourself) within 3
  if(x.k=='l')return on<0&&steps(me,t,w)<=4&&B.c.some((e,i)=>i!=a&&e.t==0&&standing(i)&&dist(B.g.t[i],t,w)==1);
  if(x.k=='t')return on<0&&steps(me,t,w)>=1&&steps(me,t,w)<=2;   // a trap on a free tile close by
  if(x.k=='n'||x.k=='f'){if(on<0||B.c[on].t!=1)return false;if(x.k=='f')return steps(me,t,w)<=4;const dx=t%w-me%w,dy=Math.floor(t/w)-Math.floor(me/w);if(dx&&dy)return false;const k=Math.abs(dx+dy),sx=Math.sign(dx),sy=Math.sign(dy);if(k>3)return false;
@@ -247,6 +256,7 @@ function jOK(x,t){const w=B.g.w,a=myIdx(),me=myTile(),on=B.c.findIndex((e,i)=>st
   const lx=t%w+sx,ly=Math.floor(t/w)+sy;return lx>=0&&lx<w&&ly>=0&&ly<6&&!B.c.some((e,i)=>standing(i)&&(i==a?me:B.g.t[i])==ly*w+lx)}   // slip through a foe in a straight line
  return false}
 function pickJob(id){const x=jAct(id),S=st();if(!x||!myTurn()||S.ap<x.ap||(x.mp&&S.mp<x.mp))return;
+ if((ui.m||'').slice(0,4)=='cat:')ui.cat=ui.m;
  if(x.k=='s')return send('act|jb|'+id+'|-1',{ad:1,apc:x.ap,fr:''});
  VS='';ui.m=ui.m=='j:'+id?'':'j:'+id;draw()}
 // step G Veyran: the chain is typed here; it travels inside the tile number (inputs in base 5, U1 D2 L3 R4) as 'va<AP>'
@@ -261,7 +271,7 @@ function jobTile(t){const id=(ui.m||'').slice(2),x=jAct(id);if(!x||!myTurn()||!j
 function undoMove(){const s=st();if(!myTurn()||!s.fr)return;send('act|back',{tile:TC.indexOf(s.fr),fr:'',mpc:-Math.min(2-s.mp,steps(myTile(),TC.indexOf(s.fr),B.g.w))})}   // (the MP shown meanwhile is a guess; the crystal's number replaces it)
 function waitMode(){if(!myTurn())return;ui.m=ui.m=='face'?'':'face';draw()}
 function face(d){if(!myTurn())return;send('act|wait|'+d,{face:d,end:1})}
-function back(){if(ui.m){ui.m='';draw()}}
+function back(){if(ui.m){ui.m=(((ui.m||'').slice(0,2)=='j:'||ui.m=='potion')&&ui.cat)?ui.cat:'';draw()}}
 function cancel(){back()}
 // AFK (owner bug report 2026-11-10): after missing two turns the crystal skips you until it hears from you, so the screen offers "I'm back!"
 let backAt=0;
@@ -284,13 +294,33 @@ function music(name){if(name==muCur)return;muCur=name;
  const pr=a.play();if(pr&&pr.catch)pr.catch(()=>{});muFade(a,MUS_VOL,1200)}
 function muToggle(){muMuted=!muMuted;try{localStorage.setItem('bc_mute',muMuted?'1':'0')}catch(e){}if(muAu)muAu.muted=muMuted;const b=document.getElementById('mute');if(b)b.textContent=muMuted?'🔇':'🔊'}
 document.addEventListener('pointerdown',()=>{if(muAu&&muAu.paused&&!muAu.dead)muAu.play().catch(()=>{})},{capture:true});   // browsers start sound only after a click
-function muBtn(){if(!document.getElementById('mute')){const b=document.createElement('button');b.id='mute';b.dataset.tip='Music on / off. Music: Juhani Junkala (CC0), "Orchestral Adventure" by CodeManu (CC BY 3.0), "GrassLands" by DST (CC0).';b.textContent=muMuted?'🔇':'🔊';b.onclick=muToggle;b.style.cssText='position:fixed;right:6px;bottom:4px;z-index:50;padding:2px 7px;font-size:14px;opacity:.75';document.body.appendChild(b)}}
+function muBtn(){if(!document.getElementById('mute')){const b=document.createElement('button');b.id='mute';b.dataset.tip='Music on / off. Music: Juhani Junkala (CC0), "Orchestral Adventure" by CodeManu (CC BY 3.0), "GrassLands" by DST (CC0).';b.textContent=muMuted?'🔇':'🔊';b.onclick=muToggle;b.style.cssText='position:fixed;right:6px;top:334px;z-index:50;padding:2px 7px;font-size:14px;opacity:.75';document.body.appendChild(b)}}
 // ---------- status chips with hover text (owner, 2026-11-13: you couldn't tell what debuffs do) ----------
-const STX={G:['Guard','Bracing: the next blow does less damage.'],P:['Poison','Loses HP at the end of each of their turns.'],S:['Stun','Stunned: loses their next turn.'],A:['Attack up','Physical hits deal more damage.'],D:['Defense up','Takes less damage from physical hits.'],W:['Weak','Weakened: deals less damage.'],T:['Taunt','Draws enemy attacks toward them.'],R:['Regen','Heals a little at the end of each of their turns.'],E:['Enraged','Furious: hits much harder.'],M:['Magic up','Spells hit harder.'],H:['Haste','Faster: moves up in the turn order.'],B:['Barrier','A shield that soaks up damage before HP.'],N:['Magic down','Spells deal less damage.'],K:['Armor break','Armor cracked: takes more damage.'],L:['Slow','Slower: drops back in the turn order.'],F:['Burn','Loses HP at the end of each of their turns.'],Q:['Silence','Cannot cast spells.'],X:['Blind','Attacks often miss.'],Z:['Sleep','Asleep: skips turns until hit or it wears off.'],C:['Charging','Gathering power for a big move on their next turn.'],Y:['Steadied','Recently shaken free of a hold; further stuns and immobilization cannot take hold yet.']};
+const JTIP={fa:'First Aid: Heal yourself or a friend beside you for a little of their health and ease one bad status. Once per battle.',in:'Intercept: Until your next turn, a single blow aimed at a friend beside you hits you instead.',va:'Arts: Enter three or more arrows, then choose a foe beside you. Each arrow strikes once and costs 1 AP. Some patterns become more than their separate blows.',vsp:'Spirit: Spend your turn bracing against attacks and gathering focus. Your next Arts chain may hold two extra arrows.'};   // hover help for job actions (only shown once the job is yours)
+const STX={G:['Guard','Bracing: the next blow does less damage.'],P:['Poison','Loses HP at the end of each of their turns.'],S:['Stun','Stunned: loses their next turn.'],A:['Attack up','Physical hits deal more damage.'],D:['Defense up','Takes less damage from physical hits.'],W:['Weak','Deals less damage.'],T:['Taunt','Draws enemy attacks toward them.'],R:['Regen','Heals a little at the end of each of their turns.'],E:['Enraged','Furious: hits much harder.'],M:['Magic up','Spells hit harder.'],H:['Haste','Faster: moves up in the turn order.'],B:['Barrier','A shield that soaks up damage before HP.'],N:['Magic down','Spells deal less damage.'],K:['Armor break','Armor cracked: takes more damage.'],L:['Slow','Slower: drops back in the turn order.'],F:['Burn','Loses HP at the end of each of their turns.'],Q:['Silence','Cannot cast spells.'],X:['Blind','Attacks often miss.'],Z:['Sleep','Asleep: skips turns until hit or it wears off.'],C:['Charging','Gathering power for a big move on their next turn.'],Y:['Steadied','Recently shaken free of a hold; further stuns and immobilization cannot take hold yet.']};
 const STS={"G":"Grd","P":"Psn","S":"Stun","A":"Atk↑","D":"Def↑","W":"Weak","T":"Taunt","R":"Rgn","E":"Rage","M":"Mag↑","H":"Haste","B":"Bar","N":"Mag↓","K":"Arm↓","L":"Slow","F":"Burn","Q":"Sil","X":"Blind","Z":"Zzz","C":"Chg","Y":"Stdy"};   // short chip labels; the full name and effect are in the hover
-function chips(f){return (f.match(/[A-Z]\d*/g)||[]).map(c=>{const x=STX[c[0]]||[c[0],''],n=c.slice(1);return '<span class="chip" data-tip="'+esc(x[0]+(n?' ('+n+' turn'+(n=='1'?'':'s')+' left)':'')+': '+x[1])+'">'+esc(STS[c[0]]||x[0])+(n?n:'')+'</span>'}).join('')}
+const SFLV={"G": "Braced for the next blow.", "P": "Poison is wearing you down.", "S": "Unable to act while stunned.", "A": "Your strikes carry more force.", "D": "Better protected against incoming blows.", "W": "Your physical attacks have lost some force.", "T": "Attention is drawn toward this fighter.", "R": "Health is returning over time.", "E": "Fury drives this fighter's attacks.", "M": "Your magic strikes with greater force.", "H": "Moving and acting with greater speed.", "B": "A barrier absorbs some incoming harm.", "N": "Your magic has lost some force.", "K": "Protection has been torn away.", "L": "Movement and reactions feel sluggish.", "F": "Flames continue to bite.", "Q": "Unable to cast spells while silenced.", "X": "It is harder to land a clean hit.", "Z": "Asleep and unable to act.", "C": "Gathering force for an imminent action."};   // ChatGPT Q101 hover lines (flavour first; the exact rule from STX follows)
+function chips(f){return (f.match(/[A-Z]\d*/g)||[]).map(c=>{const x=STX[c[0]]||[c[0],''],n=c.slice(1);return '<span class="chip" data-tip="'+esc(x[0]+(n?' ('+n+' turn'+(n=='1'?'':'s')+' left)':'')+': '+(SFLV[c[0]]?SFLV[c[0]]+' ':'')+x[1])+'">'+esc(STS[c[0]]||x[0])+(n?n:'')+'</span>'}).join('')}
 document.addEventListener('mouseover',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');let d=document.getElementById('tip');if(!t){if(d)d.style.display='none';return}
  if(!d){d=document.createElement('div');d.id='tip';document.body.appendChild(d)}d.textContent=t.dataset.tip;d.style.display='block';const r=t.getBoundingClientRect();d.style.left=Math.max(4,Math.min(1024-264,r.left))+'px';d.style.top=(r.top>120?r.top-d.offsetHeight-4:r.bottom+4)+'px'});
+// Test menu (owner, 2026-11-13): Attack / Job Abilities / Unique Abilities / Shared Abilities / Items / Flee (+ Guard and Wait). Ids: unique = Veyran Arts and Spirit, shared = First Aid and Intercept, job = every other action.
+const CATN={job:'Job Abilities',uni:'Unique Abilities',sha:'Shared Abilities',item:'Items'},UNIQ=['va','vsp'],SHAR=['fa','in'];
+function catOf(x){return UNIQ.includes(x.id)?'uni':SHAR.includes(x.id)?'sha':'job'}
+function catActs(c){return (FL?FL.acts:[]).filter(x=>catOf(x)==c)}
+function openCat(c){if(!myTurn())return;ui.m='cat:'+c;draw()}
+function actFlee(){const S=st();if(!myTurn()||S.ap<AP_FLEE)return;send('act|jb|fl|-1',{ad:1,apc:AP_FLEE,fr:''})}
+function topMenu(S,me,pots,potT){const n=c=>catActs(c).length,cb=(c,l)=>'<button '+(n(c)?'':'disabled ')+'onclick="openCat(\''+c+'\')">'+l+' <small>'+(n(c)||'none')+'</small></button>';
+ return '<div class="menu"><button '+(S.ap<AP_ATK?'disabled ':'')+'onclick="pickAct(\'attack\')">⚔ Attack <small>'+AP_ATK+' AP</small></button>'
+  +cb('job','✦ Job Abilities')+cb('uni','✧ Unique Abilities')+cb('sha','◆ Shared Abilities')
+  +'<button '+(pots>0?'':'disabled ')+'onclick="openCat(\'item\')">🎒 Items</button>'
+  +'<button '+(S.ap<AP_FLEE?'disabled ':'')+'onclick="actFlee()">🏃 Flee <small>'+AP_FLEE+' AP</small></button>'
+  +'<button '+(S.ap<AP_GRD||S.gd?'disabled ':'')+'data-tip="You brace against the next blow." onclick="pickAct(\'defend\')">🛡 Guard <small>'+AP_GRD+' AP</small></button>'
+  +'<button class="go" onclick="waitMode()">⏳ Wait</button></div>'}
+function catMenu(c,S,me,pots,potT){let h='<div class="list">';
+ if(c=='item'){h+='<button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+' <small>'+AP_POT+' AP</small></button><div class="ds">Heals a friend (or you) in reach 1. More items will appear here.</div>';return h+'</div>'}
+ const l=catActs(c);if(!l.length)return h+'<div class="ds">Nothing here yet.</div></div>';
+ l.forEach(x=>{h+='<button '+(S.ap<x.ap||(x.mana&&me.mp<x.mana)||(x.mp&&S.mp<x.mp)?'disabled ':'')+'onclick="pickJob(\''+x.id+'\')">'+esc(x.n)+' <small>'+x.ap+' AP'+(x.mana?' · '+x.mana+' Mana':'')+(x.mp?' · '+x.mp+' MP':'')+'</small></button>'+(JTIP[x.id]?'<div class="ds">'+esc(JTIP[x.id])+'</div>':'')});
+ return h+'</div>'}
 function draw(){const app=$('app');muBtn();music(!me?null:inBattle()?'battle':(town&&P&&P.c)?(ttab=='ab'&&AB&&AB.on?'abyss':'town'):'party');
  if(!me){app.innerHTML='<div id="lobby"><h1>Battle Crystal</h1><div class="sub">Connecting to the crystal...</div></div>';return}
  if(inBattle()){battleView();return}
@@ -332,7 +362,7 @@ function tn(c){hud('tn|'+c)}
 function tab(t){ttab=t;if(t=='gear')hud('hello');if(t=='ab')hud('ab|open');draw()}
 // Abyss test slice (run A): the crystal sends only the current room's line; nothing about rooms or pressures ahead lives in this public page
 // a pressure's chip: the crystal sends it only after the party has felt it (no names or effects of unfelt pressures live here)
-function abChip(){return AB&&AB.on&&AB.chip?'<span style="background:#3a2a55;color:#e8d8ff;padding:2px 8px;border-radius:8px;font-size:12px" title="'+esc(AB.chip)+'">🌀 '+esc(AB.chip.split(':')[0])+'</span>':''}
+function abChip(){return AB&&AB.on&&AB.chip?'<span style="background:#3a2a55;color:#e8d8ff;padding:2px 8px;border-radius:8px;font-size:12px" data-tip="'+esc(AB.chip)+'">🌀 '+esc(AB.chip.split(':')[0])+'</span>':''}
 function abPane(){const a=AB,busy=L&&L.busy;if(!a)return '<div class="sub2">...</div>';let h='<div class="col"><div class="sub2">Test build only: this way in is temporary.</div>';
  if(a.on)h+='<div><b>Stratum '+a.s+'</b>'+(a.chip?' '+abChip():'')+'</div>';
  if(a.note)h+='<div style="margin:6px 0">'+esc(a.note)+'</div>';
@@ -342,6 +372,11 @@ function abPane(){const a=AB,busy=L&&L.busy;if(!a)return '<div class="sub2">...<
  else if(a.st==2)h+='<button class="go" onclick="hud(\'ab|on\')">Go on</button><button onclick="hud(\'ab|leave\')">Leave</button>';
  return h+'</div>'}
 function stTxt(st){const o=[];st.forEach((v,i)=>{if(+v)o.push((v>0?'+':'')+v+' '+STN[i])});return o.join(', ')||'no bonus'}
+// Outfitter (owner 2026-11-13): compare an item with what you wear in that slot - a coloured line plus hover text
+function cmpTx(st,slot){const G=myGear(),w=G.eq[slot]?itInfo(G.eq[slot]):null,ws=w?w.st:[];const o=[];const n=Math.max(st.length,ws.length);
+ for(let i=0;i<n;i++){const d=(+st[i]||0)-(+ws[i]||0);if(d)o.push('<span style="color:'+(d>0?'#7be08f':'#ff8a8a')+'">'+(d>0?'+':'')+d+' '+STN[i]+'</span>')}
+ return '<small class="cmp">'+(w?'vs your '+esc(w.n)+': ':'Slot empty: ')+(o.length?o.join(', '):'no change')+'</small>'}
+function cmpTip(st,slot){return cmpTx(st,slot).replace(/<[^>]+>/g,'')}
 function itInfo(s){const f=s.split('^');return{n:f[0],slot:+f[1],st:(f[5]||'').split('.').map(Number)}}
 function myGear(){const eq=(GQ[0]||'').split(';');while(eq.length<5)eq.push('');const bag=[GQ[1],GQ[2],GQ[3]].join(';').split(';').filter(x=>x);return{eq:eq.slice(0,5),bag}}
 function cardFace(c){return c==1?'A':c==11?'J':c==12?'Q':c==13?'K':c}
@@ -366,9 +401,9 @@ function shopPane(t){const P=TOWN.potion;
 function gearPane(t){const G=myGear(),stock=TOWN.gear;
  const worn=G.eq.map((x,i)=>{const it=x?itInfo(x):null;return '<div class="it"><div class="tx"><b>'+SLN[i]+'</b>: '+(it?esc(it.n):'<i>empty</i>')+'<small>'+(it?stTxt(it.st):'')+'</small></div></div>'}).join('');
  const def=G.eq.reduce((a,x)=>a+(x?(itInfo(x).st[3]||0):0),0);
- return '<div class="col"><div class="sub2">For sale</div>'+stock.map(g=>'<div class="it"><div class="tx"><b>'+esc(g.n)+'</b> <small style="display:inline">· '+SLN[g.slot]+'</small><small>'+stTxt(g.st)+' — '+esc(g.b)+'</small></div><button '+(t.gold<g.pr?'disabled ':'')+'onclick="tn(\'g|'+g.id+'\')">Buy '+g.pr+'</button></div>').join('')+'</div>'
+ return '<div class="col"><div class="sub2">For sale</div>'+stock.map(g=>'<div class="it" data-tip="'+esc(cmpTip(g.st,g.slot))+'"><div class="tx"><b>'+esc(g.n)+'</b> <small style="display:inline">· '+SLN[g.slot]+'</small><small>'+stTxt(g.st)+' — '+esc(g.b)+'</small>'+cmpTx(g.st,g.slot)+'</div><button '+(t.gold<g.pr?'disabled ':'')+'onclick="tn(\'g|'+g.id+'\')">Buy '+g.pr+'</button></div>').join('')+'</div>'
   +'<div class="col"><div class="sub2">You wear · Defense '+def+'</div>'+worn
-  +(G.bag.length?'<div class="sub2">In your bag</div>'+G.bag.slice(0,5).map((x,i)=>{const it=itInfo(x);return '<div class="it"><div class="tx"><b>'+esc(it.n)+'</b> <small style="display:inline">· '+SLN[it.slot]+'</small><small>'+stTxt(it.st)+'</small></div><button onclick="hud(\'gear|eq|'+i+'\')">Wear</button></div>'}).join(''):'')+'</div>'}
+  +(G.bag.length?'<div class="sub2">In your bag</div>'+G.bag.slice(0,5).map((x,i)=>{const it=itInfo(x);return '<div class="it" data-tip="'+esc(cmpTip(it.st,it.slot))+'"><div class="tx"><b>'+esc(it.n)+'</b> <small style="display:inline">· '+SLN[it.slot]+'</small><small>'+stTxt(it.st)+'</small>'+cmpTx(it.st,it.slot)+'</div><button onclick="hud(\'gear|eq|'+i+'\')">Wear</button></div>'}).join(''):'')+'</div>'}
 function notePane(t){const N=TOWN.notices,by=id=>N.find(n=>n.id==id);
  return '<div class="col"><div class="sub2">Today\'s notices (you can carry '+TOWN.hold+'). Each pays '+TOWN.noteGold+' gold a level and some experience.</div>'
   +t.board.map(id=>{const n=by(id);if(!n)return '';const m=t.mine.find(x=>x.id==id),dn=t.done.includes(id),what='Defeat '+n.c+' '+(n.m||'monsters of any kind');
@@ -378,7 +413,7 @@ function ccPane(t){const h=t.hand,pc=Math.round(100-TOWN.payout);
  let s='<div class="col"><div class="sub2">The Crooked Crown: High or Low. The dealer turns a card, you guess whether the next is higher or lower. A tie loses. The house keeps at least '+pc+'%. Bets are at most '+TOWN.betPct+'% of your purse.</div>';
  if(!h)s+=(t.last?'<div>Last hand: <span class="card'+'">'+cardFace(t.last.c1)+'</span> then <span class="card">'+cardFace(t.last.c2)+'</span> '+(t.last.d>0?'(you won '+t.last.d+')':'(you lost '+(-t.last.d)+')')+'</div>':'')
    +'<div style="margin:8px 0">Bet <input id="bet" type="number" min="'+TOWN.minBet+'" max="'+t.maxbet+'" value="'+Math.min(t.maxbet,Math.max(TOWN.minBet,5))+'"> gold (up to '+t.maxbet+')</div><button class="go" '+(t.gold<TOWN.minBet?'disabled ':'')+'onclick="tn(\'cd|\'+(+$(\'bet\').value||0))">Deal</button>';
- else s+='<div><span class="card">'+cardFace(h.c)+'</span> <small>your stake: '+h.bet+'</small></div><div style="margin-top:6px"><button '+(h.ph?'':'disabled ')+'onclick="tn(\'cg|h\')">Higher'+(h.ph?' (pays '+h.ph+')':'')+'</button> <button '+(h.pl?'':'disabled ')+'onclick="tn(\'cg|l\')">Lower'+(h.pl?' (pays '+h.pl+')':'')+'</button></div>';
+ else s+='<div><span class="card">'+cardFace(h.c)+'</span> <small>your stake: '+h.bet+'</small></div><div style="margin-top:6px"><button '+(h.ph?'':'disabled ')+'onclick="tn(\'cg|h\')">Higher'+(h.ph?' (win +'+(h.ph-h.bet)+')':'')+'</button> <button '+(h.pl?'':'disabled ')+'onclick="tn(\'cg|l\')">Lower'+(h.pl?' (win +'+(h.pl-h.bet)+')':'')+'</button></div><div class="sub2" style="margin-top:6px">&ldquo;A sits at the bottom, K at the top. Win and you keep your stake plus the winnings shown; lose and your stake stays with me.&rdquo; &mdash; Merrick</div>';
  return s+'</div>'}
 function overHtml(){return '<div id="over"><div>'+(over.res==1?'Victory!':over.res==2?'Defeated':'The party escaped')+'</div><small>Back to the party screen in a moment</small></div>'}
 function pips(s){return '<div class="pips"><b>AP</b> '+'●'.repeat(Math.max(0,s.ap))+'<span>'+'○'.repeat(Math.max(0,6-s.ap))+'</span> &nbsp;<b>MP</b> '+'●'.repeat(Math.max(0,s.mp))+'<span>'+'○'.repeat(Math.max(0,2-s.mp))+'</span></div>'}   // Action Points (6) and Movement Points (2) left this turn
@@ -393,7 +428,7 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
   if(ui.m=='potion')B.c.forEach((e,i)=>{if(itemOK(i,POTION_REACH))rg.push(i==a?myTile():g.t[i])})
   if(ui.m=='attack')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&hitOK(B.g.t[i]))
   const jx=(ui.m||'').slice(0,2)=='j:'?jAct(ui.m.slice(2)):null;if(jx){for(let t=0;t<w*6;t++)if(jOK(jx,t))rg.push(t);tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&rg.includes(B.g.t[i]))}}
- let h=(AB&&AB.on&&AB.st==3&&AB.chip?'<div style="position:absolute;left:8px;top:4px;z-index:5">'+abChip()+'</div>':'')+'<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
+ let h=(AB&&AB.on&&AB.st==3&&AB.chip?'<div style="position:absolute;left:224px;top:4px;z-index:6">'+abChip()+'</div>':'')+'<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
  for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng hit':'')+(mt&&S.fr&&TC.indexOf(S.fr)==t&&S.fr!=TC[myTile()]?' pend':'');h+='<div class="'+cls+'"'+(rn.includes(t)?' onclick="clickTile('+t+')"':ui.m=='attack'&&rg.includes(t)?' onclick="hitTile('+t+')"':ui.m=='potion'&&rg.includes(t)?' onclick="itemTile('+t+')"':(ui.m||'').slice(0,2)=='j:'&&rg.includes(t)?' onclick="jobTile('+t+')"':'')+'></div>'}
  h+='</div>';
  B.c.forEach((e,i)=>{const t=i==a&&a>=0?myTile():g.t[i];if(t==null||t<0)return;if(e.hp<=0&&e.t==1)return;
@@ -407,15 +442,15 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
  h+='<div id="log">'+(G.length?G.slice(-3).map(x=>'<div>'+esc(x)+'</div>').join(''):'<div>Fight!</div>')+'</div></div>';
  h+='<div id="timer"><i id="tmr"></i></div><div id="bar"><div id="cards">';
  B.c.forEach((e,i)=>{if(e.t!=0)return;const pk=mt&&ui.m=='potion'&&itemOK(i,POTION_REACH);const vt=i==B.a&&i!=a&&B.mo==1&&Date.now()-tat>15000;const pp=i==B.a&&B.tok&&B.mo==1?(i==a&&mt?pips(st()):pips(B.tok)):'';h+='<div class="card'+(i==B.a?' cur':'')+(i==a?' me':'')+(e.hp<=0?' down':'')+(pk?' pk':'')+'"'+(pk?' onclick="actPotion('+i+')"':'')+'><b>'+esc(e.ic)+' '+esc(e.n)+(e.f?' <span class="cst">'+chips(e.f)+'</span>':'')+'</b>'+barH('hp',e.hp,e.mhp)+barH('mp',e.mp,e.mmp)+pp+(vt?'<button style="position:absolute;right:4px;top:3px;padding:1px 6px;font-size:11px" onclick="voteOut('+i+')">Vote to remove</button>':'')+'</div>'});
- h+='</div><div id="cmd">';
+ h+='</div><div id="cmd"'+(mt&&((ui.m||'').slice(0,4)=='cat:'||ui.m=='j:va')?' class="big"':'')+'>';
  if(mt){const pots=(B.c[a].it[0]||0),moved=!!S.fr,acted=S.ad>0;
   const potT=pots>0&&S.ap>=AP_POT;   // you can always use one on yourself (when you have the AP)
   const done=(moved?'👣 moved':'')+(moved&&acted?'  ·  ':'')+(acted?'✔ acted':'');
-  const jm=(ui.m||'').slice(0,2)=='j:',me=B.c[a];
-  if(ui.m=='attack'||ui.m=='potion'||jm)h+='<div class="row"><b>Action:</b><button onclick="back()">Back</button></div>';
+  const jm=(ui.m||'').slice(0,2)=='j:',cm=(ui.m||'').slice(0,4)=='cat:',me=B.c[a];
+  if(ui.m=='attack'||ui.m=='potion'||jm||cm)h+='<div class="row"><b>'+(cm?CATN[ui.m.slice(4)]:'Action')+':</b><button onclick="back()">Back</button></div>';
   if(jm&&(jAct(ui.m.slice(2))||{}).k=='r')h+='<div class="row"><b>Chain:</b>'+['U','D','L','R'].map(k=>'<button class="sm" onclick="vyKey(\''+k+'\')">'+VA[k]+'</button>').join('')+'<button class="sm" onclick="vyKey(\'x\')">⌫</button><span style="font-size:14px;color:#ffd27a;margin-left:6px">'+(VS?VS.split('').map(k=>VA[k]).join(''):'…')+'</span></div><div style="font-size:12px;color:#cfd8ff">'+VS.length+' input'+(VS.length==1?'':'s')+(VS.length>=3?', '+Math.min(VS.length,S.ap)+' AP':', at least 3')+' · up to '+vySlots()+' (+2 after Spirit). Every input is a hit.</div>';
-  else{h+='<div class="row"><b>Action:</b><button '+(S.ap<AP_ATK?'disabled ':'')+'onclick="pickAct(\'attack\')">⚔ Attack <small>'+AP_ATK+' AP</small></button><button '+(S.ap<AP_GRD||S.gd?'disabled ':'')+'title="You brace against the next blow." onclick="pickAct(\'defend\')">🛡 Guard <small>'+AP_GRD+' AP</small></button><button '+(potT?'':'disabled ')+'onclick="pickAct(\'potion\')">💉 Potion ×'+pots+' <small>'+AP_POT+' AP</small></button><button class="go" onclick="waitMode()">⏳ Wait</button></div>';
-   if(FL&&FL.acts.length)h+='<div class="row"><b>'+esc((FL.jobs.find(j=>j.id==FL.job)||{n:''}).n)+':</b>'+FL.acts.map(x=>'<button '+(S.ap<x.ap||(x.mana&&me.mp<x.mana)||(x.mp&&S.mp<x.mp)?'disabled ':'')+'onclick="pickJob(\''+x.id+'\')">'+esc(x.n)+' <small>'+x.ap+' AP'+(x.mana?' · '+x.mana+' Mana':'')+(x.mp?' · '+x.mp+' MP':'')+'</small></button>').join('')+'</div>'}
+  else if(cm)h+=catMenu(ui.m.slice(4),S,me,pots,potT);
+  else if(!ui.m)h+=topMenu(S,me,pots,potT);
   if(fm&&ui.m!='attack'&&ui.m!='potion'&&ui.m=='face'){h+='<div class="row"><b>Wait:</b><button class="sm" onclick="face(\'n\')">▲ Up</button><button class="sm" onclick="face(\'e\')">▶ Right</button><button class="sm" onclick="face(\'s\')">▼ Down</button><button class="sm" onclick="face(\'w\')">◀ Left</button><button class="sm" onclick="back()">Back</button></div>'}
   else if(moved||done)h+='<div class="row">'+(moved?'<button onclick="undoMove()">↩ Undo move</button>':'')+'<span style="font-size:12px;color:#9fe0b0">'+done+'</span></div>';
   h+='<div style="font-size:12px;color:#cfd8ff">'+(jm?((jAct(ui.m.slice(2))||{}).k=='r'?(VS.length<3?'Enter at least 3 arrows, then tap a foe next to you.':'Tap a foe next to you to unleash the chain.'):'Tap a red tile for '+esc((jAct(ui.m.slice(2))||{n:''}).n)+'.'):ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':ui.m=='face'?'Pick the way your hero faces. That ends your turn.':S.mp>0?'Your turn: '+S.ap+' AP and '+S.mp+' MP. Tap a yellow tile to move, choose an action, or Wait.':'Your turn: '+S.ap+' AP. Choose an action, Undo move, or Wait.')+'</div>'}
