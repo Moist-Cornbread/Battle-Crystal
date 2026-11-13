@@ -32,7 +32,8 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 #town .tabs{display:flex;gap:6px;margin-bottom:8px}
 #town .tabs button.on{background:#6b5a1f;border-color:#ffd75a}
 #town .pane{display:flex;gap:14px;height:366px}
-#town .col{flex:1;overflow:hidden}
+#town .col{flex:1;overflow-y:auto;overflow-x:hidden;padding-right:6px}
+#town .col::-webkit-scrollbar{width:10px}#town .col::-webkit-scrollbar-track{background:#0e1430;border-radius:5px}#town .col::-webkit-scrollbar-thumb{background:#5a6aa8;border-radius:5px}
 #town .it{display:flex;align-items:center;gap:8px;padding:6px 8px;margin-bottom:5px;background:#1e2748;border:1px solid #3d4b86;border-radius:8px}
 #town .it .tx{flex:1;min-width:0}
 #town .it small{color:#9fb0e8;display:block}
@@ -103,6 +104,10 @@ button.on{background:#6b5a1f;border-color:#ffd75a}
 .bar.hp i{background:#5fd078}.bar.mp i{background:#5aa0ff}
 .bar span{position:absolute;right:3px;top:-2px;font-size:9px;color:#fff;text-shadow:0 1px 1px #000}
 #cmd{position:absolute;left:650px;top:8px;width:364px}
+.chip{display:inline-block;font-size:10px;line-height:13px;padding:0 4px;margin:0 2px 1px 0;border-radius:6px;background:#3a2a55;color:#e8d8ff;border:1px solid #6b55a0;cursor:help;white-space:nowrap}
+.mst{position:absolute;left:0;right:0;top:-12px;text-align:center;white-space:nowrap;z-index:4}.mst .chip{font-size:9px;line-height:11px;padding:0 2px;margin:0 1px}
+.cst{font-weight:normal}
+#tip{position:fixed;z-index:99;max-width:260px;padding:5px 8px;background:#0e1430;border:1px solid #8a7ad0;border-radius:6px;color:#e8ecff;font-size:12px;pointer-events:none;display:none}
 #cmd .row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:6px}
 #cmd button{min-width:84px}
 #msg{position:absolute;left:650px;bottom:6px;width:364px;font-size:12px;color:#9fb0e8;min-height:16px}
@@ -214,7 +219,8 @@ function pickAct(k){const S=st(),c={attack:AP_ATK,potion:AP_POT,defend:AP_GRD}[k
  if(k=='defend')return send('act|defend',{ad:2,apc:AP_GRD,gd:1,fr:''});
  ui.m=ui.m==k?'':k;draw()}
 // Attack is always available (owner, 2026-11-10): you attack a TILE in reach - an enemy on it, or empty ground. Not an ally's tile.
-function hitOK(t){const w=B.g.w,d=dist(myTile(),t,w),a=myIdx();return d>=1&&d<=ATTACK_REACH&&!B.c.some((e,i)=>i!=a&&e.t==0&&standing(i)&&B.g.t[i]==t)}
+function hitOK(t){const w=B.g.w,d=steps(myTile(),t,w),a=myIdx();   // straight lines only (owner, 2026-11-13)
+ return d>=1&&d<=ATTACK_REACH&&!B.c.some((e,i)=>i!=a&&e.t==0&&standing(i)&&B.g.t[i]==t)}
 function hitTile(t){if(!myTurn()||ui.m!='attack'||!hitOK(t))return;send('act|at|'+TC[t],{ad:1,apc:AP_ATK,fr:'',face:stepFace(myTile(),t)})}
 function clickEnemy(i){if(!myTurn()||ui.m!='attack')return;
  if(hitOK(B.g.t[i]))return hitTile(B.g.t[i]);
@@ -265,7 +271,27 @@ function afkBar(){return amAfk()?'<div id="afk">💤 You were marked AFK, so the
 function voteOut(i){const m=L&&L.m.find(x=>x.k.indexOf(B.c[i].k)==0);if(!m)return;hud('vote|'+m.k);rfMsg='Vote sent. The party removes them when most players agree.';rfAt=Date.now();draw()}
 document.addEventListener('keydown',e=>{if(e.key=='Escape')cancel()});
 // ---------- drawing ----------
-function draw(){const app=$('app');
+// ---------- music (owner, 2026-11-13: the test felt strange with no music) ----------
+// Tracks already hosted on the project site (CC0 Juhani Junkala chiptunes; party screen: CodeManu CC BY 3.0, credited in data.py). Party screen, town, Abyss tab, battle.
+const MUS={party:['map-orchestral-adventure.ogg'],battle:['battle-bossfight.ogg','battle-stageselect.ogg'],town:['town-stage1.ogg','town-stage2.ogg'],abyss:['dungeon-grasslands.ogg']},MUS_URL='https://moist-cornbread.github.io/Battle-Crystal/music/',MUS_VOL=.4;
+let muCur=null,muAu=null,muMuted=false;try{muMuted=localStorage.getItem('bc_mute')=='1'}catch(e){}
+function muFade(a,to,ms,done){const t0=performance.now(),f=a.volume;const st=()=>{const k=Math.min(1,(performance.now()-t0)/ms);try{a.volume=Math.max(0,Math.min(1,f+(to-f)*k))}catch(e){}if(k<1)requestAnimationFrame(st);else if(done)done()};st()}
+function music(name){if(name==muCur)return;muCur=name;
+ if(muAu){const o=muAu;o.dead=1;muAu=null;muFade(o,0,600,()=>o.pause())}
+ if(!name||!MUS[name])return;
+ const l=MUS[name],u=MUS_URL+l[Math.floor(Math.random()*l.length)],a=new Audio(u);a.loop=true;a.volume=0;a.muted=muMuted;muAu=a;
+ a.addEventListener('error',()=>{if(muAu===a)muAu=null});
+ const pr=a.play();if(pr&&pr.catch)pr.catch(()=>{});muFade(a,MUS_VOL,1200)}
+function muToggle(){muMuted=!muMuted;try{localStorage.setItem('bc_mute',muMuted?'1':'0')}catch(e){}if(muAu)muAu.muted=muMuted;const b=document.getElementById('mute');if(b)b.textContent=muMuted?'🔇':'🔊'}
+document.addEventListener('pointerdown',()=>{if(muAu&&muAu.paused&&!muAu.dead)muAu.play().catch(()=>{})},{capture:true});   // browsers start sound only after a click
+function muBtn(){if(!document.getElementById('mute')){const b=document.createElement('button');b.id='mute';b.dataset.tip='Music on / off. Music: Juhani Junkala (CC0), "Orchestral Adventure" by CodeManu (CC BY 3.0), "GrassLands" by DST (CC0).';b.textContent=muMuted?'🔇':'🔊';b.onclick=muToggle;b.style.cssText='position:fixed;right:6px;bottom:4px;z-index:50;padding:2px 7px;font-size:14px;opacity:.75';document.body.appendChild(b)}}
+// ---------- status chips with hover text (owner, 2026-11-13: you couldn't tell what debuffs do) ----------
+const STX={G:['Guard','Bracing: the next blow does less damage.'],P:['Poison','Loses HP at the end of each of their turns.'],S:['Stun','Stunned: loses their next turn.'],A:['Attack up','Physical hits deal more damage.'],D:['Defense up','Takes less damage from physical hits.'],W:['Weak','Weakened: deals less damage.'],T:['Taunt','Draws enemy attacks toward them.'],R:['Regen','Heals a little at the end of each of their turns.'],E:['Enraged','Furious: hits much harder.'],M:['Magic up','Spells hit harder.'],H:['Haste','Faster: moves up in the turn order.'],B:['Barrier','A shield that soaks up damage before HP.'],N:['Magic down','Spells deal less damage.'],K:['Armor break','Armor cracked: takes more damage.'],L:['Slow','Slower: drops back in the turn order.'],F:['Burn','Loses HP at the end of each of their turns.'],Q:['Silence','Cannot cast spells.'],X:['Blind','Attacks often miss.'],Z:['Sleep','Asleep: skips turns until hit or it wears off.'],C:['Charging','Gathering power for a big move on their next turn.'],Y:['Steadied','Recently shaken free of a hold; further stuns and immobilization cannot take hold yet.']};
+const STS={"G":"Grd","P":"Psn","S":"Stun","A":"Atk↑","D":"Def↑","W":"Weak","T":"Taunt","R":"Rgn","E":"Rage","M":"Mag↑","H":"Haste","B":"Bar","N":"Mag↓","K":"Arm↓","L":"Slow","F":"Burn","Q":"Sil","X":"Blind","Z":"Zzz","C":"Chg","Y":"Stdy"};   // short chip labels; the full name and effect are in the hover
+function chips(f){return (f.match(/[A-Z]\d*/g)||[]).map(c=>{const x=STX[c[0]]||[c[0],''],n=c.slice(1);return '<span class="chip" data-tip="'+esc(x[0]+(n?' ('+n+' turn'+(n=='1'?'':'s')+' left)':'')+': '+x[1])+'">'+esc(STS[c[0]]||x[0])+(n?n:'')+'</span>'}).join('')}
+document.addEventListener('mouseover',e=>{const t=e.target.closest&&e.target.closest('[data-tip]');let d=document.getElementById('tip');if(!t){if(d)d.style.display='none';return}
+ if(!d){d=document.createElement('div');d.id='tip';document.body.appendChild(d)}d.textContent=t.dataset.tip;d.style.display='block';const r=t.getBoundingClientRect();d.style.left=Math.max(4,Math.min(1024-264,r.left))+'px';d.style.top=(r.top>120?r.top-d.offsetHeight-4:r.bottom+4)+'px'});
+function draw(){const app=$('app');muBtn();music(!me?null:inBattle()?'battle':(town&&P&&P.c)?(ttab=='ab'&&AB&&AB.on?'abyss':'town'):'party');
  if(!me){app.innerHTML='<div id="lobby"><h1>Battle Crystal</h1><div class="sub">Connecting to the crystal...</div></div>';return}
  if(inBattle()){battleView();return}
  if(town&&P&&P.c){townView();return}
@@ -327,7 +353,7 @@ function townView(){const t=TN,busy=L&&L.busy;
  if(busy)h+='<div class="sub2">The party is in a fight. The town waits.</div>';
  h+='<div class="pane">'+(ttab=='inn'?innPane(t):ttab=='shop'?shopPane(t):ttab=='gear'?gearPane(t):ttab=='note'?notePane(t):ttab=='ab'?abPane():ccPane(t))+'</div>';
  h+='<div class="note" style="margin-top:6px;color:#ffd75a;min-height:18px">'+esc(t.note)+'</div></div>';
- $('app').innerHTML=h}
+ const sc=[...document.querySelectorAll('#town .col')].map(e=>e.scrollTop);$('app').innerHTML=h;document.querySelectorAll('#town .col').forEach((e,i)=>{if(sc[i])e.scrollTop=sc[i]})}
 function innPane(t){return '<div class="col"><div class="sub2">A warm bed, a hot meal and a quiet word. Sleeping restores everyone\'s HP and Mana and gets a fallen friend back on their feet.</div>'
  +'<div>HP '+t.hp+'%</div><div class="bar hp"><i style="width:'+t.hp+'%"></i></div><div>Mana '+t.mp+'%</div><div class="bar mp"><i style="width:'+t.mp+'%"></i></div>'
  +'<button class="go" '+((t.hp>=100&&t.mp>=100)||t.gold<t.inn?'disabled ':'')+'onclick="tn(\'inn\')">Rest '+(t.inn?'('+t.inn+' gold)':'(free)')+'</button>'
@@ -361,26 +387,26 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
  const oldPos={};document.querySelectorAll('#field .f').forEach(e=>{oldPos[e.id]=[e.style.left,e.style.top]});
  const bw=w*56,bh=6*56,bx=Math.round((1024-bw)/2)-30,by=Math.round((366-bh)/2)+8;
  let rn=[],tg=[];
- let rg=[];const S=st(),fm=mt&&!(ui.m=='attack'||ui.m=='potion'||(ui.m||'').slice(0,2)=='j:')&&(ui.m=='face'||S.ad>0||S.mp<1);   // fm: choosing the way to face (Wait) - shown as soon as you've acted (owner feedback 2026-11-10: a tester thought moving was needed to end the turn); you can still move first
+ let rg=[];const S=st(),fm=mt&&!(ui.m=='attack'||ui.m=='potion'||(ui.m||'').slice(0,2)=='j:')&&ui.m=='face';   // fm: choosing the way to face - only after the Wait command is pressed (owner, 2026-11-13: the arrows showing early caused misclicks; supersedes the 2026-11-10 'show once you've acted')
  if(mt){if(S.mp>0&&(!ui.m||ui.m=='face'))rn=reachable();
   if(ui.m=='attack')for(let t=0;t<w*6;t++){if(hitOK(t))rg.push(t)}
   if(ui.m=='potion')B.c.forEach((e,i)=>{if(itemOK(i,POTION_REACH))rg.push(i==a?myTile():g.t[i])})
   if(ui.m=='attack')tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&hitOK(B.g.t[i]))
   const jx=(ui.m||'').slice(0,2)=='j:'?jAct(ui.m.slice(2)):null;if(jx){for(let t=0;t<w*6;t++)if(jOK(jx,t))rg.push(t);tg=B.c.map((e,i)=>i).filter(i=>B.c[i].t==1&&standing(i)&&rg.includes(B.g.t[i]))}}
- let h=(AB&&AB.on&&AB.chip?'<div style="position:absolute;left:8px;top:4px;z-index:5">'+abChip()+'</div>':'')+'<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
+ let h=(AB&&AB.on&&AB.st==3&&AB.chip?'<div style="position:absolute;left:8px;top:4px;z-index:5">'+abChip()+'</div>':'')+'<div id="field"><div id="board" style="left:'+bx+'px;top:'+by+'px;grid-template-columns:repeat('+w+',54px)">';
  for(let t=0;t<w*6;t++){const x=t%w;const cls='t'+((x<3||x>=w-3)?' half':'')+(rn.includes(t)?' rn':'')+(rg.includes(t)?' rng hit':'')+(mt&&S.fr&&TC.indexOf(S.fr)==t&&S.fr!=TC[myTile()]?' pend':'');h+='<div class="'+cls+'"'+(rn.includes(t)?' onclick="clickTile('+t+')"':ui.m=='attack'&&rg.includes(t)?' onclick="hitTile('+t+')"':ui.m=='potion'&&rg.includes(t)?' onclick="itemTile('+t+')"':(ui.m||'').slice(0,2)=='j:'&&rg.includes(t)?' onclick="jobTile('+t+')"':'')+'></div>'}
  h+='</div>';
  B.c.forEach((e,i)=>{const t=i==a&&a>=0?myTile():g.t[i];if(t==null||t<0)return;if(e.hp<=0&&e.t==1)return;
   const px=bx+(t%w)*56,py=by+Math.floor(t/w)*56,fc=faceOf(i);
   const cl='f '+(e.t?'mon':'hero')+(e.hp<=0?' dead':'')+(i==B.a?' act':'')+(i==a?' me':'')+(tg.includes(i)&&e.t==1?' tgt':'')+(fc=='e'||(e.t&&fc!='w')?' fl':'');
-  h+='<div class="'+cl+'" id="f'+i+'" style="left:'+px+'px;top:'+py+'px"'+(tg.includes(i)&&e.t==1?' onclick="'+((ui.m||'').slice(0,2)=='j:'?'jobTile('+g.t[i]+')':'clickEnemy('+i+')')+'"':'')+'><div class="fc '+fc+'"></div><div class="ic">'+esc(e.ic)+'</div><div class="nm">'+esc(e.n)+'</div>'+(e.hp<e.mhp&&e.hp>0?'<div class="hp"><i style="width:'+Math.round(e.hp*100/e.mhp)+'%"></i></div>':'')+'</div>'});
+  h+='<div class="'+cl+'" id="f'+i+'" style="left:'+px+'px;top:'+py+'px"'+(tg.includes(i)&&e.t==1?' onclick="'+((ui.m||'').slice(0,2)=='j:'?'jobTile('+g.t[i]+')':'clickEnemy('+i+')')+'"':'')+'><div class="fc '+fc+'"></div><div class="ic">'+esc(e.ic)+'</div><div class="nm">'+esc(e.n)+'</div>'+(e.t&&e.f&&e.hp>0?'<div class="mst">'+chips(e.f)+'</div>':'')+(e.hp<e.mhp&&e.hp>0?'<div class="hp"><i style="width:'+Math.round(e.hp*100/e.mhp)+'%"></i></div>':'')+'</div>'});
  if(fm){const t=g.t[a],x0=bx+(t%w)*56,y0=by+Math.floor(t/w)*56;   // Wait: four arrows around your hero, tap one to face that way and end the turn
   [['n',0,-1,'▲'],['e',1,0,'▶'],['s',0,1,'▼'],['w',-1,0,'◀']].forEach(d=>{h+='<div class="fa" style="left:'+(x0+12+d[1]*40)+'px;top:'+(y0+12+d[2]*40)+'px" onclick="face(\''+d[0]+'\')" title="Face this way">'+d[3]+'</div>'})}
  // turn order (right margin, next 5)
  h+='<div id="order"><h4>TURN ORDER</h4>'+(B.ord.length?B.ord:[B.a]).slice(0,5).map((i,n)=>{const e=B.c[i];return e?'<div class="'+(n==0?'now ':'')+(e.t?'':'h')+'"><span>'+esc(e.ic)+'</span><span>'+esc(e.n)+'</span></div>':''}).join('')+'</div>';
  h+='<div id="log">'+(G.length?G.slice(-3).map(x=>'<div>'+esc(x)+'</div>').join(''):'<div>Fight!</div>')+'</div></div>';
  h+='<div id="timer"><i id="tmr"></i></div><div id="bar"><div id="cards">';
- B.c.forEach((e,i)=>{if(e.t!=0)return;const pk=mt&&ui.m=='potion'&&itemOK(i,POTION_REACH);const vt=i==B.a&&i!=a&&B.mo==1&&Date.now()-tat>15000;const pp=i==B.a&&B.tok&&B.mo==1?(i==a&&mt?pips(st()):pips(B.tok)):'';h+='<div class="card'+(i==B.a?' cur':'')+(i==a?' me':'')+(e.hp<=0?' down':'')+(pk?' pk':'')+'"'+(pk?' onclick="actPotion('+i+')"':'')+'><b>'+esc(e.ic)+' '+esc(e.n)+(e.f?' <small'+(/Y\d/.test(e.f)?' title="Steadied: recently shaken free of a hold; further stuns and immobilization cannot take hold yet."':'')+'>'+esc(e.f)+'</small>':'')+'</b>'+barH('hp',e.hp,e.mhp)+barH('mp',e.mp,e.mmp)+pp+(vt?'<button style="position:absolute;right:4px;top:3px;padding:1px 6px;font-size:11px" onclick="voteOut('+i+')">Vote to remove</button>':'')+'</div>'});
+ B.c.forEach((e,i)=>{if(e.t!=0)return;const pk=mt&&ui.m=='potion'&&itemOK(i,POTION_REACH);const vt=i==B.a&&i!=a&&B.mo==1&&Date.now()-tat>15000;const pp=i==B.a&&B.tok&&B.mo==1?(i==a&&mt?pips(st()):pips(B.tok)):'';h+='<div class="card'+(i==B.a?' cur':'')+(i==a?' me':'')+(e.hp<=0?' down':'')+(pk?' pk':'')+'"'+(pk?' onclick="actPotion('+i+')"':'')+'><b>'+esc(e.ic)+' '+esc(e.n)+(e.f?' <span class="cst">'+chips(e.f)+'</span>':'')+'</b>'+barH('hp',e.hp,e.mhp)+barH('mp',e.mp,e.mmp)+pp+(vt?'<button style="position:absolute;right:4px;top:3px;padding:1px 6px;font-size:11px" onclick="voteOut('+i+')">Vote to remove</button>':'')+'</div>'});
  h+='</div><div id="cmd">';
  if(mt){const pots=(B.c[a].it[0]||0),moved=!!S.fr,acted=S.ad>0;
   const potT=pots>0&&S.ap>=AP_POT;   // you can always use one on yourself (when you have the AP)
@@ -392,7 +418,7 @@ function battleView(){const g=B.g,w=g.w,a=myIdx(),mt=myTurn(),cur=B.c[B.a];
    if(FL&&FL.acts.length)h+='<div class="row"><b>'+esc((FL.jobs.find(j=>j.id==FL.job)||{n:''}).n)+':</b>'+FL.acts.map(x=>'<button '+(S.ap<x.ap||(x.mana&&me.mp<x.mana)||(x.mp&&S.mp<x.mp)?'disabled ':'')+'onclick="pickJob(\''+x.id+'\')">'+esc(x.n)+' <small>'+x.ap+' AP'+(x.mana?' · '+x.mana+' Mana':'')+(x.mp?' · '+x.mp+' MP':'')+'</small></button>').join('')+'</div>'}
   if(fm&&ui.m!='attack'&&ui.m!='potion'&&ui.m=='face'){h+='<div class="row"><b>Wait:</b><button class="sm" onclick="face(\'n\')">▲ Up</button><button class="sm" onclick="face(\'e\')">▶ Right</button><button class="sm" onclick="face(\'s\')">▼ Down</button><button class="sm" onclick="face(\'w\')">◀ Left</button><button class="sm" onclick="back()">Back</button></div>'}
   else if(moved||done)h+='<div class="row">'+(moved?'<button onclick="undoMove()">↩ Undo move</button>':'')+'<span style="font-size:12px;color:#9fe0b0">'+done+'</span></div>';
-  h+='<div style="font-size:12px;color:#cfd8ff">'+(jm?((jAct(ui.m.slice(2))||{}).k=='r'?(VS.length<3?'Enter at least 3 arrows, then tap a foe next to you.':'Tap a foe next to you to unleash the chain.'):'Tap a red tile for '+esc((jAct(ui.m.slice(2))||{n:''}).n)+'.'):ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':ui.m=='face'?'Pick the way your hero faces. That ends your turn.':fm?'Pick an arrow to face that way and end your turn, or keep acting while you have AP / MP.':S.mp>0?'Your turn: '+S.ap+' AP and '+S.mp+' MP. Tap a yellow tile to move, choose an action, or Wait.':'Your turn: '+S.ap+' AP. Choose an action, Undo move, or Wait.')+'</div>'}
+  h+='<div style="font-size:12px;color:#cfd8ff">'+(jm?((jAct(ui.m.slice(2))||{}).k=='r'?(VS.length<3?'Enter at least 3 arrows, then tap a foe next to you.':'Tap a foe next to you to unleash the chain.'):'Tap a red tile for '+esc((jAct(ui.m.slice(2))||{n:''}).n)+'.'):ui.m=='attack'?'Tap a red tile to attack it: an enemy, or empty ground.':ui.m=='potion'?'Tap a friend on a red tile, or their card. You can use it on yourself.':ui.m=='face'?'Pick the way your hero faces. That ends your turn.':S.mp>0?'Your turn: '+S.ap+' AP and '+S.mp+' MP. Tap a yellow tile to move, choose an action, or Wait.':'Your turn: '+S.ap+' AP. Choose an action, Undo move, or Wait.')+'</div>'}
  else{const who=B.c[B.a];h+='<div style="font-size:15px;margin-top:6px">'+(B.mo==5?'...':esc(who?who.n:'')+'\'s turn')+'</div>'}
  h+='</div><div id="msg">'+esc(rfMsg||(pend&&pend.pr&&ackSt!='trouble'?'':ackSt=='send'?'Sending...':ackSt=='hud'?'Sent. Waiting for the crystal...':ackSt=='ok'?'Accepted ✓':ackSt=='trouble'?'Connection trouble. Choose again.':''))+'</div></div>';
  h+=afkBar();
