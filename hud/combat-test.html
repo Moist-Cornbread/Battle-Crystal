@@ -271,7 +271,7 @@ function draw(){const app=$('app');
  if(town&&P&&P.c){townView();return}
  lobbyView()}
 function lobbyView(){const inP=L&&L.m.some(x=>isMe(x.k)),busy=L&&L.busy;let h='<div id="lobby"><h1>Battle Crystal</h1><div class="sub">Combat test: a quick fight to see how it plays with friends.</div>';
- if(!P||!P.c||P.c=='(no job)'){h+='<div>Everyone starts as a Freelancer.</div><div class="row">'+[['Squire','🧭','Freelancer','Adaptable, respected, and free to become anything']].map(j=>'<button style="width:260px;height:76px" onclick="hud(\''+j[0]+'\')"><span style="font-size:26px">'+j[1]+'</span><br><b>'+j[2]+'</b> <small>'+j[3]+'</small></button>').join('')+'</div>'}
+ if(!P||!P.c||P.c!='Squire'){h+='<div>Everyone starts as a Freelancer.</div><div class="row">'+[['Squire','🧭','Freelancer','Adaptable, respected, and free to become anything']].map(j=>'<button style="width:260px;height:76px" onclick="hud(\''+j[0]+'\')"><span style="font-size:26px">'+j[1]+'</span><br><b>'+j[2]+'</b> <small>'+j[3]+'</small></button>').join('')+'</div>'}
  else{h+='<div class="row">'+(L?L.m:[]).map(m=>'<div class="mem"><b>'+(isMe(m.k)?'⭐ ':'')+esc(m.n)+'</b><small>'+esc(jobName(m.c))+(isMe(m.k)&&FL?' · level '+FL.lv:'')+'</small>'+(L.chk&&L.rdy.some(r=>r.indexOf(m.k)==0||m.k.indexOf(r)==0)?'<br><small style="color:#7be08f">ready</small>':'')+'</div>').join('')+'</div><div class="row">';
   if(FL&&!busy)h+=flPanel();
   if(TOWN.town&&!busy&&!L.chk)h+='<button onclick="openTown()">🏘 '+esc(TOWN.town)+'</button>';
